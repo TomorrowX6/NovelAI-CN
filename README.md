@@ -32,11 +32,17 @@ NovelAI 拼查询串时用的是「光标前的旧文本 + 新输入」。微软
 ## 词典
 
 - 以 [ame-la/danbooru-tags-data-zh](https://huggingface.co/datasets/ame-la/danbooru-tags-data-zh) 为基础：社区通用译名，附带日文原名、昵称、旧译名等别名（如「二小姐」→ flandre scarlet，「黑丝」→ black pantyhose）。它是 AI 批量生成、以 Danbooru wiki 为依据的数据，不是人工翻译。
-- `data/zh-curated.csv`：在此基础上的审定结果，共 1,621 条。
-  - 审定范围是使用次数 ≥ 1000 的通用标签中，与人工来源不一致或只有 ame-la 译名的条目，以及与人工来源不一致的角色、作品名，共 6,897 条。人工来源包括 [EhTagTranslation](https://github.com/EhTagTranslation/Database)、[标签超市](https://github.com/wfjsw/danbooru-diffusion-prompt-builder) 和旧人工词典。
-  - 逐条对照各来源和 Danbooru wiki 释义后，改了约 1,090 条：纠正错译（covered nipples「遮挡乳头」→「激凸」、grey nails「灰指甲」→「灰色指甲」、canteen「食堂」→「军用水壶」），换成更常用的叫法（cowboy shot「牛仔构图」→「七分身」、hair between eyes「眉心垂发」→「眼间刘海」）。
-  - 另有 527 条按规则统一用词：眼睛颜色写「X瞳」，choker「颈圈」与 collar「项圈」区分，aqua 译「水蓝」，leotard 译「紧身衣」，「高开叉」改为「高开衩」等。
-  - 审定由 Claude 完成，参考了人工来源，但本身不是人工校对。
+- `data/zh-curated.csv`：在此基础上的审定结果，涉及 8,341 个标签（通用 5,407、角色 2,447、作品 469、元标签 18）。
+  - 审定范围是词典里全部 75,071 个 Danbooru 标签（通用 30,693、角色 35,384、作品 8,414、元标签 580）。按使用次数分批导出现有译名，并列出 [EhTagTranslation](https://github.com/EhTagTranslation/Database)、[标签超市](https://github.com/wfjsw/danbooru-diffusion-prompt-builder) 和旧人工词典里的对应译名，逐条读过后改动有问题的条目。没有改的条目，是认为现有译名可用，或者没有把握改。
+  - 纠正错译（covered nipples「遮挡乳头」→「激凸」、grey nails「灰指甲」→「灰色指甲」、canteen「食堂」→「军用水壶」），换成更常用的叫法（cowboy shot「牛仔构图」→「七分身」、hair between eyes「眉心垂发」→「眼间刘海」）。
+  - 按规则统一用词：眼睛颜色写「X瞳」，choker「颈圈」与 collar「项圈」区分，aqua 译「水蓝」，leotard 译「紧身衣」，「高开叉」改为「高开衩」等。
+  - 角色名的统一规则：
+    - 有官方或通行中文译名的用中文。只有日文假名的名字改写成罗马字或「汉字+罗马字」（如「宫胁Sana」），只有韩文的改写成罗马字，繁体字和日文汉字改成简体。
+    - 画师原创角色在括号里注明画师，如「玛琳（ahute）」；同名角色加作品名区分。
+    - 换装、版本变体与本体用同一个名字，服饰编号写成「第十二套服饰」。
+    - FGO 变体统一为「名（泳装Class·第N再临）（Fate系列）」，职阶沿用国服的英文写法（Saber、Ruler 等）。宝可梦统一写「（Sygna套装）」，马里奥系列用任天堂官方的「马力欧」。
+  - 被替换的旧译名会自动保留为检索词，用旧叫法仍然搜得到；确认是错误的检索词（如把 kanagata sugumi 关联到「金潟直美」）已删除。
+  - 审定由 Claude 完成，参考了上面这些人工来源和 Danbooru wiki 释义，但没有经过人工校对。冷门角色多半只能按读音或字面处理，错误在所难免；发现错误可以写进 `data/zh-override.csv` 自行修正。
 - `data/zh-ehtag.csv`：EhTagTranslation 的人工译名，对齐到 Danbooru 标签后作为补充检索词，共 2,032 条，如 dark skin「黑皮」、school swimsuit「死库水」。
 - 不收录画师：NovelAI V5 的联想里查不到 Danbooru 画师。
 - 标签名以 2026 年的 Danbooru 为准。我用 NovelAI 自己的联想接口抽样核实过，NovelAI V5 认识这些新名字；唯一不认的 `qipao` 已在 `data/novelai-rename.csv` 里换回 `china_dress`。
@@ -48,7 +54,7 @@ NovelAI 拼查询串时用的是「光标前的旧文本 + 新输入」。微软
 需要 Node.js 18 或更高版本。
 
 - `data/zh-override.csv`：`标签,译名`，替换某个标签的显示译名（修正错误翻译），优先级最高。
-- `data/zh-curated.csv`：`标签,译名,补充检索词`，审定结果；译名留空表示只补检索词。
+- `data/zh-curated.csv`：`标签,译名,补充检索词`，审定结果。译名留空表示只补检索词；检索词用 `/` 分隔，前面加 `-` 表示删掉一个错误的检索词（如 `fear_kubrick,,-害怕侧目`）。
 - `data/zh-extra.csv`：`标签,词1/词2`，追加检索词（俗称、简称），不改变显示内容。词表里没有的标签也会收录，比如 NovelAI 的质量词 masterpiece。
 - `data/novelai-rename.csv`：`Danbooru新名,NovelAI用的名字`，NovelAI 不认识新名字时输出旧名字。
 
