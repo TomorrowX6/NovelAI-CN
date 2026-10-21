@@ -117,11 +117,16 @@ function searchable(s) {
   return HAN_RE.test(s) && !KANA_RE.test(s);
 }
 
+// 括号里只是类别说明（「Katsu（食物）」「x（符号）」），拆出来当检索词会同时命中几十个标签
+const CATEGORY_WORDS = new Set(
+  '模因 梗 风格 样式 画风 符号 物品 对象 物体 生物 游戏 表情 动作 表达 仪器 乐器 车辆 载具 场所 地点 物质 字体 角色 形象 食物 植物 动物 武器 服装 衣物 图案 颜色 花 鱼 鸟 船 舰船 建筑 媒介'.split(' '),
+);
+
 // 「死鱼眼（鄙夷眼神）」拆出括号前后两部分；角色/作品的括号是出处（荧（原神）），只取前半
 function nameParts(zh, category) {
   const m = zh.match(/^(.+?)[（(](.+)[）)]$/);
   if (!m) return [];
-  return category === 0 ? [m[1], m[2]] : [m[1]];
+  return category === 0 && !CATEGORY_WORDS.has(m[2]) ? [m[1], m[2]] : [m[1]];
 }
 
 // 检索词在构建时规范化并转成简体，运行时只需处理显示译名；规范化规则与 src/core.js 共用
@@ -240,7 +245,7 @@ async function main() {
       continue;
     }
     const parts = aliases.split('/').map(cleanText).filter(Boolean);
-    const drop = parts.filter((n) => n.startsWith('-')).map((n) => n.slice(1).trim());
+    const drop = new Set(parts.filter((n) => n.startsWith('-')).map((n) => normZh(n.slice(1))));
     const names = parts.filter((n) => !n.startsWith('-'));
     pin(e, names);
     if (zh && zh.trim() !== e.label) {
@@ -248,7 +253,7 @@ async function main() {
       e.label = cleanText(zh);
     }
     e.names = new Set([...names, ...e.names]);
-    for (const n of drop) e.names.delete(n);
+    for (const n of e.names) if (drop.has(normZh(n))) e.names.delete(n);
     stats.curated++;
   }
 
@@ -307,8 +312,9 @@ async function main() {
       // 运行时译名只做基本规范化、不转简体，含繁体字的译名把转换后的写法放进检索词
       const labels = e.label.split('/').map(coreFns.normZh);
       const converted = labels.map(toSimp).filter((l) => !labels.includes(l));
+      // 不含汉字或含假名的检索词永远查不到（这类输入不走本地词典），被替换下来的假名、罗马字旧译名也在此丢掉
       const names = [...new Set([...converted, ...[...e.names].map(normZh)])]
-        .filter((n) => n && !labels.includes(n))
+        .filter((n) => n && !labels.includes(n) && searchable(n))
         .slice(0, MAX_SEARCH_NAMES);
       const oldNames = [...e.oldNames, ...(out !== tag ? [tag] : [])].filter((n) => n !== out);
       return { tag: out, count: e.count, label: e.label, names, oldNames };
