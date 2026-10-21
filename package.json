@@ -1,0 +1,11 @@
+{
+  "name": "novelai-zh-tags",
+  "version": "1.2.0",
+  "description": "NovelAI 生图中文标签联想用户脚本",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node scripts/test.mjs"
+  }
+}
