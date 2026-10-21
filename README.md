@@ -13,11 +13,12 @@
 1. 安装 [Tampermonkey](https://www.tampermonkey.net/) 或 Violentmonkey。
    新版 Chrome 需要在扩展详情页打开「允许运行用户脚本」（或在 `chrome://extensions` 打开开发者模式），否则用户脚本不会运行。
 2. 把 `dist/novelai-zh-tags.user.js` 装进脚本管理器，任选一种方式：
+   - 在浏览器里打开 <https://raw.githubusercontent.com/TomorrowX6/NovelAI-Tag/main/dist/novelai-zh-tags.user.js>，脚本管理器会弹出安装页，点安装；
    - 在 Tampermonkey 面板里「添加新脚本」，粘贴整个文件内容后保存；
    - 或者在扩展详情页给 Tampermonkey 打开「允许访问文件网址」，再把这个文件拖进浏览器，在弹出的安装页点安装。
 3. 刷新 NovelAI 页面。
 
-升级时直接用新文件内容替换原脚本，不要新旧两份同时启用。
+1.4.0 起脚本头里带了更新地址，Tampermonkey / Violentmonkey 会定期检查 GitHub main 分支上的新版本并自动更新，也可以在脚本管理器里手动「检查更新」。1.3.0 及更早的版本没有更新地址，需要手动升级一次：用新文件内容替换原脚本，不要新旧两份同时启用。
 
 ## 原理
 
@@ -27,7 +28,7 @@ NovelAI 对含汉字或假名的输入片段会以 `lang=jp` 请求 `image.novel
 
 NovelAI 拼查询串时用的是「光标前的旧文本 + 新输入」。微软拼音这类会把拼音写进编辑器的输入法，上屏时查询会变成 `luo'li萝莉`。所以脚本不用请求里的 `prompt` 参数，而是读取光标前的实际文本作为片段。组字过程中触发的联想会先挂起，等上屏后再按实际文本回答，选字时停顿不会冒出拼音的乱联想。
 
-检索按「精确 > 前缀 > 包含 > 宽松（字间最多隔 3 个字）」匹配，再结合 danbooru 使用次数综合排序。单次检索约 3 ms，词典约 7.5 万条，页面空闲时解析，约 120 ms。
+检索按「精确 > 前缀 > 包含 > 宽松（字间最多隔 3 个字）」匹配，再结合 danbooru 使用次数综合排序。繁体字输入会按 [OpenCC](https://github.com/BYVoid/OpenCC) 的对照表逐字转成简体后再检索，「貓耳」「黑絲」和简体一样能查到。词典约 7.5 万条，在生图页空闲时解析；从其他页面切过来时，在提示词框获得焦点时解析。Node 下实测解析约 0.25 秒，单次检索约 4 ms。
 
 ## 词典
 
@@ -61,8 +62,8 @@ NovelAI 拼查询串时用的是「光标前的旧文本 + 新输入」。微软
 标签用 danbooru 写法，空格或下划线都可以，别名会自动归并到正式标签。改完后执行：
 
 ```sh
-npm run build            # 生成 dist/novelai-zh-tags.user.js 和 dist/zh-tags.tsv
-npm test                 # 检索质量回归测试
+npm run build            # 生成 dist/ 下的脚本、更新用的 .meta.js、词典和繁简对照
+npm test                 # 检索质量回归测试，用例在 scripts/search-cases.tsv
 node scripts/test.mjs 黑丝 刘海    # 查看某些词的联想结果
 npm run build -- --refresh         # 重新下载上游词典
 ```
@@ -70,7 +71,7 @@ npm run build -- --refresh         # 重新下载上游词典
 ## 已知限制
 
 - NovelAI 只在片段长度为 2–20 个字符时才发起联想，所以单字（如「猫」）不会触发。
-- 只支持简体中文；繁体字大多会走 NovelAI 的日文匹配。
+- 繁体字按单字转成简体，一对多的字（如「乾」）取最常见的写法。日文汉字（如「黒髪」的「黒」「髪」）不在对照表里，这类输入多半会走 NovelAI 的日文匹配。
 - 只收录 Danbooru 上图片数大于 50 的标签；NovelAI 联想里更冷门的标签没有中文释义。
 - 抽样核实时，2024 年以后新出现的标签约八成能在 NovelAI 联想里查到，其余（多为冷门角色）NovelAI 可能不认识。
 - 依赖 NovelAI 当前的接口格式和 `.image-prompt-suggestions` 面板结构，NovelAI 改版后可能需要更新脚本。
@@ -81,6 +82,7 @@ npm run build -- --refresh         # 重新下载上游词典
 - 补充检索词：[EhTagTranslation/Database](https://github.com/EhTagTranslation/Database)，**CC BY-NC-SA 3.0**
 - 补充检索词和旧标签译名：[byzod/a1111-sd-webui-tagcomplete-CN](https://github.com/byzod/a1111-sd-webui-tagcomplete-CN)，MIT
 - 旧标签名（用于识别改名）：[DominikDoom/a1111-sd-webui-tagcomplete](https://github.com/DominikDoom/a1111-sd-webui-tagcomplete)，MIT
+- 繁简对照：[BYVoid/OpenCC](https://github.com/BYVoid/OpenCC) 的 `TSCharacters.txt`，Apache-2.0
 - 审定时参考了[标签超市](https://github.com/wfjsw/danbooru-diffusion-prompt-builder)（AGPL-3.0），但没有把它的数据并入词典。
 
 `data/zh-ehtag.csv` 和 `data/zh-curated.csv` 含 EhTagTranslation 的派生内容，内嵌这些数据的 `dist/novelai-zh-tags.user.js` 也一样，因此按 CC BY-NC-SA 3.0 提供：转发需署名，不得商用，修改后须以相同许可发布。自己使用不受影响。

@@ -11,7 +11,7 @@ const INSTANCE = Math.random().toString(36).slice(2);
 let dict = null;
 function getDict() {
   if (!dict) {
-    dict = createZhDict(ZH_TAG_DATA);
+    dict = createZhDict(ZH_TAG_DATA, ZH_T2S_DATA);
     console.info(`[novelai-zh-tags] 已载入 ${dict.size} 条中文标签`);
   }
   return dict;
@@ -144,7 +144,7 @@ function annotatePanel(panel) {
 
 new MutationObserver(() => {
   for (const panel of panels) annotatePanel(panel);
-}).observe(document.documentElement, { childList: true, subtree: true });
+}).observe(document, { childList: true, subtree: true });
 
 // NovelAI 只认半角逗号和顿号作标签分隔，中文输入法的全角逗号会让整段被当成一个标签，
 // 点选联想时前面的内容也会被替换掉，所以在生图提示词框里把「，」转成 ", "
@@ -199,5 +199,16 @@ document.addEventListener(
   true,
 );
 
-// 空闲时预先解析词典，避免第一次联想卡顿
-window.addEventListener('load', () => (window.requestIdleCallback || setTimeout)(getDict));
+// 空闲时预先解析词典，避免第一次联想卡顿。只在生图页做，写小说等页面用不到；
+// NovelAI 是单页应用，从其他页面切到生图页时，在提示词框获得焦点时再解析
+const preloadDict = () => (window.requestIdleCallback || setTimeout)(getDict);
+window.addEventListener('load', () => {
+  if (location.pathname.startsWith('/image')) preloadDict();
+});
+document.addEventListener(
+  'focusin',
+  (e) => {
+    if (!dict && promptEditorOf(e.target)) preloadDict();
+  },
+  true,
+);

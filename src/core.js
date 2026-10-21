@@ -16,13 +16,26 @@ function normZh(s) {
     .trim();
 }
 
+// 繁体字逐字转成简体后再检索，只影响匹配，不改显示的译名
+// pairs: 繁体字与对应简体字依次相连的字符串，由构建脚本从 OpenCC 的对照表生成
+function createT2S(pairs) {
+  const map = new Map();
+  const chars = [...pairs];
+  for (let i = 0; i + 1 < chars.length; i += 2) map.set(chars[i], chars[i + 1]);
+  if (!map.size) return (s) => s;
+  const re = new RegExp(`[${[...map.keys()].join('')}]`, 'gu');
+  return (s) => s.replace(re, (c) => map.get(c));
+}
+
 function escapeRe(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 // raw: 每行 `英文标签\t使用次数\t显示译名(多个用/分隔)\t额外检索词(用|分隔)\t旧标签名(用|分隔)`
 // 旧标签名只用于给 NovelAI 英文联想里出现的旧名配上中文，不参与检索
-function createZhDict(raw) {
+// t2s: 繁简对照（见 createT2S），用来转换查询；译名里有繁体字的，构建时已把转换后的写法加进额外检索词
+function createZhDict(raw, t2s = '') {
+  const toSimp = createT2S(t2s);
   const tags = [];
   const counts = [];
   const labels = [];
@@ -45,7 +58,7 @@ function createZhDict(raw) {
   }
 
   function search(query, limit) {
-    const q = normZh(query);
+    const q = toSimp(normZh(query));
     if (!q) return [];
     const exact = SEP + q + SEP;
     const prefix = SEP + q;

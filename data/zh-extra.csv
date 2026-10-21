@@ -72,7 +72,7 @@ twin_braids,双麻花辫
 single_braid,单麻花辫
 hair_bun,丸子头
 double_bun,双丸子头/包子头
-multicolored_hair,挑染/双色发
+multicolored_hair,挑染
 gradient_hair,渐变发色/渐变发
 colored_inner_hair,内层挑染/内染
 red_eyes,红瞳
@@ -177,3 +177,23 @@ aqua_hair,水蓝色头发/水蓝色的头发
 white_thighhighs,白丝袜
 black_thighhighs,黑丝袜
 bangs,刘海
+# 常见说法补充（按回归测试 scripts/search-cases.tsv 里查不到的词补）
+long_hair,黑长直
+black_hair,黑长直
+straight_hair,黑长直
+two-tone_hair,双色发
+heart-shaped_pupils,爱心眼/心形眼
+empty_eyes,无神/眼神空洞/无光眼
+tears,流泪/泪水
+sweat,流汗
+pale_skin,白皙/白皙皮肤/皮肤白
+pointy_ears,精灵耳/尖耳朵
+crop_top,露脐装
+crossed_arms,抱臂/抱胸/双手抱胸
+fighting_stance,战斗姿势
+looking_away,看向别处/别过脸
+looking_to_the_side,看向旁边/看向一边
+looking_up,往上看/向上看/抬头看
+light_rays,丁达尔/丁达尔效应
+autumn_leaves,红叶/秋天的叶子
+sketch,素描
