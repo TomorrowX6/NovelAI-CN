@@ -14,11 +14,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: 构建
+      - name: Build
         run: node scripts/build.mjs
-      - name: 检索质量回归测试
+      - name: Search regression tests
         run: node scripts/test.mjs
-      - name: dist 已重新构建
+      - name: Check dist is up to date
         run: |
           if ! git diff --quiet -- dist; then
             git diff --stat -- dist
@@ -26,7 +26,7 @@ jobs:
             exit 1
           fi
       # main 是自动更新的发布源：PR 和其他分支与 main 比，推送到 main 时与推送前的提交比
-      - name: 脚本有改动时版本号已升高
+      - name: Check version bump
         run: node scripts/check-version.mjs "$BASE"
         env:
           BASE: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || (github.ref == 'refs/heads/main' && github.event.before || 'origin/main') }}
