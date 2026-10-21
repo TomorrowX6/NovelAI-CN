@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: 构建
+        run: node scripts/build.mjs
+      - name: 检索质量回归测试
+        run: node scripts/test.mjs
+      - name: dist 已重新构建
+        run: |
+          if ! git diff --quiet -- dist; then
+            git diff --stat -- dist
+            echo "::error::dist/ 与源码不一致，请运行 npm run build 后提交"
+            exit 1
+          fi
+      # main 是自动更新的发布源：PR 和其他分支与 main 比，推送到 main 时与推送前的提交比
+      - name: 脚本有改动时版本号已升高
+        run: node scripts/check-version.mjs "$BASE"
+        env:
+          BASE: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || (github.ref == 'refs/heads/main' && github.event.before || 'origin/main') }}

@@ -69,6 +69,8 @@ node scripts/test.mjs 黑丝 刘海    # 查看某些词的联想结果
 npm run build -- --refresh         # 重新下载上游词典
 ```
 
+main 分支就是自动更新的发布源：脚本或词典有改动时，要先把 `package.json` 的 `version` 调高再构建，否则脚本管理器不会推送更新。CI（`.github/workflows/ci.yml`）会在每次推送和 PR 时构建、跑回归测试，并检查 `dist/` 是否已重新构建、版本号是否已调高（`node scripts/check-version.mjs origin/main` 可在本地做同样的检查）。
+
 ## 已知限制
 
 - NovelAI 只在片段长度为 2–20 个字符时才发起联想，所以单字（如「猫」）不会触发。
