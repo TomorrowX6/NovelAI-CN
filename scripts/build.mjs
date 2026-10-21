@@ -319,7 +319,7 @@ async function main() {
       const oldNames = [...e.oldNames, ...(out !== tag ? [tag] : [])].filter((n) => n !== out);
       return { tag: out, count: e.count, label: e.label, names, oldNames };
     })
-    .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
+    .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag, 'en'));
 
   // 每行: 标签 \t 使用次数 \t 显示译名 \t 检索词(|分隔) \t 旧标签名(|分隔，只用于给英文联想配中文)
   const tsv = rows

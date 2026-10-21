@@ -147,7 +147,11 @@ new MutationObserver(() => {
 }).observe(document, { childList: true, subtree: true });
 
 // NovelAI 只认半角逗号和顿号作标签分隔，中文输入法的全角逗号会让整段被当成一个标签，
-// 点选联想时前面的内容也会被替换掉，所以在生图提示词框里把「，」转成 ", "
+// 点选联想时前面的内容也会被替换掉；权重写法 1.2::标签:: 也只认半角冒号。
+// 所以在生图提示词框里把「，」转成 ", "、「：」转成 ":"
+const FULLWIDTH_RE = /[，：]/;
+const toHalfwidth = (s) => s.replace(/，\s*/g, ', ').replace(/：/g, ':');
+
 function promptEditorOf(node) {
   const el = node && (node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement);
   const editor = el && el.closest('.ProseMirror');
@@ -157,22 +161,27 @@ function promptEditorOf(node) {
 document.addEventListener(
   'beforeinput',
   (e) => {
-    if (e.defaultPrevented || e.inputType !== 'insertText' || !e.data || !e.data.includes('，')) return;
+    if (e.defaultPrevented || e.inputType !== 'insertText' || !e.data || !FULLWIDTH_RE.test(e.data)) return;
     if (!promptEditorOf(e.target)) return;
     e.preventDefault();
-    document.execCommand('insertText', false, e.data.replace(/，\s*/g, ', '));
+    document.execCommand('insertText', false, toHalfwidth(e.data));
   },
   true,
 );
 
-// 输入法上屏（composition）的输入不能在 beforeinput 里取消，等上屏后再替换光标前的「，」
-function replaceCommaBeforeCaret() {
+// 输入法上屏（composition）的输入不能在 beforeinput 里取消，等上屏后再替换光标前刚上屏的文本
+function replaceCommittedText(text) {
   const sel = getSelection();
   const node = sel.anchorNode;
   if (!sel.isCollapsed || !node || node.nodeType !== Node.TEXT_NODE || !promptEditorOf(node)) return;
-  if (node.data[sel.anchorOffset - 1] !== '，') return;
-  sel.modify('extend', 'backward', 'character');
-  document.execCommand('insertText', false, ', ');
+  const end = sel.anchorOffset;
+  // 光标前一般就是刚上屏的整段文本；对不上时只看光标前一个字
+  const start = node.data.slice(end - text.length, end) === text ? end - text.length : end - 1;
+  if (start < 0) return;
+  const committed = node.data.slice(start, end);
+  if (!FULLWIDTH_RE.test(committed)) return;
+  sel.setBaseAndExtent(node, start, node, end);
+  document.execCommand('insertText', false, toHalfwidth(committed));
 }
 
 document.addEventListener(
@@ -190,9 +199,9 @@ document.addEventListener(
     composing = false;
     const waiters = compositionWaiters;
     compositionWaiters = [];
-    // 等上屏文本写入 DOM 后再处理；先换逗号，挂起的联想再按换完的文本回答
+    // 等上屏文本写入 DOM 后再处理；先换全角标点，挂起的联想再按换完的文本回答
     setTimeout(() => {
-      if (e.data && e.data.endsWith('，')) replaceCommaBeforeCaret();
+      if (e.data && FULLWIDTH_RE.test(e.data)) replaceCommittedText(e.data);
       for (const resolve of waiters) resolve();
     }, 0);
   },
