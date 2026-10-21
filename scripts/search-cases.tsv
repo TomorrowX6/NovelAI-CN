@@ -1,0 +1,416 @@
+# 检索质量回归测试，每行用 Tab 分隔：查询、期望标签、期望排在前几名
+# 期望标签按 dist/zh-tags.tsv 的写法（空格分隔）
+
+长发	long hair	1
+猫耳	cat ears	1
+双马尾	twintails	1
+过膝袜	thighhighs	1
+黑丝	black pantyhose	3
+白丝	white thighhighs	3
+呆毛	ahoge	1
+女仆	maid	1
+旗袍	china dress	1
+水手服	serafuku	1
+眼镜	glasses	1
+微笑	smile	1
+脸红	blush	1
+金发	blonde hair	1
+银发	grey hair	3
+白发	white hair	1
+异色瞳	heterochromia	1
+初音	hatsune miku	1
+原神	genshin impact	1
+东方	touhou	1
+碧蓝档案	blue archive	1
+兽耳	animal ears	1
+狐耳	fox ears	1
+全身	full body	1
+上半身	upper body	1
+看着观众	looking at viewer	1
+白色背景	white background	1
+樱花	cherry blossoms	1
+和服	kimono	1
+汉服	hanfu	1
+jk制服	school uniform	3
+旗袍	china dress	1
+二小姐	flandre scarlet	1
+伪娘	trap	2
+伪娘	otoko no ko	2
+鸭子坐	wariza	1
+死鱼眼	jitome	1
+刘海	blunt bangs	3
+洛天依	luo tianyi	1
+芙莉莲	frieren	1
+
+# 常用说法与作品、角色（繁体字输入在最后）
+黑长直	long hair	1
+黑长直	black hair	3
+黑长直	straight hair	3
+白毛	white hair	1
+红发	red hair	1
+粉毛	pink hair	1
+蓝毛	blue hair	1
+单马尾	ponytail	1
+侧马尾	side ponytail	1
+麻花辫	braid	1
+丸子头	hair bun	1
+短发	short hair	1
+超长发	very long hair	1
+中长发	medium hair	1
+波波头	bob cut	1
+齐刘海	blunt bangs	1
+斜刘海	diagonal bangs	1
+中分	parted bangs	1
+眼间刘海	hair between eyes	1
+姬发	hime cut	1
+挑染	streaked hair	3
+渐变发	gradient hair	1
+双色发	two-tone hair	1
+内层挑染	colored inner hair	1
+卷发	curly hair	1
+大波浪	wavy hair	1
+乱发	messy hair	1
+湿发	wet hair	1
+光头	bald	1
+红瞳	red eyes	1
+星星眼	star-shaped pupils	1
+爱心眼	heart-shaped pupils	1
+竖瞳	slit pupils	1
+闭眼	closed eyes	1
+眨眼	one eye closed	1
+泪痣	mole under eye	1
+吊眼	tsurime	1
+垂眼	tareme	1
+睫毛	eyelashes	1
+眼影	eyeshadow	1
+无神	empty eyes	1
+发光眼睛	glowing eyes	1
+眼罩	eyepatch	1
+墨镜	sunglasses	1
+半框眼镜	semi-rimless eyewear	1
+大笑	laughing	3
+坏笑	smirk	1
+得意	smug	1
+害羞	embarrassed	1
+生气	angry	1
+哭	crying	1
+流泪	tears	1
+嘟嘴	pout	1
+吐舌	tongue out	1
+张嘴	open mouth	1
+闭嘴	closed mouth	1
+虎牙	fang	1
+惊讶	surprised	3
+害怕	scared	1
+无表情	expressionless	1
+病娇	yandere	1
+傲娇	tsundere	1
+困	sleepy	1
+睡觉	sleeping	1
+流汗	sweat	1
+口水	drooling	3
+贫乳	small breasts	1
+巨乳	large breasts	1
+乳沟	cleavage	1
+腹肌	abs	1
+肚脐	navel	1
+锁骨	collarbone	1
+腋下	armpits	1
+大腿	thighs	1
+绝对领域	zettai ryouiki	1
+黑皮	dark skin	1
+白皙	pale skin	1
+晒痕	tanlines	1
+雀斑	freckles	1
+纹身	tattoo	1
+精灵耳	pointy ears	1
+尖耳	pointy ears	1
+兔耳	rabbit ears	1
+狗耳	dog ears	1
+狼耳	wolf ears	1
+猫尾	cat tail	1
+狐尾	fox tail	1
+尾巴	tail	1
+翅膀	wings	1
+天使翅膀	angel wings	1
+恶魔翅膀	demon wings	1
+恶魔角	demon horns	1
+光环	halo	1
+肌肉	muscular	1
+御姐	mature female	1
+猫娘	cat girl	1
+狐娘	fox girl	1
+龙娘	dragon girl	1
+兔娘	rabbit girl	1
+精灵	elf	1
+吸血鬼	vampire	1
+魅魔	demon girl	1
+天使	angel	1
+人鱼	mermaid	3
+机娘	mecha musume	1
+修女	nun	1
+巫女	miko	1
+魔女	witch	1
+护士	nurse	1
+偶像	idol	3
+魔法少女	magical girl	1
+骑士	knight	1
+忍者	ninja	1
+西装外套	blazer	1
+卫衣	hoodie	1
+毛衣	sweater	1
+衬衫	shirt	1
+白衬衫	white shirt	1
+T恤	t-shirt	1
+背心	tank top	1
+吊带	camisole	3
+露脐装	crop top	1
+连衣裙	dress	1
+百褶裙	pleated skirt	1
+超短裙	miniskirt	1
+长裙	long skirt	1
+牛仔裤	jeans	1
+短裤	shorts	1
+热裤	short shorts	1
+泳衣	swimsuit	1
+比基尼	bikini	1
+死库水	school swimsuit	1
+连体泳衣	one-piece swimsuit	1
+睡衣	pajamas	1
+浴衣	yukata	1
+婚纱	wedding dress	1
+兔女郎	playboy bunny	1
+洛丽塔	lolita fashion	1
+地雷系	jirai kei	1
+军装	military uniform	1
+铠甲	armor	1
+斗篷	cloak	1
+披风	cape	1
+围巾	scarf	1
+领带	necktie	1
+领结	bowtie	1
+蝴蝶结	bow	1
+发带	hair ribbon	1
+丝带	ribbon	1
+发箍	hairband	1
+发卡	hairclip	3
+发夹	hairclip	1
+头花	hair flower	1
+帽子	hat	1
+贝雷帽	beret	1
+棒球帽	baseball cap	1
+女巫帽	witch hat	1
+猫耳耳机	cat ear headphones	1
+耳机	headphones	1
+耳环	earrings	1
+项链	necklace	1
+颈圈	choker	1
+项圈	collar	1
+手套	gloves	1
+长手套	elbow gloves	1
+露指手套	fingerless gloves	1
+围裙	apron	1
+口罩	mouth mask	1
+面具	mask	1
+连裤袜	pantyhose	1
+短袜	socks	1
+渔网袜	fishnet pantyhose	1
+吊带袜	garter straps	1
+高跟鞋	high heels	1
+靴子	boots	1
+运动鞋	sneakers	1
+乐福鞋	loafers	1
+凉鞋	sandals	1
+拖鞋	slippers	1
+光脚	barefoot	1
+赤脚	barefoot	1
+内衣	underwear	1
+胸罩	bra	1
+内裤	panties	1
+胖次	panties	3
+无袖	sleeveless	1
+露肩	bare shoulders	1
+露背	backless outfit	1
+长袖	long sleeves	1
+短袖	short sleeves	1
+袖子过手	sleeves past wrists	1
+透视	see-through clothes	1
+湿身	wet clothes	3
+破衣服	torn clothes	1
+站立	standing	1
+坐着	sitting	1
+躺着	lying	1
+跪	kneeling	1
+蹲	squatting	1
+正坐	seiza	1
+侧躺	on side	1
+趴着	on stomach	1
+仰躺	on back	1
+叉腰	hand on own hip	1
+比耶	v	1
+剪刀手	v	1
+比心	heart hands	1
+抱臂	crossed arms	1
+双手抱胸	crossed arms	1
+举手	arm up	3
+挥手	waving	1
+回眸	looking back	1
+歪头	head tilt	1
+走路	walking	1
+跑步	running	1
+跳跃	jumping	1
+飞行	flying	1
+战斗姿势	fighting stance	1
+拥抱	hug	1
+牵手	holding hands	1
+接吻	kiss	1
+摸头	headpat	1
+公主抱	princess carry	1
+膝枕	lap pillow	1
+背对	facing away	1
+看向别处	looking away	1
+看向旁边	looking to the side	1
+往上看	looking up	1
+往下看	looking down	1
+半身	upper body	1
+七分身	cowboy shot	1
+头像	portrait	1
+侧面	from side	1
+背面	from behind	1
+倾斜镜头	dutch angle	1
+景深	depth of field	1
+鱼眼	fisheye	1
+自拍	selfie	1
+单人	solo	1
+一个女孩	1girl	1
+两个女孩	2girls	1
+一个男孩	1boy	1
+逆光	backlighting	1
+阳光	sunlight	1
+月光	moonlight	1
+丁达尔	light rays	1
+光晕	lens flare	1
+发光	glowing	1
+简单背景	simple background	1
+纯色背景	simple background	1
+渐变背景	gradient background	1
+透明背景	transparent background	1
+户外	outdoors	1
+室内	indoors	1
+天空	sky	1
+蓝天	blue sky	1
+云	cloud	1
+星空	starry sky	1
+夜晚	night	1
+下雨	rain	1
+下雪	snow	1
+海边	beach	1
+森林	forest	1
+城市	city	1
+街道	street	1
+教室	classroom	1
+卧室	bedroom	1
+浴室	bathroom	1
+温泉	onsen	1
+神社	shrine	1
+花田	flower field	1
+红叶	autumn leaves	1
+倒影	reflection	1
+黑白	monochrome	1
+线稿	lineart	1
+素描	sketch	1
+水彩	watercolor (medium)	1
+像素画	pixel art	1
+赛博朋克	cyberpunk	1
+蒸汽朋克	steampunk	1
+奇幻	fantasy	1
+科幻	science fiction	1
+复古	retro artstyle	1
+Q版	chibi	1
+四格	4koma	1
+漫画	comic	1
+杰作	masterpiece	1
+花束	bouquet	1
+雨伞	umbrella	1
+武士刀	katana	1
+手枪	handgun	1
+步枪	rifle	1
+魔杖	wand	1
+法杖	staff	1
+吉他	guitar	1
+麦克风	microphone	1
+气球	balloon	1
+蛋糕	cake	1
+冰淇淋	ice cream	1
+奶茶	bubble tea	3
+咖啡	coffee	1
+毛绒玩具	stuffed toy	1
+泰迪熊	teddy bear	1
+圣诞帽	santa hat	1
+万圣节	halloween	1
+圣诞节	christmas	1
+初音未来	hatsune miku	1
+博丽灵梦	hakurei reimu	1
+雾雨魔理沙	kirisame marisa	1
+蕾米	remilia scarlet	1
+宝可梦	pokemon	1
+皮卡丘	pikachu	1
+明日方舟	arknights	1
+阿米娅	amiya (arknights)	1
+星穹铁道	honkai: star rail	1
+胡桃	hu tao (genshin impact)	1
+雷电将军	raiden shogun	1
+芙宁娜	furina (genshin impact)	1
+刻晴	keqing (genshin impact)	1
+可莉	klee (genshin impact)	1
+甘雨	ganyu (genshin impact)	1
+钟离	zhongli (genshin impact)	1
+流萤	firefly (honkai: star rail)	1
+黄泉	acheron (honkai: star rail)	1
+三月七	march 7th (honkai: star rail)	1
+碧蓝航线	azur lane	1
+赛马娘	umamusume	1
+阿尔托莉雅	artoria pendragon (fate)	1
+玛修	mash kyrielight	1
+贞德	jeanne d'arc (fate)	1
+早濑优香	yuuka (blue archive)	1
+孤独摇滚	bocchi the rock!	1
+后藤一里	gotoh hitori	1
+间谍过家家	spy x family	1
+阿尼亚	anya (spy x family)	1
+约尔	yor briar	1
+鬼灭之刃	kimetsu no yaiba	1
+祢豆子	kamado nezuko	1
+咒术回战	jujutsu kaisen	1
+五条悟	gojo satoru	1
+电锯人	chainsaw man	1
+玛奇玛	makima (chainsaw man)	1
+莉可丽丝	lycoris recoil	1
+新世纪福音战士	neon genesis evangelion	1
+明日香	souryuu asuka langley	1
+绫波丽	ayanami rei	1
+凉宫春日	suzumiya haruhi	1
+雷姆	rem (re:zero)	1
+艾米莉亚	emilia (re:zero)	1
+惠惠	megumin	1
+阿库娅	aqua (konosuba)	1
+赫萝	holo	1
+假面骑士	kamen rider	1
+高达	gundam	1
+马力欧	mario	1
+林克	link	1
+塞尔达公主	princess zelda	1
+英雄联盟	league of legends	1
+阿狸	ahri (league)	1
+虚拟主播	virtual youtuber	1
+兔田佩克拉	usada pekora	1
+宝钟玛琳	houshou marine	1
+星街彗星	hoshimachi suisei	1
+彩虹社	nijisanji	1
+頭髮	black hair	1
+長髮	long hair	1
+貓耳	cat ears	1
+黑絲	black thighhighs	1
+雙馬尾	twintails	1
+白絲	white thighhighs	1
+洩矢諏訪子	moriya suwako	1

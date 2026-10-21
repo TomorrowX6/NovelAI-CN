@@ -2,6 +2,7 @@
 // 用法: node scripts/build.mjs [--refresh]   (--refresh 重新下载 data/raw 下的源数据)
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -19,6 +20,8 @@ const SOURCES = {
   'zh-manual.csv': 'https://raw.githubusercontent.com/byzod/a1111-sd-webui-tagcomplete-CN/HEAD/tags/Tags-zh-full-pack.csv',
   // 2024 年前后的 Danbooru 标签表：用来找出改名标签的旧名，给 NovelAI 英文联想里的旧名配上中文
   'danbooru-old.csv': 'https://raw.githubusercontent.com/DominikDoom/a1111-sd-webui-tagcomplete/HEAD/tags/danbooru.csv',
+  // 繁体字 → 简体字对照（OpenCC，Apache-2.0）：繁体输入转成简体后再检索
+  'opencc-ts-characters.txt': 'https://raw.githubusercontent.com/BYVoid/OpenCC/master/data/dictionary/TSCharacters.txt',
 };
 const PRIMARY = ['zh-general.csv', 'zh-character.csv', 'zh-copyright.csv', 'zh-meta.csv'];
 
@@ -121,15 +124,25 @@ function nameParts(zh, category) {
   return category === 0 ? [m[1], m[2]] : [m[1]];
 }
 
-// 与 src/core.js 的 normZh 一致；检索词在构建时规范化，运行时只需处理显示译名
+// 检索词在构建时规范化并转成简体，运行时只需处理显示译名；规范化规则与 src/core.js 共用
+const coreFns = vm.runInNewContext(
+  `${await fs.readFile(path.join(ROOT, 'src', 'core.js'), 'utf8')}\n({ normZh, createT2S })`,
+);
+let toSimp = (s) => s;
 function normZh(s) {
-  return s
-    .toLowerCase()
-    .replace(/（/g, '(')
-    .replace(/）/g, ')')
-    .replace(/[{}[\]]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
+  return toSimp(coreFns.normZh(s));
+}
+
+// OpenCC 对照表每行 `繁体字\t简体字 其他写法`，取第一个简体写法，生成 createT2S 用的对照串
+function parseT2S(text) {
+  let pairs = '';
+  for (const line of text.split('\n')) {
+    if (!line || line.startsWith('#')) continue;
+    const [from, to = ''] = line.trim().split('\t');
+    const simp = to.split(' ')[0];
+    if ([...from].length === 1 && [...simp].length === 1 && simp !== from) pairs += from + simp;
+  }
+  return pairs;
 }
 
 function normTag(t) {
@@ -144,6 +157,8 @@ async function main() {
   const refresh = process.argv.includes('--refresh');
   const raw = {};
   for (const name of Object.keys(SOURCES)) raw[name] = await readSource(name, refresh);
+  const t2s = parseT2S(raw['opencc-ts-characters.txt']);
+  toSimp = coreFns.createT2S(t2s);
   const curatedCsv = await readOptional(path.join(ROOT, 'data', 'zh-curated.csv'));
   const ehtagCsv = await readOptional(path.join(ROOT, 'data', 'zh-ehtag.csv'));
   const extraCsv = await readOptional(path.join(ROOT, 'data', 'zh-extra.csv'));
@@ -289,8 +304,12 @@ async function main() {
   const rows = [...entries]
     .map(([tag, e]) => {
       const out = renamed.get(tag) ?? tag;
-      const labels = new Set(e.label.split('/').map(normZh));
-      const names = [...new Set([...e.names].map(normZh))].filter((n) => n && !labels.has(n)).slice(0, MAX_SEARCH_NAMES);
+      // 运行时译名只做基本规范化、不转简体，含繁体字的译名把转换后的写法放进检索词
+      const labels = e.label.split('/').map(coreFns.normZh);
+      const converted = labels.map(toSimp).filter((l) => !labels.includes(l));
+      const names = [...new Set([...converted, ...[...e.names].map(normZh)])]
+        .filter((n) => n && !labels.includes(n))
+        .slice(0, MAX_SEARCH_NAMES);
       const oldNames = [...e.oldNames, ...(out !== tag ? [tag] : [])].filter((n) => n !== out);
       return { tag: out, count: e.count, label: e.label, names, oldNames };
     })
@@ -307,11 +326,14 @@ async function main() {
   const header = (await fs.readFile(path.join(ROOT, 'src', 'header.js'), 'utf8')).replace('{{version}}', pkg.version);
   const core = await fs.readFile(path.join(ROOT, 'src', 'core.js'), 'utf8');
   const mainJs = await fs.readFile(path.join(ROOT, 'src', 'main.js'), 'utf8');
-  const script = `${header.trim()}\n\n(function () {\n'use strict';\n\nconst ZH_TAG_DATA = ${JSON.stringify(tsv)};\n\n${core.trim()}\n\n${mainJs.trim()}\n})();\n`;
+  const script = `${header.trim()}\n\n(function () {\n'use strict';\n\nconst ZH_TAG_DATA = ${JSON.stringify(tsv)};\nconst ZH_T2S_DATA = ${JSON.stringify(t2s)};\n\n${core.trim()}\n\n${mainJs.trim()}\n})();\n`;
 
   await fs.mkdir(DIST_DIR, { recursive: true });
   await fs.writeFile(path.join(DIST_DIR, 'zh-tags.tsv'), tsv + '\n');
+  await fs.writeFile(path.join(DIST_DIR, 'zh-t2s.txt'), t2s + '\n');
   await fs.writeFile(path.join(DIST_DIR, 'novelai-zh-tags.user.js'), script);
+  // 脚本管理器检查更新时只下载这个文件头（@updateURL），版本号变了才下载完整脚本
+  await fs.writeFile(path.join(DIST_DIR, 'novelai-zh-tags.meta.js'), header.trim().replace(/\n\n[\s\S]*$/, '') + '\n');
 
   const byCat = {};
   for (const e of entries.values()) byCat[e.category] = (byCat[e.category] || 0) + 1;
