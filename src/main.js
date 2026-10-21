@@ -103,6 +103,8 @@ window.fetch = function (...args) {
     if (url && url.includes(SUGGEST_PATH)) {
       return handleSuggest(url, init, () => nativeFetch.apply(this, args));
     }
+    const ui = url && uiSettingsFetch(url, init, () => nativeFetch.apply(this, args));
+    if (ui) return ui;
   } catch (e) {
     console.warn('[novelai-zh-tags]', e);
   }

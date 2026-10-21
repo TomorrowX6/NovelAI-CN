@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
+import { readUiData, uiDataProblems, flattenLocale, buildLocale, buildZhLocale } from './ui-data.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const core = fs.readFileSync(path.join(ROOT, 'src', 'core.js'), 'utf8');
@@ -31,7 +32,7 @@ if (queries.length) {
 // scripts/search-cases.tsv 每行用 Tab 分隔：查询、期望标签、期望排在前几名
 const CASES = fs
   .readFileSync(path.join(ROOT, 'scripts', 'search-cases.tsv'), 'utf8')
-  .split('\n')
+  .split(/\r?\n/)
   .filter((l) => l && !l.startsWith('#'))
   .map((l) => {
     const [q, tag, n] = l.split('\t');
@@ -62,6 +63,22 @@ for (const [tag, expect] of LOOKUPS) {
   if (expect && !(zh || '').includes(expect)) {
     failed++;
     console.log(`✗ lookup(${tag}) = ${zh}，期望包含 ${expect}`);
+  }
+}
+
+// 界面汉化：译文的占位符要与英文一致；把打包的中文合并回英文文案后，每条都应是译文（没翻译的保持英文）
+const uiData = readUiData();
+for (const p of uiDataProblems(uiData)) {
+  failed++;
+  console.log(`✗ 界面译文 ${p}`);
+}
+const uiCtx = vm.createContext({});
+vm.runInContext(`${fs.readFileSync(path.join(ROOT, 'src', 'ui.js'), 'utf8')}\nthis.mergeLocale = mergeLocale;`, uiCtx);
+const merged = flattenLocale(uiCtx.mergeLocale(buildLocale(uiData, ([en]) => en), buildZhLocale(uiData)));
+for (const [key, [en, zh]] of Object.entries(uiData)) {
+  if (merged[key] !== (zh || en)) {
+    failed++;
+    console.log(`✗ 界面文案合并后 ${key} = ${JSON.stringify(merged[key])}，期望 ${JSON.stringify(zh || en)}`);
   }
 }
 

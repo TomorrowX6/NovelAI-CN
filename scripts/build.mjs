@@ -4,6 +4,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
+import { readUiData, buildZhLocale, uiDataProblems, uiDataStats } from './ui-data.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const RAW_DIR = path.join(ROOT, 'data', 'raw');
@@ -332,7 +333,12 @@ async function main() {
   const header = (await fs.readFile(path.join(ROOT, 'src', 'header.js'), 'utf8')).replace('{{version}}', pkg.version);
   const core = await fs.readFile(path.join(ROOT, 'src', 'core.js'), 'utf8');
   const mainJs = await fs.readFile(path.join(ROOT, 'src', 'main.js'), 'utf8');
-  const script = `${header.trim()}\n\n(function () {\n'use strict';\n\nconst ZH_TAG_DATA = ${JSON.stringify(tsv)};\nconst ZH_T2S_DATA = ${JSON.stringify(t2s)};\n\n${core.trim()}\n\n${mainJs.trim()}\n})();\n`;
+  const uiJs = await fs.readFile(path.join(ROOT, 'src', 'ui.js'), 'utf8');
+  // 界面汉化（data/ui-zh.json）：只打包已翻译的条目，结构与 NovelAI 的文案对象一致
+  const uiData = readUiData();
+  for (const p of uiDataProblems(uiData)) console.log(`界面译文有问题: ${p}`);
+  const uiZh = buildZhLocale(uiData);
+  const script = `${header.trim()}\n\n(function () {\n'use strict';\n\nconst ZH_TAG_DATA = ${JSON.stringify(tsv)};\nconst ZH_T2S_DATA = ${JSON.stringify(t2s)};\nconst ZH_UI_DATA = ${JSON.stringify(uiZh)};\n\n${core.trim()}\n\n${mainJs.trim()}\n\n${uiJs.trim()}\n})();\n`;
 
   await fs.mkdir(DIST_DIR, { recursive: true });
   await fs.writeFile(path.join(DIST_DIR, 'zh-tags.tsv'), tsv + '\n');
@@ -347,6 +353,8 @@ async function main() {
     `通用 ${byCat[0] || 0}，作品 ${byCat[3] || 0}，角色 ${byCat[4] || 0}，元标签 ${byCat[5] || 0}；` +
       `补充人工译名 ${stats.manual}，旧标签 ${stats.legacy}，EhTag ${stats.ehtag}，审定 ${stats.curated}，自定义检索词 ${stats.extra}，覆盖 ${stats.override}，改名 ${renamed.size}；共 ${rows.length} 条`,
   );
+  const ui = uiDataStats(uiData);
+  console.log(`界面文案 ${ui.total} 条，已翻译 ${ui.translated}，待翻译 ${ui.untranslated}`);
   console.log(`dist/novelai-zh-tags.user.js ${(Buffer.byteLength(script) / 1024 / 1024).toFixed(2)} MB`);
 }
 
