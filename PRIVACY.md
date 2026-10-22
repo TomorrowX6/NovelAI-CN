@@ -19,7 +19,7 @@
 
 ## 联系
 
-问题和反馈请在 <https://github.com/TomorrowX6/NovelAI-Tag/issues> 提出。
+问题和反馈请在 <https://github.com/TomorrowX6/NovelAI-CN/issues> 提出。
 
 ---
 
@@ -29,4 +29,4 @@ This policy covers the userscript "NovelAI 中文标签联想" and the Chrome ex
 
 **What it does on novelai.net.** It runs only on `https://novelai.net/` pages. It answers NovelAI's tag-suggestion requests for Chinese input from the bundled dictionary (other requests pass through unchanged), shows Chinese text on the page, and converts full-width commas and colons in the prompt. When the Chinese UI is selected, it changes the UI language `zh` to `en` in the settings that the page saves to NovelAI (NovelAI only accepts en and jp) and remembers the choice in the browser's localStorage; when the page loads account data, it changes `en` back to `zh`. The rest of the account data is passed back to the page unchanged and is never stored. These requests are made by the NovelAI page to NovelAI's own servers, and nothing from them is sent anywhere else.
 
-Contact: <https://github.com/TomorrowX6/NovelAI-Tag/issues>
+Contact: <https://github.com/TomorrowX6/NovelAI-CN/issues>

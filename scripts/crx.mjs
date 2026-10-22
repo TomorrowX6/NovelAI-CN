@@ -190,7 +190,7 @@ function main() {
     name: EXT_NAME,
     version: pkg.version,
     description: EXT_DESCRIPTION,
-    homepage_url: 'https://github.com/TomorrowX6/NovelAI-Tag',
+    homepage_url: 'https://github.com/TomorrowX6/NovelAI-CN',
     icons: Object.fromEntries(ICON_SIZES.map((s) => [s, `icons/${s}.png`])),
     // 与用户脚本的 @run-at document-start、@inject-into page、@noframes 对应：
     // 要在 NovelAI 的脚本运行前接管 fetch 和 Turbopack 的模块注册，所以注入页面自身的环境（Chrome 111+）

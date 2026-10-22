@@ -39,7 +39,7 @@ NovelAI中文化，让中文用户用起 NovelAI 更顺手。
 · 非官方扩展，与 NovelAI 及其开发商 Anlatan 无关。
 · 不收集任何数据，所有功能都在本地完成。约 7.5 万条标签词典随扩展打包，运行时不下载任何内容。
 · 词典以 ame-la/danbooru-tags-data-zh（MIT）为基础并经过审定，补充检索词含 EhTagTranslation 的人工译名（CC BY-NC-SA 3.0），因此词典部分同样按 CC BY-NC-SA 3.0 提供，不得用于商业用途。
-· 源代码和问题反馈：https://github.com/TomorrowX6/NovelAI-Tag
+· 源代码和问题反馈：https://github.com/TomorrowX6/NovelAI-CN
 ```
 
 **说明（English，可作为第二种语言添加）**
@@ -63,7 +63,7 @@ Notes
 · Unofficial; not affiliated with NovelAI or Anlatan.
 · Collects no data; everything runs locally. The ~75,000-entry dictionary is bundled and nothing is downloaded at runtime.
 · The dictionary is based on ame-la/danbooru-tags-data-zh (MIT) and includes search terms from EhTagTranslation (CC BY-NC-SA 3.0), so the dictionary is provided under CC BY-NC-SA 3.0 and may not be used commercially.
-· Source and issues: https://github.com/TomorrowX6/NovelAI-Tag
+· Source and issues: https://github.com/TomorrowX6/NovelAI-CN
 ```
 
 - 类别：艺术与设计（Art & Design）；列表里没有的话选「工具」（Tools）
@@ -72,7 +72,7 @@ Notes
 - 屏幕截图（1280×800，最多 5 张）：`screenshot-1-ui.png`、`screenshot-2-tutorial.png`、`screenshot-3-tutorial.png`，再加登录状态下的标签联想截图（见文末）
 - 小型宣传图块（440×280，必填）：`promo-small-440x280.png`
 - 顶部宣传图块（1400×560，可选）：`promo-marquee-1400x560.png`
-- 官方网址：不填（没有已验证的网站）；首页网址：https://github.com/TomorrowX6/NovelAI-Tag ；支持网址：https://github.com/TomorrowX6/NovelAI-Tag/issues
+- 官方网址：不填（没有已验证的网站）；首页网址：https://github.com/TomorrowX6/NovelAI-CN ；支持网址：https://github.com/TomorrowX6/NovelAI-CN/issues
 
 ## 2. 隐私权（Privacy practices）
 
@@ -93,7 +93,7 @@ The content script runs only on https://novelai.net/*, the site this extension l
 
 **数据使用**：所有数据类型都不勾选，然后勾选下面三项保证声明（不出售给第三方、不用于与单一用途无关的目的、不用于判断信用或借贷）。
 
-**隐私权政策网址**：https://github.com/TomorrowX6/NovelAI-Tag/blob/main/PRIVACY.md
+**隐私权政策网址**：https://github.com/TomorrowX6/NovelAI-CN/blob/main/PRIVACY.md
 
 ## 3. 分发（Distribution）
 
