@@ -199,7 +199,7 @@ const HARD_SKIP = '[contenteditable], .ProseMirror, textarea, script, style';
 let hardIndex = null; // 第一个片段 -> 以它开头的条目
 let hardMaxFrags = 0;
 let hardActive = false;
-const hardOriginal = new Map(); // 文本节点 -> 原文
+const hardOriginal = new Map(); // 文本节点 -> [原文, 写入的译文]
 
 function loadHardDict() {
   hardIndex = new Map();
@@ -232,9 +232,11 @@ function translateFrom(node) {
     if (!entry) continue;
     if (hardOriginal.size > 2000) for (const n of hardOriginal.keys()) if (!n.isConnected) hardOriginal.delete(n);
     nodes.forEach((n, i) => {
-      if (entry[1][i] === null) return;
-      if (!hardOriginal.has(n)) hardOriginal.set(n, n.data);
-      n.data = entry[1][i];
+      const zh = entry[1][i];
+      if (zh === null || zh === n.data) return;
+      // React 复用节点、换成新原文后又被翻译时，以新原文为准
+      hardOriginal.set(n, [n.data, zh]);
+      n.data = zh;
     });
     return;
   }
@@ -255,13 +257,18 @@ function translateSubtree(root) {
 let hardObserver = null;
 function onHardMutations(mutations) {
   for (const m of mutations) {
-    if (m.type === 'characterData') translateSubtree(m.target);
-    else for (const n of m.addedNodes) translateSubtree(n);
+    if (m.type === 'characterData') {
+      // 翻译过的节点被 React 改成了别的内容，原来记下的原文已经过时
+      const saved = hardOriginal.get(m.target);
+      if (saved && m.target.data !== saved[1]) hardOriginal.delete(m.target);
+      translateSubtree(m.target);
+    } else for (const n of m.addedNodes) translateSubtree(n);
   }
 }
 
+// 只还原内容仍是当初写入的译文的节点，之后被改过的保持现状
 function restoreHardText() {
-  for (const [n, text] of hardOriginal) if (n.isConnected) n.data = text;
+  for (const [n, [text, zh]] of hardOriginal) if (n.isConnected && n.data === zh) n.data = text;
   hardOriginal.clear();
 }
 
