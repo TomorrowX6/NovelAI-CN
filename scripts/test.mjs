@@ -66,6 +66,41 @@ for (const [tag, expect] of LOOKUPS) {
   }
 }
 
+// 社区修订：换显示译名、追加检索词，原译名仍能搜到；词典里没有的标签不收
+{
+  const d = ctx.createZhDict(data, t2s);
+  const before = d.lookup('cat ears');
+  const top = (q) => d.search(q, 15).slice(0, 3).map((r) => r.tag);
+  if (!d.amend('cat_ears', '猫耳朵/兽耳', ['喵喵耳'])) {
+    failed++;
+    console.log('✗ amend(cat_ears) 没找到标签');
+  }
+  if (d.lookup('cat ears') !== '猫耳朵/兽耳') {
+    failed++;
+    console.log(`✗ amend 后 lookup(cat ears) = ${d.lookup('cat ears')}`);
+  }
+  for (const q of ['喵喵耳', '猫耳朵', before.split('/')[0]]) {
+    if (!top(q).includes('cat ears')) {
+      failed++;
+      console.log(`✗ amend 后搜 ${q} 前 3 没有 cat ears：${top(q)}`);
+    }
+  }
+  if (d.amend('no such tag zzz', '不存在', []) || d.lookup('no such tag zzz') !== null || d.size !== dict.size) {
+    failed++;
+    console.log('✗ 没有图片数的新标签不应收录');
+  }
+  // 平台从 Danbooru 拉来的新标签带图片数，词典里没有时新增
+  if (!d.amend('mary sue (black souls)', '玛丽苏（黑魂）', ['黑魂玛丽苏'], 160) || d.size !== dict.size + 1) {
+    failed++;
+    console.log('✗ 带图片数的新标签应当收录');
+  }
+  const hit = d.search('黑魂玛丽苏', 15)[0];
+  if (!hit || hit.tag !== 'mary sue (black souls)' || hit.count !== 160 || d.lookup('mary_sue_(black_souls)') !== '玛丽苏（黑魂）') {
+    failed++;
+    console.log(`✗ 新增的标签搜不到：${JSON.stringify(hit)}`);
+  }
+}
+
 // 界面汉化：译文的占位符要与英文一致；把打包的中文合并回英文文案后，每条都应是译文（没翻译的保持英文）
 const uiData = readUiData();
 for (const p of uiDataProblems(uiData)) {

@@ -1,4 +1,4 @@
-// 把 dist/novelai-zh-tags.user.js 打包成 Chrome 扩展（Manifest V3），先 npm run build
+// 把 dist/novelai-zh-tags.user.js 打包成 Chrome 扩展（Manifest V3），再加上 extension/ 里的面板，先 npm run build
 // 用法: node scripts/crx.mjs
 // 输出到 build/：
 //   extension/                  解压的扩展，可在 chrome://extensions 「加载已解压的扩展程序」，manifest 带公钥，扩展 ID 固定
@@ -11,6 +11,7 @@ import path from 'node:path';
 import zlib from 'node:zlib';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { readUiData, uiDataStats, readHardData, buildHardData } from './ui-data.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const BUILD_DIR = path.join(ROOT, 'build');
@@ -199,10 +200,31 @@ function main() {
     // 要在 NovelAI 的脚本运行前接管 fetch 和 Turbopack 的模块注册，所以注入页面自身的环境
     content_scripts: [
       { matches: ['https://novelai.net/*'], js: [SCRIPT_NAME], run_at: 'document_start', world: 'MAIN', all_frames: false },
+      // 面板读写设置用的桥，在隔离环境里运行（extension/bridge.js）
+      { matches: ['https://novelai.net/*'], js: ['bridge.js'], run_at: 'document_start', all_frames: false },
     ],
+    // 工具栏按钮的面板：版本、构建哈希、词条数和两个开关（extension/popup.*）
+    action: { default_title: EXT_NAME, default_popup: 'popup.html' },
   };
+  const ext = (f) => fs.readFileSync(path.join(ROOT, 'extension', f));
+  const tagCount = fs.readFileSync(path.join(ROOT, 'dist', 'zh-tags.tsv'), 'utf8').split('\n').filter(Boolean).length;
+  const build = {
+    version: pkg.version,
+    // 内容脚本的 SHA-256 前 8 位，用来确认装的是哪一次构建
+    hash: crypto.createHash('sha256').update(script).digest('hex').slice(0, 8),
+    tags: tagCount,
+    ui: uiDataStats(readUiData()).translated,
+    hard: buildHardData(readHardData()).length,
+    communityUrl: (pkg.nzh?.communityUrl || '').replace(/\/+$/, ''),
+  };
+  const popupJs = ext('popup.js').toString('utf8').replace(/^const BUILD = .*;$/m, `const BUILD = ${JSON.stringify(build)};`);
+  if (!popupJs.includes(JSON.stringify(build))) throw new Error('extension/popup.js 里找不到 const BUILD 那一行');
   const files = [
     [SCRIPT_NAME, Buffer.from(script)],
+    ['bridge.js', ext('bridge.js')],
+    ['popup.html', ext('popup.html')],
+    ['popup.css', ext('popup.css')],
+    ['popup.js', Buffer.from(popupJs)],
     ...ICON_SIZES.map((s) => [`icons/${s}.png`, iconPng(s)]),
   ];
   const json = (m) => Buffer.from(JSON.stringify(m, null, 2) + '\n');
@@ -222,7 +244,7 @@ function main() {
   fs.writeFileSync(`${base}.crx`, crx3(zipBuf, key));
 
   const rel = (p) => path.relative(ROOT, p).replace(/\\/g, '/');
-  console.log(`扩展 ${pkg.version}，ID ${extensionId(spki)}`);
+  console.log(`扩展 ${pkg.version}（构建 ${build.hash}），ID ${extensionId(spki)}`);
   for (const p of [EXT_DIR, `${base}.zip`, `${base}.crx`]) console.log(`  ${rel(p)}`);
 }
 

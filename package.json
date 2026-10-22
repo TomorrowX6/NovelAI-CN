@@ -1,12 +1,16 @@
 {
   "name": "novelai-zh-tags",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "description": "NovelAI 生图中文标签联想用户脚本",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
     "test": "node scripts/test.mjs",
-    "crx": "node scripts/crx.mjs"
+    "crx": "node scripts/crx.mjs",
+    "test:worker": "node scripts/test-worker.mjs"
+  },
+  "nzh": {
+    "communityUrl": "https://novelai.000.moe"
   }
 }

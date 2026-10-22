@@ -342,7 +342,10 @@ async function main() {
   const hardData = readHardData();
   for (const p of hardDataProblems(hardData)) console.log(`写死文字的译文有问题: ${p}`);
   const hardZh = buildHardData(hardData);
-  const script = `${header.trim()}\n\n(function () {\n'use strict';\n\nconst ZH_TAG_DATA = ${JSON.stringify(tsv)};\nconst ZH_T2S_DATA = ${JSON.stringify(t2s)};\nconst ZH_UI_DATA = ${JSON.stringify(uiZh)};\nconst ZH_HARD_DATA = ${JSON.stringify(hardZh)};\n\n${core.trim()}\n\n${mainJs.trim()}\n\n${uiJs.trim()}\n})();\n`;
+  // 社区标签译名平台（worker/）的地址，在 package.json 的 nzh.communityUrl 里配置；留空则不拉取
+  const communityJs = await fs.readFile(path.join(ROOT, 'src', 'community.js'), 'utf8');
+  const communityUrl = (pkg.nzh?.communityUrl || '').replace(/\/+$/, '');
+  const script = `${header.trim()}\n\n(function () {\n'use strict';\n\nconst ZH_TAG_DATA = ${JSON.stringify(tsv)};\nconst ZH_T2S_DATA = ${JSON.stringify(t2s)};\nconst ZH_UI_DATA = ${JSON.stringify(uiZh)};\nconst ZH_HARD_DATA = ${JSON.stringify(hardZh)};\nconst NZH_COMMUNITY_URL = ${JSON.stringify(communityUrl)};\n\n${core.trim()}\n\n${mainJs.trim()}\n\n${uiJs.trim()}\n\n${communityJs.trim()}\n})();\n`;
 
   await fs.mkdir(DIST_DIR, { recursive: true });
   await fs.writeFile(path.join(DIST_DIR, 'zh-tags.tsv'), tsv + '\n');

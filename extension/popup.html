@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>NovelAI中文化助手</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<header>
+  <img src="icons/48.png" alt="" width="32" height="32">
+  <div>
+    <h1>NovelAI中文化助手</h1>
+    <div class="muted"><span id="version"></span> · 构建 <code id="hash"></code></div>
+  </div>
+</header>
+
+<p id="notice" class="notice" hidden></p>
+
+<section class="switches">
+  <label class="switch">
+    <span><b>中文界面</b><small>按钮、设置和教程显示为中文</small></span>
+    <input type="checkbox" id="ui" role="switch" disabled>
+  </label>
+  <label class="switch">
+    <span><b>中文标签</b><small>输入中文联想英文标签，英文联想附中文释义</small></span>
+    <input type="checkbox" id="tags" role="switch" disabled>
+  </label>
+</section>
+
+<section>
+  <h2>词条</h2>
+  <dl>
+    <dt>标签词典</dt><dd id="n-tags"></dd>
+    <dt>界面文案</dt><dd id="n-ui"></dd>
+    <dt>教程等文字</dt><dd id="n-hard"></dd>
+    <dt>社区译名</dt><dd id="n-community">—</dd>
+  </dl>
+  <div class="row">
+    <span id="community-meta" class="muted"></span>
+    <button id="refresh" type="button" disabled>立即更新</button>
+  </div>
+</section>
+
+<footer>
+  <a id="contribute" href="#" target="_blank" rel="noopener">参与翻译</a>
+  <a href="https://github.com/TomorrowX6/NovelAI-CN" target="_blank" rel="noopener">GitHub</a>
+</footer>
+<script src="popup.js"></script>
+</body>
+</html>

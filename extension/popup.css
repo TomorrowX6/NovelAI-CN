@@ -1,0 +1,44 @@
+:root {
+  --bg: #fff; --text: #1d2433; --muted: #667085; --line: #e3e6ee; --soft: #f3f5fa;
+  --accent: #2f4fb5; --ok: #157347; --err: #c0392b;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1b2029; --text: #e6e9f0; --muted: #98a2b3; --line: #2c3340; --soft: #232a36;
+    --accent: #7b96f0; --ok: #4cc38a; --err: #ff7b6b;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+body { width: 320px; margin: 0; padding: 14px 16px; background: var(--bg); color: var(--text); font: 13px/1.5 system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
+header { display: flex; gap: 10px; align-items: center; }
+h1 { font-size: 15px; margin: 0; }
+h2 { font-size: 12px; color: var(--muted); font-weight: 600; margin: 0 0 6px; }
+code { font-family: ui-monospace, Consolas, monospace; }
+.muted { color: var(--muted); font-size: 12px; }
+section { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 12px; }
+.notice { margin: 12px 0 0; padding: 8px 10px; border-radius: 6px; background: var(--soft); }
+.notice.ok { color: var(--ok); }
+.notice.err { color: var(--err); }
+.switch { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 6px 0; cursor: pointer; }
+.switch span { display: flex; flex-direction: column; }
+.switch small { color: var(--muted); font-size: 12px; }
+.switch input { appearance: none; flex: none; width: 36px; height: 20px; margin: 0; border-radius: 10px; background: var(--line); position: relative; cursor: pointer; }
+.switch input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, .3); }
+/* 读到状态之后才加动画，打开面板时开关不会从关滑到开 */
+.ready .switch input { transition: background .15s; }
+.ready .switch input::after { transition: transform .15s; }
+.switch input:checked { background: var(--accent); }
+.switch input:checked::after { transform: translateX(16px); }
+.switch input:disabled { opacity: .5; cursor: default; }
+.switch input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+dl { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; margin: 0; }
+dt { color: var(--muted); }
+dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; }
+button { font: inherit; font-size: 12px; padding: 3px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--text); cursor: pointer; }
+button:disabled { opacity: .5; cursor: default; }
+footer { display: flex; gap: 16px; border-top: 1px solid var(--line); margin-top: 12px; padding-top: 10px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
