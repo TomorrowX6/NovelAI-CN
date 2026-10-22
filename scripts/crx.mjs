@@ -191,9 +191,12 @@ function main() {
     version: pkg.version,
     description: EXT_DESCRIPTION,
     homepage_url: 'https://github.com/TomorrowX6/NovelAI-CN',
+    // 内容脚本的 world: 'MAIN' 从 Chrome 111 起才支持。更早的版本会忽略它、把脚本放进隔离环境，
+    // 接管不到页面的 fetch 和 Turbopack，扩展装上了却不起作用，所以不让这些版本安装
+    minimum_chrome_version: '111',
     icons: Object.fromEntries(ICON_SIZES.map((s) => [s, `icons/${s}.png`])),
     // 与用户脚本的 @run-at document-start、@inject-into page、@noframes 对应：
-    // 要在 NovelAI 的脚本运行前接管 fetch 和 Turbopack 的模块注册，所以注入页面自身的环境（Chrome 111+）
+    // 要在 NovelAI 的脚本运行前接管 fetch 和 Turbopack 的模块注册，所以注入页面自身的环境
     content_scripts: [
       { matches: ['https://novelai.net/*'], js: [SCRIPT_NAME], run_at: 'document_start', world: 'MAIN', all_frames: false },
     ],
