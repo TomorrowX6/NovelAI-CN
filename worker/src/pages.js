@@ -28,7 +28,8 @@ const STYLE = `
   --shadow-2: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
   color-scheme: light;
 }
-* { box-sizing: border-box; }
+* { box-sizing: border-box; scrollbar-width: none; }
+*::-webkit-scrollbar { display: none; }
 html, body { margin: 0; min-height: 100%; }
 body { background: var(--bg); color: var(--text); font: 14px/20px Roboto, "Noto Sans", Arial, Helvetica, "Noto Sans CJK SC", "Microsoft Yahei UI", sans-serif; }
 a { color: var(--accent-dark); }
@@ -661,10 +662,15 @@ async function loadHistory() {
   }
 }
 
-function fillForm(entry) {
-  $('f-name').value = entry ? entry.label : '';
-  $('f-aliases').value = entry ? entry.aliases.join('/') : '';
+function fillForm(entry, row) {
+  const value = {
+    label: (entry && entry.label) || (row && row.label) || '',
+    aliases: row ? aliasesOf(row).slice(0, 8) : entry ? entry.aliases.slice() : [],
+  };
+  $('f-name').value = value.label;
+  $('f-aliases').value = value.aliases.join('/');
   $('f-note').value = '';
+  return value;
 }
 
 function renderEdit(param) {
@@ -678,9 +684,8 @@ function renderEdit(param) {
     edit.tag = tag;
     const c = tag ? db.community.get(tag) || null : null;
     edit.base = c ? { label: c.label, aliases: c.aliases } : null;
-    edit.original = { label: c ? c.label : '', aliases: c ? c.aliases.slice() : [] };
+    edit.original = fillForm(c, tag ? rowFor(tag) : null);
     $('f-raw').value = create ? new URLSearchParams(location.search).get('raw') || '' : tag;
-    fillForm(c);
     $('history').textContent = '';
   }
   $('edit-title').textContent = create ? '创建标签' : '修改标签';
@@ -740,7 +745,7 @@ $('f-raw').addEventListener('input', () => (renderSuggest(), renderPreview(), va
 $('f-raw').addEventListener('blur', () => setTimeout(() => ($('raw-suggest').hidden = true), 200));
 $('reset').addEventListener('click', () => {
   const c = edit.tag ? db.community.get(edit.tag) || null : null;
-  fillForm(c);
+  edit.original = fillForm(c, edit.tag ? rowFor(edit.tag) : null);
   renderPreview();
   validate();
 });

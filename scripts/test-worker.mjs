@@ -267,6 +267,49 @@ for (const p of ['/', '/list/character?search=cat', '/edit/cat%20ears', '/edit/*
 check((await call('GET', '/nope')).status === 404, '未知路径返回 404');
 check(eq((await call('GET', '/api/me')).data, { user: null }), '没登录时 /api/me 为空');
 
+// 实际页面脚本：编辑已有标签时显示当前名称和检索词，重置后仍以当前值作为未修改状态。
+{
+  const page = await call('GET', '/');
+  const client = page.data.match(/<script nonce="[^"]+">([\s\S]*?)<\/script>/)[1];
+  const nodes = new Map();
+  const node = (id) => {
+    if (!nodes.has(id)) {
+      const handlers = new Map();
+      nodes.set(id, {
+        value: '', textContent: '', hidden: false, disabled: false,
+        addEventListener(type, handler) { handlers.set(type, handler); },
+        click() { handlers.get('click')?.(); },
+        closest() { return { classList: { toggle() {} }, querySelector: () => ({ textContent: '' }) }; },
+      });
+    }
+    return nodes.get(id);
+  };
+  node('cfg').textContent = JSON.stringify({ user: { id: 1001, login: 'Alice' }, repo: 'owner/repo', branch: 'main', path: 'data/zh-community.tsv', icons: {} });
+  const browser = vm.createContext({
+    document: { getElementById: node, addEventListener() {}, querySelectorAll: () => [] },
+    window: { addEventListener() {} }, location: { pathname: '/edit/looking%20at%20viewer', search: '' }, URLSearchParams,
+  });
+  vm.runInContext(client.slice(0, client.indexOf('const startParams =')), browser);
+  // 预览是独立的展示功能；这里运行真实的表单初始化、校验、重置事件处理。
+  vm.runInContext("renderPreview = () => {}; addRow({ tag: 'looking at viewer', label: '看向观众', extra: ['看着观众', '看镜头'], category: 0 }); renderEdit('looking at viewer');", browser);
+  const formState = () => plain(vm.runInContext("({ label: $('f-name').value, aliases: $('f-aliases').value, disabled: $('submit').disabled, base: edit.base })", browser));
+  check(eq(formState(), { label: '看向观众', aliases: '看着观众/看镜头', disabled: true, base: null }), `内置词典自动填充，初始状态没有修改：${JSON.stringify(formState())}`);
+  node('f-name').value = '注视观众';
+  vm.runInContext('validate()', browser);
+  check(!node('submit').disabled, '修改自动填充的名称后可以提交');
+  vm.runInContext("renderEdit('looking at viewer')", browser);
+  check(node('f-name').value === '注视观众', '同一编辑页重复渲染不会覆盖正在修改的内容');
+  node('reset').click();
+  check(eq(formState(), { label: '看向观众', aliases: '看着观众/看镜头', disabled: true, base: null }), '重置恢复当前名称、检索词和未修改状态');
+
+  vm.runInContext("setCommunity([{ tag: 'looking at viewer', label: '看着你', aliases: ['看向我'] }]); edit.original = null; renderEdit('looking at viewer');", browser);
+  check(eq(formState(), { label: '看着你', aliases: '看向我/看着观众/看镜头', disabled: true, base: { label: '看着你', aliases: ['看向我'] } }), '社区名称优先，填入当前检索词，冲突检测仍使用原始社区数据');
+  vm.runInContext("setCommunity([{ tag: 'looking at viewer', label: '', aliases: ['看向我'] }]); edit.original = null; renderEdit('looking at viewer');", browser);
+  check(node('f-name').value === '看向观众' && node('f-aliases').value === '看向我/看着观众/看镜头', '仅有检索词的社区修订沿用内置名称');
+  vm.runInContext("renderEdit('unknown tag')", browser);
+  check(node('f-name').value === '' && node('f-aliases').value === '' && node('submit').disabled, '没有已有译名的新标签保持空白和未修改状态');
+}
+
 // ---- 登录 ----
 gh.users.goodcode = { id: 1001, login: 'Alice', avatar_url: 'https://avatars.githubusercontent.com/u/1001?v=4', created_at: '2020-01-01T00:00:00Z' };
 gh.users.newbie = { id: 1002, login: 'newbie', avatar_url: '', created_at: new Date().toISOString() };
