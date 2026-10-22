@@ -21,7 +21,7 @@ export function pageCsp(nonce) {
 
 const STYLE = `
 :root {
-  --accent: #f5f3c2; --accent-dark: #67641f; --accent-soft: #faf9e5; --on-accent: #383824; --text: rgba(0,0,0,.87); --muted: rgba(0,0,0,.54); --faint: rgba(0,0,0,.38);
+  --accent: #1b1d3a; --accent-dark: #1b1d3a; --accent-soft: #eff0f8; --accent-light: #c9cdf8; --on-accent: #f7f7fc; --text: rgba(0,0,0,.87); --muted: rgba(0,0,0,.54); --faint: rgba(0,0,0,.38);
   --line: rgba(0,0,0,.12); --bg: #fafafa; --card: #fff; --hover: rgba(0,0,0,.04); --mark: #ffff00; --warn: #b26a00; --error: #f44336; --ok: #2e7d32;
   --shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
   --shadow-1: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
@@ -38,16 +38,16 @@ svg.icon { width: 24px; height: 24px; fill: currentColor; flex: none; }
 /* 顶栏 */
 .toolbar { position: sticky; top: 0; z-index: 10; height: 64px; display: flex; align-items: center; gap: 8px; padding: 0 16px; background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow); }
 .toolbar .title { color: inherit; text-decoration: none; font-size: 20px; font-weight: 500; letter-spacing: .0125em; padding: 0 16px; line-height: 36px; border-radius: 4px; white-space: nowrap; }
-.toolbar .title:hover { background: rgba(0,0,0,.05); }
+.toolbar .title:hover { background: rgba(255,255,255,.08); }
 .spacer { flex: 1 1 auto; }
 .icon-btn { width: 40px; height: 40px; border: 0; border-radius: 50%; padding: 8px; display: inline-flex; align-items: center; justify-content: center; background: none; color: inherit; cursor: pointer; text-decoration: none; }
 .icon-btn:hover { background: var(--hover); }
-.toolbar .icon-btn:hover { background: rgba(0,0,0,.06); }
+.toolbar .icon-btn:hover { background: rgba(255,255,255,.12); }
 .icon-btn:disabled { color: var(--faint); cursor: default; background: none; }
 .icon-btn.accent { color: var(--accent-dark); }
 .user { position: relative; margin-right: 64px; }
-.user-btn { display: inline-flex; align-items: center; gap: 10px; height: 40px; padding: 0 12px; border: 0; border-radius: 20px; background: rgba(255,255,255,.35); color: inherit; font: inherit; font-weight: 500; cursor: pointer; text-decoration: none; }
-.user-btn:hover { background: rgba(0,0,0,.06); }
+.user-btn { display: inline-flex; align-items: center; gap: 10px; height: 40px; padding: 0 12px; border: 0; border-radius: 20px; background: rgba(255,255,255,.08); color: inherit; font: inherit; font-weight: 500; cursor: pointer; text-decoration: none; }
+.user-btn:hover { background: rgba(255,255,255,.14); }
 .user-btn img { width: 28px; height: 28px; border-radius: 50%; }
 .menu { position: absolute; right: 0; top: calc(100% + 12px); width: 224px; max-width: calc(100vw - 32px); padding: 8px; background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,.14), 0 2px 6px rgba(0,0,0,.06); z-index: 20; }
 .menu a, .menu button { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 44px; padding: 10px 12px; border: 0; border-radius: 8px; background: none; color: inherit; font: inherit; line-height: 24px; text-align: left; text-decoration: none; cursor: pointer; white-space: nowrap; }
@@ -55,7 +55,7 @@ svg.icon { width: 24px; height: 24px; fill: currentColor; flex: none; }
 .menu svg.icon { width: 20px; height: 20px; color: var(--accent-dark); }
 .menu span { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .menu .menu-account { margin-bottom: 6px; padding-bottom: 14px; border-bottom: 1px solid var(--line); border-radius: 8px 8px 0 0; font-weight: 500; }
-.github-corner { position: absolute; top: 0; right: 0; color: var(--accent); }
+.github-corner { position: absolute; top: 0; right: 0; color: var(--on-accent); }
 .github-corner svg { display: block; width: 64px; height: 64px; fill: #151513; }
 .github-corner:hover .octo-arm { animation: octocat-wave 560ms ease-in-out; }
 @keyframes octocat-wave { 0%, 100% { transform: rotate(0); } 20%, 60% { transform: rotate(-25deg); } 40%, 80% { transform: rotate(10deg); } }
@@ -115,7 +115,7 @@ mark { background: var(--mark); color: inherit; padding: 0; }
 .badge.new { background: #e8f5e9; color: var(--ok); }
 .none { color: var(--faint); }
 .empty, .spinner-box { padding: 48px 24px; text-align: center; color: var(--muted); }
-.spinner { width: 48px; height: 48px; margin: 0 auto; border: 4px solid var(--accent); border-top-color: var(--accent-dark); border-radius: 50%; animation: spin 1s linear infinite; }
+.spinner { width: 48px; height: 48px; margin: 0 auto; border: 4px solid var(--accent-soft); border-top-color: var(--accent-dark); border-radius: 50%; animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* 编辑页 */
@@ -152,7 +152,7 @@ mark { background: var(--mark); color: inherit; padding: 0; }
 .suggest .zh { color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .snackbar { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 30; min-width: 288px; max-width: calc(100vw - 32px); padding: 14px 16px; border-radius: 4px; background: #323232; color: #fff; box-shadow: var(--shadow); display: flex; align-items: center; gap: 16px; }
-.snackbar a { color: var(--accent); font-weight: 500; white-space: nowrap; }
+.snackbar a { color: var(--accent-light); font-weight: 500; white-space: nowrap; }
 .snackbar.error { background: #b71c1c; }
 
 @media (max-width: 760px) {
