@@ -43,6 +43,9 @@ for (const [input, expect] of [
   ['猫耳 www.example.com', null],
   ['javascript:猫', null],
   ['猫\u0000耳', null],
+  ['한국어', null],
+  ['豈', '豈'],
+  ['豈', '豈'],
   ['猫'.repeat(61), null],
 ]) {
   check(cleanZh(input, 60) === expect, `cleanZh(${JSON.stringify(input)}) = ${JSON.stringify(cleanZh(input, 60))}`);
@@ -107,25 +110,23 @@ for (const [tag, ok] of [
 }
 
 // ---- Worker ----
-// D1 的 prepare().bind().first()/all()/run() 用 node:sqlite 实现
+// D1 的 prepare().bind().first()/all()/run() 用 node:sqlite 实现；queries 记下执行了几条查询，
+// 免费版 D1 每次调用最多 50 条
+let queries = 0;
 function d1(db) {
   return {
     prepare(sql) {
       const stmt = (args) => ({
         bind: (...a) => stmt(a),
-        first: async () => db.prepare(sql).get(...args) ?? null,
-        all: async () => ({ success: true, results: db.prepare(sql).all(...args) }),
+        first: async () => (queries++, db.prepare(sql).get(...args) ?? null),
+        all: async () => (queries++, { success: true, results: db.prepare(sql).all(...args) }),
         run: async () => {
+          queries++;
           const r = db.prepare(sql).run(...args);
           return { success: true, meta: { last_row_id: Number(r.lastInsertRowid), changes: r.changes } };
         },
       });
       return stmt([]);
-    },
-    async batch(stmts) {
-      const out = [];
-      for (const s of stmts) out.push(await s.run());
-      return out;
     },
   };
 }
@@ -257,6 +258,13 @@ check((await call('GET', '/nope')).status === 404, '未知路径返回 404');
   await admin('POST', '/api/admin/tags', { tags: danbooru });
   check(db.prepare('SELECT COUNT(*) AS n FROM tags').get().n === 1000, '再存一次不会重复');
   check(db.prepare("SELECT count FROM tags WHERE tag = 'cat ears'").get().count === 404300, '再存一次会更新图片数');
+  // 每天同步最多 3000 个，一次请求要留在 D1 的查询上限内
+  const many = Array.from({ length: 3000 }, (_, i) => ({ name: `bulk_${i}`, category: 0, post_count: 60, created_at: '2026-02-01T00:00:00Z' }));
+  queries = 0;
+  const bulk = await admin('POST', '/api/admin/tags', { tags: many });
+  check(bulk.data.stored === 3000 && queries <= 5, `存 3000 个标签用了 ${queries} 条查询`);
+  check(db.prepare("SELECT category, count, created_at FROM tags WHERE tag = 'bulk 2999'").get()?.count === 60, '批量写入的字段正确');
+  db.prepare("DELETE FROM tags WHERE tag LIKE 'bulk %'").run();
   check((await admin('POST', '/api/admin/tags', { tags: 'x' })).status === 400, 'tags 不是数组时返回 400');
   check((await admin('POST', '/api/admin/tags', { tags: new Array(5001).fill(null) })).status === 400, '一次最多 5000 个');
 

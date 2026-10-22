@@ -1,7 +1,8 @@
 // 提交内容的规则：Worker 收提交、出数据时用，scripts/test-worker.mjs 也直接测这里。
 // 扩展端（src/community.js）会再按同样的规则检查一遍。
 
-export const HAN_RE = /[㐀-䶿一-鿿豈-﫿]/;
+// 与 src/core.js 的 HAN_RE 相同：扩展 A、基本区、兼容汉字（U+F900 起，写成转义免得和普通的「豈」混淆）
+export const HAN_RE = /[㐀-䶿一-鿿豈-﫿]/;
 // 译名和检索词只在页面上当纯文字显示，仍然拒绝 < >、控制字符和网址，免得被拿去做引导或拼接
 const UNSAFE = /[<>\u0000-\u001f\u007f]|[a-z][\w+.-]*:\/\/|javascript:|www\./i;
 export const LIMITS = { tag: 100, label: 60, alias: 30, aliases: 8, note: 300 };

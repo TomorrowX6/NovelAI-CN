@@ -122,6 +122,45 @@ for (const [key, [en, zh]] of Object.entries(uiData)) {
   }
 }
 
+// 界面语言的设置边界：读账号数据时 en 换成 zh；账号是日文时只有扩展面板强制打开中文才换；保存时 zh 换成 en
+{
+  const store = new Map();
+  const localStorage = {
+    getItem: (k) => (store.has(k) ? store.get(k) : null),
+    setItem: (k, v) => store.set(k, String(v)),
+    removeItem: (k) => store.delete(k),
+  };
+  let sent = null;
+  const nativeFetch = async (url, init) => ((sent = init), new Response('{}'));
+  const c = vm.createContext({ localStorage, nativeFetch, window: {}, location: { href: 'https://novelai.net/image' }, URL, Response });
+  vm.runInContext(`${fs.readFileSync(path.join(ROOT, 'src', 'ui.js'), 'utf8')}\nthis.uiSettingsFetch = uiSettingsFetch;`, c);
+  const userData = (lang) => async () => new Response(JSON.stringify({ settings: JSON.stringify({ uiLanguage: lang, other: 1 }) }));
+  const shownLang = async (lang) => {
+    const res = c.uiSettingsFetch('https://api.novelai.net/user/data', { method: 'GET' }, userData(lang));
+    return res ? JSON.parse((await (await res).json()).settings).uiLanguage : '（未处理）';
+  };
+  const cases = [];
+  cases.push(['没选中文，账号 en', await shownLang('en'), '（未处理）']);
+  store.set('nzh-ui-lang', 'zh');
+  cases.push(['选了中文，账号 en', await shownLang('en'), 'zh']);
+  cases.push(['选了中文，账号在别处改成 jp', await shownLang('jp'), 'jp']);
+  store.set('nzh-ui-force', '1');
+  cases.push(['面板强制中文，账号 jp', await shownLang('jp'), 'zh']);
+  await c.uiSettingsFetch('https://api.novelai.net/user/clientsettings', { method: 'PUT', body: JSON.stringify({ uiLanguage: 'zh', other: 1 }) });
+  cases.push(['保存设置时 zh 存成 en', JSON.parse(sent.body).uiLanguage, 'en']);
+  cases.push(['保存后不再强制', String(store.has('nzh-ui-force')), 'false']);
+  cases.push(['保存后仍是中文', store.get('nzh-ui-lang'), 'zh']);
+  store.set('nzh-ui-force', '1');
+  c.uiSettingsFetch('https://api.novelai.net/user/clientsettings', { method: 'PUT', body: JSON.stringify({ uiLanguage: 'jp' }) });
+  cases.push(['在选单里改成日文后不再是中文', String(store.has('nzh-ui-lang')) + String(store.has('nzh-ui-force')), 'falsefalse']);
+  for (const [name, got, want] of cases) {
+    if (got !== want) {
+      failed++;
+      console.log(`✗ 界面语言：${name}，得到 ${got}，期望 ${want}`);
+    }
+  }
+}
+
 t = performance.now();
 for (const [q] of CASES) dict.search(q, 15);
 console.log(`${CASES.length} 次检索平均 ${((performance.now() - t) / CASES.length).toFixed(2)} ms`);

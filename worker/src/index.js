@@ -90,16 +90,21 @@ async function pendingTags(env) {
   return results;
 }
 
-// 存入 Danbooru 标签（已有的更新图片数）
+// 存入 Danbooru 标签（已有的更新图片数）。D1 每次调用最多 50 条查询（免费版），batch 里的语句也可能逐条计数，
+// 所以整批标签作为一个 JSON 参数交给 json_each，每 TAGS_PER_QUERY 个标签只占一条查询
+const TAGS_PER_QUERY = 1000;
 async function storeTags(env, list) {
   const rows = parseDanbooruTags(list);
-  const now = Date.now();
   const upsert = env.DB.prepare(
-    'INSERT INTO tags (tag, category, count, created_at, synced_at) VALUES (?, ?, ?, ?, ?) ' +
+    'INSERT INTO tags (tag, category, count, created_at, synced_at) ' +
+      "SELECT json_extract(value, '$.tag'), json_extract(value, '$.category'), json_extract(value, '$.count'), json_extract(value, '$.created_at'), ? " +
+      // INSERT … SELECT 后面接 ON CONFLICT 时，SQLite 要求 SELECT 带 WHERE
+      'FROM json_each(?) WHERE true ' +
       'ON CONFLICT(tag) DO UPDATE SET category = excluded.category, count = excluded.count, synced_at = excluded.synced_at',
   );
-  for (let i = 0; i < rows.length; i += 500) {
-    await env.DB.batch(rows.slice(i, i + 500).map((r) => upsert.bind(r.tag, r.category, r.count, r.created_at, now)));
+  const now = Date.now();
+  for (let i = 0; i < rows.length; i += TAGS_PER_QUERY) {
+    await upsert.bind(now, JSON.stringify(rows.slice(i, i + TAGS_PER_QUERY))).run();
   }
   return { received: list.length, stored: rows.length };
 }

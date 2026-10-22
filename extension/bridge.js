@@ -1,7 +1,7 @@
 // 扩展面板（popup.html）和 NovelAI 页面之间的桥。运行在内容脚本的隔离环境里，
 // 和页面里的脚本共用 novelai.net 的 localStorage：面板来读状态、改设置，改完刷新页面，
 // 让 document_start 注入的脚本按新设置重新运行。
-const KEYS = { ui: 'nzh-ui-lang', tags: 'nzh-tags', community: 'nzh-community' };
+const KEYS = { ui: 'nzh-ui-lang', uiForce: 'nzh-ui-force', tags: 'nzh-tags', community: 'nzh-community' };
 
 function readCommunity() {
   try {
@@ -28,8 +28,14 @@ async function state() {
 
 function set(key, value) {
   if (key === 'ui') {
-    if (value) localStorage.setItem(KEYS.ui, 'zh');
-    else localStorage.removeItem(KEYS.ui);
+    // 强制标记让账号语言是日文时也显示中文（src/ui.js 的 UI_FORCE_KEY）
+    if (value) {
+      localStorage.setItem(KEYS.ui, 'zh');
+      localStorage.setItem(KEYS.uiForce, '1');
+    } else {
+      localStorage.removeItem(KEYS.ui);
+      localStorage.removeItem(KEYS.uiForce);
+    }
   } else if (key === 'tags') {
     if (value) localStorage.removeItem(KEYS.tags);
     else localStorage.setItem(KEYS.tags, 'off');

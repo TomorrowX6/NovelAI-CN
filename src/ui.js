@@ -7,6 +7,9 @@
 const UI_LANG = 'zh';
 const UI_LANG_NAME = '中文';
 const UI_LANG_KEY = 'nzh-ui-lang';
+// 扩展面板打开中文界面时另记这个标记（extension/bridge.js）：账号语言是日文也显示中文，
+// 直到在 NovelAI 里保存设置（那时账号语言会存成 en，见 uiSettingsFetch）
+const UI_FORCE_KEY = 'nzh-ui-force';
 const UI_HOOKED = Symbol.for('novelai-zh-tags.ui');
 const UI_FLAG =
   'data:image/svg+xml,' +
@@ -43,10 +46,20 @@ function uiPrefZh() {
   }
 }
 
+function uiForced() {
+  try {
+    return localStorage.getItem(UI_FORCE_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+// 在 NovelAI 里保存了界面语言，账号里存的就是用户这次的选择，面板的强制标记不再需要
 function setUiPrefZh(on) {
   try {
     if (on) localStorage.setItem(UI_LANG_KEY, UI_LANG);
     else localStorage.removeItem(UI_LANG_KEY);
+    localStorage.removeItem(UI_FORCE_KEY);
   } catch {}
 }
 
@@ -326,7 +339,8 @@ function uiSettingsFetch(url, init, nativeRequest) {
         const data = await res.clone().json();
         const raw = data && data.settings;
         const settings = typeof raw === 'string' ? JSON.parse(raw) : raw;
-        if (!settings || typeof settings !== 'object' || (settings.uiLanguage || 'en') !== 'en') return res;
+        // 账号语言不是 en，说明在别处改成了日文，这里跟着变；面板强制打开中文时除外
+        if (!settings || typeof settings !== 'object' || ((settings.uiLanguage || 'en') !== 'en' && !uiForced())) return res;
         settings.uiLanguage = UI_LANG;
         data.settings = typeof raw === 'string' ? JSON.stringify(settings) : settings;
         return new Response(JSON.stringify(data), { status: res.status, statusText: res.statusText, headers: res.headers });
