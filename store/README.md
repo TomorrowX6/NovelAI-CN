@@ -1,0 +1,120 @@
+# Chrome 应用商店上架资料
+
+按 [Chrome 应用商店开发者后台](https://chrome.google.com/webstore/devconsole) 的栏目顺序整理，可以直接复制。
+
+## 0. 打包
+
+```sh
+npm run build
+npm run crx
+```
+
+上传 `build/novelai-zh-tags-版本.zip`（不含公钥的商店版）。商店会给扩展分配新的 ID，和本地「加载已解压的扩展程序」时的 ID 不同。
+
+## 1. 商品详情（Store listing）
+
+名称和摘要来自 manifest（`scripts/crx.mjs` 里的 `EXT_NAME`、`EXT_DESCRIPTION`），上传后自动填好：
+
+- 名称：NovelAI中文化
+- 摘要：用中文畅玩 NovelAI：输入中文就能找到对应的英文标签，英文标签也附上中文释义，界面和教程都能切换成中文。（非官方扩展）
+
+**说明（中文）**
+
+```
+NovelAI中文化，让中文用户用起 NovelAI 更顺手。
+
+✦ 用中文找标签
+在生图提示词框里直接打中文，比如「黑丝」「猫耳」「七分身」，就会联想出对应的英文标签，点一下或按回车即可插入。繁体中文也能识别。
+
+✦ 看懂英文标签
+输入英文时，NovelAI 自带的联想列表里每一项下面都会多一行中文释义，不用再一个个查词典。
+
+✦ 整个界面换成中文
+在左侧菜单最下方的语言选单里选 ZH，或在「用户设置 → 界面 → 界面语言」里选「中文」，按钮、设置、提示以及生图和写作教程都会变成中文。账号里保存的语言仍是英文，不影响你在其他设备上使用。
+
+✦ 自动修正中文标点
+中文输入法打出的全角逗号、冒号会自动换成半角，避免几个标签被当成一个。
+
+说明
+· 非官方扩展，与 NovelAI 及其开发商 Anlatan 无关。
+· 不收集任何数据，所有功能都在本地完成。约 7.5 万条标签词典随扩展打包，运行时不下载任何内容。
+· 词典以 ame-la/danbooru-tags-data-zh（MIT）为基础并经过审定，补充检索词含 EhTagTranslation 的人工译名（CC BY-NC-SA 3.0），因此词典部分同样按 CC BY-NC-SA 3.0 提供，不得用于商业用途。
+· 源代码和问题反馈：https://github.com/TomorrowX6/NovelAI-Tag
+```
+
+**说明（English，可作为第二种语言添加）**
+
+```
+NovelAI中文化 makes NovelAI comfortable to use in Chinese.
+
+✦ Find tags in Chinese
+Type Chinese in the image prompt box (e.g. 黑丝, 猫耳) and get the matching English Danbooru tags as suggestions; click or press Enter to insert. Traditional Chinese works too.
+
+✦ Understand English tags
+When you type in English, every item in NovelAI's own suggestion list gets a line of Chinese explanation.
+
+✦ Chinese interface
+Pick ZH in the language selector at the bottom of the side menu, or 中文 in User Settings → Interface. Buttons, settings, tips and the image and story tutorials turn Chinese. Your account keeps English as its saved language, so other devices are unaffected.
+
+✦ Punctuation fix
+Full-width commas and colons typed by Chinese input methods are converted to half-width, so tags are separated correctly.
+
+Notes
+· Unofficial; not affiliated with NovelAI or Anlatan.
+· Collects no data; everything runs locally. The ~75,000-entry dictionary is bundled and nothing is downloaded at runtime.
+· The dictionary is based on ame-la/danbooru-tags-data-zh (MIT) and includes search terms from EhTagTranslation (CC BY-NC-SA 3.0), so the dictionary is provided under CC BY-NC-SA 3.0 and may not be used commercially.
+· Source and issues: https://github.com/TomorrowX6/NovelAI-Tag
+```
+
+- 类别：艺术与设计（Art & Design）；列表里没有的话选「工具」（Tools）
+- 语言：中文（简体）
+- 商店图标：扩展包里的 `icons/128.png`，后台会自动取用
+- 屏幕截图（1280×800，最多 5 张）：`screenshot-1-ui.png`、`screenshot-2-tutorial.png`、`screenshot-3-tutorial.png`，再加登录状态下的标签联想截图（见文末）
+- 小型宣传图块（440×280，必填）：`promo-small-440x280.png`
+- 顶部宣传图块（1400×560，可选）：`promo-marquee-1400x560.png`
+- 官方网址：不填（没有已验证的网站）；首页网址：https://github.com/TomorrowX6/NovelAI-Tag ；支持网址：https://github.com/TomorrowX6/NovelAI-Tag/issues
+
+## 2. 隐私权（Privacy practices）
+
+**单一用途**
+
+```
+为 NovelAI 网站（novelai.net）提供中文支持：用中文联想英文提示词标签、为英文标签显示中文释义，并把网站界面翻译成中文。
+Provides Chinese language support for novelai.net: Chinese input for English prompt tags, Chinese explanations for English tags, and a Chinese translation of the site's interface.
+```
+
+**主机权限理由**（manifest 里只有内容脚本的匹配网址 `https://novelai.net/*`，没有其他权限）
+
+```
+The content script runs only on https://novelai.net/*, the site this extension localizes, and accesses no other site. It runs at document_start in the page's main world because it has to be in place before NovelAI's own scripts load: it answers NovelAI's tag-suggestion requests for Chinese input from the bundled dictionary (by wrapping the page's fetch) and adds Chinese to NovelAI's built-in UI localization. All processing happens locally; nothing is sent to the developer or any third party.
+```
+
+**远程代码**：选「否，我没有使用远程代码」。所有脚本和数据都在扩展包里。
+
+**数据使用**：所有数据类型都不勾选，然后勾选下面三项保证声明（不出售给第三方、不用于与单一用途无关的目的、不用于判断信用或借贷）。
+
+**隐私权政策网址**：https://github.com/TomorrowX6/NovelAI-Tag/blob/main/PRIVACY.md
+
+## 3. 分发（Distribution）
+
+- 付费：免费
+- 公开范围：公开，或「不公开」（只有拿到链接的人能安装）
+- 地区：所有地区
+
+## 4. 测试说明（Test instructions，给审核人员看）
+
+```
+No account is needed to check the interface translation:
+1. Open https://novelai.net/image and close the sign-up dialog.
+2. Open the menu (☰, top left). At the bottom, choose "ZH" in the language selector. The interface switches to Chinese.
+3. In the menu, click 教程 (Tutorial) to see the translated tutorial.
+
+Tag suggestions need a NovelAI account, because NovelAI does not request suggestions when logged out. After logging in, type 黑丝 in the prompt box: English tag suggestions such as "black thighhighs" appear with Chinese labels. Typing English (e.g. "cat") shows NovelAI's own suggestions with a Chinese line under each item.
+```
+
+## 标签联想截图
+
+NovelAI 未登录时不会请求联想，这两张需要登录后自己拍，浏览器窗口内容区调到 1280×800（或截图后缩放到这个尺寸），注意不要拍到 Anlas 余额、笔名和右侧历史记录里的图：
+
+1. 在提示词框输入「黑丝」，联想面板出现时截图。
+2. 清空后输入「cat ea」，NovelAI 自带的联想每项下有中文时截图。

@@ -18,6 +18,10 @@ const EXT_DIR = path.join(BUILD_DIR, 'extension');
 const KEY_FILE = process.env.CRX_KEY ? path.resolve(process.env.CRX_KEY) : path.join(ROOT, '.keys', 'novelai-zh-tags.pem');
 const SCRIPT_NAME = 'novelai-zh-tags.js';
 const ICON_SIZES = [16, 32, 48, 128];
+// 扩展和商店里显示的名称、简介（简介即商店摘要，最多 132 个字符）。用户脚本的 @name 不跟着改：
+// 脚本管理器按名称识别脚本，改名会让已安装的用户更新时装出第二份
+const EXT_NAME = 'NovelAI中文化';
+const EXT_DESCRIPTION = '用中文畅玩 NovelAI：输入中文就能找到对应的英文标签，英文标签也附上中文释义，界面和教程都能切换成中文。（非官方扩展）';
 
 // ---- CRC32 ----
 const CRC_TABLE = new Int32Array(256).map((_, n) => {
@@ -60,8 +64,11 @@ function pngChunk(type, data) {
   return out;
 }
 
+// 商店建议 128 图标的图案占 96×96、四周留透明边；小图标铺满，在工具栏里更清楚
 function iconPng(size) {
   const S = 4;
+  const pad = size === 128 ? 16 : 0;
+  const scale = 128 / (size - 2 * pad);
   const raw = Buffer.alloc(size * (size * 4 + 1));
   for (let py = 0; py < size; py++) {
     raw[py * (size * 4 + 1)] = 0;
@@ -69,7 +76,7 @@ function iconPng(size) {
       const sum = [0, 0, 0, 0];
       for (let sy = 0; sy < S; sy++) {
         for (let sx = 0; sx < S; sx++) {
-          const c = iconColor(((px + (sx + 0.5) / S) * 128) / size, ((py + (sy + 0.5) / S) * 128) / size);
+          const c = iconColor((px + (sx + 0.5) / S - pad) * scale, (py + (sy + 0.5) / S - pad) * scale);
           for (let i = 0; i < 3; i++) sum[i] += c[i] * c[3];
           sum[3] += c[3];
         }
@@ -172,8 +179,6 @@ function loadOrCreateKey() {
 function main() {
   const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
   const userScript = fs.readFileSync(path.join(ROOT, 'dist', 'novelai-zh-tags.user.js'), 'utf8');
-  const description = (userScript.match(/^\/\/ @description\s+(.+)$/m) || [])[1];
-  const name = (userScript.match(/^\/\/ @name\s+(.+)$/m) || [])[1];
   if ((userScript.match(/^\/\/ @version\s+(\S+)/m) || [])[1] !== pkg.version) {
     throw new Error('dist 里的脚本版本和 package.json 不一致，先运行 npm run build');
   }
@@ -182,9 +187,10 @@ function main() {
 
   const manifest = {
     manifest_version: 3,
-    name,
+    name: EXT_NAME,
     version: pkg.version,
-    description,
+    description: EXT_DESCRIPTION,
+    homepage_url: 'https://github.com/TomorrowX6/NovelAI-Tag',
     icons: Object.fromEntries(ICON_SIZES.map((s) => [s, `icons/${s}.png`])),
     // 与用户脚本的 @run-at document-start、@inject-into page、@noframes 对应：
     // 要在 NovelAI 的脚本运行前接管 fetch 和 Turbopack 的模块注册，所以注入页面自身的环境（Chrome 111+）
