@@ -1,6 +1,6 @@
 # 隐私政策 / Privacy Policy
 
-适用于用户脚本「NovelAI 中文标签联想」和 Chrome 扩展「NovelAI中文化」。
+适用于用户脚本「NovelAI 中文标签联想」和 Chrome 扩展「NovelAI中文化助手」。
 
 ## 不收集任何数据
 
@@ -23,7 +23,7 @@
 
 ---
 
-This policy covers the userscript "NovelAI 中文标签联想" and the Chrome extension "NovelAI中文化".
+This policy covers the userscript "NovelAI 中文标签联想" and the Chrome extension "NovelAI中文化助手".
 
 **No data is collected.** The extension does not collect, store or transmit any personal or usage data, contains no analytics or advertising code, and sends nothing to the developer or any third party. The tag dictionary and UI translations are bundled; no code or data is downloaded at runtime.
 

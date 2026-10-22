@@ -15,13 +15,13 @@ npm run crx
 
 名称和摘要来自 manifest（`scripts/crx.mjs` 里的 `EXT_NAME`、`EXT_DESCRIPTION`），上传后自动填好：
 
-- 名称：NovelAI中文化
+- 名称：NovelAI中文化助手
 - 摘要：用中文畅玩 NovelAI：输入中文就能找到对应的英文标签，英文标签也附上中文释义，界面和教程都能切换成中文。（非官方扩展）
 
 **说明（中文）**
 
 ```
-NovelAI中文化，让中文用户用起 NovelAI 更顺手。
+NovelAI中文化助手，让中文用户用起 NovelAI 更顺手。
 
 ✦ 用中文找标签
 在生图提示词框里直接打中文，比如「黑丝」「猫耳」「七分身」，就会联想出对应的英文标签，点一下或按回车即可插入。繁体中文也能识别。
@@ -45,7 +45,7 @@ NovelAI中文化，让中文用户用起 NovelAI 更顺手。
 **说明（English，可作为第二种语言添加）**
 
 ```
-NovelAI中文化 makes NovelAI comfortable to use in Chinese.
+NovelAI中文化助手 makes NovelAI comfortable to use in Chinese.
 
 ✦ Find tags in Chinese
 Type Chinese in the image prompt box (e.g. 黑丝, 猫耳) and get the matching English Danbooru tags as suggestions; click or press Enter to insert. Traditional Chinese works too.

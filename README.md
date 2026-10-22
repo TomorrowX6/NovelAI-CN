@@ -36,7 +36,7 @@ npm run crx     # 打包到 build/
 
 签名私钥第一次打包时生成在 `.keys/novelai-zh-tags.pem`（已在 `.gitignore` 里），也可以用环境变量 `CRX_KEY` 指定。扩展 ID 由私钥决定，换了私钥就成了另一个扩展，请备份好。扩展不会自动更新，也不要和用户脚本同时启用。
 
-扩展在商店里叫「NovelAI中文化」。上架用的介绍文字、截图、宣传图和隐私权一栏的填法在 [store/](store/README.md)，隐私政策见 [PRIVACY.md](PRIVACY.md)。
+扩展在商店里叫「NovelAI中文化助手」。上架用的介绍文字、截图、宣传图和隐私权一栏的填法在 [store/](store/README.md)，隐私政策见 [PRIVACY.md](PRIVACY.md)。
 
 ## 界面汉化
 
