@@ -25,7 +25,8 @@
 
 在左侧菜单最下方的语言选单里选 ZH，或在「用户设置 → 界面 → 界面语言」里选「中文」。切回 EN、JP 也在同一处。
 
-- 译文覆盖 NovelAI 界面文案里的全部约 4000 条。模型名、采样器名和 Anlas、Opus 等专有名词保留英文；少数写死在页面代码里的文字（如后端连接出错的横幅、Cookie 弹窗）不在文案里，仍显示英文。
+- 译文覆盖 NovelAI 界面文案里的全部约 4000 条，模型名、采样器名和 Anlas、Opus 等专有名词保留英文。
+- 生图教程、文字生成教程、故事编辑器下方的提示、连接出错的横幅和一些弹窗，文字是直接写在页面代码里的，另外翻译了约 380 段。服务条款、隐私政策和历届周年活动页保持英文；Cookie 弹窗来自第三方，也是英文。
 - 账号设置里的界面语言只有 en 和 jp，所以选中文时，保存到服务器的是 en，「中文」只记在当前浏览器里。换一台设备，或在没装脚本的浏览器里，界面照常是英文；在别处把语言改成日文，这里也会跟着变成日文。
 - 主要译名：Undesired Content →「负面提示词」，Vibe Transfer →「氛围迁移」，Precise Reference →「精确参考」，Director Tools →「导演工具」，Inpaint →「局部重绘」，Lorebook →「设定集」，AI Module →「AI 模组」。
 - 译文由 Claude 翻译，没有经过人工校对。发现问题可以改 `data/ui-zh.json`，见下文「更新界面译文」。
@@ -41,6 +42,8 @@ NovelAI 拼查询串时用的是「光标前的旧文本 + 新输入」。微软
 检索按「精确 > 前缀 > 包含 > 宽松（字间最多隔 3 个字）」匹配，再结合 danbooru 使用次数综合排序。繁体字输入会按 [OpenCC](https://github.com/BYVoid/OpenCC) 的对照表逐字转成简体后再检索，「貓耳」「黑絲」和简体一样能查到。词典约 7.5 万条，在生图页空闲时解析；从其他页面切过来时，在提示词框获得焦点时解析。Node 下实测解析约 0.25 秒，单次检索约 4 ms。
 
 界面汉化：NovelAI 的界面文字都来自一个英文文案对象，日文是在它上面合并一份日文覆盖，再由 `Localization` atom 按账号设置的 `uiLanguage` 算出当前文案。NovelAI 用 Turbopack 打包，脚本在页面脚本加载前接管 `globalThis.TURBOPACK`，在模块注册导出时给语言表 `languageNames` / `languageIcons` 加上中文，并让 `Localization` atom 在 `uiLanguage` 为 `zh` 时把中文合并到算好的文案上，没翻译的条目保持英文。保存设置（`PUT /user/clientsettings`）时把 `zh` 换成 `en`、在 localStorage 记下选的是中文，读取账号数据（`GET /user/data`）时再换回 `zh`。
+
+教程等写死在组件里的文字不经过文案对象，界面为中文时直接在页面上替换：一个元素里按顺序排列的全部文本节点（加粗、链接把一段话切开的地方）和原文完全一致时，换成同样个数的中文片段。只改文本节点的内容，不动元素结构，React 照常更新；编辑器和输入框里的文字不处理，切回其他语言时还原。
 
 ## 词典
 
@@ -87,10 +90,12 @@ main 分支就是自动更新的发布源：脚本或词典有改动时，要先
 
 `data/ui-zh.json` 每行一条 `"路径": ["英文", "中文"]`，路径对应 NovelAI 文案对象的键（如 `image.undesiredContent`）。中文留空表示还没翻译，和英文相同表示有意保留英文，这两种都按英文显示。`[0]`、`[1]` 是 NovelAI 填入数值的占位符，译文里要原样保留，`npm test` 会检查。
 
+`data/ui-zh-hard.json` 是写死在页面代码里的文字，每行一条 `[[原文片段...], [译文片段...]]`。片段是一个元素里按顺序排列的全部文本节点，译文片段个数必须和原文相同，加粗、链接落在对应位置的片段上，不需要的片段写空字符串。名字、数字这类动态内容在原文和译文的同一位置写 `null`，显示时保持原样。
+
 NovelAI 更新后文案会增减。用下面的命令对照线上版本：
 
 ```sh
-node scripts/ui-strings.mjs                 # 列出新增（+）、删除（-）、英文改动（~）的条目
+node scripts/ui-strings.mjs                 # 列出新增（+）、删除（-）、英文改动（~）的条目，以及代码里找不到的写死文字（?）
 node scripts/ui-strings.mjs --write         # 同步到 data/ui-zh.json：新增条目中文留空，英文改动的保留旧译文，需要复核
 node scripts/ui-strings.mjs --untranslated  # 列出中文还空着的条目
 ```
@@ -103,6 +108,7 @@ node scripts/ui-strings.mjs --untranslated  # 列出中文还空着的条目
 - 抽样核实时，2024 年以后新出现的标签约八成能在 NovelAI 联想里查到，其余（多为冷门角色）NovelAI 可能不认识。
 - 依赖 NovelAI 当前的接口格式和 `.image-prompt-suggestions` 面板结构，NovelAI 改版后可能需要更新脚本。
 - 界面汉化依赖 Turbopack 的模块注册方式和 `languageNames`、`Localization`、`Session` 这些导出名。NovelAI 换了打包方式或改了这些名字时，语言选单里不会再出现中文，界面回到英文，标签联想不受影响。
+- 写死的文字按原文整段匹配，NovelAI 改了措辞就不再替换（`node scripts/ui-strings.mjs` 会列出来）。只有一个词的条目（如 Settings、Delete）会替换页面上任何只含这个词的元素，用户自己起的故事名、条目名恰好是这个词时也会显示成中文，只是显示，不改内容。
 
 ## 数据来源与许可
 

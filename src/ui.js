@@ -56,7 +56,9 @@ function patchLocalizationAtom(atom, getSession, getLast) {
   const read = atom.read;
   atom.read = function (get, ...rest) {
     const loc = read.call(this, get, ...rest);
-    if (get(getSession())?.settings?.uiLanguage !== UI_LANG) return loc;
+    const isZh = get(getSession())?.settings?.uiLanguage === UI_LANG;
+    setHardTextActive(isZh);
+    if (!isZh) return loc;
     const zh = mergeLocale(loc, ZH_UI_DATA);
     // 不在 React 里的代码从 lastLocalization 取文案
     const last = getLast && getLast();
@@ -185,6 +187,100 @@ if (!globalThis[UI_HOOKED]) {
       hookPush(v);
     },
   });
+}
+
+// ---- 写死在组件里的文字 ----
+// 教程、编辑器下方的提示等文字直接写在组件代码里，不在文案对象中。界面为中文时在页面上整段替换：
+// ZH_HARD_DATA 每条是 [原文片段, 译文片段]，片段是一个元素里按顺序排列的全部文本节点，
+// 加粗、链接等标签切开的地方一一对应；null 是名字、数字这类动态内容，匹配任意文字并保持原样。
+// 只改文本节点的内容、不动元素结构，React 照常更新；切回其他语言时还原。
+const HARD_MAX_DEPTH = 6;
+const HARD_SKIP = '[contenteditable], .ProseMirror, textarea, script, style';
+let hardIndex = null; // 第一个片段 -> 以它开头的条目
+let hardMaxFrags = 0;
+let hardActive = false;
+const hardOriginal = new Map(); // 文本节点 -> 原文
+
+function loadHardDict() {
+  hardIndex = new Map();
+  for (const [en, zh] of ZH_HARD_DATA) {
+    if (!hardIndex.has(en[0])) hardIndex.set(en[0], []);
+    hardIndex.get(en[0]).push([en, zh]);
+    hardMaxFrags = Math.max(hardMaxFrags, en.length);
+  }
+}
+
+const hardMatches = (en, nodes) => en.length === nodes.length && en.every((s, i) => s === null || s === nodes[i].data);
+
+// el 下的文本节点，超过 limit 个就放弃（不可能匹配）
+function textNodesUnder(el, limit) {
+  const out = [];
+  const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  for (let n; (n = walker.nextNode()); ) if (out.push(n) > limit) return null;
+  return out;
+}
+
+// node 是某段原文的第一个文本节点时，往上找文本节点序列正好是这段原文的元素
+function translateFrom(node) {
+  const entries = hardIndex.get(node.data);
+  let el = node.parentElement;
+  if (!entries || !el || el.closest(HARD_SKIP)) return;
+  for (let depth = 0; el && depth < HARD_MAX_DEPTH; depth++, el = el.parentElement) {
+    const nodes = textNodesUnder(el, hardMaxFrags);
+    if (!nodes || nodes[0] !== node) return;
+    const entry = entries.find(([en]) => hardMatches(en, nodes));
+    if (!entry) continue;
+    if (hardOriginal.size > 2000) for (const n of hardOriginal.keys()) if (!n.isConnected) hardOriginal.delete(n);
+    nodes.forEach((n, i) => {
+      if (entry[1][i] === null) return;
+      if (!hardOriginal.has(n)) hardOriginal.set(n, n.data);
+      n.data = entry[1][i];
+    });
+    return;
+  }
+}
+
+function translateSubtree(root) {
+  if (root.nodeType === Node.TEXT_NODE) {
+    translateFrom(root);
+    return;
+  }
+  if (root.nodeType !== Node.ELEMENT_NODE && root.nodeType !== Node.DOCUMENT_NODE) return;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const starts = [];
+  for (let n; (n = walker.nextNode()); ) if (hardIndex.has(n.data)) starts.push(n);
+  for (const n of starts) translateFrom(n);
+}
+
+let hardObserver = null;
+function onHardMutations(mutations) {
+  for (const m of mutations) {
+    if (m.type === 'characterData') translateSubtree(m.target);
+    else for (const n of m.addedNodes) translateSubtree(n);
+  }
+}
+
+function restoreHardText() {
+  for (const [n, text] of hardOriginal) if (n.isConnected) n.data = text;
+  hardOriginal.clear();
+}
+
+// Localization atom 每次重算时调用；在渲染过程中被调用，所以改 DOM 的事放到之后做
+function setHardTextActive(on) {
+  if (on === hardActive) return;
+  hardActive = on;
+  setTimeout(() => {
+    if (hardActive !== on) return;
+    if (on) {
+      if (!hardIndex) loadHardDict();
+      hardObserver ??= new MutationObserver(onHardMutations);
+      hardObserver.observe(document, { childList: true, subtree: true, characterData: true });
+      translateSubtree(document);
+    } else {
+      if (hardObserver) hardObserver.disconnect();
+      restoreHardText();
+    }
+  }, 0);
 }
 
 // 账号设置的 uiLanguage 只认 en/jp：保存设置时把 zh 换成 en、本机记下选的是中文，

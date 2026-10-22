@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
-import { readUiData, uiDataProblems, flattenLocale, buildLocale, buildZhLocale } from './ui-data.mjs';
+import { readUiData, uiDataProblems, flattenLocale, buildLocale, buildZhLocale, readHardData, hardDataProblems } from './ui-data.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const core = fs.readFileSync(path.join(ROOT, 'src', 'core.js'), 'utf8');
@@ -71,6 +71,11 @@ const uiData = readUiData();
 for (const p of uiDataProblems(uiData)) {
   failed++;
   console.log(`✗ 界面译文 ${p}`);
+}
+// 写死文字的译文：片段个数要和原文一致，原文不能重复
+for (const p of hardDataProblems(readHardData())) {
+  failed++;
+  console.log(`✗ 写死文字的译文 ${p}`);
 }
 const uiCtx = vm.createContext({});
 vm.runInContext(`${fs.readFileSync(path.join(ROOT, 'src', 'ui.js'), 'utf8')}\nthis.mergeLocale = mergeLocale;`, uiCtx);

@@ -4,7 +4,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
-import { readUiData, buildZhLocale, uiDataProblems, uiDataStats } from './ui-data.mjs';
+import { readUiData, buildZhLocale, uiDataProblems, uiDataStats, readHardData, hardDataProblems, buildHardData } from './ui-data.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const RAW_DIR = path.join(ROOT, 'data', 'raw');
@@ -338,7 +338,11 @@ async function main() {
   const uiData = readUiData();
   for (const p of uiDataProblems(uiData)) console.log(`界面译文有问题: ${p}`);
   const uiZh = buildZhLocale(uiData);
-  const script = `${header.trim()}\n\n(function () {\n'use strict';\n\nconst ZH_TAG_DATA = ${JSON.stringify(tsv)};\nconst ZH_T2S_DATA = ${JSON.stringify(t2s)};\nconst ZH_UI_DATA = ${JSON.stringify(uiZh)};\n\n${core.trim()}\n\n${mainJs.trim()}\n\n${uiJs.trim()}\n})();\n`;
+  // 写死在组件里的文字（data/ui-zh-hard.json）
+  const hardData = readHardData();
+  for (const p of hardDataProblems(hardData)) console.log(`写死文字的译文有问题: ${p}`);
+  const hardZh = buildHardData(hardData);
+  const script = `${header.trim()}\n\n(function () {\n'use strict';\n\nconst ZH_TAG_DATA = ${JSON.stringify(tsv)};\nconst ZH_T2S_DATA = ${JSON.stringify(t2s)};\nconst ZH_UI_DATA = ${JSON.stringify(uiZh)};\nconst ZH_HARD_DATA = ${JSON.stringify(hardZh)};\n\n${core.trim()}\n\n${mainJs.trim()}\n\n${uiJs.trim()}\n})();\n`;
 
   await fs.mkdir(DIST_DIR, { recursive: true });
   await fs.writeFile(path.join(DIST_DIR, 'zh-tags.tsv'), tsv + '\n');
@@ -354,7 +358,7 @@ async function main() {
       `补充人工译名 ${stats.manual}，旧标签 ${stats.legacy}，EhTag ${stats.ehtag}，审定 ${stats.curated}，自定义检索词 ${stats.extra}，覆盖 ${stats.override}，改名 ${renamed.size}；共 ${rows.length} 条`,
   );
   const ui = uiDataStats(uiData);
-  console.log(`界面文案 ${ui.total} 条，已翻译 ${ui.translated}，待翻译 ${ui.untranslated}`);
+  console.log(`界面文案 ${ui.total} 条，已翻译 ${ui.translated}，待翻译 ${ui.untranslated}；写死的文字 ${hardData.length} 段，打包 ${hardZh.length} 段`);
   console.log(`dist/novelai-zh-tags.user.js ${(Buffer.byteLength(script) / 1024 / 1024).toFixed(2)} MB`);
 }
 
