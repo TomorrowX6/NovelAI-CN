@@ -21,7 +21,7 @@ export function pageCsp(nonce) {
 
 const STYLE = `
 :root {
-  --accent: #aa00ff; --accent-dark: #7c00c4; --text: rgba(0,0,0,.87); --muted: rgba(0,0,0,.54); --faint: rgba(0,0,0,.38);
+  --accent: #f5f3c2; --accent-dark: #67641f; --accent-soft: #faf9e5; --on-accent: #383824; --text: rgba(0,0,0,.87); --muted: rgba(0,0,0,.54); --faint: rgba(0,0,0,.38);
   --line: rgba(0,0,0,.12); --bg: #fafafa; --card: #fff; --hover: rgba(0,0,0,.04); --mark: #ffff00; --warn: #b26a00; --error: #f44336; --ok: #2e7d32;
   --shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
   --shadow-1: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
@@ -36,23 +36,26 @@ a { color: var(--accent-dark); }
 svg.icon { width: 24px; height: 24px; fill: currentColor; flex: none; }
 
 /* 顶栏 */
-.toolbar { position: sticky; top: 0; z-index: 10; height: 64px; display: flex; align-items: center; gap: 8px; padding: 0 16px; background: var(--accent); color: #fff; box-shadow: var(--shadow); }
-.toolbar .title { color: #fff; text-decoration: none; font-size: 20px; font-weight: 500; letter-spacing: .0125em; padding: 0 16px; line-height: 36px; border-radius: 4px; white-space: nowrap; }
-.toolbar .title:hover { background: rgba(255,255,255,.08); }
+.toolbar { position: sticky; top: 0; z-index: 10; height: 64px; display: flex; align-items: center; gap: 8px; padding: 0 16px; background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow); }
+.toolbar .title { color: inherit; text-decoration: none; font-size: 20px; font-weight: 500; letter-spacing: .0125em; padding: 0 16px; line-height: 36px; border-radius: 4px; white-space: nowrap; }
+.toolbar .title:hover { background: rgba(0,0,0,.05); }
 .spacer { flex: 1 1 auto; }
 .icon-btn { width: 40px; height: 40px; border: 0; border-radius: 50%; padding: 8px; display: inline-flex; align-items: center; justify-content: center; background: none; color: inherit; cursor: pointer; text-decoration: none; }
 .icon-btn:hover { background: var(--hover); }
-.toolbar .icon-btn:hover { background: rgba(255,255,255,.12); }
+.toolbar .icon-btn:hover { background: rgba(0,0,0,.06); }
 .icon-btn:disabled { color: var(--faint); cursor: default; background: none; }
-.icon-btn.accent { color: var(--accent); }
+.icon-btn.accent { color: var(--accent-dark); }
 .user { position: relative; margin-right: 64px; }
-.user-btn { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 10px; border: 0; border-radius: 4px; background: none; color: #fff; font: inherit; font-weight: 500; cursor: pointer; text-decoration: none; }
-.user-btn:hover { background: rgba(255,255,255,.12); }
+.user-btn { display: inline-flex; align-items: center; gap: 10px; height: 40px; padding: 0 12px; border: 0; border-radius: 20px; background: rgba(255,255,255,.35); color: inherit; font: inherit; font-weight: 500; cursor: pointer; text-decoration: none; }
+.user-btn:hover { background: rgba(0,0,0,.06); }
 .user-btn img { width: 28px; height: 28px; border-radius: 50%; }
-.menu { position: absolute; right: 0; top: 40px; min-width: 160px; padding: 8px 0; background: var(--card); color: var(--text); border-radius: 4px; box-shadow: var(--shadow); z-index: 20; }
-.menu a, .menu button { display: block; width: 100%; padding: 0 16px; line-height: 48px; border: 0; background: none; color: inherit; font: inherit; text-align: left; text-decoration: none; cursor: pointer; white-space: nowrap; }
-.menu a:hover, .menu button:hover { background: var(--hover); }
-.github-corner { position: absolute; top: 0; right: 0; color: #fff; }
+.menu { position: absolute; right: 0; top: calc(100% + 12px); width: 224px; max-width: calc(100vw - 32px); padding: 8px; background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,.14), 0 2px 6px rgba(0,0,0,.06); z-index: 20; }
+.menu a, .menu button { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 44px; padding: 10px 12px; border: 0; border-radius: 8px; background: none; color: inherit; font: inherit; line-height: 24px; text-align: left; text-decoration: none; cursor: pointer; white-space: nowrap; }
+.menu a:hover, .menu button:hover, .menu a:focus-visible, .menu button:focus-visible { background: var(--accent-soft); }
+.menu svg.icon { width: 20px; height: 20px; color: var(--accent-dark); }
+.menu span { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.menu .menu-account { margin-bottom: 6px; padding-bottom: 14px; border-bottom: 1px solid var(--line); border-radius: 8px 8px 0 0; font-weight: 500; }
+.github-corner { position: absolute; top: 0; right: 0; color: var(--accent); }
 .github-corner svg { display: block; width: 64px; height: 64px; fill: #151513; }
 .github-corner:hover .octo-arm { animation: octocat-wave 560ms ease-in-out; }
 @keyframes octocat-wave { 0%, 100% { transform: rotate(0); } 20%, 60% { transform: rotate(-25deg); } 40%, 80% { transform: rotate(10deg); } }
@@ -68,8 +71,8 @@ article { padding: 32px 24px; }
 .field-label svg.icon { width: 14px; height: 14px; }
 .field input, .field textarea, .field select { width: 100%; border: 0; border-bottom: 1px solid rgba(0,0,0,.42); padding: 4px 0 6px; font: inherit; font-size: 15px; color: inherit; background: none; outline: none; border-radius: 0; }
 .field textarea { resize: vertical; min-height: 44px; }
-.field input:focus, .field textarea:focus, .field select:focus { border-bottom: 2px solid var(--accent); padding-bottom: 5px; }
-.field:focus-within .field-label { color: var(--accent); }
+.field input:focus, .field textarea:focus, .field select:focus { border-bottom: 2px solid var(--accent-dark); padding-bottom: 5px; }
+.field:focus-within .field-label { color: var(--accent-dark); }
 .field input:disabled { color: var(--faint); border-bottom: 1px dotted rgba(0,0,0,.42); }
 .field .suffix { position: absolute; right: 0; bottom: 8px; color: var(--muted); font-size: 12px; font-family: ui-monospace, Consolas, monospace; }
 .field .suffix-btn { position: absolute; right: -8px; bottom: 0; }
@@ -99,7 +102,7 @@ td { padding: 12px; border-bottom: 1px solid var(--line); vertical-align: middle
 tbody tr:hover { background: var(--hover); }
 td.handle, th.handle { width: 56px; padding: 0 0 0 16px; }
 td.handle .icon-btn { color: var(--faint); }
-td.handle .icon-btn:hover { color: var(--accent); }
+td.handle .icon-btn:hover { color: var(--accent-dark); }
 td.cat a { color: var(--text); text-decoration: none; }
 td.cat a:hover { text-decoration: underline; }
 td.raw { font-family: inherit; overflow-wrap: anywhere; min-width: 140px; }
@@ -108,21 +111,21 @@ td.aliases { color: var(--muted); min-width: 140px; max-width: 360px; }
 td.count { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
 th.count { text-align: right; }
 mark { background: var(--mark); color: inherit; padding: 0; }
-.badge { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 10px; font-size: 11px; line-height: 18px; background: #f3e5f5; color: var(--accent-dark); white-space: nowrap; vertical-align: 1px; }
+.badge { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 10px; font-size: 11px; line-height: 18px; background: var(--accent-soft); color: var(--accent-dark); white-space: nowrap; vertical-align: 1px; }
 .badge.new { background: #e8f5e9; color: var(--ok); }
 .none { color: var(--faint); }
 .empty, .spinner-box { padding: 48px 24px; text-align: center; color: var(--muted); }
-.spinner { width: 48px; height: 48px; margin: 0 auto; border: 4px solid #e1bee7; border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+.spinner { width: 48px; height: 48px; margin: 0 auto; border: 4px solid var(--accent); border-top-color: var(--accent-dark); border-radius: 50%; animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* 编辑页 */
 .headline { font-size: 24px; line-height: 32px; }
 .btn { height: 36px; padding: 0 16px; border: 0; border-radius: 4px; font: inherit; font-weight: 500; cursor: pointer; background: var(--card); color: var(--text); box-shadow: var(--shadow-2); }
-.btn.primary { background: var(--accent); color: #fff; }
+.btn.primary { background: var(--accent); color: var(--on-accent); }
 .btn:disabled { background: rgba(0,0,0,.12); color: var(--faint); box-shadow: none; cursor: default; }
 .btn.text { box-shadow: none; background: none; }
 .btn.text:hover { background: var(--hover); }
-.banner { margin: 0 24px 8px; padding: 10px 16px; border-radius: 4px; background: #f3e5f5; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.banner { margin: 0 24px 8px; padding: 10px 16px; border-radius: 4px; background: var(--accent-soft); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .banner.warn { background: #fff8e1; color: #5d4037; }
 .edit-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; padding: 8px 24px 24px; }
 .form-col { display: flex; flex-direction: column; gap: 14px; }
@@ -137,7 +140,7 @@ mark { background: var(--mark); color: inherit; padding: 0; }
 .card-row .card-label { margin: 0; }
 .caption { font-size: 12px; color: var(--muted); margin-top: 6px; }
 .alias-chip { display: inline-block; margin: 0 6px 6px 0; padding: 2px 10px; border-radius: 12px; background: #eeeeee; font-size: 13px; }
-.alias-chip.mine { background: #f3e5f5; color: var(--accent-dark); }
+.alias-chip.mine { background: var(--accent-soft); color: var(--accent-dark); }
 .history { list-style: none; margin: 12px 0 0; padding: 0; }
 .history li { display: flex; gap: 10px; padding: 10px 0; border-top: 1px solid var(--line); }
 .history img { width: 32px; height: 32px; border-radius: 50%; flex: none; }
@@ -149,7 +152,7 @@ mark { background: var(--mark); color: inherit; padding: 0; }
 .suggest .zh { color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .snackbar { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 30; min-width: 288px; max-width: calc(100vw - 32px); padding: 14px 16px; border-radius: 4px; background: #323232; color: #fff; box-shadow: var(--shadow); display: flex; align-items: center; gap: 16px; }
-.snackbar a { color: #ea80fc; font-weight: 500; white-space: nowrap; }
+.snackbar a { color: var(--accent); font-weight: 500; white-space: nowrap; }
 .snackbar.error { background: #b71c1c; }
 
 @media (max-width: 760px) {
@@ -173,6 +176,7 @@ const ICONS = {
   search: 'M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z',
   add_circle: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z',
   edit: 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z',
+  logout: 'M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.59L17 17l5-5-5-5zM4 5h8V3H4C2.9 3 2 3.9 2 5v14c0 1.1.9 2 2 2h8v-2H4V5z',
   help: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z',
   chevron_left: 'M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z',
   chevron_right: 'M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z',
@@ -379,13 +383,12 @@ function renderUser() {
     return;
   }
   const menu = el('div', { class: 'menu', hidden: true }, [
-    el('a', { href: 'https://github.com/' + cfg.user.login, target: '_blank', rel: 'noopener', text: '@' + cfg.user.login }),
-    el('a', { href: fileHistoryUrl() + '?author=' + encodeURIComponent(cfg.user.login), target: '_blank', rel: 'noopener', text: '我的修改' }),
+    el('a', { class: 'menu-account', href: 'https://github.com/' + cfg.user.login, target: '_blank', rel: 'noopener' }, [icon('github'), el('span', { text: '@' + cfg.user.login })]),
+    el('a', { href: fileHistoryUrl() + '?author=' + encodeURIComponent(cfg.user.login), target: '_blank', rel: 'noopener' }, [icon('edit'), el('span', { text: '我的修改' })]),
     el('button', {
       type: 'button',
-      text: '退出',
       onclick: () => fetch('/auth/logout', { method: 'POST' }).then(() => location.reload()),
-    }),
+    }, [icon('logout'), el('span', { text: '退出' })]),
   ]);
   const btn = el('button', { class: 'user-btn', type: 'button', 'aria-haspopup': 'menu', onclick: () => (menu.hidden = !menu.hidden) }, [
     cfg.user.avatar ? el('img', { src: cfg.user.avatar + (cfg.user.avatar.includes('?') ? '&' : '?') + 's=56', alt: '' }) : icon('github'),
@@ -748,6 +751,7 @@ $('form').addEventListener('submit', (e) => e.preventDefault());
 // ---- 渲染 ----
 function render() {
   const path = location.pathname;
+  $('back').hidden = !path.startsWith('/edit/');
   // 数据没到之前先显示列表页的加载圈
   if (!db.rows.length) {
     $('view-list').hidden = false;
@@ -794,7 +798,7 @@ export function editorPage(env, nonce, user) {
 </head>
 <body>
 <header class="toolbar" role="heading" aria-level="1">
-  <button id="back" class="icon-btn" type="button" aria-label="返回">${svg('arrow_back')}</button>
+  <button id="back" class="icon-btn" type="button" aria-label="返回" hidden>${svg('arrow_back')}</button>
   <a class="title" href="/" data-link>NovelAI Tag Editor</a>
   <span class="spacer"></span>
   <div id="user" class="user"></div>
