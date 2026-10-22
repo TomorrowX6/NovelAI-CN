@@ -21,6 +21,23 @@
 
 1.4.0 起脚本头里带了更新地址，Tampermonkey / Violentmonkey 会定期检查 GitHub main 分支上的新版本并自动更新，也可以在脚本管理器里手动「检查更新」。1.3.0 及更早的版本没有更新地址，需要手动升级一次：用新文件内容替换原脚本，不要新旧两份同时启用。
 
+### Chrome 扩展
+
+不想装脚本管理器的话，也可以把同一份脚本打包成 Chrome 扩展（Manifest V3，需要 Chrome 111 或更新的版本）。需要 Node.js 18 或更高版本：
+
+```sh
+npm run build   # 先生成 dist/ 下的脚本
+npm run crx     # 打包到 build/
+```
+
+- `build/extension/`：解压的扩展。在 `chrome://extensions` 打开右上角的「开发者模式」，点「加载已解压的扩展程序」，选这个文件夹即可。更新时重新打包，再在扩展页点刷新按钮。
+- `build/novelai-zh-tags-版本.zip`：上架 Chrome 应用商店用的压缩包。
+- `build/novelai-zh-tags-版本.crx`：签名的安装包。Windows 和 macOS 上的 Chrome 只接受应用商店签过的 .crx，自己签名的拖进去会报 `CRX_REQUIRED_PROOF_MISSING`；它适合通过企业策略部署，或在允许这类安装包的 Chromium 系浏览器里使用。平时请用上面的解压文件夹。
+
+签名私钥第一次打包时生成在 `.keys/novelai-zh-tags.pem`（已在 `.gitignore` 里），也可以用环境变量 `CRX_KEY` 指定。扩展 ID 由私钥决定，换了私钥就成了另一个扩展，请备份好。扩展不会自动更新，也不要和用户脚本同时启用。
+
+扩展在商店里叫「NovelAI中文化助手」。上架用的介绍文字、截图、宣传图和隐私权一栏的填法在 [store/](store/README.md)，隐私政策见 [PRIVACY.md](PRIVACY.md)。
+
 ## 界面汉化
 
 在左侧菜单最下方的语言选单里选 ZH，或在「用户设置 → 界面 → 界面语言」里选「中文」。切回 EN、JP 也在同一处。

@@ -1,0 +1,4 @@
+# npm run crx 的输出
+/build/
+# 扩展签名私钥，决定扩展 ID，不要提交
+/.keys/
