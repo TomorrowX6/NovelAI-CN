@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node scripts/test.mjs"
+    "test": "node scripts/test.mjs",
+    "crx": "node scripts/crx.mjs"
   }
 }
