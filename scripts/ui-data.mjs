@@ -79,6 +79,49 @@ export function uiDataProblems(data) {
   return problems;
 }
 
+// 写死在组件里的文字 data/ui-zh-hard.json：数组，每行一条 [原文片段, 译文片段]，
+// 片段是一个元素里按顺序排列的全部文本节点（加粗、链接等标签把一段话切开的地方），译文片段个数必须相同。
+// 片段为 null 是名字、数字这类动态内容：原文和译文的同一位置都写 null，显示时保持原样。译文为 null 表示还没翻译。
+export const HARD_DATA_FILE = path.join(ROOT, 'data', 'ui-zh-hard.json');
+
+export function readHardData(file = HARD_DATA_FILE) {
+  try {
+    return JSON.parse(fs.readFileSync(file, 'utf8'));
+  } catch (e) {
+    if (e.code === 'ENOENT') return [];
+    throw e;
+  }
+}
+
+export function writeHardData(entries, file = HARD_DATA_FILE) {
+  fs.writeFileSync(file, `[\n${entries.map((e) => `  ${JSON.stringify(e)}`).join(',\n')}\n]\n`);
+}
+
+// 打包进脚本的条目：已翻译、且译文和原文不同
+export const buildHardData = (entries) => entries.filter(([en, zh]) => zh && zh.join('') !== en.join(''));
+
+export function hardDataProblems(entries) {
+  const problems = [];
+  const seen = new Set();
+  for (const e of entries) {
+    const [en, zh] = Array.isArray(e) ? e : [];
+    const label = JSON.stringify(en);
+    const fragsOk = (a) => Array.isArray(a) && a.every((x) => x === null || typeof x === 'string');
+    if (!fragsOk(en) || !en.length || (zh !== null && !fragsOk(zh))) {
+      problems.push(`${label}: 格式应为 [[原文片段...], [译文片段...] 或 null]`);
+      continue;
+    }
+    // 运行时按第一个片段查找，所以它不能是动态内容
+    if (en[0] === null) problems.push(`${label}: 第一个片段不能是 null`);
+    const key = JSON.stringify(en);
+    if (seen.has(key)) problems.push(`${label}: 重复的原文`);
+    seen.add(key);
+    if (zh && zh.length !== en.length) problems.push(`${label}: 原文 ${en.length} 段，译文 ${zh.length} 段`);
+    else if (zh && zh.some((x, i) => (x === null) !== (en[i] === null))) problems.push(`${label}: 动态内容（null）的位置和原文不一致`);
+  }
+  return problems;
+}
+
 export function uiDataStats(data) {
   const pairs = Object.values(data);
   return {
