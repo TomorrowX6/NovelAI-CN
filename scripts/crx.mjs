@@ -215,7 +215,7 @@ function main() {
     tags: tagCount,
     ui: uiDataStats(readUiData()).translated,
     hard: buildHardData(readHardData()).length,
-    communityUrl: (pkg.nzh?.communityUrl || '').replace(/\/+$/, ''),
+    communityUrl: (pkg.nzh?.editorUrl || '').replace(/\/+$/, ''),
   };
   const popupJs = ext('popup.js').toString('utf8').replace(/^const BUILD = .*;$/m, `const BUILD = ${JSON.stringify(build)};`);
   if (!popupJs.includes(JSON.stringify(build))) throw new Error('extension/popup.js 里找不到 const BUILD 那一行');

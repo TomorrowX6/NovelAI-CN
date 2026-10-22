@@ -2,6 +2,9 @@ name: CI
 
 on:
   push:
+    # 编辑器（worker/）每次修改社区译名都是一个提交，只改了这个文件时不用构建
+    paths-ignore:
+      - data/zh-community.tsv
   pull_request:
 
 jobs:

@@ -1,30 +1,63 @@
-// NovelAI中文化助手 · 社区标签译名平台（Cloudflare Worker + D1）
-//   GET  /                         提交页：搜标签、看当前译名、提交新译名或检索词；「未翻译」列出还没有中文的标签
-//   GET  /admin                    审核页（凭 ADMIN_TOKEN）
-//   GET  /api/overrides            已采纳的修订，扩展每隔几小时拉一次（允许跨域，缓存 5 分钟）
-//   GET  /api/tags                 从 Danbooru 拉来的新标签（缓存 1 小时）
-//   GET  /api/pending              有待审核提交的标签
-//   GET  /api/export.csv           已采纳的修订，导出成 data/ 下的 CSV 格式，发版时并进词典
-//   POST /api/suggestions          提交（可选 Turnstile 人机验证，每个 IP 每小时限 RATE_LIMIT 条）
-//   GET  /api/admin/suggestions    列出提交（?status=pending|approved|rejected|reverted）
-//   POST /api/admin/suggestions/:id  { action: approve|reject|revert, label?, aliases? }
-//   POST /api/admin/tags           存入从 Danbooru 拉来的标签 { tags: [Danbooru /tags.json 的结果] }
-// Danbooru 拒绝来自 Cloudflare Workers 的请求，所以拉取在外面做：GitHub Actions 每天跑 scripts/sync-tags.mjs，
-// 审核页的「拉取新标签」在管理员的浏览器里请求 Danbooru，拉到后都交给 /api/admin/tags
-import { validateSuggestion, aggregate, toCsv, cleanZh, parseAliases, parseDanbooruTags, LIMITS } from './rules.js';
-import { submitPage, adminPage, pageCsp } from './pages.js';
+// NovelAI Tag Editor：社区标签译名的编辑器（Cloudflare Worker + D1 + GitHub App），仿照 EhTagTranslation 的 ehtt.vercel.app。
+// 用 GitHub 登录后修改标签的名称和检索词，Worker 用 GitHub App 以登录用户为作者把修改提交到仓库的 data/zh-community.tsv，
+// 立即生效；脚本和扩展从 GitHub 拉这个文件。历史就是 git 历史，D1 另记一份编辑日志给编辑页看、并限制频率。
+//   GET  /  /list/:类别  /edit/:标签     编辑器页面（同一个单页应用）
+//   GET  /zh-tags.tsv                    词典（wrangler.toml 的 [assets] 把 dist/ 一起部署）
+//   GET  /auth/login  /auth/callback     GitHub 登录；POST /auth/logout 退出
+//   GET  /api/me                         当前登录的用户
+//   GET  /api/community                  社区数据的当前版本（从 GitHub 读，缓存 30 秒）
+//   PUT  /api/tags/:标签                 修改 { label, aliases, note, base }，需要登录
+//   GET  /api/history?tag=               这个标签的编辑日志
+//   GET  /api/tags                       从 Danbooru 拉来的新标签（缓存 1 小时）
+//   POST /api/admin/tags                 存入从 Danbooru 拉来的标签（凭 ADMIN_TOKEN，见 scripts/sync-tags.mjs）
+import {
+  normalizeTag,
+  parseDanbooruTags,
+  parseCommunity,
+  serializeCommunity,
+  validateEdit,
+  applyEdit,
+  commitMessage,
+} from './rules.js';
+import { editorPage, pageCsp } from './pages.js';
 
-const RATE_LIMIT = 20;
-const STATUSES = ['pending', 'approved', 'rejected', 'reverted'];
-const CORS = { 'Access-Control-Allow-Origin': '*' };
 const MAX_TAGS_PER_POST = 5000;
+const TAGS_PER_QUERY = 1000;
+const SESSION_DAYS = 30;
+const GH_API = 'https://api.github.com';
+const UA = 'NovelAI-CN Tag Editor (+https://github.com/TomorrowX6/NovelAI-CN)';
+const CORS = { 'Access-Control-Allow-Origin': '*' };
+
+const conf = (env) => ({
+  repo: env.GH_REPO || 'TomorrowX6/NovelAI-CN',
+  branch: env.GH_BRANCH || 'main',
+  path: env.DATA_PATH || 'data/zh-community.tsv',
+  minAccountDays: +(env.MIN_ACCOUNT_DAYS ?? 30),
+  editsPerHour: +(env.EDITS_PER_HOUR ?? 30),
+  blocked: new Set(
+    String(env.BLOCKED_USERS || '')
+      .split(',')
+      .map((s) => s.trim().toLowerCase())
+      .filter(Boolean),
+  ),
+});
 
 const json = (data, status = 200, headers = {}) =>
   new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json; charset=utf-8', ...headers } });
 
+// ---- base64 / 签名 ----
+const enc = new TextEncoder();
+function bytesToB64(bytes) {
+  let s = '';
+  for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+  return btoa(s);
+}
+const b64ToBytes = (b64) => Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+const b64url = (bytes) => bytesToB64(bytes).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+const b64urlToBytes = (s) => b64ToBytes(s.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - (s.length % 4)) % 4));
+
 async function sha256(text) {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
-  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
+  return [...new Uint8Array(await crypto.subtle.digest('SHA-256', enc.encode(text)))].map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
 // 比较两个口令的哈希，耗时与内容无关
@@ -35,26 +68,157 @@ async function sameSecret(a, b) {
   return diff === 0;
 }
 
-async function isAdmin(request, env) {
-  const token = (request.headers.get('Authorization') || '').replace(/^Bearer\s+/i, '');
-  return !!env.ADMIN_TOKEN && !!token && sameSecret(token, env.ADMIN_TOKEN);
+const hmacKey = (secret) => crypto.subtle.importKey('raw', enc.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign', 'verify']);
+
+// ---- 登录状态：签名的 Cookie，只存 GitHub 用户的 id、名字和头像，不存 GitHub 的令牌 ----
+const SESSION_COOKIE = 'nzh_session';
+const OAUTH_COOKIE = 'nzh_oauth';
+
+function cookies(request) {
+  const out = {};
+  for (const part of (request.headers.get('Cookie') || '').split(';')) {
+    const i = part.indexOf('=');
+    if (i > 0) out[part.slice(0, i).trim()] = part.slice(i + 1).trim();
+  }
+  return out;
 }
 
-function page(render, env) {
-  const nonce = btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(16))));
-  return new Response(render(env, nonce), {
-    headers: {
-      'Content-Type': 'text/html; charset=utf-8',
-      'Content-Security-Policy': pageCsp(env, nonce),
-      'Cache-Control': 'no-store',
-      'X-Content-Type-Options': 'nosniff',
-      'Referrer-Policy': 'no-referrer',
-      'X-Frame-Options': 'DENY',
-    },
+const cookie = (name, value, maxAge, path = '/') => `${name}=${value}; Path=${path}; Max-Age=${maxAge}; HttpOnly; Secure; SameSite=Lax`;
+
+async function signSession(env, user) {
+  const payload = b64url(enc.encode(JSON.stringify({ ...user, exp: Date.now() + SESSION_DAYS * 864e5 })));
+  const sig = new Uint8Array(await crypto.subtle.sign('HMAC', await hmacKey(env.SESSION_SECRET), enc.encode(payload)));
+  return `${payload}.${b64url(sig)}`;
+}
+
+async function sessionUser(request, env) {
+  const raw = cookies(request)[SESSION_COOKIE];
+  if (!raw || !env.SESSION_SECRET) return null;
+  const [payload, sig] = raw.split('.');
+  if (!payload || !sig) return null;
+  try {
+    const ok = await crypto.subtle.verify('HMAC', await hmacKey(env.SESSION_SECRET), b64urlToBytes(sig), enc.encode(payload));
+    if (!ok) return null;
+    const user = JSON.parse(new TextDecoder().decode(b64urlToBytes(payload)));
+    if (!(user.exp > Date.now()) || conf(env).blocked.has(String(user.login).toLowerCase())) return null;
+    return { id: user.id, login: user.login, avatar: user.avatar };
+  } catch {
+    return null;
+  }
+}
+
+// 只接受站内的跳转地址；浏览器把 /\ 当成 //，反斜杠也不行
+const safeReturn = (p) => (typeof p === 'string' && /^\/(?![/\\])[\x21-\x5b\x5d-\x7e]*$/.test(p) ? p : '/');
+
+async function login(request, env, url) {
+  if (!env.GH_CLIENT_ID) return json({ error: '还没有配置 GitHub 登录' }, 503);
+  const state = b64url(crypto.getRandomValues(new Uint8Array(16)));
+  const back = safeReturn(url.searchParams.get('return'));
+  const u = new URL('https://github.com/login/oauth/authorize');
+  u.searchParams.set('client_id', env.GH_CLIENT_ID);
+  u.searchParams.set('redirect_uri', `${url.origin}/auth/callback`);
+  u.searchParams.set('state', state);
+  return new Response(null, {
+    status: 302,
+    headers: { Location: u.href, 'Set-Cookie': cookie(OAUTH_COOKIE, `${state}|${encodeURIComponent(back)}`, 600, '/auth') },
   });
 }
 
-// 边缘缓存（workers.dev 上没有效果，自定义域名上才有）
+async function callback(request, env, url) {
+  const [state, back = '%2F'] = (cookies(request)[OAUTH_COOKIE] || '').split('|');
+  const returnTo = safeReturn(decodeURIComponent(back));
+  const fail = (msg) =>
+    new Response(null, {
+      status: 302,
+      headers: { Location: `${returnTo}${returnTo.includes('?') ? '&' : '?'}login_error=${encodeURIComponent(msg)}`, 'Set-Cookie': cookie(OAUTH_COOKIE, '', 0, '/auth') },
+    });
+  if (!state || url.searchParams.get('state') !== state) return fail('登录已过期，请重新登录');
+  const code = url.searchParams.get('code');
+  if (!code) return fail('没有完成 GitHub 授权');
+  const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
+    method: 'POST',
+    headers: { Accept: 'application/json', 'Content-Type': 'application/json', 'User-Agent': UA },
+    body: JSON.stringify({ client_id: env.GH_CLIENT_ID, client_secret: env.GH_CLIENT_SECRET, code, redirect_uri: `${url.origin}/auth/callback` }),
+  });
+  const token = (await tokenRes.json().catch(() => ({}))).access_token;
+  if (!token) return fail('GitHub 授权失败，请重试');
+  const userRes = await gh('/user', { token });
+  if (!userRes.ok) return fail('读取 GitHub 用户信息失败');
+  const u = await userRes.json();
+  const c = conf(env);
+  if (c.blocked.has(String(u.login).toLowerCase())) return fail('这个账号不能编辑');
+  if (Date.now() - Date.parse(u.created_at) < c.minAccountDays * 864e5) return fail(`注册满 ${c.minAccountDays} 天的 GitHub 账号才能编辑`);
+  const session = await signSession(env, { id: u.id, login: u.login, avatar: u.avatar_url });
+  const headers = new Headers({ Location: returnTo });
+  headers.append('Set-Cookie', cookie(SESSION_COOKIE, session, SESSION_DAYS * 86400));
+  headers.append('Set-Cookie', cookie(OAUTH_COOKIE, '', 0, '/auth'));
+  return new Response(null, { status: 302, headers });
+}
+
+// ---- GitHub API：GitHub App 的安装令牌负责读写仓库 ----
+function gh(path, { token, method = 'GET', body, accept = 'application/vnd.github+json' } = {}) {
+  return fetch(GH_API + path, {
+    method,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: accept,
+      'User-Agent': UA,
+      'X-GitHub-Api-Version': '2022-11-28',
+      ...(body ? { 'Content-Type': 'application/json' } : {}),
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+}
+
+let appKey = null; // [私钥 PEM, CryptoKey]
+async function appJwt(env) {
+  if (!appKey || appKey[0] !== env.GH_APP_KEY) {
+    const der = b64ToBytes(String(env.GH_APP_KEY).replace(/-----[^-]+-----|\s/g, ''));
+    appKey = [env.GH_APP_KEY, await crypto.subtle.importKey('pkcs8', der, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['sign'])];
+  }
+  const now = Math.floor(Date.now() / 1000);
+  const part = (o) => b64url(enc.encode(JSON.stringify(o)));
+  const data = `${part({ alg: 'RS256', typ: 'JWT' })}.${part({ iat: now - 60, exp: now + 540, iss: String(env.GH_APP_ID) })}`;
+  return `${data}.${b64url(new Uint8Array(await crypto.subtle.sign('RSASSA-PKCS1-v1_5', appKey[1], enc.encode(data))))}`;
+}
+
+let installation = null; // { app, token, exp }
+async function installationToken(env) {
+  if (installation && installation.app === env.GH_APP_ID && installation.exp > Date.now() + 60000) return installation.token;
+  const jwt = await appJwt(env);
+  let id = env.GH_INSTALLATION_ID;
+  if (!id) {
+    const r = await gh(`/repos/${conf(env).repo}/installation`, { token: jwt });
+    if (!r.ok) throw new Error(`GitHub App 没有安装到 ${conf(env).repo}：HTTP ${r.status}`);
+    id = (await r.json()).id;
+  }
+  const r = await gh(`/app/installations/${id}/access_tokens`, { token: jwt, method: 'POST' });
+  if (!r.ok) throw new Error(`拿不到 GitHub App 的令牌：HTTP ${r.status}`);
+  const d = await r.json();
+  installation = { app: env.GH_APP_ID, token: d.token, exp: Date.parse(d.expires_at) };
+  return d.token;
+}
+
+async function readCommunity(env) {
+  const c = conf(env);
+  const token = await installationToken(env);
+  const r = await gh(`/repos/${c.repo}/contents/${c.path}?ref=${encodeURIComponent(c.branch)}`, { token });
+  if (r.status === 404) return { sha: null, data: parseCommunity('') };
+  if (!r.ok) throw new Error(`读取 ${c.path} 失败：HTTP ${r.status}`);
+  const d = await r.json();
+  let text;
+  if (d.encoding === 'base64' && d.content) {
+    text = new TextDecoder().decode(b64ToBytes(d.content.replace(/\s/g, '')));
+  } else {
+    // 超过 1 MB 的文件不内联内容，另取原文
+    const raw = await gh(`/repos/${c.repo}/contents/${c.path}?ref=${encodeURIComponent(c.branch)}`, { token, accept: 'application/vnd.github.raw' });
+    if (!raw.ok) throw new Error(`读取 ${c.path} 失败：HTTP ${raw.status}`);
+    text = await raw.text();
+  }
+  return { sha: d.sha, data: parseCommunity(text) };
+}
+
+// ---- 缓存 ----
 const edgeCache = () => (typeof caches !== 'undefined' ? caches.default : null);
 const cacheKey = (request, p) => new Request(new URL(p, request.url).toString());
 
@@ -73,26 +237,76 @@ function purge(request, ctx, p) {
   if (cache) ctx.waitUntil(cache.delete(cacheKey(request, p)));
 }
 
-async function approvedEntries(env) {
+// ---- 编辑 ----
+const sameEntry = (a, b) => (a?.label || '') === (b?.label || '') && (a?.aliases || []).join('/') === (b?.aliases || []).join('/');
+
+async function editTag(request, env, ctx, rawTag) {
+  const user = await sessionUser(request, env);
+  if (!user) return json({ error: '请先用 GitHub 登录' }, 401);
+  // Cookie 是 SameSite=Lax，再核对来源，别的网站发不来修改
+  const origin = request.headers.get('Origin');
+  if (origin && origin !== new URL(request.url).origin) return json({ error: '来源不对' }, 403);
+  if ((request.headers.get('Content-Type') || '').split(';')[0].trim() !== 'application/json') return json({ error: '请求格式不对' }, 415);
+  const tag = normalizeTag(decodeURIComponent(rawTag));
+  if (!tag) return json({ error: '英文标签格式不对：只能用英文字母、数字和符号，最多 100 个字符' }, 400);
+  const body = await request.json().catch(() => null);
+  const v = validateEdit(body);
+  if (v.error) return json({ error: v.error }, 400);
+
+  const c = conf(env);
+  const recent = await env.DB.prepare('SELECT COUNT(*) AS n FROM edits WHERE user_id = ? AND created_at > ?').bind(user.id, Date.now() - 36e5).first();
+  if (recent && recent.n >= c.editsPerHour) return json({ error: `每小时最多修改 ${c.editsPerHour} 次，请稍后再试` }, 429);
+  // 平台拉来的 Danbooru 标签记下图片数，词典里没有时扩展据此新增
+  const known = await env.DB.prepare('SELECT count FROM tags WHERE tag = ?').bind(tag).first();
+
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const { sha, data } = await readCommunity(env);
+    const current = data.entries.get(tag) || null;
+    // 编辑页打开以后别人改过这个标签，不覆盖
+    if (body.base !== undefined && !sameEntry(body.base, current)) {
+      return json({ error: '这个标签刚被别人修改过，请重新加载后再改', entry: current }, 409);
+    }
+    const r = applyEdit(data, tag, v.value, known ? known.count : 0);
+    if (r.action === 'none') return json({ action: 'none', entry: r.after });
+    const res = await gh(`/repos/${c.repo}/contents/${c.path}`, {
+      token: await installationToken(env),
+      method: 'PUT',
+      body: {
+        message: commitMessage(r.action, tag, r.after, v.value.note),
+        content: bytesToB64(enc.encode(serializeCommunity(data))),
+        branch: c.branch,
+        ...(sha ? { sha } : {}),
+        author: { name: user.login, email: `${user.id}+${user.login}@users.noreply.github.com` },
+      },
+    });
+    // 文件在读和写之间被别的提交改了，重读再来
+    if (res.status === 409 || res.status === 422) continue;
+    if (!res.ok) throw new Error(`提交到 GitHub 失败：HTTP ${res.status}`);
+    const commit = (await res.json()).commit || {};
+    await env.DB.prepare(
+      'INSERT INTO edits (tag, user_id, login, avatar, action, label, aliases, note, sha, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    )
+      .bind(tag, user.id, user.login, user.avatar || '', r.action, r.after?.label || '', (r.after?.aliases || []).join('/'), v.value.note, commit.sha || '', Date.now())
+      .run();
+    purge(request, ctx, '/api/community');
+    return json({ action: r.action, entry: r.after, commit: { sha: commit.sha, url: commit.html_url } });
+  }
+  return json({ error: '同时有其他修改在提交，请稍后再试' }, 409);
+}
+
+async function history(url, env) {
+  const tag = normalizeTag(url.searchParams.get('tag') || '');
+  if (!tag) return json({ error: '标签格式不对' }, 400);
   const { results } = await env.DB.prepare(
-    "SELECT s.tag, s.label, s.aliases, t.count FROM suggestions s LEFT JOIN tags t ON t.tag = s.tag WHERE s.status = 'approved' ORDER BY s.reviewed_at, s.id",
-  ).all();
-  return aggregate(results);
+    'SELECT login, user_id, avatar, action, label, aliases, note, sha, created_at FROM edits WHERE tag = ? ORDER BY created_at DESC, id DESC LIMIT 50',
+  )
+    .bind(tag)
+    .all();
+  return json({ items: results }, 200, { 'Cache-Control': 'no-store' });
 }
 
-async function newTags(env) {
-  const { results } = await env.DB.prepare('SELECT tag, category, count, created_at FROM tags ORDER BY count DESC LIMIT 20000').all();
-  return results;
-}
-
-async function pendingTags(env) {
-  const { results } = await env.DB.prepare("SELECT tag, COUNT(*) AS n FROM suggestions WHERE status = 'pending' GROUP BY tag LIMIT 5000").all();
-  return results;
-}
-
-// 存入 Danbooru 标签（已有的更新图片数）。D1 每次调用最多 50 条查询（免费版），batch 里的语句也可能逐条计数，
-// 所以整批标签作为一个 JSON 参数交给 json_each，每 TAGS_PER_QUERY 个标签只占一条查询
-const TAGS_PER_QUERY = 1000;
+// ---- Danbooru 新标签 ----
+// D1 每次调用最多 50 条查询（免费版），整批标签作为一个 JSON 参数交给 json_each，每 TAGS_PER_QUERY 个只占一条查询
 async function storeTags(env, list) {
   const rows = parseDanbooruTags(list);
   const upsert = env.DB.prepare(
@@ -109,113 +323,56 @@ async function storeTags(env, list) {
   return { received: list.length, stored: rows.length };
 }
 
-async function verifyTurnstile(token, ip, env) {
-  if (!env.TURNSTILE_SECRET) return true;
-  if (typeof token !== 'string' || !token) return false;
-  const form = new FormData();
-  form.append('secret', env.TURNSTILE_SECRET);
-  form.append('response', token);
-  if (ip) form.append('remoteip', ip);
-  const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body: form });
-  return !!(await res.json()).success;
+async function isAdmin(request, env) {
+  const token = (request.headers.get('Authorization') || '').replace(/^Bearer\s+/i, '');
+  return !!env.ADMIN_TOKEN && !!token && sameSecret(token, env.ADMIN_TOKEN);
 }
 
-async function submit(request, env) {
-  if ((request.headers.get('Content-Type') || '').split(';')[0].trim() !== 'application/json') return json({ error: '请求格式不对' }, 415);
-  const body = await request.json().catch(() => null);
-  const v = validateSuggestion(body);
-  if (v.error) return json({ error: v.error }, 400);
-  const ip = request.headers.get('CF-Connecting-IP') || '';
-  if (!(await verifyTurnstile(body.turnstile, ip, env))) return json({ error: '人机验证没有通过，请重试' }, 400);
-  const ipHash = await sha256(`${env.IP_SALT || ''}:${ip}`);
-  const recent = await env.DB.prepare('SELECT COUNT(*) AS n FROM suggestions WHERE ip_hash = ? AND created_at > ?')
-    .bind(ipHash, Date.now() - 60 * 60 * 1000)
-    .first();
-  if (recent && recent.n >= RATE_LIMIT) return json({ error: '提交得太频繁了，请一小时后再试' }, 429);
-  const { tag, label, aliases, note } = v.value;
-  const r = await env.DB.prepare('INSERT INTO suggestions (tag, label, aliases, note, ip_hash, created_at) VALUES (?, ?, ?, ?, ?, ?)')
-    .bind(tag, label, JSON.stringify(aliases), note, ipHash, Date.now())
-    .run();
-  return json({ id: r.meta.last_row_id }, 201);
-}
-
-async function listSuggestions(url, env) {
-  const status = url.searchParams.get('status') || 'pending';
-  if (!STATUSES.includes(status)) return json({ error: '状态不对' }, 400);
-  const order = status === 'pending' ? 'created_at' : 'reviewed_at DESC';
-  const { results } = await env.DB.prepare(
-    `SELECT id, tag, label, aliases, note, status, created_at, reviewed_at FROM suggestions WHERE status = ? ORDER BY ${order} LIMIT 200`,
-  )
-    .bind(status)
-    .all();
-  return json({ items: results.map((r) => ({ ...r, aliases: JSON.parse(r.aliases || '[]') })) });
-}
-
-async function review(request, env, ctx, id) {
-  const body = await request.json().catch(() => null);
-  const action = body && body.action;
-  const row = await env.DB.prepare('SELECT * FROM suggestions WHERE id = ?').bind(id).first();
-  if (!row) return json({ error: '找不到这条提交' }, 404);
-  const now = Date.now();
-  if (action === 'approve') {
-    if (row.status !== 'pending') return json({ error: '只能采纳待审核的提交' }, 409);
-    // 审核时可以顺手改提交的内容
-    let { label, aliases } = row;
-    if (typeof body.label === 'string') {
-      label = body.label.trim() ? cleanZh(body.label, LIMITS.label) : '';
-      if (label === null) return json({ error: '译名必须含汉字，最多 60 个字，不能有 < > 或网址' }, 400);
-    }
-    if (body.aliases !== undefined) {
-      const list = parseAliases(body.aliases);
-      if (!list) return json({ error: '检索词不合格' }, 400);
-      aliases = JSON.stringify(list);
-    }
-    if (!label && aliases === '[]') return json({ error: '译名和检索词不能都为空' }, 400);
-    await env.DB.prepare("UPDATE suggestions SET status = 'approved', label = ?, aliases = ?, reviewed_at = ? WHERE id = ?").bind(label, aliases, now, id).run();
-  } else if (action === 'reject') {
-    if (row.status !== 'pending') return json({ error: '只能驳回待审核的提交' }, 409);
-    await env.DB.prepare("UPDATE suggestions SET status = 'rejected', reviewed_at = ? WHERE id = ?").bind(now, id).run();
-  } else if (action === 'revert') {
-    if (row.status !== 'approved') return json({ error: '只能撤销已采纳的提交' }, 409);
-    await env.DB.prepare("UPDATE suggestions SET status = 'reverted', reviewed_at = ? WHERE id = ?").bind(now, id).run();
-  } else {
-    return json({ error: '操作不对' }, 400);
-  }
-  // 采纳或撤销后让扩展尽快拿到新数据
-  if (action !== 'reject') purge(request, ctx, '/api/overrides');
-  return json({ ok: true });
+function page(env, user) {
+  const nonce = b64url(crypto.getRandomValues(new Uint8Array(16)));
+  return new Response(editorPage(env, nonce, user), {
+    headers: {
+      'Content-Type': 'text/html; charset=utf-8',
+      'Content-Security-Policy': pageCsp(nonce),
+      'Cache-Control': 'no-store',
+      'X-Content-Type-Options': 'nosniff',
+      'Referrer-Policy': 'strict-origin',
+      'X-Frame-Options': 'DENY',
+    },
+  });
 }
 
 async function route(request, env, ctx) {
   const url = new URL(request.url);
   const { pathname } = url;
   const method = request.method;
-  if (method === 'GET' && pathname === '/') return page(submitPage, env);
-  if (method === 'GET' && pathname === '/admin') return page(adminPage, env);
-  if (pathname === '/api/overrides') {
-    if (method === 'OPTIONS') return new Response(null, { status: 204, headers: { ...CORS, 'Access-Control-Allow-Methods': 'GET' } });
-    if (method === 'GET') return cached(request, ctx, '/api/overrides', 300, async () => ({ updated: Date.now(), entries: await approvedEntries(env) }));
+  if (method === 'GET' && (pathname === '/' || /^\/(list|edit)(\/|$)/.test(pathname))) return page(env, await sessionUser(request, env));
+  if (method === 'GET' && pathname === '/auth/login') return login(request, env, url);
+  if (method === 'GET' && pathname === '/auth/callback') return callback(request, env, url);
+  if (method === 'POST' && pathname === '/auth/logout') return new Response(null, { status: 204, headers: { 'Set-Cookie': cookie(SESSION_COOKIE, '', 0) } });
+  if (method === 'GET' && pathname === '/api/me') return json({ user: await sessionUser(request, env) }, 200, { 'Cache-Control': 'no-store' });
+  if (method === 'GET' && pathname === '/api/community') {
+    return cached(request, ctx, '/api/community', 30, async () => {
+      const { sha, data } = await readCommunity(env);
+      return { sha, entries: [...data.entries.values()] };
+    });
   }
+  const m = pathname.match(/^\/api\/tags\/(.+)$/);
+  if (method === 'PUT' && m) return editTag(request, env, ctx, m[1]);
+  if (method === 'GET' && pathname === '/api/history') return history(url, env);
   if (method === 'GET' && pathname === '/api/tags') {
-    return cached(request, ctx, '/api/tags', 3600, async () => ({ updated: Date.now(), tags: await newTags(env) }));
+    return cached(request, ctx, '/api/tags', 3600, async () => {
+      const { results } = await env.DB.prepare('SELECT tag, category, count, created_at FROM tags ORDER BY count DESC LIMIT 20000').all();
+      return { updated: Date.now(), tags: results };
+    });
   }
-  if (method === 'GET' && pathname === '/api/pending') return json({ tags: await pendingTags(env) }, 200, { 'Cache-Control': 'no-store' });
-  if (method === 'GET' && pathname === '/api/export.csv') {
-    return new Response(toCsv(await approvedEntries(env)), { headers: { 'Content-Type': 'text/csv; charset=utf-8', ...CORS } });
-  }
-  if (method === 'POST' && pathname === '/api/suggestions') return submit(request, env);
-  if (pathname.startsWith('/api/admin/')) {
+  if (method === 'POST' && pathname === '/api/admin/tags') {
     if (!(await isAdmin(request, env))) return json({ error: '口令不对' }, 401);
-    if (method === 'GET' && pathname === '/api/admin/suggestions') return listSuggestions(url, env);
-    if (method === 'POST' && pathname === '/api/admin/tags') {
-      const body = await request.json().catch(() => null);
-      if (!body || !Array.isArray(body.tags) || body.tags.length > MAX_TAGS_PER_POST) return json({ error: `tags 必须是数组，最多 ${MAX_TAGS_PER_POST} 个` }, 400);
-      const r = await storeTags(env, body.tags);
-      purge(request, ctx, '/api/tags');
-      return json(r);
-    }
-    const m = pathname.match(/^\/api\/admin\/suggestions\/(\d+)$/);
-    if (method === 'POST' && m) return review(request, env, ctx, +m[1]);
+    const body = await request.json().catch(() => null);
+    if (!body || !Array.isArray(body.tags) || body.tags.length > MAX_TAGS_PER_POST) return json({ error: `tags 必须是数组，最多 ${MAX_TAGS_PER_POST} 个` }, 400);
+    const r = await storeTags(env, body.tags);
+    purge(request, ctx, '/api/tags');
+    return json(r);
   }
   return json({ error: '找不到' }, 404);
 }

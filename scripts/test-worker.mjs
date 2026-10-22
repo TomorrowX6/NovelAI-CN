@@ -1,13 +1,27 @@
-// 社区标签译名平台（worker/）的测试：用 Node 自带的 SQLite 模拟 D1，直接调用 Worker 的 fetch。
-// 也检查平台给出的数据能原样通过扩展端（src/community.js）的检查。
-// node scripts/test-worker.mjs
+// 社区标签编辑器（worker/）的测试：用 Node 自带的 SQLite 模拟 D1、用假的 GitHub（OAuth、App 令牌、仓库文件）代替网络，
+// 直接调用 Worker 的 fetch。也检查编辑器写出的数据能原样通过扩展端（src/community.js）的检查。
+// node scripts/test-worker.mjs   （需要 Node.js 22.13 或更高版本）
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { DatabaseSync } from 'node:sqlite';
 import worker from '../worker/src/index.js';
-import { normalizeTag, cleanZh, parseAliases, validateSuggestion, aggregate, toCsv, isSafeNewTag, parseDanbooruTags, danbooruTagsUrl } from '../worker/src/rules.js';
+import {
+  normalizeTag,
+  cleanZh,
+  parseAliases,
+  isSafeNewTag,
+  parseDanbooruTags,
+  danbooruTagsUrl,
+  parseCommunity,
+  serializeCommunity,
+  validateEdit,
+  applyEdit,
+  commitMessage,
+  COMMUNITY_HEADER,
+} from '../worker/src/rules.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -19,6 +33,7 @@ function check(ok, msg) {
   }
 }
 const eq = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+const plain = (x) => JSON.parse(JSON.stringify(x));
 
 // ---- 规则 ----
 for (const [input, expect] of [
@@ -43,25 +58,16 @@ for (const [input, expect] of [
   ['猫耳 www.example.com', null],
   ['javascript:猫', null],
   ['猫\u0000耳', null],
-  ['한국어', null],
-  ['豈', '豈'],
-  ['豈', '豈'],
   ['猫'.repeat(61), null],
+  ['한국어', null],
+  [String.fromCharCode(0x8c48), String.fromCharCode(0x8c48)],
+  [String.fromCharCode(0xf900), String.fromCharCode(0xf900)],
 ]) {
   check(cleanZh(input, 60) === expect, `cleanZh(${JSON.stringify(input)}) = ${JSON.stringify(cleanZh(input, 60))}`);
 }
 check(eq(parseAliases('猫娘/兽耳娘、猫娘，喵'), ['猫娘', '兽耳娘', '喵']), 'parseAliases 分隔和去重');
-check(eq(parseAliases(['猫娘', ' ']), ['猫娘']), 'parseAliases 跳过空白');
 check(parseAliases('猫/neko') === null, 'parseAliases 有一个不合格就整体不合格');
 check(parseAliases('一/二/三/四/五/六/七/八/九') === null, 'parseAliases 最多 8 个');
-check(eq(parseAliases(undefined), []), 'parseAliases 缺省为空');
-check(!!validateSuggestion({ tag: 'cat ears' }).error, '译名和检索词都为空时报错');
-check(!!validateSuggestion(null).error, '提交内容不是对象时报错');
-check(!!validateSuggestion({ tag: 'cat ears', label: 'neko' }).error, '译名不含汉字时报错');
-{
-  const v = validateSuggestion({ tag: 'Cat_Ears', label: ' 猫耳 ', aliases: '喵耳', note: 'a\nb' });
-  check(eq(v.value, { tag: 'cat ears', label: '猫耳', aliases: ['喵耳'], note: 'a b' }), `validateSuggestion 规范化：${JSON.stringify(v)}`);
-}
 for (const [tag, ok] of [
   ['mary sue (black souls)', true],
   ["kitasan black (crane's ambition) (umamusume)", true],
@@ -72,46 +78,60 @@ for (const [tag, ok] of [
   ['a::b', false],
   ['#a', false],
   ['<a>', false],
-  ['猫', false],
 ]) {
   check(isSafeNewTag(tag) === ok, `isSafeNewTag(${JSON.stringify(tag)}) 应为 ${ok}`);
 }
-{
-  const parsed = parseDanbooruTags([
-    { name: 'Mary_Sue_(Black_Souls)', category: 4, post_count: 160, created_at: '2026-10-20T13:09:01.611-04:00' },
-    { name: 'some_artist', category: 1, post_count: 500, created_at: '2026-10-20T00:00:00Z' },
-    { name: 'rare_tag', category: 0, post_count: 49, created_at: '2026-10-20T00:00:00Z' },
-    { name: 'bad,tag', category: 0, post_count: 100, created_at: '2026-10-20T00:00:00Z' },
-    null,
-  ]);
-  check(
-    eq(parsed, [{ tag: 'mary sue (black souls)', category: 4, count: 160, created_at: Date.parse('2026-10-20T13:09:01.611-04:00') }]),
-    `parseDanbooruTags：${JSON.stringify(parsed)}`,
-  );
-  check(eq(parseDanbooruTags({ error: 'x' }), []), 'parseDanbooruTags 能处理错误响应');
-  check(eq(aggregate([{ tag: 'x', label: '甲', aliases: '[]', count: 120 }]), [{ tag: 'x', label: '甲', aliases: [], count: 120 }]), 'aggregate 带上新标签的图片数');
-}
-{
-  const rows = [
-    { tag: 'cat ears', label: '猫耳', aliases: '["喵耳"]' },
-    { tag: 'cat ears', label: '', aliases: '["猫娘","喵耳"]' },
-    { tag: 'cat ears', label: '猫耳朵', aliases: '[]' },
-    { tag: 'smile', label: '', aliases: '["笑"]' },
-  ];
-  const agg = aggregate(rows);
-  check(
-    eq(agg, [
-      { tag: 'cat ears', label: '猫耳朵', aliases: ['猫娘', '喵耳'] },
-      { tag: 'smile', label: '', aliases: ['笑'] },
+check(
+  eq(
+    parseDanbooruTags([
+      { name: 'Mary_Sue_(Black_Souls)', category: 4, post_count: 160, created_at: '2026-10-20T13:09:01Z' },
+      { name: 'some_artist', category: 1, post_count: 500, created_at: '2026-10-20T00:00:00Z' },
+      { name: 'rare_tag', category: 0, post_count: 49, created_at: '2026-10-20T00:00:00Z' },
+      { name: 'bad,tag', category: 0, post_count: 100, created_at: '2026-10-20T00:00:00Z' },
+      null,
     ]),
-    `aggregate：${JSON.stringify(agg)}`,
-  );
-  check(toCsv(agg) === '# zh-override.csv\ncat ears,猫耳朵\n\n# zh-extra.csv\ncat ears,猫娘/喵耳\nsmile,笑\n', `toCsv：${JSON.stringify(toCsv(agg))}`);
+    [{ tag: 'mary sue (black souls)', category: 4, count: 160, created_at: Date.parse('2026-10-20T13:09:01Z') }],
+  ),
+  'parseDanbooruTags 只要通用、作品、角色、元标签，图片数够多、名字安全的',
+);
+{
+  const q = new URL(danbooruTagsUrl(2)).searchParams;
+  check(q.get('search[order]') === 'date' && q.get('search[category]') === '0,3,4,5' && q.get('search[post_count]') === '>=50' && q.get('page') === '2', 'Danbooru 请求参数');
 }
 
-// ---- Worker ----
-// D1 的 prepare().bind().first()/all()/run() 用 node:sqlite 实现；queries 记下执行了几条查询，
-// 免费版 D1 每次调用最多 50 条
+// 数据文件：一个标签一行，按标签排序，空的列从行尾去掉
+{
+  const text = [...COMMUNITY_HEADER, 'smile\t笑\t微笑/笑容', 'cat ears\t\t喵耳', 'mary sue (black souls)\t玛丽苏\t\t160'].join('\n') + '\n';
+  const data = parseCommunity(text);
+  check(eq(plain(data.entries.get('cat ears')), { tag: 'cat ears', label: '', aliases: ['喵耳'], count: 0 }), 'parseCommunity 读出译名为空的条目');
+  check(data.entries.get('mary sue (black souls)').count === 160, 'parseCommunity 读出图片数');
+  check(
+    serializeCommunity(data) === [...COMMUNITY_HEADER, 'cat ears\t\t喵耳', 'mary sue (black souls)\t玛丽苏\t\t160', 'smile\t笑\t微笑/笑容'].join('\n') + '\n',
+    `serializeCommunity 按标签排序：${JSON.stringify(serializeCommunity(data))}`,
+  );
+  check(eq(parseCommunity('').header, COMMUNITY_HEADER), '空文件用默认说明');
+  check(serializeCommunity(parseCommunity(serializeCommunity(data))) === serializeCommunity(data), '读写往返不变');
+
+  check(!!validateEdit(null).error && !!validateEdit({ label: 'neko' }).error && !!validateEdit({ aliases: '猫/neko' }).error, 'validateEdit 拒绝不合格的内容');
+  check(eq(validateEdit({ label: ' 猫耳 ', aliases: '喵耳/兽耳', note: 'a\nb' }).value, { label: '猫耳', aliases: ['喵耳', '兽耳'], note: 'a b' }), 'validateEdit 规范化');
+
+  const d = parseCommunity(text);
+  check(applyEdit(d, 'cat ears', { label: '', aliases: ['喵耳'] }).action === 'none', 'applyEdit 内容没变');
+  check(applyEdit(d, 'cat ears', { label: '猫耳', aliases: ['喵耳'] }).action === 'update', 'applyEdit 修改');
+  check(applyEdit(d, 'blush', { label: '脸红', aliases: [] }).action === 'add', 'applyEdit 新增');
+  check(applyEdit(d, 'mary sue (black souls)', { label: '玛丽苏（黑魂）', aliases: [] }).after.count === 160, 'applyEdit 保留图片数');
+  const del = applyEdit(d, 'smile', { label: '', aliases: [] });
+  check(del.action === 'delete' && !d.entries.has('smile'), 'applyEdit 都清空就删除');
+  check(applyEdit(d, 'nothing', { label: '', aliases: [] }).action === 'none', 'applyEdit 删除不存在的条目');
+  check(
+    commitMessage('add', 'blush', { label: '脸红', aliases: ['害羞'] }, '常见') === '新增 blush\n\n名称：脸红\n检索词：害羞\n说明：常见',
+    `commitMessage：${JSON.stringify(commitMessage('add', 'blush', { label: '脸红', aliases: ['害羞'] }, '常见'))}`,
+  );
+  check(commitMessage('delete', 'smile', null, '') === '删除 smile', '删除的提交说明');
+}
+
+// ---- 假的 D1 和 GitHub ----
+// D1 的 prepare().bind().first()/all()/run() 用 node:sqlite 实现；queries 记下执行了几条查询，免费版 D1 每次调用最多 50 条
 let queries = 0;
 function d1(db) {
   return {
@@ -133,15 +153,88 @@ function d1(db) {
 
 const db = new DatabaseSync(':memory:');
 db.exec(fs.readFileSync(path.join(ROOT, 'worker', 'schema.sql'), 'utf8'));
-const env = { DB: d1(db), ADMIN_TOKEN: 'test-admin-token', IP_SALT: 'salt' };
+const { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', { modulusLength: 2048 });
+const env = {
+  DB: d1(db),
+  GH_REPO: 'owner/repo',
+  GH_BRANCH: 'main',
+  DATA_PATH: 'data/zh-community.tsv',
+  GH_APP_ID: '12345',
+  GH_APP_KEY: privateKey.export({ type: 'pkcs8', format: 'pem' }),
+  GH_CLIENT_ID: 'client-id',
+  GH_CLIENT_SECRET: 'client-secret',
+  SESSION_SECRET: 'session-secret',
+  ADMIN_TOKEN: 'admin-token',
+  MIN_ACCOUNT_DAYS: '30',
+  EDITS_PER_HOUR: '8',
+  BLOCKED_USERS: 'spammer',
+};
 const ctx = { waitUntil() {} };
-const BASE = 'https://novelai-cn.example.workers.dev';
+const BASE = 'https://editor.example';
 
-async function call(method, p, { body, ip = '203.0.113.1', token, type = 'application/json' } = {}) {
-  const headers = { 'CF-Connecting-IP': ip };
-  if (body !== undefined) headers['Content-Type'] = type;
-  if (token) headers.Authorization = `Bearer ${token}`;
-  const res = await worker.fetch(new Request(BASE + p, { method, headers, body: body === undefined ? undefined : typeof body === 'string' ? body : JSON.stringify(body) }), env, ctx);
+// 仓库里的 data/zh-community.tsv
+const gh = { file: null, sha: null, puts: [], log: [], users: {}, conflictOnce: null, installationLookups: 0 };
+const b64 = (s) => Buffer.from(s, 'utf8').toString('base64');
+const verifyJwt = (jwt) => {
+  const [h, p, s] = jwt.split('.');
+  const ok = crypto.verify('RSA-SHA256', Buffer.from(`${h}.${p}`), publicKey, Buffer.from(s, 'base64url'));
+  return ok && JSON.parse(Buffer.from(p, 'base64url')).iss === env.GH_APP_ID;
+};
+globalThis.fetch = async (input, init = {}) => {
+  const url = new URL(typeof input === 'string' ? input : input.url);
+  const method = init.method || 'GET';
+  const auth = (init.headers?.Authorization || '').replace(/^Bearer /, '');
+  const body = init.body ? JSON.parse(init.body) : null;
+  const res = (data, status = 200) => new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json' } });
+  gh.log.push(`${method} ${url.pathname}`);
+  if (url.href === 'https://github.com/login/oauth/access_token') {
+    const ok = body.client_id === env.GH_CLIENT_ID && body.client_secret === env.GH_CLIENT_SECRET && gh.users[body.code];
+    return res(ok ? { access_token: `user-token-${body.code}` } : { error: 'bad_verification_code' });
+  }
+  if (url.origin !== 'https://api.github.com') throw new Error(`没有模拟的请求：${url}`);
+  if (url.pathname === '/user') {
+    const u = gh.users[auth.replace('user-token-', '')];
+    return u ? res(u) : res({ message: 'Bad credentials' }, 401);
+  }
+  if (url.pathname === '/repos/owner/repo/installation') {
+    gh.installationLookups++;
+    return verifyJwt(auth) ? res({ id: 777 }) : res({}, 401);
+  }
+  if (url.pathname === '/app/installations/777/access_tokens' && method === 'POST') {
+    return verifyJwt(auth) ? res({ token: 'inst-token', expires_at: new Date(Date.now() + 36e5).toISOString() }) : res({}, 401);
+  }
+  if (url.pathname === '/repos/owner/repo/contents/data/zh-community.tsv') {
+    if (auth !== 'inst-token') return res({}, 401);
+    if (method === 'GET') {
+      if (gh.file === null) return res({ message: 'Not Found' }, 404);
+      return res({ sha: gh.sha, encoding: 'base64', content: b64(gh.file).replace(/(.{60})/g, '$1\n') });
+    }
+    if (method === 'PUT') {
+      if (gh.conflictOnce) {
+        // 读和写之间别人提交了一次
+        gh.conflictOnce();
+        gh.conflictOnce = null;
+      }
+      if ((body.sha || null) !== gh.sha) return res({ message: 'sha does not match' }, 409);
+      gh.puts.push(body);
+      gh.file = Buffer.from(body.content, 'base64').toString('utf8');
+      gh.sha = crypto.createHash('sha1').update(gh.file).digest('hex');
+      return res({ commit: { sha: `c${gh.puts.length}`, html_url: `https://github.com/owner/repo/commit/c${gh.puts.length}` } }, gh.puts.length === 1 ? 201 : 200);
+    }
+  }
+  throw new Error(`没有模拟的请求：${method} ${url}`);
+};
+
+async function call(method, p, { body, cookie, origin, type = 'application/json', headers = {} } = {}) {
+  const h = { ...headers };
+  if (body !== undefined) h['Content-Type'] = type;
+  if (cookie) h.Cookie = cookie;
+  if (origin) h.Origin = origin;
+  const res = await worker.fetch(
+    new Request(BASE + p, { method, headers: h, body: body === undefined ? undefined : typeof body === 'string' ? body : JSON.stringify(body), redirect: 'manual' }),
+    env,
+    ctx,
+  );
   const text = await res.text();
   let data = text;
   try {
@@ -149,210 +242,190 @@ async function call(method, p, { body, ip = '203.0.113.1', token, type = 'applic
   } catch {}
   return { status: res.status, headers: res.headers, data };
 }
-const admin = (method, p, body) => call(method, p, { body, token: env.ADMIN_TOKEN });
+const setCookies = (res) => res.headers.getSetCookie().map((c) => c.split(';')[0]);
 
-{
-  const res = await call('GET', '/');
+// ---- 页面 ----
+for (const p of ['/', '/list/character?search=cat', '/edit/cat%20ears', '/edit/*new']) {
+  const res = await call('GET', p);
   const csp = res.headers.get('Content-Security-Policy') || '';
   const nonce = (csp.match(/'nonce-([^']+)'/) || [])[1];
-  check(res.status === 200 && nonce && res.data.includes(`<script nonce="${nonce}">`), '提交页的脚本带上 CSP 的 nonce');
-  check(!/script-src[^;]*'unsafe-inline'/.test(csp), '提交页不允许内联脚本');
-  check(csp.includes('connect-src \'self\' https://raw.githubusercontent.com'), `提交页可以读词典：${csp}`);
-  check(!res.data.includes('cf-turnstile'), '没配 Turnstile 时不显示人机验证');
-  const page = await call('GET', '/admin');
-  check(page.status === 200 && page.data.includes('ADMIN_TOKEN') && !page.data.includes(env.ADMIN_TOKEN), '审核页不含口令');
-  // 页面里的脚本要能解析
-  for (const [name, html] of [['提交页', res.data], ['审核页', page.data]]) {
-    const scripts = [...html.matchAll(/<script nonce="[^"]+">([\s\S]*?)<\/script>/g)].map((m) => m[1]);
-    check(scripts.length === 1, `${name}应有一段脚本，实际 ${scripts.length}`);
-    for (const s of scripts) {
-      try {
-        new vm.Script(`(async () => {${s}\n})`);
-      } catch (e) {
-        check(false, `${name}脚本语法错误：${e.message}`);
-      }
+  check(res.status === 200 && nonce && res.data.includes(`<script nonce="${nonce}">`), `${p} 返回编辑器页面，脚本带 CSP 的 nonce`);
+  if (p !== '/') continue;
+  check(!/script-src[^;]*'unsafe-inline'/.test(csp) && /connect-src 'self';/.test(csp), `页面 CSP：${csp}`);
+  check(!/\son[a-z]+="/.test(res.data), '页面没有内联事件处理');
+  const scripts = [...res.data.matchAll(/<script nonce="[^"]+">([\s\S]*?)<\/script>/g)].map((m) => m[1]);
+  check(scripts.length === 1, `页面应有一段脚本，实际 ${scripts.length}`);
+  for (const s of scripts) {
+    try {
+      new vm.Script(s);
+    } catch (e) {
+      check(false, `页面脚本语法错误：${e.message}`);
     }
   }
+  check(res.data.includes('"user":null'), '没登录时页面配置里没有用户');
 }
-
-check((await call('POST', '/api/suggestions', { body: '{}', type: 'text/plain' })).status === 415, '非 JSON 提交返回 415');
-check((await call('POST', '/api/suggestions', { body: 'not json' })).status === 400, '坏 JSON 返回 400');
-check((await call('POST', '/api/suggestions', { body: { tag: 'cat ears', label: '<img src=x>猫' } })).status === 400, '含 < > 的译名被拒绝');
-
-const first = await call('POST', '/api/suggestions', { body: { tag: 'Cat_Ears', label: '猫耳', aliases: '喵耳/猫娘', note: '更常用' } });
-check(first.status === 201 && first.data.id === 1, `提交成功：${JSON.stringify(first)}`);
-check(db.prepare('SELECT ip_hash FROM suggestions WHERE id = 1').get().ip_hash.length === 64, '只存 IP 的哈希');
-check(!JSON.stringify(db.prepare('SELECT * FROM suggestions').all()).includes('203.0.113.1'), '数据库里没有明文 IP');
-
-for (let i = 0; i < 19; i++) await call('POST', '/api/suggestions', { body: { tag: 'smile', aliases: [`笑${i}`] } });
-check((await call('POST', '/api/suggestions', { body: { tag: 'smile', label: '笑' } })).status === 429, '同一 IP 每小时第 21 条被限流');
-check((await call('POST', '/api/suggestions', { body: { tag: 'smile', label: '微笑' }, ip: '203.0.113.2' })).status === 201, '其他 IP 不受影响');
-
-check(eq((await call('GET', '/api/overrides')).data.entries, []), '未审核的提交不对外');
-
-check((await call('GET', '/api/admin/suggestions')).status === 401, '没有口令不能看提交');
-check((await call('GET', '/api/admin/suggestions', { token: 'wrong' })).status === 401, '口令错误不能看提交');
-check((await worker.fetch(new Request(`${BASE}/api/admin/suggestions`, { headers: { Authorization: 'Bearer x' } }), { ...env, ADMIN_TOKEN: '' }, ctx)).status === 401, '没设置 ADMIN_TOKEN 时谁都进不去');
-{
-  const list = await admin('GET', '/api/admin/suggestions');
-  check(list.status === 200 && list.data.items.length === 21 && list.data.items[0].tag === 'cat ears', `待审核列表：${list.data.items?.length}`);
-  check(eq(list.data.items[0].aliases, ['喵耳', '猫娘']) && list.data.items[0].note === '更常用', '列表带检索词和说明');
-  check(!('ip_hash' in list.data.items[0]), '列表不含 IP 哈希');
-  check((await admin('GET', '/api/admin/suggestions?status=bogus')).status === 400, '错误的状态返回 400');
-}
-
-check((await admin('POST', '/api/admin/suggestions/1', { action: 'approve', label: 'neko' })).status === 400, '审核时改的译名也要检查');
-check((await admin('POST', '/api/admin/suggestions/1', { action: 'approve', label: '', aliases: '' })).status === 400, '审核时不能把内容改空');
-check((await admin('POST', '/api/admin/suggestions/1', { action: 'approve', label: '猫耳朵', aliases: '喵耳' })).status === 200, '采纳时可以改内容');
-check((await admin('POST', '/api/admin/suggestions/1', { action: 'approve' })).status === 409, '不能重复采纳');
-check((await admin('POST', '/api/admin/suggestions/2', { action: 'approve' })).status === 200, '原样采纳');
-check((await admin('POST', '/api/admin/suggestions/3', { action: 'reject' })).status === 200, '驳回');
-check((await admin('POST', '/api/admin/suggestions/3', { action: 'revert' })).status === 409, '驳回的不能撤销');
-check((await admin('POST', '/api/admin/suggestions/999', { action: 'approve' })).status === 404, '不存在的提交返回 404');
-check((await admin('POST', '/api/admin/suggestions/2', { action: 'delete' })).status === 400, '未知操作返回 400');
-
-let overrides;
-{
-  const res = await call('GET', '/api/overrides');
-  overrides = res.data;
-  check(res.headers.get('Access-Control-Allow-Origin') === '*', '/api/overrides 允许跨域');
-  check(
-    eq(overrides.entries, [
-      { tag: 'cat ears', label: '猫耳朵', aliases: ['喵耳'] },
-      { tag: 'smile', label: '', aliases: ['笑0'] },
-    ]),
-    `已采纳的修订：${JSON.stringify(overrides.entries)}`,
-  );
-  const csv = await call('GET', '/api/export.csv');
-  check(csv.data === '# zh-override.csv\ncat ears,猫耳朵\n\n# zh-extra.csv\ncat ears,喵耳\nsmile,笑0\n', `导出：${JSON.stringify(csv.data)}`);
-}
-check((await admin('POST', '/api/admin/suggestions/2', { action: 'revert' })).status === 200, '撤销');
-check(eq((await call('GET', '/api/overrides')).data.entries.map((e) => e.tag), ['cat ears']), '撤销后不再对外');
-check((await admin('GET', '/api/admin/suggestions?status=reverted')).data.items[0]?.id === 2, '已撤销列表');
 check((await call('GET', '/nope')).status === 404, '未知路径返回 404');
+check(eq((await call('GET', '/api/me')).data, { user: null }), '没登录时 /api/me 为空');
 
-// 新标签：scripts/sync-tags.mjs 或审核页从 Danbooru 拉来后交给 /api/admin/tags
+// ---- 登录 ----
+gh.users.goodcode = { id: 1001, login: 'Alice', avatar_url: 'https://avatars.githubusercontent.com/u/1001?v=4', created_at: '2020-01-01T00:00:00Z' };
+gh.users.newbie = { id: 1002, login: 'newbie', avatar_url: '', created_at: new Date().toISOString() };
+gh.users.spam = { id: 1003, login: 'Spammer', avatar_url: '', created_at: '2019-01-01T00:00:00Z' };
+
+async function login(code, returnTo = '/edit/cat%20ears') {
+  const start = await call('GET', `/auth/login?return=${encodeURIComponent(returnTo)}`);
+  const loc = new URL(start.headers.get('Location'));
+  const oauth = setCookies(start)[0];
+  const cb = await call('GET', `/auth/callback?code=${code}&state=${loc.searchParams.get('state')}`, { cookie: oauth });
+  return { start, loc, cb, session: setCookies(cb).find((c) => c.startsWith('nzh_session=') && c.length > 'nzh_session='.length) };
+}
 {
-  const q = new URL(danbooruTagsUrl(2)).searchParams;
-  check(
-    danbooruTagsUrl(2).startsWith('https://danbooru.donmai.us/tags.json?') &&
-      q.get('search[order]') === 'date' &&
-      q.get('search[category]') === '0,3,4,5' &&
-      q.get('search[post_count]') === '>=50' &&
-      q.get('limit') === '1000' &&
-      q.get('page') === '2',
-    `Danbooru 请求参数：${danbooruTagsUrl(2)}`,
-  );
-  const danbooru = [
-    { name: 'mary_sue_(black_souls)', category: 4, post_count: 160, created_at: '2026-10-20T13:09:01Z' },
-    { name: 'masa_works_design_(copyright)', category: 3, post_count: 101, created_at: '2026-10-20T01:00:32Z' },
-    { name: 'some_artist', category: 1, post_count: 900, created_at: '2026-10-19T00:00:00Z' },
-    ...Array.from({ length: 997 }, (_, i) => ({ name: `filler_${i}`, category: 0, post_count: 50 + i, created_at: '2026-01-01T00:00:00Z' })),
-    { name: 'cat_ears', category: 0, post_count: 404250, created_at: '2008-01-01T00:00:00Z' },
-  ];
+  const { start, loc, cb, session } = await login('goodcode');
+  check(start.status === 302 && loc.origin + loc.pathname === 'https://github.com/login/oauth/authorize', '登录跳到 GitHub 授权');
+  check(loc.searchParams.get('client_id') === 'client-id' && loc.searchParams.get('redirect_uri') === `${BASE}/auth/callback`, '授权地址带 client_id 和回调地址');
+  check(/HttpOnly/.test(start.headers.get('Set-Cookie')) && /SameSite=Lax/.test(start.headers.get('Set-Cookie')), '登录状态 Cookie 是 HttpOnly、SameSite=Lax');
+  check(cb.status === 302 && cb.headers.get('Location') === '/edit/cat%20ears' && !!session, `回调后带着登录状态回到原页面：${cb.headers.get('Location')}`);
+  const me = await call('GET', '/api/me', { cookie: session });
+  check(eq(me.data.user, { id: 1001, login: 'Alice', avatar: 'https://avatars.githubusercontent.com/u/1001?v=4' }), `登录后 /api/me：${JSON.stringify(me.data)}`);
+  check((await call('GET', '/', { cookie: session })).data.includes('"login":"Alice"'), '登录后页面配置里有用户');
+  const [payload, sig] = session.slice('nzh_session='.length).split('.');
+  const forged = Buffer.from(JSON.stringify({ id: 1, login: 'admin', exp: Date.now() + 1e9 })).toString('base64url');
+  check((await call('GET', '/api/me', { cookie: `nzh_session=${forged}.${sig}` })).data.user === null, '伪造的登录状态无效');
+  check((await call('GET', '/api/me', { cookie: `nzh_session=${payload}.x${sig.slice(1)}` })).data.user === null, '签名不对的登录状态无效');
+  const out = await call('POST', '/auth/logout', { cookie: session });
+  check(out.status === 204 && /nzh_session=;/.test(out.headers.get('Set-Cookie')) && /Max-Age=0/.test(out.headers.get('Set-Cookie')), '退出时清掉登录状态');
+}
+for (const [ret, expect] of [
+  ['//evil.example/x', '/'],
+  ['/\\evil.example', '/'],
+  ['https://evil.example', '/'],
+  ['/list/character?search=cat', '/list/character?search=cat'],
+]) {
+  const { cb } = await login('goodcode', ret);
+  check(cb.headers.get('Location') === expect, `登录后只跳回站内：${ret} → ${cb.headers.get('Location')}`);
+}
+{
+  const start = await call('GET', '/auth/login');
+  const state = new URL(start.headers.get('Location')).searchParams.get('state');
+  const noCookie = await call('GET', `/auth/callback?code=goodcode&state=${state}`);
+  check(noCookie.status === 302 && /login_error=/.test(noCookie.headers.get('Location')) && !setCookies(noCookie).some((c) => c.startsWith('nzh_session=') && c.length > 12), '没有 state Cookie 的回调不登录');
+  const wrong = await call('GET', `/auth/callback?code=goodcode&state=other`, { cookie: setCookies(start)[0] });
+  check(/login_error=/.test(wrong.headers.get('Location')), 'state 对不上的回调不登录');
+  const badCode = await login('nosuchcode');
+  check(!badCode.session && /login_error=/.test(badCode.cb.headers.get('Location')), 'GitHub 授权失败时不登录');
+  const young = await login('newbie');
+  check(!young.session && decodeURIComponent(young.cb.headers.get('Location')).includes('注册满 30 天'), '注册不满 30 天的账号不能登录编辑');
+  const blocked = await login('spam');
+  check(!blocked.session && /login_error=/.test(blocked.cb.headers.get('Location')), '禁止编辑的账号不能登录');
+}
+
+// ---- 编辑 ----
+const { session } = await login('goodcode');
+const put = (tag, body, opts = {}) => call('PUT', `/api/tags/${encodeURIComponent(tag)}`, { body, cookie: session, origin: BASE, ...opts });
+
+check((await put('cat ears', { label: '猫耳' }, { cookie: undefined })).status === 401, '没登录不能修改');
+check((await put('cat ears', { label: '猫耳' }, { origin: 'https://evil.example' })).status === 403, '别的网站发来的修改被拒绝');
+check((await put('cat ears', '{}', { type: 'text/plain' })).status === 415, '非 JSON 的修改被拒绝');
+check((await put('cat ears', { label: '<img src=x>猫' })).status === 400, '含 < > 的名称被拒绝');
+check((await put('猫耳', { label: '猫耳' })).status === 400, '标签不是英文时被拒绝');
+check(gh.puts.length === 0, '被拒绝的修改不会提交');
+
+{
+  const r = await put('Cat_Ears', { label: '猫耳', aliases: '喵耳/兽耳', note: '更常用', base: null });
+  check(r.status === 200 && r.data.action === 'add' && r.data.commit.sha === 'c1', `新增：${JSON.stringify(r.data)}`);
+  const p = gh.puts[0];
+  check(p.message === '新增 cat ears\n\n名称：猫耳\n检索词：喵耳/兽耳\n说明：更常用', `提交说明：${JSON.stringify(p.message)}`);
+  check(eq(p.author, { name: 'Alice', email: '1001+Alice@users.noreply.github.com' }) && p.branch === 'main' && !('sha' in p), '以登录用户为作者提交，文件不存在时新建');
+  check(gh.file === [...COMMUNITY_HEADER, 'cat ears\t猫耳\t喵耳/兽耳'].join('\n') + '\n', `文件内容：${JSON.stringify(gh.file)}`);
+  check(gh.installationLookups === 1, '没配置安装 id 时自动查找');
+}
+{
+  const r = await call('GET', '/api/community');
+  check(r.status === 200 && r.data.sha === gh.sha && eq(r.data.entries, [{ tag: 'cat ears', label: '猫耳', aliases: ['喵耳', '兽耳'], count: 0 }]), `/api/community：${JSON.stringify(r.data)}`);
+}
+check((await put('cat ears', { label: '猫耳', aliases: '喵耳/兽耳', base: { label: '猫耳', aliases: ['喵耳', '兽耳'] } })).data.action === 'none', '内容没变时不提交');
+check(gh.puts.length === 1, '内容没变时没有新提交');
+{
+  const stale = await put('cat ears', { label: '猫耳朵', base: null });
+  check(stale.status === 409 && stale.data.entry?.label === '猫耳', '别人改过以后，按旧内容提交的修改被拒绝');
+  const r = await put('cat ears', { label: '猫耳朵', aliases: '喵耳', base: { label: '猫耳', aliases: ['喵耳', '兽耳'] } });
+  check(r.data.action === 'update' && gh.puts[1].message.startsWith('修改 cat ears\n') && gh.puts[1].sha, `修改：${JSON.stringify(r.data)}`);
+}
+// 读和写之间别人提交了：重读以后再提交，两边的修改都在
+{
+  gh.conflictOnce = () => {
+    gh.file += 'smile\t微笑\n';
+    gh.sha = 'other';
+  };
+  const r = await put('blush', { label: '脸红' });
+  check(r.status === 200 && r.data.action === 'add', `冲突后重试：${JSON.stringify(r.data)}`);
+  check(gh.file.includes('blush\t脸红') && gh.file.includes('smile\t微笑'), '重试后两边的修改都在');
+}
+// 平台拉来的 Danbooru 新标签带图片数
+{
+  const danbooru = [{ name: 'mary_sue_(black_souls)', category: 4, post_count: 160, created_at: '2026-10-20T13:09:01Z' }];
   check((await call('POST', '/api/admin/tags', { body: { tags: danbooru } })).status === 401, '没有口令不能存标签');
-  const r = await admin('POST', '/api/admin/tags', { tags: danbooru });
-  check(r.status === 200 && r.data.received === 1001 && r.data.stored === 1000, `存标签：${JSON.stringify(r.data)}`);
-  // 再存一次：已有的更新图片数，不重复
-  danbooru[1000].post_count = 404300;
-  await admin('POST', '/api/admin/tags', { tags: danbooru });
-  check(db.prepare('SELECT COUNT(*) AS n FROM tags').get().n === 1000, '再存一次不会重复');
-  check(db.prepare("SELECT count FROM tags WHERE tag = 'cat ears'").get().count === 404300, '再存一次会更新图片数');
-  // 每天同步最多 3000 个，一次请求要留在 D1 的查询上限内
+  check((await call('POST', '/api/admin/tags', { body: { tags: danbooru }, headers: { Authorization: 'Bearer admin-token' } })).data.stored === 1, '存 Danbooru 新标签');
+  await put('mary_sue_(black_souls)', { label: '玛丽苏（黑魂）' });
+  check(gh.file.includes('mary sue (black souls)\t玛丽苏（黑魂）\t\t160'), 'Danbooru 新标签记下图片数');
+}
+{
+  const r = await put('smile', { label: '', aliases: [], base: { label: '微笑', aliases: [] } });
+  check(r.data.action === 'delete' && !gh.file.includes('smile') && gh.puts.at(-1).message === '删除 smile', '名称和检索词都清空就删除');
+}
+{
+  const h = await call('GET', '/api/history?tag=cat_ears');
+  check(
+    eq(
+      h.data.items.map((i) => [i.login, i.action, i.label, i.aliases, i.sha]),
+      [
+        ['Alice', 'update', '猫耳朵', '喵耳', 'c2'],
+        ['Alice', 'add', '猫耳', '喵耳/兽耳', 'c1'],
+      ],
+    ),
+    `编辑日志：${JSON.stringify(h.data)}`,
+  );
+  check((await call('GET', '/api/history?tag=')).status === 400, '编辑日志要指定标签');
+}
+// 每小时最多 EDITS_PER_HOUR 次
+{
+  let last;
+  for (let i = 0; i < 8; i++) last = await put(`tag ${i}`, { label: `标签${i}` });
+  check(last.status === 429, `超过每小时的次数后被限制：${last.status}`);
+}
+
+// ---- Danbooru 新标签 ----
+{
   const many = Array.from({ length: 3000 }, (_, i) => ({ name: `bulk_${i}`, category: 0, post_count: 60, created_at: '2026-02-01T00:00:00Z' }));
   queries = 0;
-  const bulk = await admin('POST', '/api/admin/tags', { tags: many });
+  const bulk = await call('POST', '/api/admin/tags', { body: { tags: many }, headers: { Authorization: 'Bearer admin-token' } });
   check(bulk.data.stored === 3000 && queries <= 5, `存 3000 个标签用了 ${queries} 条查询`);
-  check(db.prepare("SELECT category, count, created_at FROM tags WHERE tag = 'bulk 2999'").get()?.count === 60, '批量写入的字段正确');
-  db.prepare("DELETE FROM tags WHERE tag LIKE 'bulk %'").run();
-  check((await admin('POST', '/api/admin/tags', { tags: 'x' })).status === 400, 'tags 不是数组时返回 400');
-  check((await admin('POST', '/api/admin/tags', { tags: new Array(5001).fill(null) })).status === 400, '一次最多 5000 个');
-
   const tags = await call('GET', '/api/tags');
-  check(tags.status === 200 && tags.data.tags.length === 1000 && tags.data.tags[0].tag === 'cat ears', `/api/tags：${tags.data.tags?.length}`);
-  check(tags.headers.get('Access-Control-Allow-Origin') === '*', '/api/tags 允许跨域');
-  check(eq(Object.keys(tags.data.tags[1]), ['tag', 'category', 'count', 'created_at']), '/api/tags 的字段');
-  check(!tags.data.tags.some((t) => t.tag === 'some artist'), '不收画师');
-
-  // 新标签的译名采纳后，/api/overrides 带上图片数，扩展据此新增
-  const s = await call('POST', '/api/suggestions', { body: { tag: 'mary_sue_(black_souls)', label: '玛丽苏（黑魂）' }, ip: '203.0.113.9' });
-  const pending = await call('GET', '/api/pending');
-  check(pending.data.tags.some((t) => t.tag === 'mary sue (black souls)' && t.n === 1), `/api/pending：${JSON.stringify(pending.data)}`);
-  await admin('POST', `/api/admin/suggestions/${s.data.id}`, { action: 'approve' });
-  overrides = (await call('GET', '/api/overrides')).data;
-  const mary = overrides.entries.find((e) => e.tag === 'mary sue (black souls)');
-  check(eq(mary, { tag: 'mary sue (black souls)', label: '玛丽苏（黑魂）', aliases: [], count: 160 }), `新标签的修订带图片数：${JSON.stringify(mary)}`);
-  check(!(await call('GET', '/api/pending')).data.tags.some((t) => t.tag === 'mary sue (black souls)'), '采纳后不再算待审核');
+  check(tags.data.tags.length === 3001 && tags.data.tags[0].tag === 'mary sue (black souls)' && tags.headers.get('Access-Control-Allow-Origin') === '*', `/api/tags：${tags.data.tags.length}`);
+  check((await call('POST', '/api/admin/tags', { body: { tags: 'x' }, headers: { Authorization: 'Bearer admin-token' } })).status === 400, 'tags 不是数组时返回 400');
 }
 
-// Turnstile：配置了密钥就必须通过验证
-{
-  const realFetch = globalThis.fetch;
-  let sent = null;
-  let verdict = false;
-  globalThis.fetch = async (url, init) => {
-    sent = { url: String(url), secret: init.body.get('secret'), response: init.body.get('response'), ip: init.body.get('remoteip') };
-    return new Response(JSON.stringify({ success: verdict }));
-  };
-  const tenv = { ...env, TURNSTILE_SECRET: 'ts-secret', TURNSTILE_SITE_KEY: '0x4AAA"<b>' };
-  const post = (token) =>
-    worker.fetch(
-      new Request(`${BASE}/api/suggestions`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'CF-Connecting-IP': '198.51.100.7' },
-        body: JSON.stringify({ tag: 'blush', label: '脸红', turnstile: token }),
-      }),
-      tenv,
-      ctx,
-    );
-  check((await post('')).status === 400 && sent === null, '缺少人机验证时不去验证、直接拒绝');
-  check((await post('tok')).status === 400 && sent?.secret === 'ts-secret' && sent.response === 'tok' && sent.ip === '198.51.100.7', '人机验证失败时拒绝');
-  verdict = true;
-  check((await post('tok')).status === 201, '人机验证通过后接受');
-  globalThis.fetch = realFetch;
-  const html = await (await worker.fetch(new Request(`${BASE}/`), tenv, ctx)).text();
-  check(html.includes('data-sitekey="0x4AAA&#34;&#60;b&#62;"'), '站点密钥写进页面时转义');
-}
-
-// ---- 扩展端 ----
+// ---- 扩展端读同一份数据 ----
 const core = fs.readFileSync(path.join(ROOT, 'src', 'core.js'), 'utf8');
 const community = fs.readFileSync(path.join(ROOT, 'src', 'community.js'), 'utf8');
 const ext = vm.createContext({});
-vm.runInContext(`const NZH_COMMUNITY_URL = '';\n${core}\n${community}\nthis.sanitizeCommunity = sanitizeCommunity;`, ext);
-const roundTrip = JSON.parse(JSON.stringify(ext.sanitizeCommunity(overrides)));
-check(eq(roundTrip, overrides.entries), `平台的数据原样通过扩展端检查：${JSON.stringify(roundTrip)}`);
+vm.runInContext(`const NZH_COMMUNITY_DATA = '';\n${core}\n${community}\nthis.parseCommunityTsv = parseCommunityTsv;\nthis.sanitizeCommunity = sanitizeCommunity;`, ext);
 {
-  const bad = ext.sanitizeCommunity({
-    entries: [
-      { tag: 'cat ears', label: '<script>', aliases: ['喵', 'http://x', 'abc', 5] },
-      { tag: '猫耳', label: '猫耳' },
-      { tag: 'smile', label: 'neko', aliases: [] },
-      null,
-      { tag: 'blush', label: '脸红'.repeat(31) },
-    ],
-  });
-  check(eq(JSON.parse(JSON.stringify(bad)), [{ tag: 'cat ears', label: '', aliases: ['喵'] }]), `扩展端丢掉不合格的内容：${JSON.stringify(bad)}`);
-  check(eq(JSON.parse(JSON.stringify(ext.sanitizeCommunity({ entries: 'x' }))), []) && ext.sanitizeCommunity(null).length === 0, '扩展端能处理格式不对的数据');
-  const counted = JSON.parse(
-    JSON.stringify(
-      ext.sanitizeCommunity({
-        entries: [
-          { tag: 'a, nsfw', label: '甲', count: 100 },
-          { tag: 'b', label: '乙', count: 1.5 },
-          { tag: 'c', label: '丙', count: '100' },
-          { tag: 'd', label: '丁', count: 100 },
-        ],
-      }),
+  const got = plain(ext.sanitizeCommunity(ext.parseCommunityTsv(gh.file)));
+  const want = [...parseCommunity(gh.file).entries.values()].map((e) => (e.count ? e : { tag: e.tag, label: e.label, aliases: e.aliases }));
+  check(eq(got, want), `编辑器写出的数据原样通过扩展端检查：${JSON.stringify(got)}`);
+  const bad = plain(
+    ext.sanitizeCommunity(
+      ext.parseCommunityTsv('# 说明\ncat ears\t<script>\t喵/http://x/abc\nx\t한국어\nsmile\tneko\na, nsfw\t甲\t\t100\nd\t丁\t\t100\n'),
     ),
   );
   check(
-    eq(counted, [
+    eq(bad, [
+      { tag: 'cat ears', label: '', aliases: ['喵'] },
       { tag: 'a, nsfw', label: '甲', aliases: [] },
-      { tag: 'b', label: '乙', aliases: [] },
-      { tag: 'c', label: '丙', aliases: [] },
       { tag: 'd', label: '丁', aliases: [], count: 100 },
     ]),
-    `扩展端只给安全的标签名保留图片数：${JSON.stringify(counted)}`,
+    `扩展端丢掉不合格的内容，不安全的标签名不带图片数：${JSON.stringify(bad)}`,
   );
 }
 

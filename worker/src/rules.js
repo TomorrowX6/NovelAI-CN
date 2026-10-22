@@ -1,11 +1,11 @@
-// 提交内容的规则：Worker 收提交、出数据时用，scripts/test-worker.mjs 也直接测这里。
-// 扩展端（src/community.js）会再按同样的规则检查一遍。
+// 社区标签译名的规则：数据格式、校验和编辑。Worker 用，scripts/test-worker.mjs 直接测，
+// 扩展端（src/community.js）读同一份数据时再按同样的规则检查一遍。
 
-// 与 src/core.js 的 HAN_RE 相同：扩展 A、基本区、兼容汉字（U+F900 起，写成转义免得和普通的「豈」混淆）
-export const HAN_RE = /[㐀-䶿一-鿿豈-﫿]/;
-// 译名和检索词只在页面上当纯文字显示，仍然拒绝 < >、控制字符和网址，免得被拿去做引导或拼接
+// 与 src/core.js 的 HAN_RE 相同：扩展 A、基本区、兼容汉字
+export const HAN_RE = new RegExp('[\\u3400-\\u4dbf\\u4e00-\\u9fff\\uf900-\\ufaff]');
+// 译名和检索词只当纯文字显示，仍然拒绝 < >、控制字符（含 Tab 和换行，数据文件用它们分隔）和网址
 const UNSAFE = /[<>\u0000-\u001f\u007f]|[a-z][\w+.-]*:\/\/|javascript:|www\./i;
-export const LIMITS = { tag: 100, label: 60, alias: 30, aliases: 8, note: 300 };
+export const LIMITS = { tag: 100, label: 60, alias: 30, aliases: 8, note: 200 };
 
 // 英文标签：可打印 ASCII，转小写、合并空白；含单词的标签把下划线换成空格（^_^ 这类表情保留下划线）
 export function normalizeTag(tag) {
@@ -15,7 +15,7 @@ export function normalizeTag(tag) {
   return t && t.length <= LIMITS.tag && /^[\x20-\x7e]+$/.test(t) ? t : null;
 }
 
-// 新标签点选后会原样插入提示词，不能含 NovelAI 的分隔符和权重语法
+// 词典里没有的标签点选后会原样插入提示词，不能含 NovelAI 的分隔符和权重语法
 export function isSafeNewTag(tag) {
   return typeof tag === 'string' && /^[\x20-\x7e]{1,100}$/.test(tag) && !/[,|{}[\]#<>\\]|::/.test(tag);
 }
@@ -67,50 +67,78 @@ export function parseAliases(input) {
   return out.length <= LIMITS.aliases ? out : null;
 }
 
-// 返回 { value } 或 { error }
-export function validateSuggestion(body) {
+// ---- 数据文件 data/zh-community.tsv ----
+// 一个标签一行，按标签排序，方便看 diff 和逐行追溯：英文标签 \t 译名 \t 检索词（/ 分隔）\t Danbooru 图片数（只有词典里没有的新标签才有）
+// # 开头的是说明。译名留空表示不改词典译名，只加检索词
+export const COMMUNITY_HEADER = [
+  '# 社区标签译名。在 https://novelai.000.moe 用 GitHub 登录后编辑，每次修改都会提交到这里；脚本和扩展每 3 小时从 GitHub 拉取一次。',
+  '# 每行用 Tab 分隔：英文标签、译名、检索词（/ 分隔）、Danbooru 图片数（只有词典里没有的新标签才填）。译名留空表示只加检索词。',
+];
+
+export function parseCommunity(text) {
+  const header = [];
+  const entries = new Map();
+  for (const line of String(text || '').split(/\r?\n/)) {
+    if (!line.trim()) continue;
+    if (line.startsWith('#')) {
+      if (!entries.size) header.push(line);
+      continue;
+    }
+    const [tag, label = '', aliases = '', count = ''] = line.split('\t');
+    if (!tag) continue;
+    entries.set(tag, { tag, label, aliases: aliases ? aliases.split('/') : [], count: +count || 0 });
+  }
+  return { header: header.length ? header : COMMUNITY_HEADER, entries };
+}
+
+export function serializeCommunity({ header, entries }) {
+  const rows = [...entries.values()]
+    .sort((a, b) => (a.tag < b.tag ? -1 : a.tag > b.tag ? 1 : 0))
+    .map((e) => [e.tag, e.label, e.aliases.join('/'), e.count || ''].join('\t').replace(/\t+$/, ''));
+  return [...header, ...rows].join('\n') + '\n';
+}
+
+// 编辑页提交的内容：{ label, aliases, note }，返回 { value } 或 { error }
+export function validateEdit(body) {
   if (!body || typeof body !== 'object') return { error: '提交的内容格式不对' };
-  const tag = normalizeTag(body.tag);
-  if (!tag) return { error: '英文标签格式不对：只能用英文字母、数字和符号，最多 100 个字符' };
   let label = '';
   if (typeof body.label === 'string' && body.label.trim()) {
     label = cleanZh(body.label, LIMITS.label);
-    if (!label) return { error: `译名必须含汉字，最多 ${LIMITS.label} 个字，不能有 < > 或网址` };
+    if (!label) return { error: `名称必须含汉字，最多 ${LIMITS.label} 个字，不能有 < > 或网址` };
   }
   const aliases = parseAliases(body.aliases ?? []);
   if (!aliases) return { error: `检索词最多 ${LIMITS.aliases} 个，每个必须含汉字、最多 ${LIMITS.alias} 个字，不能有 < > 或网址` };
-  if (!label && !aliases.length) return { error: '请填写新译名或检索词' };
   const note = typeof body.note === 'string' ? body.note.replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, LIMITS.note) : '';
-  return { value: { tag, label, aliases, note } };
+  return { value: { label, aliases, note } };
 }
 
-// 已采纳的提交（按采纳时间先后）合成每个标签的最终修订：译名取最后采纳的，检索词合并、保留最新的若干个。
-// 自动拉取的新标签带上 Danbooru 图片数（count），扩展据此把词典里没有的新标签加进去
-export function aggregate(rows) {
-  const byTag = new Map();
-  for (const r of rows) {
-    const e = byTag.get(r.tag) || { tag: r.tag, label: '', aliases: [] };
-    if (r.count > 0) e.count = r.count;
-    if (r.label) e.label = r.label;
-    let aliases = [];
-    try {
-      aliases = JSON.parse(r.aliases || '[]');
-    } catch {}
-    for (const a of aliases) {
-      e.aliases = e.aliases.filter((x) => x !== a);
-      e.aliases.push(a);
-    }
-    e.aliases = e.aliases.slice(-LIMITS.aliases);
-    byTag.set(r.tag, e);
+// 把一次编辑应用到数据上。译名和检索词都为空表示删除这一条
+// 返回 { action: 'add' | 'update' | 'delete' | 'none', before, after }
+export function applyEdit(data, tag, { label, aliases }, count = 0) {
+  const before = data.entries.get(tag) || null;
+  if (!label && !aliases.length) {
+    if (!before) return { action: 'none', before, after: null };
+    data.entries.delete(tag);
+    return { action: 'delete', before, after: null };
   }
-  return [...byTag.values()];
+  const after = { tag, label, aliases, count: count || before?.count || 0 };
+  if (before && before.label === after.label && before.aliases.join('/') === after.aliases.join('/') && before.count === after.count) {
+    return { action: 'none', before, after: before };
+  }
+  data.entries.set(tag, after);
+  return { action: before ? 'update' : 'add', before, after };
 }
 
-const csvField = (s) => (/[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s);
+const ACTION_NAMES = { add: '新增', update: '修改', delete: '删除' };
 
-// 导出成仓库里 data/zh-override.csv（译名）和 data/zh-extra.csv（检索词）的格式，发版时并进词典
-export function toCsv(entries) {
-  const override = entries.filter((e) => e.label).map((e) => `${csvField(e.tag)},${csvField(e.label)}`);
-  const extra = entries.filter((e) => e.aliases.length).map((e) => `${csvField(e.tag)},${csvField(e.aliases.join('/'))}`);
-  return `# zh-override.csv\n${override.join('\n')}\n\n# zh-extra.csv\n${extra.join('\n')}\n`;
+// 提交说明第一行固定为「动作 标签」，编辑日志和 git log 都靠它找某个标签的修改
+export function commitMessage(action, tag, after, note, user) {
+  const lines = [`${ACTION_NAMES[action]} ${tag}`, ''];
+  if (after) {
+    if (after.label) lines.push(`名称：${after.label}`);
+    if (after.aliases.length) lines.push(`检索词：${after.aliases.join('/')}`);
+  }
+  if (note) lines.push(`说明：${note}`);
+  if (user) lines.push('', `Co-authored-by: ${user.login} <${user.id}+${user.login}@users.noreply.github.com>`);
+  return lines.join('\n').replace(/\n+$/, '');
 }

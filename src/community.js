@@ -1,9 +1,9 @@
 // ---- 社区标签译名 ----
-// 任何人都可以在社区平台（worker/，部署在 Cloudflare Workers 上）提交标签译名和检索词，审核通过后，
-// 脚本每隔几小时拉一次已采纳的修改，存进 localStorage，覆盖内置词典里对应标签的显示译名、追加检索词。
+// 任何人都可以在编辑器（worker/，https://novelai.000.moe）用 GitHub 登录后修改标签译名和检索词，修改提交到仓库的
+// data/zh-community.tsv。脚本每隔几小时从 GitHub 拉一次这个文件，存进 localStorage，覆盖内置词典里对应标签的显示译名、追加检索词。
 // 只开放标签译名：它们在页面上只当纯文字显示（联想副标题、英文联想下的中文）；界面文案仍随版本内置。
 // 拉来的内容照样检查：译名和检索词须含汉字、长度有限，不含 < >、控制字符和网址。
-// 平台定时从 Danbooru 拉新标签，这些标签的条目带图片数 count，词典里没有时会新增；
+// 编辑器从 Danbooru 拉的新标签带图片数 count，词典里没有时会新增；
 // 新标签点选后原样插入提示词，所以标签名不能含 NovelAI 的分隔符和权重语法。
 
 const COMMUNITY_CACHE_KEY = 'nzh-community';
@@ -13,7 +13,18 @@ const COMMUNITY_TAG_UNSAFE = /[,|{}[\]#<>\\]|::/;
 
 const communityText = (s, max) => typeof s === 'string' && s.length > 0 && s.length <= max && HAN_RE.test(s) && !COMMUNITY_UNSAFE.test(s);
 
-// 平台返回 { entries: [{ tag, label, aliases, count? }] }；不合格的字段丢掉，整条都没用的跳过
+// data/zh-community.tsv：# 开头是说明；每行 英文标签 \t 译名 \t 检索词（/ 分隔）\t 图片数（只有新标签有）
+function parseCommunityTsv(text) {
+  const entries = [];
+  for (const line of String(text).split(/\r?\n/)) {
+    if (!line || line.startsWith('#')) continue;
+    const [tag, label = '', aliases = '', count = ''] = line.split('\t');
+    entries.push({ tag, label, aliases: aliases ? aliases.split('/') : [], count: /^\d+$/.test(count) ? +count : 0 });
+  }
+  return { entries };
+}
+
+// { entries: [{ tag, label, aliases, count? }] }；不合格的字段丢掉，整条都没用的跳过
 function sanitizeCommunity(data) {
   const out = [];
   for (const e of data && Array.isArray(data.entries) ? data.entries.slice(0, 50000) : []) {
@@ -45,9 +56,11 @@ function readCommunityCache() {
 
 async function refreshCommunity() {
   try {
-    const res = await nativeFetch.call(window, `${NZH_COMMUNITY_URL}/api/overrides`, { credentials: 'omit', referrerPolicy: 'no-referrer' });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    communityEntries = sanitizeCommunity(await res.json());
+    const res = await nativeFetch.call(window, NZH_COMMUNITY_DATA, { credentials: 'omit', referrerPolicy: 'no-referrer', cache: 'no-cache' });
+    // 还没有人修改过时文件不存在
+    if (res.status === 404) communityEntries = [];
+    else if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    else communityEntries = sanitizeCommunity(parseCommunityTsv(await res.text()));
     if (dict) amendDict(dict);
   } catch (e) {
     console.warn('[novelai-zh-tags] 获取社区译名失败', e);
@@ -58,7 +71,7 @@ async function refreshCommunity() {
   } catch {}
 }
 
-if (NZH_COMMUNITY_URL && tagsEnabled) {
+if (NZH_COMMUNITY_DATA && tagsEnabled) {
   const cached = readCommunityCache();
   if (cached) communityEntries = sanitizeCommunity(cached);
   // 页面加载完再检查，不和 NovelAI 抢网络

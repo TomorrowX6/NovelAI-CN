@@ -318,16 +318,15 @@ async function main() {
         .filter((n) => n && !labels.includes(n) && searchable(n))
         .slice(0, MAX_SEARCH_NAMES);
       const oldNames = [...e.oldNames, ...(out !== tag ? [tag] : [])].filter((n) => n !== out);
-      return { tag: out, count: e.count, label: e.label, names, oldNames };
+      return { tag: out, count: e.count, label: e.label, names, oldNames, category: e.category };
     })
     .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag, 'en'));
 
   // 每行: 标签 \t 使用次数 \t 显示译名 \t 检索词(|分隔) \t 旧标签名(|分隔，只用于给英文联想配中文)
-  const tsv = rows
-    .map((r) =>
-      [displayTag(r.tag), r.count, r.label, r.names.join('|'), r.oldNames.map(displayTag).join('|')].join('\t').replace(/\t+$/, ''),
-    )
-    .join('\n');
+  const columns = (r) => [displayTag(r.tag), r.count, r.label, r.names.join('|'), r.oldNames.map(displayTag).join('|')];
+  const tsv = rows.map((r) => columns(r).join('\t').replace(/\t+$/, '')).join('\n');
+  // dist/zh-tags.tsv 给编辑器（worker/）用，多一列 Danbooru 类别（0 通用 / 3 作品 / 4 角色 / 5 元标签）；打进脚本的那份不带
+  const webTsv = rows.map((r) => [...columns(r), r.category].join('\t')).join('\n');
 
   const pkg = JSON.parse(await fs.readFile(path.join(ROOT, 'package.json'), 'utf8'));
   const header = (await fs.readFile(path.join(ROOT, 'src', 'header.js'), 'utf8')).replace('{{version}}', pkg.version);
@@ -342,13 +341,13 @@ async function main() {
   const hardData = readHardData();
   for (const p of hardDataProblems(hardData)) console.log(`写死文字的译文有问题: ${p}`);
   const hardZh = buildHardData(hardData);
-  // 社区标签译名平台（worker/）的地址，在 package.json 的 nzh.communityUrl 里配置；留空则不拉取
+  // 社区标签译名（编辑器提交到仓库的 data/zh-community.tsv）的下载地址，在 package.json 的 nzh.communityData 里配置；留空则不拉取
   const communityJs = await fs.readFile(path.join(ROOT, 'src', 'community.js'), 'utf8');
-  const communityUrl = (pkg.nzh?.communityUrl || '').replace(/\/+$/, '');
-  const script = `${header.trim()}\n\n(function () {\n'use strict';\n\nconst ZH_TAG_DATA = ${JSON.stringify(tsv)};\nconst ZH_T2S_DATA = ${JSON.stringify(t2s)};\nconst ZH_UI_DATA = ${JSON.stringify(uiZh)};\nconst ZH_HARD_DATA = ${JSON.stringify(hardZh)};\nconst NZH_COMMUNITY_URL = ${JSON.stringify(communityUrl)};\n\n${core.trim()}\n\n${mainJs.trim()}\n\n${uiJs.trim()}\n\n${communityJs.trim()}\n})();\n`;
+  const communityData = pkg.nzh?.communityData || '';
+  const script = `${header.trim()}\n\n(function () {\n'use strict';\n\nconst ZH_TAG_DATA = ${JSON.stringify(tsv)};\nconst ZH_T2S_DATA = ${JSON.stringify(t2s)};\nconst ZH_UI_DATA = ${JSON.stringify(uiZh)};\nconst ZH_HARD_DATA = ${JSON.stringify(hardZh)};\nconst NZH_COMMUNITY_DATA = ${JSON.stringify(communityData)};\n\n${core.trim()}\n\n${mainJs.trim()}\n\n${uiJs.trim()}\n\n${communityJs.trim()}\n})();\n`;
 
   await fs.mkdir(DIST_DIR, { recursive: true });
-  await fs.writeFile(path.join(DIST_DIR, 'zh-tags.tsv'), tsv + '\n');
+  await fs.writeFile(path.join(DIST_DIR, 'zh-tags.tsv'), webTsv + '\n');
   await fs.writeFile(path.join(DIST_DIR, 'zh-t2s.txt'), t2s + '\n');
   await fs.writeFile(path.join(DIST_DIR, 'novelai-zh-tags.user.js'), script);
   // 脚本管理器检查更新时只下载这个文件头（@updateURL），版本号变了才下载完整脚本
