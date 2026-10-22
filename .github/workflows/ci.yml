@@ -23,6 +23,8 @@ jobs:
         run: node scripts/test.mjs
       - name: Community platform tests
         run: node scripts/test-worker.mjs
+      - name: Extension popup tests
+        run: node scripts/test-popup.mjs
       - name: Check dist is up to date
         run: |
           if ! git diff --quiet -- dist; then

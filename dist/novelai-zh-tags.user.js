@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         NovelAI 中文标签联想
 // @namespace    novelai-zh-tags
-// @version      1.7.0
+// @version      1.7.1
 // @description  NovelAI 生图提示词框：输入中文联想英文标签，英文联想结果附中文释义，全角逗号、冒号自动转半角；界面语言可选中文
 // @match        https://novelai.net/*
 // @updateURL    https://raw.githubusercontent.com/TomorrowX6/NovelAI-Tag/main/dist/novelai-zh-tags.meta.js
@@ -808,6 +808,7 @@ function readCommunityCache() {
 }
 
 async function refreshCommunity() {
+  let failed = false;
   try {
     const res = await nativeFetch.call(window, NZH_COMMUNITY_DATA, { credentials: 'omit', referrerPolicy: 'no-referrer', cache: 'no-cache' });
     // 还没有人修改过时文件不存在
@@ -816,11 +817,12 @@ async function refreshCommunity() {
     else communityEntries = sanitizeCommunity(parseCommunityTsv(await res.text()));
     if (dict) amendDict(dict);
   } catch (e) {
+    failed = true;
     console.warn('[novelai-zh-tags] 获取社区译名失败', e);
   }
   // 失败也记下时间，离线时不会每次打开页面都重试
   try {
-    localStorage.setItem(COMMUNITY_CACHE_KEY, JSON.stringify({ time: Date.now(), entries: communityEntries }));
+    localStorage.setItem(COMMUNITY_CACHE_KEY, JSON.stringify({ time: Date.now(), entries: communityEntries, failed }));
   } catch {}
 }
 

@@ -22,7 +22,7 @@ async function state() {
   return {
     ui: localStorage.getItem(KEYS.ui) === 'zh',
     tags: localStorage.getItem(KEYS.tags) !== 'off',
-    community: c && { count: c.entries.length, time: c.time || 0, hash: await shortHash(JSON.stringify(c.entries)) },
+    community: c && { count: c.entries.length, time: c.time || 0, hash: await shortHash(JSON.stringify(c.entries)), failed: c.failed === true },
   };
 }
 
