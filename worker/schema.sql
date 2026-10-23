@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS edits (
 CREATE INDEX IF NOT EXISTS edits_tag ON edits (tag, created_at);
 CREATE INDEX IF NOT EXISTS edits_user ON edits (user_id, created_at);
 
--- 从 Danbooru 拉来的新标签（最新创建、图片数够多的），编辑器的「未翻译」从这里找词典里还没有的
+-- 从 Danbooru 拉来的、词典里没有的标签（图片数够多的），编辑器的「未翻译」从这里找词典里还没有的
 CREATE TABLE IF NOT EXISTS tags (
   tag TEXT PRIMARY KEY,                    -- 已规范化
   category INTEGER NOT NULL,               -- 0 通用 / 3 作品 / 4 角色 / 5 元标签

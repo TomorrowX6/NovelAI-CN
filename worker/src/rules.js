@@ -23,19 +23,37 @@ export function isSafeNewTag(tag) {
 // Danbooru /tags.json 的结果：只要通用、作品、角色、元标签（NovelAI 不认画师），图片数够多的
 export const NEW_TAG_CATEGORIES = [0, 3, 4, 5];
 export const NEW_TAG_MIN_COUNT = 50;
-// 每次拉最新创建的 DANBOORU_PAGES × 1000 个；一页不满 1000 个就不用再翻
-export const DANBOORU_PAGES = 3;
-export function danbooruTagsUrl(page) {
+// 编辑器每次最多收这么多个，scripts/sync-tags.mjs 按这个数分批交
+export const MAX_TAGS_PER_POST = 5000;
+// 每次拉全部图片数够多的标签（约 8 万个），按 id 从新到旧翻页：before 是上一页最小的 id，第一页不填。
+// 只拉最新创建的几千个会漏掉早就有、词典里却没有的标签（来源数据没收录的、后来才够 50 张图的）
+export const DANBOORU_PAGE_SIZE = 1000;
+export function danbooruTagsUrl(before) {
   const u = new URL('https://danbooru.donmai.us/tags.json');
   u.searchParams.set('search[post_count]', `>=${NEW_TAG_MIN_COUNT}`);
   u.searchParams.set('search[category]', NEW_TAG_CATEGORIES.join(','));
   u.searchParams.set('search[is_deprecated]', 'false');
-  u.searchParams.set('search[order]', 'date');
-  u.searchParams.set('only', 'name,category,post_count,created_at');
-  u.searchParams.set('limit', '1000');
-  u.searchParams.set('page', String(page));
+  u.searchParams.set('only', 'id,name,category,post_count,created_at');
+  u.searchParams.set('limit', String(DANBOORU_PAGE_SIZE));
+  if (before) u.searchParams.set('page', `b${before}`);
   return u.href;
 }
+
+// 词典（dist/zh-tags.tsv）里已有的标签名，含旧标签名；返回判断 Danbooru 标签在不在词典里的函数。
+// 查法与扩展（src/core.js 的 indexOf）相同：先按原样，再把下划线换成空格（^_^ 这类表情本身带下划线）
+export function dictionaryLookup(tsv) {
+  const known = new Set();
+  for (const line of String(tsv || '').split('\n')) {
+    const f = line.split('\t');
+    if (f[0]) known.add(f[0]);
+    if (f[4]) for (const o of f[4].split('|')) known.add(o);
+  }
+  return (name) => {
+    const t = String(name).trim().toLowerCase();
+    return known.has(t) || known.has(t.replace(/_/g, ' '));
+  };
+}
+
 export function parseDanbooruTags(list) {
   const out = [];
   for (const t of Array.isArray(list) ? list : []) {

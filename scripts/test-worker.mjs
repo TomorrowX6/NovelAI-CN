@@ -15,6 +15,7 @@ import {
   isSafeNewTag,
   parseDanbooruTags,
   danbooruTagsUrl,
+  dictionaryLookup,
   parseCommunity,
   serializeCommunity,
   validateEdit,
@@ -95,8 +96,15 @@ check(
   'parseDanbooruTags 只要通用、作品、角色、元标签，图片数够多、名字安全的',
 );
 {
-  const q = new URL(danbooruTagsUrl(2)).searchParams;
-  check(q.get('search[order]') === 'date' && q.get('search[category]') === '0,3,4,5' && q.get('search[post_count]') === '>=50' && q.get('page') === '2', 'Danbooru 请求参数');
+  const q = new URL(danbooruTagsUrl(12345)).searchParams;
+  check(q.get('search[category]') === '0,3,4,5' && q.get('search[post_count]') === '>=50' && q.get('page') === 'b12345' && q.get('only').split(',').includes('id'), 'Danbooru 请求参数');
+  check(!new URL(danbooruTagsUrl(0)).searchParams.has('page'), 'Danbooru 第一页不带 page');
+}
+{
+  // 词典每行：标签 \t 次数 \t 译名 \t 检索词 \t 旧标签名 \t 类别
+  const inDict = dictionaryLookup(['long hair\t100\t长发\t\t\t0', '^_^\t10\t笑眼\t\t\t0', 'h&k g11\t500\tG11\t\t\t0', 'china dress\t9\t旗袍\t\tqipao\t0', ''].join('\n'));
+  check(inDict('long_hair') && inDict('Long_Hair') && inDict('^_^') && inDict('h&k_g11') && inDict('qipao'), 'dictionaryLookup 按扩展的查法找到词典里的标签和旧名');
+  check(!inDict('cum_puddle') && !inDict('long'), 'dictionaryLookup 词典里没有的标签');
 }
 
 // 数据文件：一个标签一行，按标签排序，空的列从行尾去掉

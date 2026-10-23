@@ -36,7 +36,7 @@
 
 ## 新标签
 
-「未翻译」里的新标签是 Danbooru 上最新创建、图片数 50 以上的标签（通用、作品、角色、元标签，不含画师）。Danbooru 拒绝来自 Cloudflare Workers 的请求，所以在外面拉、交给 `/api/admin/tags` 存：GitHub Actions 每天跑一次 `scripts/sync-tags.mjs`（`.github/workflows/sync-tags.yml`），需要在仓库的 Secrets 里设置 `NZH_ADMIN_TOKEN`（即 `ADMIN_TOKEN`）。本地也可以跑：`NZH_ADMIN_TOKEN=口令 node scripts/sync-tags.mjs`。
+「未翻译」里的新标签是 Danbooru 上图片数 50 以上、词典（`dist/zh-tags.tsv`）里还没有的标签（通用、作品、角色、元标签，不含画师）：同步时按 id 翻完全部约 8 万个标签，按扩展查词典的方式（下划线也当空格）去掉词典里已有的，只交剩下的几千个。Danbooru 拒绝来自 Cloudflare Workers 的请求，所以在外面拉、交给 `/api/admin/tags` 存：GitHub Actions 每天跑一次 `scripts/sync-tags.mjs`（`.github/workflows/sync-tags.yml`），需要在仓库的 Secrets 里设置 `NZH_ADMIN_TOKEN`（即 `ADMIN_TOKEN`）。本地也可以跑：`NZH_ADMIN_TOKEN=口令 node scripts/sync-tags.mjs`。
 
 ## 部署
 
