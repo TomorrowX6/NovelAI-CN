@@ -16,7 +16,7 @@ npm run crx
 名称和摘要来自 manifest（`scripts/crx.mjs` 里的 `EXT_NAME`、`EXT_DESCRIPTION`），上传后自动填好：
 
 - 名称：NovelAI中文化助手
-- 摘要：用中文畅玩 NovelAI：输入中文就能找到对应的英文标签，英文标签也附上中文释义，界面和教程都能切换成中文。非官方扩展，与 NovelAI 及其开发商 Anlatan 无关。
+- 摘要：NovelAI 中文支持：中文联想标签、英文标签释义、界面汉化。非官方扩展，与 NovelAI 及其开发商 Anlatan 无关。
 
 **说明（中文）**
 
@@ -72,7 +72,7 @@ Notes
 
 - 类别：艺术与设计（Art & Design）；列表里没有的话选「工具」（Tools）
 - 语言：中文（简体）
-- 商店图标：扩展包里的 `icons/128.png`，后台会自动取用
+- 商店图标（128×128）：上传 `icon-128.png`，和扩展包里的 `icons/128.png` 相同（`npm run crx` 生成）
 - 屏幕截图（1280×800，最多 5 张）：`screenshot-1-ui.png`、`screenshot-2-popup.png`（扩展面板的首页和设置）、`screenshot-3-tags.png`（输入「猫娘」时的中文标签联想）、`screenshot-4-english.png`（输入「cat ea」时英文联想附中文）
 - 小型宣传图块（440×280，必填）：`promo-small-440x280.png`
 - 顶部宣传图块（1400×560，可选）：`promo-marquee-1400x560.png`

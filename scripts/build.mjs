@@ -329,7 +329,8 @@ async function main() {
   const webTsv = rows.map((r) => [...columns(r), r.category].join('\t')).join('\n');
 
   const pkg = JSON.parse(await fs.readFile(path.join(ROOT, 'package.json'), 'utf8'));
-  const header = (await fs.readFile(path.join(ROOT, 'src', 'header.js'), 'utf8')).replace('{{version}}', pkg.version);
+  // Windows 上 git 检出的可能是 CRLF，统一成 LF，下面按空行截出 .meta.js 才和 CI 一致
+  const header = (await fs.readFile(path.join(ROOT, 'src', 'header.js'), 'utf8')).replace(/\r\n/g, '\n').replace('{{version}}', pkg.version);
   const core = await fs.readFile(path.join(ROOT, 'src', 'core.js'), 'utf8');
   const mainJs = await fs.readFile(path.join(ROOT, 'src', 'main.js'), 'utf8');
   const uiJs = await fs.readFile(path.join(ROOT, 'src', 'ui.js'), 'utf8');
