@@ -128,3 +128,28 @@ NovelAI 未登录时不会请求联想，要登录后拍，浏览器窗口内容
 
 1. 清空提示词框后输入「猫娘」，联想面板出现时截图（已拍：`screenshot-3-tags.png`）。
 2. 清空后输入「cat ea」，NovelAI 自带的联想每项下有中文时截图（已拍：`screenshot-4-english.png`）。
+
+## Firefox 附加组件站（AMO）
+
+在 <https://addons.mozilla.org/developers/> 用 Firefox 账号登录，「提交新附加组件」，选「在本站发布」。
+
+1. **上传**：`build/novelai-zh-tags-版本-firefox.zip`（或 Release 里的同名文件）。manifest 里已经声明了附加组件 ID `novelai-zh-tags@azusamoe`（上架后不能再改）、最低版本 Firefox 140 / 安卓 142，以及 `data_collection_permissions: none`（新上架的附加组件必须声明，不收集任何数据）。`npx web-ext lint` 检查没有错误和警告。
+2. **源代码**：AMO 会问是否有合并、压缩或生成的代码。选「是」：`novelai-zh-tags.js` 是构建脚本把 `src/` 下的代码拼起来、并把词典数据嵌成字符串生成的。上传这个版本标签的源码包（GitHub Release 页面下方的 Source code (zip)），说明里填：
+
+```
+The package is built from this source without minification or third-party bundlers. Requires Node.js 22; no npm install is needed.
+
+  npm run build
+  npm run crx
+
+The Firefox package is build/novelai-zh-tags-<version>-firefox.zip. novelai-zh-tags.js is dist/novelai-zh-tags.user.js without its userscript header: scripts/build.mjs concatenates src/core.js, src/main.js, src/ui.js and src/community.js and embeds the tag dictionary and UI translations from data/ as string constants. bridge.js and popup.* are copied from extension/ (popup.js gets the version and entry counts filled in).
+```
+
+3. **商品信息**：
+   - 名称：NovelAI中文化助手；摘要和说明与 Chrome 应用商店相同（见第 1 节）。
+   - 类别：Language Support（语言支持），没有的话选 Other。
+   - 许可协议：Creative Commons Attribution-NonCommercial-ShareAlike（CC BY-NC-SA），和内嵌词典的许可一致（见 README「数据来源与许可」）；有版本可选时选 3.0。
+   - 隐私政策：粘贴 `PRIVACY.md` 的内容，或写上它的网址。
+   - 截图：和 Chrome 应用商店相同，用 `screenshot-0-intro.png` 到 `screenshot-4-english.png`。
+   - 主页：https://github.com/TomorrowX6/NovelAI-CN ；支持网址：https://github.com/TomorrowX6/NovelAI-CN/issues
+4. **给审核员的说明**：粘贴第 4 节的测试说明。

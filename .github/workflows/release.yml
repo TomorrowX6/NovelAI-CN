@@ -4,6 +4,7 @@ name: Release
 #   novelai-zh-tags.user.js      用户脚本
 #   novelai-zh-tags-版本.crx     用私钥签名的 Chrome 扩展安装包
 #   novelai-zh-tags-版本.zip     上架 Chrome 应用商店用的压缩包
+#   novelai-zh-tags-版本-firefox.zip   上架 Firefox 附加组件站（AMO）用的压缩包
 # 也可以在 Actions 页手动运行：只构建、不发布，产物在运行页的 Artifacts 里下载。
 # 签名私钥放在仓库 Settings → Secrets 的 CRX_PRIVATE_KEY（.keys/novelai-zh-tags.pem 的全文）。
 # 扩展 ID 由私钥决定，scripts/crx.mjs 会核对它和 package.json 的 nzh.extensionId 是否一致。
@@ -71,6 +72,7 @@ jobs:
             dist/novelai-zh-tags.user.js
             build/novelai-zh-tags-${{ steps.version.outputs.version }}.crx
             build/novelai-zh-tags-${{ steps.version.outputs.version }}.zip
+            build/novelai-zh-tags-${{ steps.version.outputs.version }}-firefox.zip
           if-no-files-found: error
       - name: Publish release
         if: github.ref_type == 'tag'
@@ -78,7 +80,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ steps.version.outputs.version }}
         run: |
-          files=(dist/novelai-zh-tags.user.js "build/novelai-zh-tags-$VERSION.crx" "build/novelai-zh-tags-$VERSION.zip")
+          files=(dist/novelai-zh-tags.user.js "build/novelai-zh-tags-$VERSION.crx" "build/novelai-zh-tags-$VERSION.zip" "build/novelai-zh-tags-$VERSION-firefox.zip")
           # 已经手动建好同名 Release 时只补上附件
           if gh release view "$VERSION" > /dev/null 2>&1; then
             gh release upload "$VERSION" "${files[@]}" --clobber

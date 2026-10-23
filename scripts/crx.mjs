@@ -1,9 +1,11 @@
-// 把 dist/novelai-zh-tags.user.js 打包成 Chrome 扩展（Manifest V3），再加上 extension/ 里的面板，先 npm run build
+// 把 dist/novelai-zh-tags.user.js 打包成 Chrome 和 Firefox 扩展（Manifest V3），再加上 extension/ 里的面板，先 npm run build
 // 用法: node scripts/crx.mjs
 // 输出到 build/：
-//   extension/                  解压的扩展，可在 chrome://extensions 「加载已解压的扩展程序」，manifest 带公钥，扩展 ID 固定
-//   novelai-zh-tags-版本.zip    上架 Chrome 应用商店用的压缩包（不含公钥）
-//   novelai-zh-tags-版本.crx    用私钥签名的 CRX3 安装包
+//   extension/                          解压的 Chrome 扩展，可在 chrome://extensions 「加载已解压的扩展程序」，manifest 带公钥，扩展 ID 固定
+//   novelai-zh-tags-版本.zip            上架 Chrome 应用商店用的压缩包（不含公钥）
+//   novelai-zh-tags-版本.crx            用私钥签名的 CRX3 安装包
+//   firefox/                            解压的 Firefox 扩展，可在 about:debugging 「临时载入附加组件」
+//   novelai-zh-tags-版本-firefox.zip    上架 Firefox 附加组件站（AMO）用的压缩包
 // 私钥默认在 .keys/novelai-zh-tags.pem（不进 git），可用环境变量 CRX_KEY 指定。没有私钥时会生成一个：
 // 扩展 ID 由私钥决定，换私钥就是另一个扩展，请备份好。
 import fs from 'node:fs';
@@ -16,6 +18,9 @@ import { readUiData, uiDataStats, readHardData, buildHardData } from './ui-data.
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const BUILD_DIR = path.join(ROOT, 'build');
 const EXT_DIR = path.join(BUILD_DIR, 'extension');
+const FIREFOX_DIR = path.join(BUILD_DIR, 'firefox');
+// Firefox 用这个 ID 识别扩展，上架后不能再改
+const GECKO_ID = 'novelai-zh-tags@azusamoe';
 const KEY_FILE = process.env.CRX_KEY ? path.resolve(process.env.CRX_KEY) : path.join(ROOT, '.keys', 'novelai-zh-tags.pem');
 const SCRIPT_NAME = 'novelai-zh-tags.js';
 const ICON_SIZES = [16, 32, 48, 128];
@@ -251,9 +256,26 @@ function main() {
   fs.writeFileSync(`${base}.zip`, zipBuf);
   fs.writeFileSync(`${base}.crx`, crx3(zipBuf, key));
 
+  // Firefox 用同一套文件。新上架的扩展必须在 manifest 里声明收集哪些数据，这里什么都不收集；
+  // 140 起 Firefox 内置这个声明的同意流程，content_scripts 的 world: 'MAIN' 也已支持，安卓版要 142
+  const { minimum_chrome_version: _, ...common } = manifest;
+  const firefoxManifest = {
+    ...common,
+    browser_specific_settings: {
+      gecko: { id: GECKO_ID, strict_min_version: '140.0', data_collection_permissions: { required: ['none'] } },
+      gecko_android: { strict_min_version: '142.0' },
+    },
+  };
+  fs.rmSync(FIREFOX_DIR, { recursive: true, force: true });
+  for (const [file, data] of [['manifest.json', json(firefoxManifest)], ...files]) {
+    fs.mkdirSync(path.dirname(path.join(FIREFOX_DIR, file)), { recursive: true });
+    fs.writeFileSync(path.join(FIREFOX_DIR, file), data);
+  }
+  fs.writeFileSync(`${base}-firefox.zip`, zip([['manifest.json', json(firefoxManifest)], ...files]));
+
   const rel = (p) => path.relative(ROOT, p).replace(/\\/g, '/');
-  console.log(`扩展 ${pkg.version}（构建 ${build.hash}），ID ${extensionId(spki)}`);
-  for (const p of [EXT_DIR, `${base}.zip`, `${base}.crx`]) console.log(`  ${rel(p)}`);
+  console.log(`扩展 ${pkg.version}（构建 ${build.hash}），Chrome ID ${extensionId(spki)}，Firefox ID ${GECKO_ID}`);
+  for (const p of [EXT_DIR, `${base}.zip`, `${base}.crx`, FIREFOX_DIR, `${base}-firefox.zip`]) console.log(`  ${rel(p)}`);
 }
 
 main();

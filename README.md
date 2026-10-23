@@ -4,7 +4,7 @@
 
 让中文用户用起 NovelAI 更顺手：在提示词框里打中文就能联想英文标签，英文标签附上中文释义，界面和教程也能切换成中文。
 
-同一份代码有两种装法：Chrome 扩展「NovelAI中文化助手」，和用户脚本「NovelAI 中文标签联想」（Tampermonkey / Violentmonkey）。
+同一份代码有三种装法：Chrome 扩展和 Firefox 附加组件「NovelAI中文化助手」，以及用户脚本「NovelAI 中文标签联想」（Tampermonkey / Violentmonkey）。
 
 ![输入「猫娘」时的中文标签联想](store/screenshot-3-tags.png)
 
@@ -18,7 +18,7 @@
 
 ## 安装
 
-两种方式选一种，不要同时启用。
+几种方式选一种，不要同时启用。
 
 ### Chrome 扩展
 
@@ -31,6 +31,12 @@
 这样装的扩展不会自动更新。出新版时，下载新的 zip 覆盖到同一个文件夹，再在扩展页点刷新按钮。
 
 Releases 里的 `.crx` 是自签名的安装包：Windows 和 macOS 上的 Chrome 只接受应用商店签名的 .crx，拖进去会报 `CRX_REQUIRED_PROOF_MISSING`，它只适合通过企业策略部署，或在允许这类安装包的浏览器里使用。
+
+### Firefox 附加组件
+
+需要 Firefox 140 或更新的版本（安卓版 142）。上架 Firefox 附加组件站后可以直接从那里安装，并会自动更新。
+
+在此之前可以临时试用：在 [Releases](https://github.com/TomorrowX6/NovelAI-CN/releases) 下载 `novelai-zh-tags-版本-firefox.zip`，打开 `about:debugging#/runtime/this-firefox`，点「临时载入附加组件」，选这个 zip。临时载入的附加组件在关闭 Firefox 后会被移除；正式版 Firefox 只能长期安装经过 Mozilla 签名的附加组件。
 
 ### 用户脚本
 
@@ -117,6 +123,7 @@ npm run build -- --refresh     # 重新下载上游词典
 - `build/extension/`：解压的扩展，manifest 带公钥，「加载已解压的扩展程序」时扩展 ID 固定。
 - `build/novelai-zh-tags-版本.zip`：上架应用商店用的压缩包（不含公钥）。
 - `build/novelai-zh-tags-版本.crx`：用私钥签名的安装包。
+- `build/firefox/` 和 `build/novelai-zh-tags-版本-firefox.zip`：Firefox 版，内容和 Chrome 版相同，manifest 里多了附加组件 ID（`novelai-zh-tags@azusamoe`）、最低版本和「不收集数据」的声明。
 
 签名私钥第一次打包时生成在 `.keys/novelai-zh-tags.pem`（已在 `.gitignore` 里），也可以用环境变量 `CRX_KEY` 指定。扩展 ID 由私钥决定，换了私钥就成了另一个扩展，请备份好。
 
@@ -149,7 +156,7 @@ node scripts/ui-strings.mjs --untranslated  # 列出中文还空着的条目
 
 main 分支就是用户脚本自动更新的来源：脚本或词典有改动时，要先把 `package.json` 的 `version` 调高再构建，否则脚本管理器不会推送更新。CI（`.github/workflows/ci.yml`）在每次推送和 PR 时构建、跑测试，并检查 `dist/` 是否已重新构建、版本号是否已调高（本地可以运行 `node scripts/check-version.mjs origin/main`）。
 
-把调高了版本的提交合并到 main 后，推送同名标签（如 `git tag 1.7.1 && git push origin 1.7.1`）：`.github/workflows/release.yml` 会构建、跑测试，发布 GitHub Release，附上用户脚本、签名的 `.crx` 和上架用的 `.zip`。
+把调高了版本的提交合并到 main 后，推送同名标签（如 `git tag 1.7.1 && git push origin 1.7.1`）：`.github/workflows/release.yml` 会构建、跑测试，发布 GitHub Release，附上用户脚本、签名的 `.crx`、上架 Chrome 应用商店用的 `.zip` 和 Firefox 版的 `-firefox.zip`。
 
 - 签名私钥要先存进仓库的 Secrets：`gh secret set CRX_PRIVATE_KEY < .keys/novelai-zh-tags.pem`。
 - CI 会核对私钥对应的扩展 ID 和 `package.json` 里的 `nzh.extensionId`，对不上就失败，不会悄悄换掉扩展 ID。
