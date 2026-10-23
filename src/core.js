@@ -84,13 +84,46 @@ function createZhDict(raw, t2s = '') {
     return hits.slice(0, limit).map(([, i]) => ({ tag: tags[i], zh: labels[i], count: counts[i] }));
   }
 
-  function lookup(tag) {
+  function indexOf(tag) {
     const t = tag.trim().toLowerCase();
     // ^_^ 之类的表情标签本身带下划线，先按原样查
     const s = t.replace(/_/g, ' ');
-    const i = byTag.get(t) ?? byTag.get(s) ?? aliases.get(t) ?? aliases.get(s);
+    return byTag.get(t) ?? byTag.get(s) ?? aliases.get(t) ?? aliases.get(s);
+  }
+
+  function lookup(tag) {
+    const i = indexOf(tag);
     return i === undefined ? null : labels[i];
   }
 
-  return { search, lookup, size: tags.length };
+  // 社区修订（src/community.js）：换掉显示译名、追加检索词，原来的译名仍可检索。
+  // 词典里没有的标签，只有平台从 Danbooru 拉来的新标签（带图片数 count）才新增，标签名由 community.js 检查过
+  function amend(tag, label, terms = [], count = 0) {
+    let i = indexOf(tag);
+    if (i === undefined) {
+      if (!count || !label) return false;
+      i = tags.length;
+      byTag.set(tag, i);
+      tags.push(tag);
+      counts.push(count);
+      labels.push(label);
+      keys.push(SEP);
+    } else if (label) {
+      labels[i] = label;
+    }
+    const add = [...(label ? normZh(label).split(/\s*\/\s*/) : []), ...terms.map(normZh)]
+      .map(toSimp)
+      .filter((k) => k && !keys[i].includes(SEP + k + SEP));
+    if (add.length) keys[i] += add.join(SEP) + SEP;
+    return true;
+  }
+
+  return {
+    search,
+    lookup,
+    amend,
+    get size() {
+      return tags.length;
+    },
+  };
 }

@@ -7,11 +7,21 @@ const SUGGEST_PATH = '/ai/generate-image/suggest-tags';
 const SUB_CLASS = 'nzh-sub';
 // 同时装了两份脚本（比如升级时旧版没删）时，互相改对方的副标题会让 MutationObserver 无限触发
 const INSTANCE = Math.random().toString(36).slice(2);
+// 扩展面板的「中文标签」开关（extension/bridge.js 写入，改了会刷新页面）：关掉后不接管联想、不加中文释义、不拉社区译名
+const TAGS_PREF_KEY = 'nzh-tags';
+const tagsEnabled = (() => {
+  try {
+    return localStorage.getItem(TAGS_PREF_KEY) !== 'off';
+  } catch {
+    return true;
+  }
+})();
 
 let dict = null;
 function getDict() {
   if (!dict) {
     dict = createZhDict(ZH_TAG_DATA, ZH_T2S_DATA);
+    amendDict(dict);
     console.info(`[novelai-zh-tags] 已载入 ${dict.size} 条中文标签`);
   }
   return dict;
@@ -100,7 +110,7 @@ window.fetch = function (...args) {
   try {
     const [input, init] = args;
     const url = typeof input === 'string' ? input : input instanceof URL ? input.href : null;
-    if (url && url.includes(SUGGEST_PATH)) {
+    if (tagsEnabled && url && url.includes(SUGGEST_PATH)) {
       return handleSuggest(url, init, () => nativeFetch.apply(this, args));
     }
     const ui = url && uiSettingsFetch(url, init, () => nativeFetch.apply(this, args));
@@ -144,9 +154,11 @@ function annotatePanel(panel) {
   }
 }
 
-new MutationObserver(() => {
-  for (const panel of panels) annotatePanel(panel);
-}).observe(document, { childList: true, subtree: true });
+if (tagsEnabled) {
+  new MutationObserver(() => {
+    for (const panel of panels) annotatePanel(panel);
+  }).observe(document, { childList: true, subtree: true });
+}
 
 // NovelAI 只认半角逗号和顿号作标签分隔，中文输入法的全角逗号会让整段被当成一个标签，
 // 点选联想时前面的内容也会被替换掉；权重写法 1.2::标签:: 也只认半角冒号。
@@ -213,13 +225,15 @@ document.addEventListener(
 // 空闲时预先解析词典，避免第一次联想卡顿。只在生图页做，写小说等页面用不到；
 // NovelAI 是单页应用，从其他页面切到生图页时，在提示词框获得焦点时再解析
 const preloadDict = () => (window.requestIdleCallback || setTimeout)(getDict);
-window.addEventListener('load', () => {
-  if (location.pathname.startsWith('/image')) preloadDict();
-});
-document.addEventListener(
-  'focusin',
-  (e) => {
-    if (!dict && promptEditorOf(e.target)) preloadDict();
-  },
-  true,
-);
+if (tagsEnabled) {
+  window.addEventListener('load', () => {
+    if (location.pathname.startsWith('/image')) preloadDict();
+  });
+  document.addEventListener(
+    'focusin',
+    (e) => {
+      if (!dict && promptEditorOf(e.target)) preloadDict();
+    },
+    true,
+  );
+}

@@ -2,3 +2,7 @@
 /build/
 # 扩展签名私钥，决定扩展 ID，不要提交
 /.keys/
+# Wrangler 本地状态和开发环境机密
+**/.wrangler/
+**/.dev.vars
+**/.dev.vars.*
