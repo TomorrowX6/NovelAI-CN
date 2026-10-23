@@ -335,7 +335,8 @@ async function login(code, returnTo = '/edit/cat%20ears') {
   const [payload, sig] = session.slice('nzh_session='.length).split('.');
   const forged = Buffer.from(JSON.stringify({ id: 1, login: 'admin', exp: Date.now() + 1e9 })).toString('base64url');
   check((await call('GET', '/api/me', { cookie: `nzh_session=${forged}.${sig}` })).data.user === null, '伪造的登录状态无效');
-  check((await call('GET', '/api/me', { cookie: `nzh_session=${payload}.x${sig.slice(1)}` })).data.user === null, '签名不对的登录状态无效');
+  // 换掉签名的第一个字符；原本就是 x 时换成 y，否则签名没变
+  check((await call('GET', '/api/me', { cookie: `nzh_session=${payload}.${sig[0] === 'x' ? 'y' : 'x'}${sig.slice(1)}` })).data.user === null, '签名不对的登录状态无效');
   const out = await call('POST', '/auth/logout', { cookie: session });
   check(out.status === 204 && /nzh_session=;/.test(out.headers.get('Set-Cookie')) && /Max-Age=0/.test(out.headers.get('Set-Cookie')), '退出时清掉登录状态');
 }
