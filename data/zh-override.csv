@@ -1,2 +1,10 @@
 # 替换显示译名：标签,译名
 # 主数据（ame-la/danbooru-tags-data-zh）译名有误时在这里修正；只想加检索词请用 zh-extra.csv
+# 战姬绝唱角色与魔导器：按萌娘百科、Bangumi 的通行译名修正
+yukine_chris,雪音克莉丝
+maria_cadenzavna_eve,玛丽亚·卡登扎夫娜·伊芙
+carol_malus_dienheim,卡萝·玛尔斯·迪恩海姆
+# 魔导器：萌娘百科条目作「莱瓦汀」
+laevatein_(nanoha),莱瓦汀（魔法少女奈叶）
+# 街头霸王角色：百度百科、Bangumi 作「梅娜特」
+menat,梅娜特

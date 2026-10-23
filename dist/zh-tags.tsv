@@ -6305,7 +6305,7 @@ sakuraba ema	4018	樱羽艾玛			4
 scan artifacts	4016	扫图瑕疵			5
 patchwork skin	4015	拼布皮肤	拼接皮肤		0
 till (alien stage)	4013	蒂尔（异形舞台）	蒂尔|蒂儿		4
-malfoid	4012	女体化马尔福	马尔福(女版)|女版马尔福		4
+malfoid	4012	性转马尔福	马尔福(女版)|女版马尔福|女体化马尔福|缀歌·马尔福		4
 sparks	4011	火花	火星子		0
 bowsette	4010	库巴姬			4
 sennen sensou aigis	4009	千年战争Aigis	千年战争埃癸斯		3
@@ -6939,7 +6939,7 @@ skull earrings	3460	骷髅耳环			0
 crew neck	3459	圆领			0
 hakama shorts	3459	袴式短裤			0
 hand on another's leg	3457	手放在他人腿上			0
-prepuce	3457	阴茎包鞘	包皮鞘		0
+prepuce	3457	包皮	包皮鞘|阴茎包鞘		0
 boruto: naruto next generations	3456	博人传 火影次世代	boruto-火影新世代-|火影新世代		3
 curtain grab	3455	抓住窗帘			0
 nikaido hiro	3455	二阶堂希罗			4
@@ -7425,7 +7425,7 @@ inugami korone (1st costume)	3094	戌神沁音（第一套服饰）			4
 suspended congress	3091	火车便当	悬吊式体位|火车便当式|駅弁|駅弁(体位)|火车便当式体位		0
 tube	3091	管子	插管		0
 open belt	3089	解开的腰带			0
-yukine chris	3089	雪音克里斯	雪音克利斯		4
+yukine chris	3089	雪音克莉丝	雪音克利斯|雪音克里斯		4
 zero (mega man)	3089	零（洛克人）	杰洛		4
 happinesscharge precure!	3088	Happiness Charge光之美少女	happiness charge 光之美少女！|happinesscharge光之美少女|幸福爆发 光之美少女！		3
 chinese hairpin	3087	中式发簪			0
@@ -11335,7 +11335,7 @@ brown lips	1542	棕色嘴唇	棕色的嘴唇|棕色口红|褐色口红|褐色嘴
 hair floating upwards	1542	头发向上飘起			0
 holding shirt	1542	手持衬衫	拿着衬衫		0
 kaneki ken	1542	金木研			4
-maria cadenzavna eve	1542	玛利亚·卡登扎夫娜·伊芙	玛丽亚·卡登扎夫娜·伊芙		4
+maria cadenzavna eve	1542	玛丽亚·卡登扎夫娜·伊芙	玛利亚·卡登扎夫娜·伊芙		4
 noses touching	1542	鼻尖相触	鼻子互触		0
 puppy	1542	小狗	子犬		0
 purple hakama	1542	紫色袴	紫色的袴		0
@@ -13822,7 +13822,7 @@ mukai takumi	1101	向井拓海	拓海		4
 steve rogers	1101	史蒂夫·罗杰斯			4
 trish una	1101	特莉休·乌纳	特莉休|特里休·乌纳		4
 wavy sidelocks	1101	波浪鬓发			0
-anakt garden uniform	1100	Anakt花园制服（异形舞台）	anakt花园制服		0
+anakt garden uniform	1100	阿纳特花园制服（异形舞台）	阿纳特花园制服|anakt花园制服		0
 arbok	1100	阿柏怪（宝可梦）	阿柏怪		4
 bluesky logo	1100	Bluesky标志			0
 error message	1100	错误信息			0
@@ -14384,7 +14384,7 @@ fortified suit	1028	强化服			0
 hijiri ageha	1028	圣扬羽（开阔天空！光之美少女）	圣扬羽		4
 symmetrical pose	1028	对称姿势			0
 wet face	1028	湿脸			0
-all wishes come true!	1027	八仙（动画电影）	八仙		3
+all wishes come true!	1027	八仙！	八仙(动画电影)|八仙		3
 hatsuharu (kancolle)	1027	初春（舰队Collection）	初春		4
 hip armor	1027	胯甲	臀部盔甲		0
 knight (hollow knight)	1027	小骑士（空洞骑士）	小骑士		4
@@ -17882,7 +17882,7 @@ holding trumpet	701	手持小号			0
 kawakami mai	701	川神舞（无彩限的怪灵世界）	川神舞		4
 mimori (blue archive)	701	水羽三森（蔚蓝档案）	水羽三森		4
 rainbow eyes	701	彩虹瞳	彩虹的眼睛		0
-tachibana hibiki (gungnir) (symphogear)	701	立花响（烈枪·Gungnir）（战姬绝唱）	立花响		4
+tachibana hibiki (gungnir) (symphogear)	701	立花响（永恒之枪·冈格尼尔）（战姬绝唱）	立花响|烈枪·gungnir		4
 thumbnail collage	701	缩略图拼贴			5
 watering	701	浇水			0
 amakusa shirou (fate)	700	天草四郎（Fate系列）	天草四郎|天草四郎时贞		4
@@ -19940,7 +19940,7 @@ air jordan	579	Air Jordan			0
 alicia florence	579	艾丽西亚·佛罗伦斯（水星领航员）	艾丽西亚·佛罗伦斯|艾莉西亚		4
 black tea	579	红茶			0
 bonfire	579	大篝火			0
-carol malus dienheim	579	卡罗尔·马尔斯·迪恩海姆	卡萝·玛尔斯·丁海姆		4
+carol malus dienheim	579	卡萝·玛尔斯·迪恩海姆	卡萝·玛尔斯·丁海姆|卡罗尔·马尔斯·迪恩海姆		4
 chise (swimsuit) (blue archive)	579	和乐知世（泳装）（蔚蓝档案）	和乐知世|泳装知世		4
 clothes rack	579	挂衣架			0
 cure flora	579	花神天使	春野遥 (花神天使)		4
@@ -19976,7 +19976,7 @@ sun glare	578	阳光眩光			0
 tear troughs	578	泪沟			0
 voice actor name	578	配音演员姓名			0
 washitsu	578	和室	和风房间|日式房间(室内)		0
-yukine chris (ichaival)	578	雪音克里斯（魔弓·Ichaival）	雪音克莉丝		4
+yukine chris (ichaival)	578	雪音克莉丝（魔弓·Ichaival）	雪音克里斯|雪音克利斯		4
 zubat	578	超音蝠			4
 after cunnilingus	577	舔阴后	在库尼格鲁斯之后		0
 archetto (arknights)	577	空弦（明日方舟）	空弦|阿尔切托(明日方舟)		4
@@ -22510,7 +22510,7 @@ alexander (fate)	467	亚历山大（Fate系列）	亚历山大|幼帝		4
 caine (the amazing digital circus)	467	凯恩（神奇数字马戏团）	凯恩		4
 cheese-kun	467	芝士君	奶酪君		4
 chitose sana	467	千岁佐奈	千歳佐奈		4
-dread suit	467	生存恐惧战衣（密特罗德）	生存恐惧战衣		0
+dread suit	467	Dread战衣（密特罗德 生存恐惧）	dread战衣|生存恐惧战衣		0
 eye beam	467	眼部光束	射线眼		0
 greek text	467	希腊文字			0
 grem (gigi murin)	467	格瑞姆（琪琪·穆林）	格瑞姆(gigi murin)|格瑞姆		4
@@ -23591,7 +23591,7 @@ hermit purple	429	隐者之紫	紫色隐者		4
 inverted colors	429	倒色	反相|补色|补色残像|负片色|色彩反转		0
 jellyfish girl	429	水母娘	水母女孩		0
 juuni kokuki	429	十二国记			3
-laevatein (nanoha)	429	雷瓦丁（魔法少女奈叶）	雷瓦丁|禁忌“莱瓦汀”		4
+laevatein (nanoha)	429	莱瓦汀（魔法少女奈叶）	雷瓦丁|禁忌“莱瓦汀”|雷瓦丁(魔法少女奈叶)		4
 lilithmon	429	莉莉丝兽			4
 matsuda chiyohiko	429	松田千代彦			4
 messy sleeper	429	睡相凌乱	寝相		0
@@ -24357,7 +24357,7 @@ kasen kanesada	405	歌仙兼定（刀剑乱舞）	歌仙兼定|歌小夜		4
 kumamiko	405	熊巫女			3
 machita chima	405	町田千麻			4
 menace (queen's blade)	405	梅娜丝（女王之刃）	梅娜丝		4
-menat	405	梅奈特	米纳特		4
+menat	405	梅娜特	米纳特|梅奈特		4
 neglect play	405	忽视调教	放置play		0
 samsung	405	三星	三星电子		3
 spacecraft turret	405	航天器炮塔			0
@@ -25911,7 +25911,7 @@ steenee	363	甜舞妮			4
 stitched eye	363	缝合的眼睛			0
 valkyrie profile 1	363	北欧女神1			3
 yowamushi pedal	363	飙速宅男	飚速宅男		3
-aiboo (mint fantome)	362	幽灵猫（Mint Fantome）			4
+aiboo (mint fantome)	362	幽灵猫（Mint Fantôme）			4
 air groove (empress road) (umamusume)	362	气槽（女皇之路）（赛马娘）	气槽		4
 alex winger	362	亚历克斯·温格		alex (street fighter)	4
 anteater ears	362	食蚁兽耳			0
@@ -26815,7 +26815,7 @@ jesus	341	耶稣			4
 kiryuin aoi	341	桐生院葵		kiryuuin aoi	4
 lace-trimmed socks	341	蕾丝边袜子			0
 licking cum	341	舔精液			0
-makina (blue archive)	341	Makina（蔚蓝档案）			4
+makina (blue archive)	341	玛琪娜（蔚蓝档案）	玛琪娜		4
 mint (arknights)	341	薄绿（明日方舟）	薄绿|薄荷(方舟)		4
 moon stick (sailor moon)	341	月亮权杖（美少女战士）	月亮权杖		0
 nukumizu kazuhiko	341	温水和彦			4
@@ -27906,7 +27906,7 @@ lobelia (flower)	318	山梗菜	山梗菜(花)		0
 lotus root	318	莲藕	莲根		0
 lyn albell	318	琳·阿尔贝尔			4
 martha (rider) (fate)	318	玛尔达（Rider）（Fate系列）	玛尔达(骑兵职阶)(fate系列)|玛尔达		4
-medic 1 (sekaiju 4)	318	医生1（世界树迷宫4）	医生1		4
+medic 1 (sekaiju 4)	318	医疗士1（世界树迷宫4）	医疗士1|医生1		4
 meteor (arknights)	318	流星（明日方舟）	流星(方舟)		4
 mihama junior high school uniform	318	美海中学校服	mihama初中校服		0
 mob talker	318	Mob Talker			3
@@ -28375,7 +28375,7 @@ queen of hearts (alice in wonderland)	308	红心女王（爱丽丝梦游仙境�
 samba costume	308	桑巴服饰			0
 seikimatsu occult gakuin	308	世纪末超自然学院	世纪末神秘学院|世纪末超自然学园		3
 sentinel (reverse:1999)	308	哨兵（重返未来：1999）	哨兵|玛丽安娜|重返未来玛丽安娜		4
-shirota mitsuki	308	白田美津骑			4
+shirota mitsuki	308	白田美骑	白田美津骑		4
 snow white (innocent days) (nikke)	308	白雪公主（纯真岁月）（胜利女神：妮姬）	白雪公主		4
 soukou senki prism reica	308	装甲战姬 普利兹姆蕾卡	装甲战姬 棱镜蕾卡		3
 star wars: return of the jedi	308	星球大战6：绝地归来	星球大战6:绝地归来|武士复仇|绝地大反攻		3
@@ -29472,7 +29472,7 @@ izawa natsume	288	伊泽枣			4
 james moriarty (ruler) (fate)	288	詹姆斯·莫里亚蒂（裁定者）（Fate系列）	詹姆斯·莫里亚蒂		4
 kamiya kaoru	288	神谷薰	神谷薫		4
 kiroranke	288	基罗朗克			4
-kokoro (blue archive)	288	渡海Kokoro（蔚蓝档案）	渡海kokoro		4
+kokoro (blue archive)	288	渡海心（蔚蓝档案）	渡海心|渡海kokoro		4
 kouhai-chan (douki-chan)	288	后辈酱（加油吧同期酱）			4
 legless amputee	288	无腿截肢者			0
 limbus kindergarten uniform	288	边狱公司幼儿园制服			0
@@ -31118,7 +31118,7 @@ shaped liquid	262	成形液体			0
 si land	262	SI LAND			3
 snow white (mahoiku)	262	白雪公主（魔法少女育成计划）	白雪公主		4
 stg44 (girls' frontline)	262	StG44（少女前线）			4
-sua (angel) (alien stage)	262	苏阿（天使）（异形舞台）	苏阿		4
+sua (angel) (alien stage)	262	苏阿（天使）（异形舞台）	苏阿|秀雅		4
 sumeragi kaguya	262	皇神乐耶	皇神楽耶		4
 takagi saya	262	高城沙耶			4
 timido cute	262	缇米朵·丘忒			4
@@ -31580,7 +31580,7 @@ koganei niko (1st costume)	255	虎金妃笑虎（第一套服饰）	虎金妃笑
 koto (instrument)	255	筝（日本）	koto(仪器)		0
 krabby	255	大钳蟹			4
 kyouryuu sentai zyuranger	255	恐龙战队兽连者			3
-laevatein (schwertform) (nanoha)	255	雷瓦丁（剑形态）（魔法少女奈叶）	雷瓦丁|莱瓦汀		4
+laevatein (schwertform) (nanoha)	255	莱瓦汀（剑形态）（魔法少女奈叶）	莱瓦汀|雷瓦丁		4
 lazulight	255	LazuLight			0
 mayoi neko overrun!	255	迷途猫OVER RUN!	迷途猫|迷途猫overrun		3
 mito (sao)	255	兔泽深澄（刀剑神域）	兔泽深澄		4
@@ -33766,7 +33766,7 @@ gibberish commentary	225	乱码注释			5
 goal	225	球门			0
 god gundam	225	神高达			4
 hachiko of castling	225	城墙的八公			4
-heart pirates jolly roger (one piece)	225	心脏海贼团海贼旗（海贼王）			0
+heart pirates jolly roger (one piece)	225	心脏海贼团海贼旗（海贼王）	红心海贼团海贼旗		0
 hiei (azur lane)	225	比叡（碧蓝航线）	比叡|hiei(碧蓝航线)		4
 hiuchidani mei	225	火打谷爱衣			4
 i-chu	225	I-Chu	偶像恋曲		3
@@ -33782,7 +33782,7 @@ kurusu natsume	225	来栖夏芽			4
 laura la mer (mermaid)	225	劳拉·拉梅尔（人鱼形态）			4
 luminous arc	225	弧光之源			3
 m1918 bar	225	M1918勃朗宁自动步枪			0
-maria cadenzavna eve (airget-lamh)	225	玛利亚·卡登扎夫娜·伊芙（银腕·Airgetlamh）			4
+maria cadenzavna eve (airget-lamh)	225	玛丽亚·卡登扎夫娜·伊芙（银腕·Airgetlamh）（战姬绝唱）	玛利亚·卡登扎夫娜·伊芙		4
 mariah (jojo)	225	玛莱雅（JOJO的奇妙冒险）	玛莱雅|玛拉雅		4
 marine uniform (one piece)	225	海军制服（海贼王）			0
 mismatched irises	225	不对称虹膜			0
@@ -33948,7 +33948,7 @@ kurochijo (akitsuki karasu)	223	黑痴女		kurochijo	4
 lan yan (genshin impact)	223	蓝砚（原神）	蓝砚|翦玉编春		4
 ledge	223	台沿	壁架		0
 legbinder	223	束腿带			0
-lunar (series)	223	露娜传说系列			3
+lunar (series)	223	露娜系列	露娜传说系列		3
 m203	223	M203榴弹发射器			0
 marshall d. teach	223	马歇尔·D·蒂奇			4
 minion (despicable me)	223	小黄人（神偷奶爸）	小黄人		4
@@ -35195,7 +35195,7 @@ the legend of zelda: the minish cap	209	塞尔达传说 缩小帽	塞尔达传�
 tiffa adill	209	蒂法·阿迪尔			4
 tokkoufuku	209	特攻服			0
 tree of savior	209	救世之树	救世者之树		3
-turtleneck under shirt	209	衬衫下穿高领衫			0
+turtleneck under shirt	209	衬衫内搭高领衫	衬衫下穿高领衫		0
 vatista (under night in-birth)	209	巴蒂斯塔（夜下降生）	巴蒂斯塔		4
 wet and messy	209	湿身脏乱	潮湿而混乱		0
 words worth	209	WORDS WORTH	光与影的传说		3
@@ -36824,7 +36824,7 @@ medama oyaji (human)	192	眼珠老爹（人类形态）			4
 mega man x8	192	洛克人X8	洛克人x 8		3
 mint (dewprism)	192	米特（Dewprism）	米特		4
 miyamoto musashi (woman of niten ichiryuu) (fate)	192	宫本武藏（二天一流之女）（Fate系列）	宫本武藏		4
-mizi (demon) (alien stage)	192	米兹（恶魔）（异形舞台）	米兹		4
+mizi (demon) (alien stage)	192	米兹（恶魔）（异形舞台）	米兹|美智		4
 mizuki (vtuber)	192	浠（虚拟主播）	浠		4
 nadeko (cookie)	192	抚子（Cookie☆）	抚子		4
 nadja applefield	192	娜嘉·阿普尔菲尔德			4
@@ -37236,7 +37236,7 @@ cum on bed	188	射在床上			0
 diluc (red dead of night) (genshin impact)	188	迪卢克（殷红终夜）（原神）	迪卢克|迪卢克(殷红终夜)		4
 dominator (gun)	188	统治者（枪）	统治者		0
 doppel (madoka magica)	188	魔女化身（魔法少女小圆）	魔女化身		0
-edge geraldine	188	爱德华·吉拉尔丁	艾吉		4
+edge geraldine	188	爱德华·艾吉·杰拉尔汀（最终幻想4）	爱德华·艾吉·杰拉尔汀|艾吉|爱德华·吉拉尔丁		4
 elden ring (object)	188	艾尔登法环（物品）			0
 ethan winters	188	伊森·温特斯			4
 fan la norne	188	范·拉·诺恩			4
@@ -39151,7 +39151,7 @@ powder (arcane)	172	爆爆（双城之战）	爆爆		4
 puss in boots (shrek)	172	靴猫（怪物史莱克）	靴猫		4
 radio controller	172	无线遥控器	无线电控制器		0
 ramattra (overwatch)	172	拉玛刹（守望先锋）	拉玛刹		4
-rana (blue archive)	172	古畑Rana（蔚蓝档案）	古畑rana		4
+rana (blue archive)	172	古畑拉娜（蔚蓝档案）	古畑拉娜|古畑rana		4
 rebecca sugar (style)	172	Rebecca Sugar 画风			0
 red pepper	172	红色甜椒			0
 rosa (pokemon) (cosplay)	172	鸣依（宝可梦）（角色扮演）	鸣依|宝可梦)(角色扮演		0
@@ -39353,7 +39353,7 @@ mahou shoujo lyrical nanoha a's portable: the gears of destiny	170	魔法少女�
 mahou shoujo suzune magica	170	魔法少女铃音☆Magica	魔法少女铃音		3
 marco bott	170	马尔科·博特			4
 maruchan akai kitsune udon	170	丸ちゃん红狐乌冬	丸善红狐乌冬		0
-medic 3 (sekaiju 4)	170	医生3（世界树迷宫4）	医生3		4
+medic 3 (sekaiju 4)	170	医疗士3（世界树迷宫4）	医疗士3|医生3		4
 menace mamaki	170	Menace Mamaki			4
 milfa (to heart)	170	米尔法（ToHeart2）	米尔法		4
 moon (zelda)	170	月亮（塞尔达传说）			4
@@ -39969,7 +39969,7 @@ captain mizuki	165	主将美月			4
 capybara ears	165	水豚耳			0
 caron (rall)	165	卡伦			4
 childhood friend (ominaeshi)	165	青梅竹马（ominaeshi）	青梅竹马		4
-chronoa (dragon ball)	165	时之界王神（龙珠）	时之界王神		4
+chronoa (dragon ball)	165	时之界王神（龙珠）	时之界王神|库罗诺娅		4
 cis (tiger & bunny)	165	希丝（老虎和兔子）	希丝		4
 cocked hammer	165	击锤待发			0
 coomer (meme)	165	撸管男（梗）	撸管男(迷因)|撸管男		4
@@ -40003,7 +40003,7 @@ kawai rie	165	河合理惠	河合理恵		4
 koyanskaya (foreigner) (third ascension) (fate)	165	高扬斯卡娅（Foreigner·第三再临）（Fate系列）	高扬斯卡娅(foreigner)(三破)(fate系列)|高扬斯卡娅		4
 kujibiki unbalance	165	抽签不平衡	签绘unbalance		3
 kyukkyu-kun	165	丘丘君			4
-la squadra esecuzioni	165	暗杀组（JOJO）	暗杀组|暗杀小队		0
+la squadra esecuzioni	165	热情组织暗杀队（JOJO）	热情组织暗杀队|暗杀小队|暗杀组(jojo)|暗杀组		0
 lacrima the crimson tears	165	红泪的拉克利玛			4
 lei heng (project moon)	165	雷横（Project Moon）	雷横		4
 lich (granblue fantasy)	165	巫妖（碧蓝幻想）			4
@@ -41092,7 +41092,7 @@ meat armor	157	肉装甲	肉铠|人肉腰包		0
 mega lucario z	157	超级路卡利欧Z	路卡利欧 mega z		4
 meninas mcallon	157	米妮娜·麦卡龙			4
 metroid prime 2: echoes	157	密特罗德Prime 2：回声	银河战士prime 2		3
-metroid ravenous	157	密特罗德 Ravenous			3
+metroid ravenous	157	密特罗德 绝境嗜生	密特罗德 ravenous		3
 mifune takashi (style)	157	三船孝志画风			0
 miiverse yeah! (meme)	157	Miiverse耶！（梗）	miiverse耶！		0
 mooning	157	露臀	露出臀部		0
@@ -41832,7 +41832,7 @@ motivator (meme)	152	黑框励志海报（梗）	黑框励志海报		0
 mousse (food)	152	慕斯（食物）	慕斯|幕斯		0
 multiple forms	152	多形态			0
 nakaji uto	152	中二诗人			4
-night seeker 1 (sekaiju)	152	夜袭者1（世界树迷宫）	夜袭者1		4
+night seeker 1 (sekaiju)	152	夜行者1（世界树的迷宫）	夜行者1|夜袭者1		4
 nishizumi tsuneo	152	西住常夫			4
 nuzleaf	152	长鼻叶			4
 obelisk	152	方尖碑			0
@@ -41943,7 +41943,7 @@ ice pikmin	151	冰皮克敏			4
 idol (yoasobi)	151	偶像（YOASOBI）			3
 iihara nao	151	饭井原奈绪			4
 insulting viewer	151	辱骂观者	侮辱观众		0
-ivan (decora) (alien stage)	151	伊万（Decora）（异形舞台）	伊万		4
+ivan (decora) (alien stage)	151	伊万（Decora）（异形舞台）	伊万|伊凡		4
 kagenui yozuru	151	影缝余弦			4
 kamek	151	卡梅克			4
 karst	151	喀斯特			0
@@ -43723,7 +43723,7 @@ paper balloon	140	纸气球	纸风船		0
 partial transformation	140	部分变身			0
 philo (forestia)	140	菲洛（Forestia）	菲洛		4
 racing miku (2013)	140	赛车初音（2013）			4
-rose kingdom (eclat de roseraie) (umamusume)	140	玫瑰王国（决胜服）（赛马娘）	玫瑰王国		4
+rose kingdom (eclat de roseraie) (umamusume)	140	玫瑰帝国（决胜服）（赛马娘）	玫瑰帝国|玫瑰王国		4
 rowan (mabinogi)	140	罗文（洛奇）	罗文		4
 saejima kiyomi	140	冴岛清美			4
 sakakibara kouichi	140	榊原恒一			4
@@ -44481,7 +44481,7 @@ calcifer	135	卡西法			4
 canari plush (pokemon)	135	卡娜莉玩偶（宝可梦）	卡娜莉玩偶		0
 candle no kaori wa omoide to tomo ni (project sekai)	135	蜡烛的香气与回忆同在（世界计划）	蜡烛的香气与回忆同在|世界计划		0
 canon (company)	135	佳能（公司）	佳能|公司		0
-carol malus dienheim (daur da blao)	135	卡罗尔·马尔斯·迪恩海姆（歼琴·Daur da Blao）			4
+carol malus dienheim (daur da blao)	135	卡萝·玛尔斯·迪恩海姆（歼琴·Daur da Blao）（战姬绝唱）	卡罗尔·马尔斯·迪恩海姆|卡萝·玛尔斯·丁海姆		4
 carrot on stick	135	杆头吊胡萝卜			0
 castorice (gossamer flutter) (honkai: star rail)	135	遐蝶（薄翼轻扬）（崩坏：星穹铁道）	遐蝶		4
 char aznable (cosplay)	135	夏亚·阿兹纳布尔（角色扮演）			0
@@ -46384,7 +46384,7 @@ upright 69	126	直立69式			0
 usuzawa sae	126	臼泽塞	臼沢塞		4
 uzuki makio	126	卯月卷绪	卯月巻绪		4
 v gundam	126	V高达			4
-valtr (bloodborne)	126	瓦尔托尔（血源诅咒）	瓦尔托尔|联盟之长		4
+valtr (bloodborne)	126	瓦尔特（血源诅咒）	瓦尔特|联盟之长|瓦尔托尔		4
 vehicalization	126	车辆化	载具化		0
 vespa crabro	126	维斯帕·克拉布罗	黄色鱼叉		4
 victoria qi	126	维多利亚·齐			4
@@ -48384,7 +48384,7 @@ malice (sue storm)	116	玛莉丝（苏·斯托姆）	玛莉丝		4
 maya (dq11)	116	玛雅（勇者斗恶龙11）			4
 mecha danshi	116	机甲男子			0
 mega absol z	116	超级阿勃梭鲁Z			4
-menat (battle outfit)	116	梅奈特（战斗服）	梅娜特		4
+menat (battle outfit)	116	梅娜特（战斗服）	梅奈特		4
 messer ihlefeld	116	梅萨·伊雷费尔特			4
 mihono bourbon (umamusume) (cosplay)	116	美浦波旁（赛马娘）（角色扮演）	美浦波旁|赛马娘)(角色扮演		0
 mika (lycoris recoil)	116	米卡（莉可丽丝）	米卡		4
@@ -50255,7 +50255,7 @@ cospussy	108	角色扮演阴部			0
 cross-laced hairband	108	交叉系带发箍			0
 cyborg (dc)	108	钢骨（DC漫画）	钢骨|赛博格		4
 daft punk	108	Daft Punk	傻瓜朋克|蠢朋克		3
-dakaretai otoko 1-i ni odosarete imasu.	108	我被最想拥抱的男人威胁了			3
+dakaretai otoko 1-i ni odosarete imasu.	108	我让最想被拥抱的男人给威胁了	我被最想拥抱的男人威胁了		3
 dante will	108	丹特·威尔			4
 dark nebula	108	暗黑星云			4
 delita heiral	108	迪利塔·海拉尔			4
@@ -51761,7 +51761,7 @@ rudolph the red nosed reindeer (cosplay)	103	红鼻子驯鹿鲁道夫（角色�
 rumia (darkness)	103	露米娅（黑暗形态）			4
 rusalka schwagerin	103	露萨尔卡·施韦格林			4
 sado yasutora	103	茶渡泰虎			4
-sakai aruko	103	酒井有子			4
+sakai aruko	103	酒井酒子	酒井有子		4
 sakawa (azur lane)	103	酒匂（碧蓝航线）	酒匂		4
 sakura sakura	103	SAKURA SAKURA	樱花樱花		3
 samson big (umamusume)	103	萨姆森比格（赛马娘）	萨姆森比格|大森逊		4
@@ -51901,7 +51901,7 @@ eleven (path to nowhere)	102	伊莱文（无期迷途）	伊莱文		4
 elf all-stars datsuijan 2	102	ELF全明星脱衣雀2			3
 enamorus	102	眷恋云			4
 enterprise (reindeer master) (azur lane)	102	企业（驯鹿之主）（碧蓝航线）	企业|驯鹿之主		4
-erina (blue archive)	102	二木惠里奈（蔚蓝档案）	二木惠里奈		4
+erina (blue archive)	102	二木艾莉娜（蔚蓝档案）	二木艾莉娜|二木惠里奈		4
 eugene chaud (mega man)	102	伊集院炎山（洛克人）	伊集院炎山		4
 exosister stella	102	救祓少女·斯特拉			4
 fanati	102	法纳蒂			4
@@ -52631,7 +52631,7 @@ qbz-191	100	QBZ-191步枪			0
 quinn (league)	100	奎因（英雄联盟）	奎因	quinn (league of legends)	4
 r. blackriver agogo	100	R. Blackriver Agogo			4
 rance 03	100	兰斯03	兰斯03 利萨斯陷落		3
-ravenous suit	100	Ravenous战衣（密特罗德）	ravenous战衣		0
+ravenous suit	100	Ravenous战衣（密特罗德 绝境嗜生）	ravenous战衣		0
 reco love	100	Reco Love	真爱记录		3
 remington model 700	100	雷明顿700型			0
 rettou joutou (vocaloid)	100	劣等上等	劣等上等(giga)		3
@@ -53787,7 +53787,7 @@ phoenix wings	96	凤凰翼			0
 point item (touhou)	96	点道具（东方Project）	点道具		0
 poker face failure	96	扑克脸失败			0
 porcupine ears	96	豪猪耳朵			0
-precum puddle	96	前列腺液积液			0
+precum puddle	96	预射精液滩	前液滩		0
 present day problem takeuchi robert	96	武内罗伯特			4
 print choker	96	印花颈圈	印花项圈		0
 puzzle (arknights)	96	谜图（明日方舟）	谜图		4
@@ -53870,7 +53870,7 @@ tierra azur	96	蒂埃拉·阿祖尔			4
 too many dogs	96	狗过多	狗太多		0
 tool kit	96	工具包			0
 tortoiseshell cat	96	玳瑁猫			0
-toumei na yoru ni kakeru kimi to me ni mienai koi wo shita	96	与奔驰于透明夜晚的你谈一场看不见的恋爱			3
+toumei na yoru ni kakeru kimi to me ni mienai koi wo shita	96	与奔跑在透明之夜的你，谈一场看不见的恋爱	与奔驰于透明夜晚的你谈一场看不见的恋爱		3
 tower shield	96	塔盾			0
 tri-slosher (splatoon)	96	三重泼桶（斯普拉遁）	三重泼桶		0
 tuning fork	96	音叉			0
@@ -54803,7 +54803,7 @@ treasure hoarder (genshin impact)	93	盗宝团（原神）	盗宝团|宝盗団		
 tsukitsuba ginko	93	月锷银子			4
 uncle sam	93	山姆大叔			4
 urinary drainage bag	93	尿引流袋			0
-ursula (fire emblem: fortune's weave)	93	乌修拉（火焰纹章）	乌修拉		4
+ursula (fire emblem: fortune's weave)	93	乌修拉（火焰纹章 万缕千丝）	乌修拉		4
 urushihara hanzou	93	漆原半藏	漆原半蔵		4
 valentine (guilty gear)	93	瓦伦丁（罪恶装备）	瓦伦丁		4
 vergil (devil may cry) (cosplay)	93	维吉尔（鬼泣）（角色扮演）	维吉尔|鬼泣)(角色扮演		0
@@ -54925,7 +54925,7 @@ funnel (tool)	92	漏斗（工具）	漏斗		0
 fushimi nodoka	92	伏见和香			4
 fuyumine naoto	92	冬峰直刀			4
 galarian darmanitan	92	伽勒尔达摩狒狒			4
-gang beasts	92	基佬大乱斗	萌萌小人大乱斗		3
+gang beasts	92	萌萌小人大乱斗	基佬大乱斗		3
 gear fourth	92	四档			0
 geminitay	92	GeminiTay			4
 green swim trunks	92	绿色泳裤			0
@@ -57369,7 +57369,7 @@ martyr (the citadel)	85	殉道者（The Citadel）	殉道者		4
 mary (granblue fantasy)	85	玛丽（碧蓝幻想）	玛丽		4
 matthew patel	85	马修·帕特尔			4
 mega blastoise	85	超级水箭龟			4
-mega man: dual override	85	洛克人 Dual Override			3
+mega man: dual override	85	洛克人 双重超载	洛克人 dual override		3
 mezzo forte	85	Mezzo Forte			3
 miao hat	85	苗族帽			0
 mihara chiharu	85	三原千春			4
@@ -57641,7 +57641,7 @@ fire man	84	火焰人（洛克人）	火焰人		4
 firenze (stella sora)	84	翡冷翠（星塔旅人）	翡冷翠		4
 flaming horns	84	燃烧的角			0
 floral print gloves	84	花卉印花手套			0
-food censor	84	食物和谐	食物马赛克		0
+food censor	84	食物打码	食物马赛克|食物和谐		0
 freyja (p&d)	84	芙蕾雅（智龙迷城）	芙蕾雅		4
 fritz rumey (schwarzes kaninchen) (azur lane)	84	弗里茨·鲁梅（黑兔）（碧蓝航线）	弗里茨·鲁梅		4
 froggy (sonic)	84	青蛙君（索尼克）	青蛙君		4
@@ -59313,7 +59313,7 @@ macci (possummachine)	80	玛奇		macci (opossumachine)	4
 magatsu izanagi	80	祸津伊邪那岐			4
 maltese cross	80	马耳他十字架			0
 mama (nier)	80	妈妈（尼尔）	妈妈		4
-maria cadenzavna eve (gungnir)	80	玛利亚·卡登扎夫娜·伊芙（烈枪·Gungnir）			4
+maria cadenzavna eve (gungnir)	80	玛丽亚·卡登扎夫娜·伊芙（烈枪·Gungnir）（战姬绝唱）	玛利亚·卡登扎夫娜·伊芙		4
 mark (fire emblem: the blazing blade)	80	马克（火焰纹章 烈火之剑）	马克(火焰之纹章 烈火之剑)|马克		4
 mark iv tank	80	马克IV型坦克	菱形戦车		0
 maryland (azur lane)	80	马里兰（碧蓝航线）	马里兰		4
@@ -59787,7 +59787,7 @@ pandora (kid icarus)	79	潘多拉（光神话）	潘多拉		4
 pantherlily	79	潘萨利力			4
 patrick colasour	79	帕特里克·柯拉沙瓦			4
 person on back	79	背上的人			0
-piapi ufo (tomboy)	79	Piapi Ufo（假小子）			4
+piapi ufo (tomboy)	79	Piapi UFO（假小子）			4
 pile of trash	79	一堆垃圾			0
 pill print	79	药丸印花			0
 plankton (spongebob)	79	痞老板（海绵宝宝）	痞老板		4
@@ -61838,7 +61838,7 @@ marine angelfish	74	海水神仙鱼			0
 maru-yu (kancolle) (cosplay)	74	丸优（舰队Collection）（角色扮演）	丸优|舰队collection)(角色扮演		0
 matsubara honoka	74	松原穗乃花	松原穂乃花		4
 maud (bemani)	74	莫德（BEMANI）			4
-medic 2 (sekaiju 4)	74	医生2（世界树迷宫4）	医生2		4
+medic 2 (sekaiju 4)	74	医疗士2（世界树迷宫4）	医疗士2|医生2		4
 melting tail	74	融化的尾巴			0
 melty pristis	74	梅尔蒂·布里司堤斯			4
 mighty strike freedom gundam	74	非凡强袭自由高达			4
@@ -65895,7 +65895,7 @@ tenko (yuureidoushi (yuurei6214))	66	天狐（yuureidoushi）	天狐		4
 tenochtitlan (event portrait) (fate)	66	特诺奇蒂特兰（活动立绘）（Fate系列）	特诺奇蒂特兰|英霊催装		4
 tharja (plegian) (fire emblem)	66	萨莉亚（佩雷吉亚）（火焰纹章）	萨莉亚(佩雷吉亚)(火焰之纹章)		4
 the doorman (deadlock)	66	门童（死锁）	门童		4
-the great villainess strategy of lily	66	枭雌百合战记	大恶逆千金		3
+the great villainess strategy of lily	66	大恶人千金 枭雌百合战记	大恶逆千金|枭雌百合战记		3
 the last story	66	最后的故事			3
 tickling face	66	挠脸			0
 toaru kagaku no dark matter	66	某科学的未元物质	某科学的暗物质|某科学的黑暗物质		3
@@ -70455,7 +70455,7 @@ ichijou michiru	58	一条满			4
 ienaga kano	58	家永加乃			4
 ikazuchi no senshi raidy ii	58	雷之战士莱蒂II			3
 illyasviel von einzbern (swimsuit archer) (first ascension)	58	伊莉雅丝菲尔·冯·爱因兹贝伦（泳装Archer·第一再临）	伊莉雅丝菲尔·冯·爱因兹贝伦(第一再临)		4
-insight (designant) (arcaea)	58	识眼（Designant）（韵律源点）	识眼		4
+insight (designant) (arcaea)	58	洞烛（Designant）（韵律源点）	洞烛|识眼		4
 interlocked toes	58	互锁的脚趾			0
 inugami korone (new year)	58	戌神沁音（新年）			4
 inuwaka akane	58	犬若茜			4
@@ -73553,7 +73553,7 @@ lee (gyee)	54	李（盖伊传说）	李		4
 legendary spear (tate no yuusha no nariagari)	54	传说之枪（盾之勇者成名录）	传说之枪		0
 lerochka	54	列罗奇卡			4
 liar's bar	54	骗子酒吧			3
-licca-chan (franchise)	54	丽佳娃娃	莉卡娃娃		3
+licca-chan (franchise)	54	莉卡娃娃	丽佳娃娃		3
 life-size gardevoir plush	54	等身沙奈朵玩偶			0
 lifting vehicle	54	举起车辆			0
 lilac (live a hero)	54	莉拉克（Live A Hero）	莉拉克		4
@@ -73710,7 +73710,7 @@ pink rabbit	54	粉色兔子			0
 pipeline	54	管道			0
 plushmallow (lyn)	54	Plushmallow（Lyn）			4
 poisoned	54	中毒			0
-pokemon: destiny deoxys	54	宝可梦超世代：裂空的访问者 代欧奇希斯			3
+pokemon: destiny deoxys	54	宝可梦 裂空的访问者 代欧奇希斯	宝可梦超世代：裂空的访问者 代欧奇希斯		3
 polehammer	54	长柄锤			0
 pop'n music (style)	54	pop'n music画风	pop'n music(画风)		0
 possi (possummachine)	54	Possi（Possummachine）			4
@@ -73777,7 +73777,7 @@ sexy commando gaiden: sugoiyo! masaru-san	54	セクシーコマンドー外伝 �
 sham-nacha (shadowverse)	54	沙姆纳库亚（影之诗）	沙姆纳库亚		4
 sheila helman	54	希拉·赫尔曼			4
 shenhe (young) (genshin impact)	54	申鹤（幼年）（原神）	申鹤		4
-sherbet glass	54	冰沙杯	雪芭杯		0
+sherbet glass	54	雪葩杯	雪芭杯|冰沙杯		0
 shiba hibino	54	史场日比乃	史场日々乃|史场日日乃		4
 shiba tougo	54	柴登吾			4
 shiho huit	54	Shiho Huit	诗帆·尤伊		4
@@ -75372,7 +75372,7 @@ nehushtan armor	52	涅夫休坦之铠			0
 nekouhai (rangu)	52	猫后辈（rangu）	猫后辈		4
 nemesis no juukou (vocaloid)	52	复仇的枪口			3
 neo akasha terminal	52	新阿卡夏终端			0
-neumann u87	52	诺依曼U87麦克风			0
+neumann u87	52	纽曼U87麦克风	诺依曼u87麦克风		0
 nico robin (cosplay)	52	妮可·罗宾（角色扮演）			0
 niconico rpg	52	Niconico RPG			3
 nightfall (armored core vi)	52	夜幕（装甲核心6：境界天火）	夜幕		4
@@ -75751,7 +75751,7 @@ aeval (genshin impact)	51	艾娃（原神）	艾娃		4
 agarest senki zero	51	阿加雷斯特战记Zero			3
 agnes digital (umamusume) (cosplay)	51	爱丽数码（赛马娘）（角色扮演）	爱丽数码|赛马娘)(角色扮演		0
 aikawa megumi (casual)	51	逢川惠（便服）	逢川惠		4
-airhorn	51	气笛喇叭			0
+airhorn	51	气喇叭	气笛喇叭		0
 ak 5	51	AK-5步枪			0
 akari (summer 2026) (pokemon)	51	小照（2026夏日）（宝可梦）	小照		4
 akazukin (otogi-juushi akazukin)	51	小红帽（童话枪手小红帽）			4
@@ -76415,7 +76415,7 @@ ninja gaiden 4	51	忍者龙剑传4			3
 nioh	51	仁王			3
 nissan 300zx	51	日产300ZX			0
 nobell	51	诺贝尔（高达）	诺贝尔		4
-noctilucent: before dawn	51	诺提里森			3
+noctilucent: before dawn	51	诺提里森：于黎明之前	诺提里森		3
 nonoa (2.5 jigen no ririsa)	51	惠比寿乃爱（2.5次元的诱惑）	惠比寿乃爱	nonoa	4
 nora (cytus)	51	诺拉（音乐世界）	诺拉		4
 northampton kai (kancolle)	51	北安普敦改（舰队Collection）	北安普敦改		4
@@ -76809,7 +76809,7 @@ yuanwu (wuthering waves)	51	渊武（鸣潮）	渊武		4
 yuezheng ling (vocaloid3)	51	乐正绫（VOCALOID3）			4
 yuffie kisaragi (summer orange)	51	尤菲·如月（夏日泳装）			4
 yukata (yume 2kki)	51	浴衣（梦2kki）	浴衣		4
-yukine chris (another)	51	雪音克里斯（Another）			4
+yukine chris (another)	51	雪音克里斯（Another）	雪音克里斯		4
 yuuki miaka	51	夕城美朱			4
 z24 (azur lane)	51	Z24（碧蓝航线）			4
 zack fair (holiday suit)	51	扎克斯·菲尔（节日礼服）			4
@@ -76902,7 +76902,7 @@ bobblehead	50	摇头娃娃			0
 boku wa ohime-sama ni narenai	50	我当不成公主			3
 bolt (min lona)	50	博尔特（min lona）	博尔特		4
 bongo drums	50	邦戈鼓			0
-bowing and scraping	50	宫廷式鞠躬			0
+bowing and scraping	50	卑躬屈膝	宫廷式鞠躬		0
 braided dreadlocks	50	编织脏辫			0
 breakers	50	破坏者（格斗游戏）	破坏者		3
 broom ribbon	50	扫帚丝带			0
@@ -76935,7 +76935,7 @@ chaos (xenosaga)	50	卡奥斯（异度传说）	卡奥斯		4
 chaos alice (original) (grimms notes)	50	混沌爱丽丝（原版）（格林笔记）	混沌爱丽丝		4
 chapatsu-chan (hyaku ae mon)	50	茶发酱（Hyaku Ae Mon）			4
 charon (alchemy stars)	50	卡戎（白夜极光）	卡戎		4
-chatgpt	50	ChatGPT拟人			3
+chatgpt	50	ChatGPT	chatgpt拟人		3
 cherry (lucky star)	50	樱桃（幸运星）			4
 chie's mother (ishikei)	50	千惠的母亲（ishikei）	千惠的母亲		4
 chiffon cake	50	戚风蛋糕			0
@@ -77078,7 +77078,7 @@ furuta nimura	50	旧多二福	和修吉福|和修旧多宗太		4
 futaba riho (cosplay)	50	二叶理穗（角色扮演）	二叶理穗		0
 futao ping (wuhua mixin)	50	蝠桃瓶（物华弥新）	蝠桃瓶		4
 g7 scout	50	G7侦察步枪			0
-galick gun	50	咖喱克炮			0
+galick gun	50	加利克炮	咖喱克炮		0
 gals panic s2	50	天蚕变S2			3
 gear-shaped pupils	50	齿轮瞳孔	齿轮瞳		0
 gelgoog (gquuuuuux)	50	勇士（机动战士高达GQuuuuuuX）	勇士		4
@@ -77134,7 +77134,7 @@ hexagon earrings	50	六边形耳环			0
 hibarigaoka ruri	50	云雀丘瑠璃			4
 higashikata josuke (cosplay)	50	东方仗助（角色扮演）			0
 higuchi kaede (military)	50	樋口枫（军装）			4
-hiiragi utena's school uniform	50	柊薄荷的校服（憧憬成为魔法少女）	柊薄荷的校服		0
+hiiragi utena's school uniform	50	柊舞缇娜的校服（憧憬成为魔法少女）	柊舞缇娜的校服|柊薄荷的校服		0
 hikawa (megami tensei)	50	冰川（女神转生）			4
 hildegard grimmachte (arknights)	50	赫琳玛特（明日方舟）	赫琳玛特		4
 hirose miina	50	广濑实唯菜			4
@@ -77235,7 +77235,7 @@ kisaragi maaya	50	如月真绫			4
 kishi youko	50	喜志阳子			4
 kissing chest	50	亲吻胸口			0
 kitakami kai san (kancolle)	50	北上改三（舰队Collection）	北上改三		4
-kitto saikou no summer! (project sekai)	50	一定是最棒的summer！（世界计划）	一定是最棒的summer！|世界计划		0
+kitto saikou no summer! (project sekai)	50	一定是最棒的夏天！（世界计划）	一定是最棒的夏天！|世界计划|一定是最棒的summer！		0
 kochou shinobu (cosplay)	50	蝴蝶忍（角色扮演）			0
 koenma	50	小阎王			4
 kogasa day	50	小伞之日			0
