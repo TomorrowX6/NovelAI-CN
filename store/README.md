@@ -73,7 +73,7 @@ Notes
 - 类别：艺术与设计（Art & Design）；列表里没有的话选「工具」（Tools）
 - 语言：中文（简体）
 - 商店图标：扩展包里的 `icons/128.png`，后台会自动取用
-- 屏幕截图（1280×800，最多 5 张）：`screenshot-1-ui.png`、`screenshot-2-tutorial.png`、`screenshot-3-tutorial.png`，再加登录状态下的标签联想截图（见文末）
+- 屏幕截图（1280×800，最多 5 张）：`screenshot-1-ui.png`、`screenshot-2-popup.png`（扩展面板的首页和设置）、`screenshot-3-tags.png`（输入「猫娘」时的中文标签联想），还可以再加一张英文联想带中文的截图（见文末）
 - 小型宣传图块（440×280，必填）：`promo-small-440x280.png`
 - 顶部宣传图块（1400×560，可选）：`promo-marquee-1400x560.png`
 - 官方网址：不填（没有已验证的网站）；首页网址：https://github.com/TomorrowX6/NovelAI-CN ；支持网址：https://github.com/TomorrowX6/NovelAI-CN/issues
@@ -124,7 +124,7 @@ Tag suggestions need a NovelAI account, because NovelAI does not request suggest
 
 ## 标签联想截图
 
-NovelAI 未登录时不会请求联想，这两张需要登录后自己拍，浏览器窗口内容区调到 1280×800（或截图后缩放到这个尺寸），注意不要拍到 Anlas 余额、笔名和右侧历史记录里的图：
+NovelAI 未登录时不会请求联想，要登录后拍，浏览器窗口内容区调到 1280×800（或截图后缩放到这个尺寸）：
 
-1. 在提示词框输入「黑丝」，联想面板出现时截图。
+1. 清空提示词框后输入「猫娘」，联想面板出现时截图（已拍：`screenshot-3-tags.png`）。
 2. 清空后输入「cat ea」，NovelAI 自带的联想每项下有中文时截图。
