@@ -73,7 +73,7 @@ Notes
 - 类别：艺术与设计（Art & Design）；列表里没有的话选「工具」（Tools）
 - 语言：中文（简体）
 - 商店图标（128×128）：上传 `icon-128.png`，和扩展包里的 `icons/128.png` 相同（`npm run crx` 生成）
-- 屏幕截图（1280×800，最多 5 张）：`screenshot-1-ui.png`、`screenshot-2-popup.png`（扩展面板的首页和设置）、`screenshot-3-tags.png`（输入「猫娘」时的中文标签联想）、`screenshot-4-english.png`（输入「cat ea」时英文联想附中文）
+- 屏幕截图（1280×800，JPEG 或不带透明通道的 24 位 PNG，最多 5 张）：`screenshot-0-intro.png`（总览，和顶部宣传图同样的设计）、`screenshot-1-ui.png`、`screenshot-2-popup.png`（扩展面板的首页和设置）、`screenshot-3-tags.png`（输入「猫娘」时的中文标签联想）、`screenshot-4-english.png`（输入「cat ea」时英文联想附中文）
 - 小型宣传图块（440×280，必填）：`promo-small-440x280.png`
 - 顶部宣传图块（1400×560，可选）：`promo-marquee-1400x560.png`
 - 官方网址：不填（没有已验证的网站）；首页网址：https://github.com/TomorrowX6/NovelAI-CN ；支持网址：https://github.com/TomorrowX6/NovelAI-CN/issues
