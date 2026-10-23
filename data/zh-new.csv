@@ -9,33 +9,33 @@ mahou_tsukai_precure!,3,魔法使！光之美少女,魔法使光之美少女,218
 platonic_affection,0,柏拉图式亲昵,非恋爱的亲昵,1856
 tokyo,0,东京都,东京,1814
 crossover_pairing,0,跨作品情侣|跨作品CP,跨作品配对,1670
-phoenix_reffaella,4,,菲欧妮,1241
+phoenix_reffaella,4,菲欧妮,菲欧妮·蕾法爱菈,1241
 kissing_another_during_penetration,0,做爱时接吻,插入时接吻,1178
 panty_waistline_peek,0,内裤边露出,内裤腰边外露,1133
 anakt_garden_uniform,0,,Anakt花园制服（异形舞台）,1100
 shirayuki_hime_(precure),4,公主天使,白雪姬（光之美少女）,1073
-warrior_(female)_(dq3),4,女战士,女战士（勇者斗恶龙3）,1037
+warrior_(female)_(dq3),4,女战士,战士（女）（勇者斗恶龙3）,1037
 all_wishes_come_true!,3,,八仙（动画电影）,1027
 kitsch_jacket_(cyberpunk),0,,媚俗风夹克（赛博朋克）,1026
-sage_(female)_(dq3),4,女贤者,女贤者（勇者斗恶龙3）,996
+sage_(female)_(dq3),4,女贤者,贤者（女）（勇者斗恶龙3）,996
 sedan,0,三厢车,轿车,926
 zhongli_quan_(all_wishes_come_true!),4,汉钟离,钟离权（八仙）,911
 kita_high_school_uniform_(subarashiki_hibi),0,,北高校制服（美好的每一天）,848
-aogiri_high_school,3,青桐高校游戏部,青桐高校,826
+aogiri_high_school,3,青桐高校|青桐高中游戏部,青桐高中,826
 choshanland_plushie_(arknights),0,朝陇山兔,朝陇山玩偶（明日方舟）,796
 rainbow_theme,0,彩虹配色,彩虹主题,773
 inoue_orihime_(sennen_kessen-hen),4,,井上织姬（千年血战篇）,765
 lu_dongbin_(all_wishes_come_true!),4,,吕洞宾（八仙）,764
 ben_10_(classic),3,,少年骇客（初代）,733
 unchibification,0,等身化,Q版角色等身化,716
-tachibana_hibiki_(gungnir)_(symphogear),4,,立花响（冈格尼尔）（战姬绝唱）,701
+tachibana_hibiki_(gungnir)_(symphogear),4,,立花响（烈枪·Gungnir）（战姬绝唱）,701
 double-stroke_eyebrows,0,,双线眉,678
-akatsuki_kirika_(igalima),4,,晓切歌（伊加里马）,666
+akatsuki_kirika_(igalima),4,,晓切歌（狱镰·Igalima）,666
 inkling_text,0,乌贼文字,乌贼语文字（斯普拉遁）,644
 ender_lilies:_quietus_of_the_knights,3,终焉之莉莉,终焉之莉莉：骑士寂夜,631
 fake_advertisement,0,恶搞广告,假广告,606
 typhoeus_(arknights),4,缇弗洛斯,提弗洛斯（明日方舟）,590
-yukine_chris_(ichaival),4,,雪音克莉丝（伊奇伊巴尔）,578
+yukine_chris_(ichaival),4,雪音克莉丝,雪音克里斯（魔弓·Ichaival）,578
 ookurikara_(touken_ranbu),4,,大俱利伽罗（刀剑乱舞）,559
 penguin_hat_(mawaru_penguindrum),0,,企鹅帽（回转企鹅罐）,546
 familiar_lands,3,,Familiar Lands（Basedbinkie的原创世界）,506
@@ -54,7 +54,7 @@ memphis_design,0,孟菲斯风格,孟菲斯设计,417
 honor_of_kings,3,,王者荣耀,415
 nakayama_festa_(desperate_measures)_(umamusume),4,,中山庆典（死中求活）（赛马娘）,410
 tachibana_kisa,4,,立花希佐,410
-jubilee_(marvel),4,李千欢,朱比莉（漫威）,406
+jubilee_(marvel),4,欢欢|朱比莉,李千欢（漫威）,406
 he_mingshuo,4,,何明烁,384
 kanagawa_oki_nami_ura,3,,神奈川冲浪里,381
 centered_hair_bow,0,,居中的蝴蝶结发饰,377
@@ -62,9 +62,9 @@ silver_bracer,0,,银色护腕,368
 straw_hats_jolly_roger_(one_piece),0,,草帽海贼团海贼旗（海贼王）,367
 phalaenopsis_(umamusume),4,,蝴蝶兰（赛马娘）,364
 aiboo_(mint_fantome),4,,幽灵猫（Mint Fantome）,362
-tsukuyomi_shirabe_(shul_shagana),4,,月读调（修尔沙加那）,352
-kazanari_tsubasa_(amenohabakiri),4,,风鸣翼（天羽羽斩）,350
-baobhan_sith_(bloody_bunny)_(fate),4,,巴万·希（血腥兔女郎）（Fate系列）,349
+tsukuyomi_shirabe_(shul_shagana),4,,月读调（鏖锯·Shul Shagana）,352
+kazanari_tsubasa_(amenohabakiri),4,,风鸣翼（绝刀·天羽羽斩）,350
+baobhan_sith_(bloody_bunny)_(fate),4,妖精骑士崔斯坦,芭万·希（血腥兔女郎）（Fate系列）,349
 daiwa_scarlet_(nuit_etoilee_de_scarlet)_(umamusume),4,,大和赤骥（绯色星辰）（赛马娘）,348
 triple-stroke_eyebrows,0,,三线眉,347
 makina_(blue_archive),4,,Makina（蔚蓝档案）,341
@@ -77,10 +77,10 @@ spoken_interlocked_gender_symbols,0,,对话中的交错性别符号,328
 morinaka_kazaki_(young),4,,森中花咲（幼年）,325
 forced_oral,0,,被迫口交,323
 medic_1_(sekaiju_4),4,,医生1（世界树迷宫4）,318
-phoenix_reffaella_(daydream_complex),4,,菲欧妮（Daydream Complex）,318
+phoenix_reffaella_(daydream_complex),4,,菲欧妮·蕾法爱菈（Daydream Complex）,318
 miss.christine_(arknights),4,,克里斯汀小姐（明日方舟）,315
-elsa_granhiert,4,,艾尔莎·格兰希尔特,312
-vodyanitsa_(water_imp)_(genshin_impact),4,,沃佳妮察（水妖）（原神）,309
+elsa_granhiert,4,艾尔莎·格兰希尔特,艾尔莎·葛兰西尔特,312
+vodyanitsa_(water_imp)_(genshin_impact),4,,沃雅妮莎（水妖）（原神）,309
 shirota_mitsuki,4,,白田美津骑,308
 unohana_yachiru,4,,卯之花八千流,300
 corneal_scar,0,白翳,角膜疤痕,295
@@ -94,19 +94,19 @@ red_fempyro_(paladinmaui),4,,红队女火焰兵（paladinmaui）,277
 dept._heaven,3,,Dept. Heaven系列,272
 embodiment_of_scarlet_devil_new_classic,3,东方红魔乡重制版,东方红魔乡 New Classic,271
 poyopep,3,,PEPOYO作品,271
-caduceus_(series),3,超执刀,超执刀系列,270
+caduceus_(series),3,超执刀|超执刀 神使之杖,超执刀系列,270
 ish_the_tyrant,4,,暴君伊什,270
-nihilux_(blurry_qr_colt)_(honkai:_star_rail),4,,Nihilux（Blurry_QR_Colt）（崩坏：星穹铁道）,270
+nihilux_(blurry_qr_colt)_(honkai:_star_rail),4,,虚照（Blurry_QR_Colt）（崩坏：星穹铁道）,270
 grabbing_another's_jacket,0,,抓他人的夹克,269
 long_unitard,0,,长款弹力紧身衣,269
 asimov_(spindlesong),4,,阿西莫夫（spindlesong）,268
 impossible_covered_penis,0,,紧身衣下的阴茎轮廓,266
 otto_suwen,4,,奥托·苏文,264
 prince_albert_piercing,0,龟头穿孔,阿尔伯特王子环,263
-sua_(angel)_(alien_stage),4,,Sua（天使）（异形舞台）,262
-w_(ambience_synesthesia_2023)_(arknights),4,,W（2023音律联觉）（明日方舟）,262
-sekai_metsubou_kyouyuu_gensou_mamiya,3,,世界灭亡共有幻想 真宫,260
-laevatein_(schwertform)_(nanoha),4,,莱万汀（剑形态）（魔法少女奈叶）,255
+sua_(angel)_(alien_stage),4,,苏阿（天使）（异形舞台）,262
+w_(ambience_synesthesia_2023)_(arknights),4,,W（音律联觉2023）（明日方舟）,262
+sekai_metsubou_kyouyuu_gensou_mamiya,3,,世界灭亡共有幻想MAMIYA,260
+laevatein_(schwertform)_(nanoha),4,莱瓦汀,雷瓦丁（剑形态）（魔法少女奈叶）,255
 ghost_in_the_shell_(1995),3,,攻壳机动队（1995年剧场版）,254
 poke_doll,0,,皮皮玩偶,254
 blu_fempyro_(paladinmaui),4,,蓝队女火焰兵（paladinmaui）,249
@@ -126,7 +126,7 @@ dietrich_gregor_lamine,4,,迪特里希·格雷戈尔·拉米内,234
 lightning_scar,0,利希滕贝格图形,雷击疤痕,234
 smiley_face_hat_ornament,0,,笑脸帽饰,233
 grabbing_own_breasts,0,,抓着自己的双乳,231
-guilty_(mighty_bunny)_(nikke),4,,吉尔蒂（强力兔女郎）（胜利女神：妮姬）,230
+guilty_(mighty_bunny)_(nikke),4,,吉尔提（强力兔女郎）（胜利女神：妮姬）,230
 impossible_covered_testicles,0,,紧身衣下的睾丸轮廓,230
 cat_tree,0,猫爬柱,猫爬架,229
 hamasaki_mahoro,4,,滨崎茉幌,229
@@ -137,24 +137,24 @@ the_legend_of_zelda:_ocarina_of_time_(remake),3,时之笛重制版,塞尔达传�
 morinaka_kazaki_(teenage),4,,森中花咲（少女）,226
 acubi,0,韩系辣妹风,Acubi风穿搭,225
 heart_pirates_jolly_roger_(one_piece),0,,心脏海贼团海贼旗（海贼王）,225
-maria_cadenzavna_eve_(airget-lamh),4,,玛莉亚·卡登扎夫娜·伊芙（银臂·阿加特拉姆）,225
+maria_cadenzavna_eve_(airget-lamh),4,,玛利亚·卡登扎夫娜·伊芙（银腕·Airgetlamh）,225
 lunar_(series),3,,露娜传说系列,223
 magic_school_uniform_(precure),0,,魔法学校制服（光之美少女）,222
 hauberk,0,锁子甲,锁子甲长衫,221
 wall_mirror,0,挂镜,壁镜,221
-hachimi_(umamusume),0,蜂蜜特饮,蜂蜜饮（赛马娘）,219
-sunna_(delusions_in_business)_(zenless_zone_zero),4,,桑娜（妄想天使工作服）（绝区零）,217
+hachimi_(umamusume),0,蜂蜜饮|蜂蜜特饮,哈基米（赛马娘）,219
+sunna_(delusions_in_business)_(zenless_zone_zero),4,,千夏（妄想天使工作服）（绝区零）,217
 viewer_holding_photo,0,,观者手持照片,217
 concert_flute,0,,音乐会长笛,216
 kiana_kaslana_(sung_by_the_moon_and_stars),4,,琪亚娜·卡斯兰娜（后崩坏书）,213
 yuri_crimson,4,,尤莉·克里姆森,212
-kirby_and_the_world_beyond,3,,星之卡比 World Beyond,211
+kirby_and_the_world_beyond,3,,星之卡比 跃然世界,211
 pokedex_information,0,,宝可梦图鉴说明,210
 turtleneck_under_shirt,0,,衬衫下穿高领衫,209
 neji_kokuto,4,,根地黑门,206
 lavafall,0,熔岩瀑布,岩浆瀑布,205
 shirogane_noel_(roomwear),4,,白银诺艾尔（居家服）,205
-yuri_(yu-gi-oh!),4,,尤里（游戏王）,201
+yuri_(yu-gi-oh!),4,,游里（游戏王）,201
 aerith_gainsborough_(seventh_high_team_cetra_uniform),4,,爱丽丝·盖恩斯巴勒（七高总长服）,200
 resident_evil_(2026_movie),3,,生化危机（2026年电影）,200
 miyanaga_nonoka_(real),4,,宫永野乃花（现实）,198
@@ -165,30 +165,30 @@ ninja_defenders:_cat_shinobi,3,,喵喵忍者,196
 teto_day,0,重音Teto之日,Teto之日,196
 guan_chao_(teenager)_(false_memory),4,小关潮,关潮（少年）（记忆管理局）,195
 slingback_heels,0,后绊带高跟鞋,露跟高跟鞋,195
-yuto_(yu-gi-oh!),4,,尤特（游戏王）,193
-mizi_(demon)_(alien_stage),4,,Mizi（恶魔）（异形舞台）,192
+yuto_(yu-gi-oh!),4,,游斗（游戏王）,193
+mizi_(demon)_(alien_stage),4,,米兹（恶魔）（异形舞台）,192
 domestic_dog_(kemono_friends),4,,家犬（兽娘动物园）,191
 jingu,0,金箍,紧箍,190
 suzuya_(halloween)_(kancolle),4,,铃谷（万圣节）（舰队Collection）,190
 cheeky_imouto-chan_(monaka_curl),4,妹妹酱,嚣张妹妹酱（monaka curl）,189
-nakamachi_arale_(real),4,,中町Arale（现实）,189
-edge_geraldine,4,,爱德华·杰拉尔丁,188
+nakamachi_arale_(real),4,,仲町阿拉蕾（现实）,189
+edge_geraldine,4,艾吉,爱德华·吉拉尔丁,188
 mekakushi_dan_(kagerou_project),0,,目隐团（阳炎计划）,188
-mysterious_girl_(kirby_and_the_world_beyond),4,,神秘少女（星之卡比 World Beyond）,187
+mysterious_girl_(kirby_and_the_world_beyond),4,,神秘少女（星之卡比 跃然世界）,187
 tethered,0,拴住,被拴住,187
 theodora_sergio_savangren,4,,特奥多拉·塞尔希奥·萨班格伦,186
 sexual_relief_officer,0,性处理系,性处理委员,184
-john_doe_(zenless_zone_zero)_(scopeophilia),4,,男版简（绝区零）（scopeophilia）,183
+john_doe_(zenless_zone_zero)_(scopeophilia),4,,男版简·杜（绝区零）（scopeophilia）,183
 lyydia_(sunako),4,,莉迪亚（sunako）,183
-harten,3,,哈腾,181
-new_zealand_giant_penguin_(kemono_friends),4,,新西兰巨企鹅（兽娘动物园）,181
+harten,3,,哈滕,181
+new_zealand_giant_penguin_(kemono_friends),4,新西兰巨企鹅,厚企鹅（兽娘动物园）,181
 tifa_lockhart_(seventh_high_school_uniform),4,,蒂法·洛克哈特（七高水手服）,180
 esmeralda_sinza,4,,埃斯梅拉达·辛扎,178
 inoue_orihime_(hueco_mundo),4,,井上织姬（虚圈）,177
 landsknecht_hat,0,,雇佣兵宽檐帽,177
 yugo_(yu-gi-oh!),4,,游吾（游戏王）,177
 laterano_school_uniform,0,,拉特兰校服（明日方舟）,176
-nihilux_(aeon_aha)_(honkai:_star_rail),4,,Nihilux（星神阿哈）（崩坏：星穹铁道）,176
+nihilux_(aeon_aha)_(honkai:_star_rail),4,,虚照（星神阿哈）（崩坏：星穹铁道）,176
 psycho_power,0,,精神力量（街头霸王）,174
 raping_viewer,0,,强暴观者,173
 china_dress_(love_live!),0,,旗袍（Love Live!）,172
@@ -197,7 +197,7 @@ unzipping_another's_clothes,0,,拉开他人衣服的拉链,172
 bitonal,0,二值化,双色调,171
 cropped_rash_guard,0,,短款防晒冲浪衣,171
 frontal_thigh_sex,0,,正面腿交,171
-nakamachi_arale_(virtual),4,,中町Arale（虚拟形象）,171
+nakamachi_arale_(virtual),4,,仲町阿拉蕾（虚拟形象）,171
 medic_3_(sekaiju_4),4,,医生3（世界树迷宫4）,170
 empty_sleeve,0,,空袖管,169
 young_malon,4,,幼年玛珑,168
@@ -213,7 +213,7 @@ red_army_uniform_(eddsworld),0,,红军制服（Eddsworld）,166
 reverse_forced_cunnilingus,0,,反向强迫舔阴,166
 chronoa_(dragon_ball),4,克罗诺亚,时之界王神（龙珠）,165
 la_squadra_esecuzioni,0,暗杀小队,暗杀组（JOJO）,165
-ogipote_(style),0,,ogipote画风,164
+ogipote_(style),0,,荻pote画风,164
 saliva_puddle,0,唾液池,唾液滩,164
 hylian_text,0,海利亚语,海利亚文字（塞尔达传说）,163
 mary_sue_(black_souls),4,,玛丽苏（Black Souls）,163
@@ -229,10 +229,10 @@ power_gloves,0,,力量手套,156
 hair_cape,0,,斗篷状头发,154
 sightseer_(female)_(pokemon_sm),4,,观光客（女）（宝可梦 太阳／月亮）,153
 night_seeker_1_(sekaiju),4,,夜袭者1（世界树迷宫）,152
-ivan_(decora)_(alien_stage),4,,Ivan（Decora）（异形舞台）,151
+ivan_(decora)_(alien_stage),4,,伊万（Decora）（异形舞台）,151
 quilted_coat,0,,绗缝大衣,151
 sawami_kanata,4,,泽海奏多,151
-sengoku_yuno_(real),4,,仙石Yuno（现实）,151
+sengoku_yuno_(real),4,,千石由乃（现实）,151
 deku's_photos_leak,0,,出久照片泄露,150
 neck_pouch,0,,挂脖小包,150
 print_dickey,0,,印花假领,150
@@ -241,7 +241,7 @@ seiun_sky_(whimsical_orange_on_the_shore)_(umamusume),4,,星云天空（海边�
 cai_castor,4,,凯·卡斯托,148
 cow_print_shrug,0,,奶牛纹披肩小外套,148
 party_o_kumimasen_ka?,3,,要不要组队？,148
-ender_magnolia:_bloom_in_the_mist,3,终焉之玉兰,终焉之玉兰：雾中盛放,147
+ender_magnolia:_bloom_in_the_mist,3,终焉之玛格诺利亚,终焉之玛格诺利亚：雾中盛放之花,147
 okinawan_habu_(kemono_friends),4,,冲绳饭匙倩（兽娘动物园）,147
 kiyosumi_mashiro_(juukyuu),4,,清澄真白（juukyuu）,146
 azarashii_(igarashi_rika),4,,海豹（五十岚梨花）,145
@@ -249,9 +249,9 @@ castorice_(express_travel)_(honkai:_star_rail),4,,遐蝶（快旅）（崩坏：
 clarisse_(holiday)_(granblue_fantasy),4,,克拉莉丝（圣夜）（碧蓝幻想）,145
 flower_with_face,0,,长着脸的花,144
 hotsuin_miyako,4,,峰津院都,144
-till_(decora)_(alien_stage),4,,Till（Decora）（异形舞台）,143
+till_(decora)_(alien_stage),4,,蒂尔（Decora）（异形舞台）,143
 young_princess_ruto,4,,幼年露特公主,143
-frederica_irving_(sekaiju),4,,弗雷德丽卡·欧文（世界树迷宫）,142
+frederica_irving_(sekaiju),4,,弗雷德里卡·欧文（世界树迷宫）,142
 frieren_cover_parody_(meme),0,,芙莉莲封面恶搞（梗）,142
 good_couple_day,0,,好夫妻日,142
 phalaenopsis_(racing)_(umamusume),4,,蝴蝶兰（决胜服）（赛马娘）,142
@@ -270,22 +270,22 @@ eclipse_shadow,4,,日蚀暗影（光之美少女）,138
 konchuu_kansatsu,3,,昆虫奸察,138
 mermay,3,,MerMay美人鱼月,138
 mona_(2channel),4,,莫纳猫（2ch）,137
-ramen_daisuki_koizumi-san,3,,最爱拉面的小泉同学,137
+ramen_daisuki_koizumi-san,3,最爱拉面的小泉同学,爱吃拉面的小泉同学,137
 tatsuno_saori,4,,辰野沙织,137
-ace_combat_8,3,皇牌空战8：塞布之翼,皇牌空战8,136
+ace_combat_8,3,空战奇兵8,皇牌空战8,136
 angels_of_delusion_kfc_bag,0,,妄想天使肯德基纸袋（绝区零）,136
 kisaragi_kagome,4,,如月笼目,136
-mahou_tsukai_precure!!_~mirai_days~,3,,魔法使光之美少女！！～MIRAI DAYS～,136
-phoenix_reffaella_(the_illness_called_life),4,,菲欧妮（名为生命的疾病）,136
-carol_malus_dienheim_(daur_da_blao),4,,卡萝尔·玛鲁斯·迪恩海姆（达乌尔达布拉）,135
+mahou_tsukai_precure!!_~mirai_days~,3,魔法使光之美少女！！～MIRAI DAYS～,魔法使光之美少女！！～未来之日～,136
+phoenix_reffaella_(the_illness_called_life),4,,菲欧妮·蕾法爱菈（名为生命的疾病）,136
+carol_malus_dienheim_(daur_da_blao),4,,卡罗尔·马尔斯·迪恩海姆（歼琴·Daur da Blao）,135
 furen_e_lustario_(loungewear),4,,芙莲·E·露丝塔莉欧（家居服）,135
 sybilla_(sennen_sensou_aigis),4,,西比拉（千年战争Aigis）,134
 mini_person_on_penis,0,,阴茎上的迷你人,133
 forehead_joke,0,大额头,额头梗,132
 efforia_(umamusume),4,,乐透心（赛马娘）,131
 elemental_animal,0,,元素动物,131
-phantasy_star_iii,3,,梦幻之星III,131
-sengoku_yuno_(virtual),4,,仙石Yuno（虚拟形象）,131
+phantasy_star_iii,3,,梦幻之星III 时之继承者,131
+sengoku_yuno_(virtual),4,,千石由乃（虚拟形象）,131
 tiger_print_thighhighs,0,,虎纹过膝袜,131
 chaos_aurorahime_(grimms_notes),4,,混沌奥罗拉公主（格林笔记）,130
 taoism,0,,道教,130
@@ -297,22 +297,22 @@ wavy_speech_bubble,0,,波浪边对话框,127
 yuuki_makoto_(in_witness_of_glory)_(persona_3),4,,结城理（荣耀见证）（女神异闻录3）,127
 futatsu_no_mokuba_(vocaloid),3,,两匹木马（VOCALOID）,126
 summon_night:_swordcraft_story_2,3,,召唤之夜 铸剑物语2,126
-valtr_(bloodborne),4,,瓦尔特（血源诅咒）,126
+valtr_(bloodborne),4,联盟之长,瓦尔托尔（血源诅咒）,126
 whitebeard_pirates_jolly_roger_(one_piece),0,,白胡子海贼团海贼旗（海贼王）,126
 mahou_no_kagami_(grimms_notes),4,,魔镜（格林笔记）,125
 shun_shun_rikka,4,,盾舜六花,125
 uchuu_de_koi_wa_ru-run_run,0,,宇宙之恋☆露露伦伦,125
-higurashi_umineko_card_battle_jin,3,,寒蝉海猫卡牌对战 迅,124
+higurashi_umineko_card_battle_jin,3,,寒蝉海猫卡牌对战 阵,124
 wakatsuki_kagami,4,,若槻镜,124
 zankou_(nte),4,,残虹（异环）,124
 radiating_lines_speech_bubble,0,独白框,放射线对话框,123
-cafe_artful,4,,咖啡·阿特富尔,122
+cafe_artful,4,卡菲,卡菲·阿托弗露,122
 fabio_gil_toro_alvarez,4,,法比奥·吉尔·托罗·阿尔瓦雷斯,122
-vincent_(cyberpunk),4,文森特,男V（赛博朋克）,122
+vincent_(cyberpunk),4,男V,文森特（赛博朋克）,122
 western_spotted_skunk_(kemono_friends),4,,西部斑臭鼬（兽娘动物园）,122
 anatolia_(fire_emblem),4,,阿纳托利亚（火焰纹章）,121
 female_armpit_hair,0,,女性腋毛,121
-hsin_(illumining_form)_(wuthering_waves),4,,心（辉耀形态）（鸣潮）,121
+hsin_(illumining_form)_(wuthering_waves),4,,心月狐（辉耀形态）（鸣潮）,121
 furen_e_lustario_(summer_casual),4,,芙莲·E·露丝塔莉欧（夏季便服）,120
 kuzuryu_chisei,4,,九头龙智生,120
 gingham_pillow,0,,格纹枕头,119
@@ -321,14 +321,14 @@ tsukuyomi-no-shinshi_(kemono_friends),4,,月读使者（兽娘动物园）,119
 underdressed_for_weather,0,衣不御寒,穿得太少,119
 blackbird_(nte),4,梅露菈,黑羽（异环）,118
 cloud_with_face,0,,长着脸的云,117
-hsin_(moon_fox)_(wuthering_waves),4,,心（月狐）（鸣潮）,117
+hsin_(moon_fox)_(wuthering_waves),4,,心月狐（狐狸形态）（鸣潮）,117
 100kg_yuuka_(meme),0,,100公斤优香（梗）,116
 apparition,0,幻影,幽影,116
 black_bike_shorts,0,,黑色骑行短裤,116
 female_eshmel_(fire_emblem),4,,伊修玛尔（女）（火焰纹章）,116
-menat_(battle_outfit),4,,梅纳特（战斗服）,116
+menat_(battle_outfit),4,梅娜特,梅奈特（战斗服）,116
 dante_(fire_emblem),4,,但丁（火焰纹章）,115
-harten_(character),4,,哈腾（角色）,115
+harten_(character),4,,哈滕（角色）,115
 seibu_rio,4,,圣舞理王,115
 smiley_face_hair_ornament,0,,笑脸发饰,115
 yog-sothoth's_yard,3,,犹格索托斯的庭院,115
@@ -340,7 +340,7 @@ misaka_mikoto_(endless_summer),4,,御坂美琴（无尽之夏）,114
 mystic_(sekaiju),4,,秘术师（世界树迷宫）,114
 nangong_yu_(heartfelt_support),4,,南宫羽（真心应援）,114
 rindou_yui,4,,林堂唯伊,114
-yamagi_gilmerton,4,,山吉·吉尔马顿,114
+yamagi_gilmerton,4,,亚马基·吉尔马顿,114
 zack_fair_(seventh_high_school_uniform),4,,扎克斯·菲尔（第七高校制服）,114
 clothed_female_underwear_female,0,,穿衣女性与内衣女性,113
 elemental_dragon,0,,元素龙,113
@@ -350,7 +350,7 @@ morinaka_kazaki_(2nd_costume),4,,森中花咲（第二套服饰）,113
 almond_eye_(summer_sky_chill_time)_(umamusume),4,,杏目（夏空放松时间）（赛马娘）,112
 flora_(nikke),4,,芙罗拉（胜利女神：妮姬）,112
 houtsuin_yamato,4,,峰津院大和,112
-koizumi_(ramen_daisuki_koizumi-san),4,,小泉（最爱拉面的小泉同学）,112
+koizumi_(ramen_daisuki_koizumi-san),4,,小泉（爱吃拉面的小泉同学）,112
 anna_(blue_archive),4,,仁木安娜（蔚蓝档案）,111
 flower-shaped_food,0,,花朵形状的食物,111
 kamen_rider_battle:_ganba_legends,3,,假面骑士Battle 加油传奇,111
@@ -364,9 +364,9 @@ karaha-baruha,4,,卡拉哈巴鲁哈,110
 kumugi_harvest,4,,库姆吉·哈维斯特,110
 magic_healing,0,治愈魔法|回复魔法,魔法治疗,110
 morinaka_kazaki_(1st_costume),4,,森中花咲（第一套服饰）,110
-severian_lowell_(solemnly_impeccable),4,,塞维里安·洛威尔（庄严无瑕）,110
-shinobi_(series),3,超级忍,超级忍系列,110
-cinderella_(glass_curtsy)_(nikke),4,,灰姑娘（玻璃屈膝礼）（胜利女神：妮姬）,109
+severian_lowell_(solemnly_impeccable),4,,赛维里安·洛威尔（庄严无瑕）,110
+shinobi_(series),3,超级忍,忍 Shinobi系列,110
+cinderella_(glass_curtsy)_(nikke),4,,灰姑娘（琉璃波光）（胜利女神：妮姬）,109
 koseki_bijou_(school_uniform),4,,古石碧珠（校服）,109
 riding_taur,0,,骑乘半兽人马,109
 dakaretai_otoko_1-i_ni_odosarete_imasu.,3,,我被最想拥抱的男人威胁了,108
@@ -383,13 +383,13 @@ domestic_cat_(kemono_friends),4,,家猫（Nexon版）（兽娘动物园）,105
 hand_on_own_opposite_cheek,0,,手放在对侧脸颊,105
 scoring_(sports),0,,得分（运动）,105
 yakumo_beni_(sporty),4,,八云红（运动风）,105
-debut_or_die!,3,出道死,不出道就会死,104
+debut_or_die!,3,出道死|不出道就完蛋了,患上不出道就会死的病,104
 hiking_backpack,0,,登山背包,104
 severus_snape_(redteneri),4,,女体化斯内普（redteneri）,104
 sexual_animal_insertion,0,,动物插入,104
 shine_arcana_rod,0,,闪耀奥秘魔杖（光之美少女）,104
 vodka_(fiery_aqua_vitae)_(umamusume),4,,伏特加（不冻的生命之水）（赛马娘）,104
-d.mon_(overwatch),4,,D.Mon（守望先锋）,103
+d.mon_(overwatch),4,李尤娜,D.Mon（守望先锋）,103
 japanese_rhinoceros_beetle,0,独角仙,日本独角仙,103
 sakai_aruko,4,,酒井有子,103
 wind_glider_(genshin_impact),0,,风之翼（原神）,103
@@ -400,19 +400,19 @@ flayne_(basedbinkie),4,,芙莱恩（basedbinkie）,102
 houou_project,3,,凤凰计划（虚拟主播）,102
 mahou_shoujo_ikusei_keikaku_f2p,3,,魔法少女育成计划 F2P,102
 me_(idolmaster),3,,「Me」（偶像大师）,102
-ange_katrina_(9th_costume),4,,安洁·卡特琳娜（第九套服饰）,101
+ange_katrina_(9th_costume),4,,安洁·卡特莉娜（第九套服饰）,101
 glowing_engravings,0,,发光的刻纹,101
 masa_works_design_(copyright),3,,MASA Works Design作品,101
 aizawa_ema_(loungewear),4,,蓝泽艾玛（家居服）,100
 black_dickey,0,,黑色假领,100
 bubblegum_(zenless_zone_zero),4,,泡泡糖（绝区零）,100
 elbow_nudge,0,,用手肘顶,100
-futsutsuka_na_akujo_de_wa_gozaimasu_ga,3,,虽是不成器的恶女,100
+futsutsuka_na_akujo_de_wa_gozaimasu_ga,3,,我是不才恶女,100
 ousai_private_academy_school_uniform,0,,樱才私立学园校服,100
 oversized_coat,0,,过大的大衣,100
 ravenous_suit,0,,Ravenous战衣（密特罗德）,100
 sovereign_3_(sekaiju),4,,君主3（世界树迷宫）,100
-aria_(human)_(cuteness_loading)_(zenless_zone_zero),4,,艾莉亚（人类）（可爱加载中）（绝区零）,99
+aria_(human)_(cuteness_loading)_(zenless_zone_zero),4,,爱芮（人类）（可爱加载中）（绝区零）,99
 hanazuki_(kancolle),4,,花月（舰队Collection）,99
 kitasan_black_(crane's_ambition)_(umamusume),4,,北部玄驹（真打·庆鹤之志）（赛马娘）,99
 souei_yuyu,4,,苍影悠悠,99
@@ -427,7 +427,7 @@ slave_crown_(ff6),0,,操纵之环（最终幻想6）,97
 wumpus_dying_(meme),0,,Wumpus之死（梗）,97
 besna_drake,4,,贝丝娜·德雷克,96
 boko_(ff5),4,,波可（最终幻想5）,96
-grace_(sayonara_lara),4,,格蕾丝（再见拉拉）,96
+grace_(sayonara_lara),4,,克芮丝（再见菈菈）,96
 green_garter_belt,0,,绿色吊袜腰带,96
 maud_ali,4,,莫德·阿里,96
 morinaka_kazaki_(8th_costume),4,,森中花咲（第八套服饰）,96
@@ -437,34 +437,34 @@ sweet_flower_(genshin_impact),0,,甜甜花（原神）,96
 toumei_na_yoru_ni_kakeru_kimi_to_me_ni_mienai_koi_wo_shita,3,,与奔驰于透明夜晚的你谈一场看不见的恋爱,96
 akechi_anna_(civilian),4,,明智安娜（日常）,95
 elf_ni_inmon_o_tsukeru_hon,3,,给精灵刻上淫纹的本子,95
-fuji_miyako_(virtual),4,,藤Miyako（虚拟形象）,95
+fuji_miyako_(virtual),4,,藤都子（虚拟形象）,95
 gem_belt,0,,宝石腰带,95
 grow_up_show:_himawari_no_circus-dan,3,,Grow Up Show 向日葵马戏团,95
-millaarc_cranstoun,4,,米拉阿尔克·克兰斯顿,95
+millaarc_cranstoun,4,,米拉阿尔克·克兰修特恩,95
 multi-strapped_camisole,0,,多肩带吊带背心,95
 sentient_scarf,0,,活体围巾,95
 white_dickey,0,,白色假领,95
-auyn_(harten),4,,奥因（哈腾）,94
+auyn_(harten),4,,奥因（哈滕）,94
 haiqing_(jiangshi)_(astral_party),4,,海晴（僵尸）（吉星派对）,94
 invisibility_cloak,0,隐身衣,隐身斗篷,94
 shu_(everflowing_waters)_(arknights),4,,黍（长流）（明日方舟）,94
 tied_to_pole,0,,绑在柱子上,94
-epiphaneia_(fate's_chosen_star)_(umamusume),4,,叶菲涅亚（决胜服）（赛马娘）,93
-heidern_(kof),4,,海德伦（拳皇）,93
+epiphaneia_(fate's_chosen_star)_(umamusume),4,,神威启示（决胜服）（赛马娘）,93
+heidern_(kof),4,,哈迪兰（拳皇）,93
 kobayashi_mikuru_(civilian),4,,小林未来（日常）,93
 megohime_(nashi),4,,爱姬（nashi）,93
 minato_(blue_archive),4,,海路凑（蔚蓝档案）,93
 shimmer_(xenoblade),4,,辉夜（异度神剑）,93
 ursula_(fire_emblem:_fortune's_weave),4,,乌修拉（火焰纹章）,93
 alice_zuberg_(young),4,,爱丽丝·滋贝鲁库（幼年）,92
-arakure_ojou-sama_wa_monmon_shiteiru,3,,粗暴大小姐郁闷中,92
+arakure_ojou-sama_wa_monmon_shiteiru,3,粗暴大小姐郁闷中,蛮横无理的大小姐正在感到苦闷,92
 bound_hair,0,,束缚的头发,92
-gang_beasts,3,人类一败涂地,基佬大乱斗,92
+gang_beasts,3,萌萌小人大乱斗,基佬大乱斗,92
 grommet_belt,0,,铆眼腰带,92
 hamedori_template_(meme),0,,拍摄模板（梗）,92
 mana_(nikke),4,,玛娜（胜利女神：妮姬）,92
 mars_symbol_print,0,,火星符号印花,92
-sex_open_world_e_youkoso!,3,,欢迎来到性开放世界！,92
+sex_open_world_e_youkoso!,3,,欢迎来到性爱开放世界！,92
 vspo!_matching_outfit,0,,VSPO!统一服装,92
 warrior_3_(sekaiju),4,,战士3（世界树迷宫）,92
 chucky_(child's_play),4,,恰吉（鬼娃回魂）,91
@@ -472,16 +472,16 @@ goemon_(ganbare_goemon),4,,五右卫门（大盗五右卫门）,91
 siren_(chiikawa),4,,塞壬（吉伊卡哇）,91
 takashina_sarafumi,4,,高科更文,91
 tongue_sucking,0,,吸吮舌头,91
-arielle_(vtuber)_(crashout),4,,阿丽尔（Crashout）,90
+arielle_(vtuber)_(crashout),4,,艾莉尔（Crashout）,90
 chaos_(rance),4,,混沌（兰斯）,90
 mafuteru,4,,真冬晴娃,90
 mini_christmas_tree,0,,迷你圣诞树,90
 chifuin_gyai,4,,地封院Gyai,89
 grabbing_another's_necktie,0,,抓他人的领带,89
-hanny_(alicesoft),4,,埴轮怪（AliceSoft）,89
+hanny_(alicesoft),4,埴轮怪,哈尼（AliceSoft）,89
 kawaragi_senju,4,明司千寿,瓦城千咒,89
 looping_the_rooms_girl,4,,Looping the Rooms少女,89
-nokko-chan,4,,Nokko酱（魔法少女育成计划）,89
+nokko-chan,4,Nokko酱,野野原纪子（魔法少女育成计划）,89
 sava_k_zeos,4,,萨瓦·K·泽奥斯,89
 shingu_haruomi,4,,辰宫晴臣,89
 tamamo_cross_(raging_thunder)_(umamusume),4,,玉藻十字（猛鸣神）（赛马娘）,89
@@ -494,8 +494,8 @@ sayaka_(harris_hero),4,,沙耶香（harris hero）,88
 tamaki_kyouka,4,,玉城杏夏,88
 tea_party_militant_b_(blue_archive),4,,茶会学生B（蔚蓝档案）,88
 umezato_chieri,4,,梅里千樱梨,88
-detec_bell,4,,侦探铃,87
-inari_one_(golden_dream)_(umamusume),4,,稻荷一（梦之金原）（赛马娘）,87
+detec_bell,4,,滴答贝儿,87
+inari_one_(golden_dream)_(umamusume),4,,稻荷一（梦想的金原）（赛马娘）,87
 julia_barnes,4,,尤利娅·巴恩斯,87
 shiomi_syuko_(blue_horizon),4,,盐见周子（Blue Horizon）,87
 albus_dumbledore,4,邓布利多,阿不思·邓布利多,86
@@ -504,10 +504,10 @@ cala_(viper),4,,卡拉（VIPER）,86
 clementia_(arknights),4,,克莱门莎（明日方舟）,86
 hylian_text_(ocarina_of_time),0,,海利亚文字（时之笛）,86
 le_noir_(identity)_(project_moon),0,,Le Noir人格（Project Moon）,86
-loz_(ff7),4,,罗兹（最终幻想7）,86
+loz_(ff7),4,,洛兹（最终幻想7）,86
 petra_parker_(otrebot),4,,佩特拉·帕克（otrebot）,86
 shirosaki_miel,4,,白咲美绘瑠,86
-anguished_one,4,,忧郁者,85
+anguished_one,4,亚鲁·萨达克,忧郁者,85
 hachiware_(chimera)_(chiikawa),4,,小八（奇美拉）（吉伊卡哇）,85
 mars_symbol_tattoo,0,,火星符号纹身,85
 mega_man:_dual_override,3,,洛克人 Dual Override,85
@@ -524,30 +524,30 @@ gwylan_(degrees_of_lewdity),4,,格威岚（欲都孤儿）,84
 hanging_from_clothesline,0,,挂在晾衣绳上,84
 hibana_(en'en_no_shouboutai),4,,火华（炎炎消防队）,84
 luna_(nashi),4,,露娜（nashi）,84
-sakihane_huya_(1st_costume),4,,咲羽Huya（第一套服饰）,84
-senran_kagura_shinovi_nexus,3,,闪乱神乐 Shinovi Nexus,84
+sakihane_huya_(1st_costume),4,,咲羽风夜（第一套服饰）,84
+senran_kagura_shinovi_nexus,3,闪乱神乐 Project N,忍NEXUS -闪乱神乐-,84
 silver_week,0,,白银周,84
 skull_pauldrons,0,,骷髅肩甲,84
 voldemort,4,汤姆·里德尔|神秘人,伏地魔,84
-amou_kanade_(gungnir),4,,天羽奏（冈格尼尔）,83
+amou_kanade_(gungnir),4,,天羽奏（烈枪·Gungnir）,83
 cloud_strife_(murasame_battle_garb),4,,克劳德·斯特莱夫（村雨战装束）,83
-ninjago:_dragons_rising,3,,幻影忍者：龙之崛起,83
+ninjago:_dragons_rising,3,,幻影忍者：神龙崛起,83
 prism_shine,4,,棱镜闪耀,83
 sakura_soyoru_(miyayoki),4,,佐仓双夜（miyayoki）,83
 yakumo_beni_(loungewear),4,,八云红（家居服）,83
 dipper_gleeful,4,,迪普·格利弗,82
-female_dreamseeker_(herrscher_of_time)_(honkai_impact),4,,女寻梦者（时之律者）（崩坏3）,82
+female_dreamseeker_(herrscher_of_time)_(honkai_impact),4,,寻梦者（时序之律者）（崩坏3）,82
 mukouzawa_erena_(juukyuu),4,,向泽Erena（juukyuu）,82
 unconventional_bouquet,0,,非花材花束,82
 yonaga_soshiro,4,,世长创司郎,82
 hollow_(e.g.o),0,,空洞（E.G.O）,81
 inner_discipline_club_(blue_archive),0,,修行部（蔚蓝档案）,81
 shaded_eye,0,,眼窝阴影,81
-vindicta_(deadlock),4,,温迪克塔（死锁）,81
+vindicta_(deadlock),4,复仇女巫,温迪克塔（死锁）,81
 colored_testicles,0,,彩色睾丸,80
 corn_field,0,玉米田,玉米地,80
 impossible_underwear,0,,过度贴身的内衣,80
-maria_cadenzavna_eve_(gungnir),4,,玛莉亚·卡登扎夫娜·伊芙（冈格尼尔）,80
+maria_cadenzavna_eve_(gungnir),4,,玛利亚·卡登扎夫娜·伊芙（烈枪·Gungnir）,80
 matoba_seiji,4,,的场静司,80
 mikoshiba_kenta,4,,御子柴贤太,80
 morinaka_kazaki_(4th_costume),4,,森中花咲（第四套服饰）,80
@@ -592,7 +592,7 @@ salamander_girl,0,,火蜥蜴娘,77
 shinjuku_showdown_(jujutsu_kaisen),0,人外魔境新宿,新宿决战（咒术回战）,77
 yushourei,0,赛马优胜花环,优胜花环,77
 arkose_(ff14),4,,阿尔科斯（最终幻想14）,76
-aya_(trickcal),4,,阿雅（嘟嘟脸恶作剧）,76
+aya_(trickcal),4,,绫（嘟嘟脸恶作剧）,76
 genderswapped_through_transition,0,,变性后的角色,76
 gradient_penis,0,,渐变色阴茎,76
 imadake_tsukimi_tabemi,4,,限时月见食美,76
@@ -613,11 +613,11 @@ dead_rabbits_(identity)_(project_moon),0,,死兔帮人格（Project Moon）,75
 icey_(series),3,艾希,艾希系列,75
 kaibutsu_(.flow),4,,怪物（.flow）,75
 limbs_from_back,0,,背后长出的肢体,75
-magical_explorer,3,,魔法探索者,75
+magical_explorer,3,,魔法★探险家,75
 mutsumi_kai,4,,睦实介,75
 namiko_(ssss.gridman),4,,奈美子（SSSS.古立特）,75
-nautika_(behind_the_"unknown")_(reverse:1999),4,,诺蒂卡（未知背后）（重返未来：1999）,75
-otaku-kun_(shashaki),4,,宅男君（shashaki）,75
+nautika_(behind_the_"unknown")_(reverse:1999),4,,诺谛卡（未知背后）（重返未来：1999）,75
+otaku-kun_(shashaki),4,,阿宅君（shashaki）,75
 shu_keigetsu,4,,朱慧月,75
 washing_animal,0,,给动物洗澡,75
 gloriosa_(flower),0,狐百合,嘉兰（花）,74
@@ -626,12 +626,13 @@ harry_potter_and_the_goblet_of_fire,3,,哈利·波特与火焰杯,74
 lower_leg_strap,0,,小腿束带,74
 maud_(bemani),4,,莫德（BEMANI）,74
 medic_2_(sekaiju_4),4,,医生2（世界树迷宫4）,74
-melty_pristis,4,,梅尔蒂·普里斯蒂斯,74
-nyuu_(elfen_lied),4,,妞（妖精的旋律）,74
+melty_pristis,4,,梅尔蒂·布里司堤斯,74
+nyuu_(elfen_lied),4,,妮悠（妖精的旋律）,74
+over_requiemz,3,,奥兹国安魂曲,74
 quidditch,0,,魁地奇,74
-sasameki_koto,3,,悄悄话,74
+sasameki_koto,3,,轻声密语,74
 shanxin_(the_legend_of_luoxiaohei),4,,山新（罗小黑战记）,74
-shirayukihime_(grimms_notes),4,,白雪公主（格林笔记）,74
+shirayukihime_(grimms_notes),4,,白雪姬（格林笔记）,74
 sugar_(killer_rabbit)_(nikke),4,,舒格（杀手兔）（胜利女神：妮姬）,74
 sukebe_isu,0,凹口浴凳,色情椅,74
 syringe_in_head,0,,头上插着针筒,74
@@ -639,10 +640,10 @@ tialla_august,4,,蒂亚拉·奥古斯特,74
 yurufuwa_anal_tenshi_hameko,4,,软绵绵肛门天使Hame子,74
 agarie_nagi,4,,东江凪,73
 aizawa_ema_(casual),4,,蓝泽艾玛（便服）,73
-elaine_(nanatsu_no_taizai),4,,伊莲（七大罪）,73
-female_rocket_grunt,4,,火箭队女队员,73
+elaine_(nanatsu_no_taizai),4,,伊莱恩（七大罪）,73
+female_rocket_grunt,4,,火箭队手下（女）,73
 indomitable_(the_laid-back_navigator)_(azur_lane),4,,不挠（悠闲领航员）（碧蓝航线）,73
-magical_daisy,4,,魔法雏菊,73
+magical_daisy,4,,魔女黛西,73
 mononofu_(sekaiju),4,,武士（世界树迷宫）,73
 rindou_kotori,4,,林堂词莉,73
 shuusuke_(wolrero),4,,秋介（wolrero）,73
@@ -650,7 +651,7 @@ texas_(teenage)_(arknights),4,,德克萨斯（少女期）（明日方舟）,73
 untranslatable_exchange,0,,无法翻译的对话,73
 violetgrass_(genshin_impact),0,,琉璃袋（原神）,73
 afumau_(ff11),4,,阿芙玛乌（最终幻想11）,72
-dara-san_(reiwa_no_dara-san),4,,Dara-san（令和的Dara-san）,72
+dara-san_(reiwa_no_dara-san),4,,斑小姐（令和妖神斑小姐）,72
 fang_tang_(false_memory),4,,方糖（记忆管理局）,72
 glowing_trim,0,,发光滚边,72
 hedge_trimmer,0,修枝剪,绿篱剪,72
@@ -665,9 +666,9 @@ suko_(vtuber),4,,Suko（虚拟主播）,72
 vautour_(kancolle),4,,秃鹫（舰队Collection）,72
 akaito_(fanloid),4,,赤音人（Fanloid）,71
 alcor_the_dreambender,4,,梦境扭曲者阿尔考,71
-ayase_yuu_(2nd_costume),4,,绫濑优（第二套服饰）,71
+ayase_yuu_(2nd_costume),4,,绚世优（第二套服饰）,71
 down_coat,0,,羽绒大衣,71
-epica_(trickcal),4,,艾皮卡（嘟嘟脸恶作剧）,71
+epica_(trickcal),4,,埃皮卡（嘟嘟脸恶作剧）,71
 gionji_yukine,4,,祇园寺雪音,71
 holding_unworn_chastity_cage,0,,手持未戴的贞操锁,71
 jing_yuan_(a_flash),4,,景元（一刹）,71
@@ -680,7 +681,7 @@ asar_(sennen_sensou_aigis),4,,阿萨尔（千年战争Aigis）,70
 drake_(great_villain)_(nikke),4,,德雷克（大反派）（胜利女神：妮姬）,70
 fake_slur,0,,虚构蔑称,70
 komazoi_eden,4,,驹添绘传,70
-lauren_iroas_(5th_costume),4,,劳伦·伊罗亚斯（第五套服饰）,70
+lauren_iroas_(5th_costume),4,,劳伦·伊罗斯（第五套服饰）,70
 mizore_ito_(sketchmenot),4,,伊藤霙（sketchmenot）,70
 narita_brian_(ravenous_wolf)_(umamusume),4,,成田白仁（饿狼）（赛马娘）,70
 novelty_maebari,0,,趣味前贴,70
@@ -694,7 +695,7 @@ trivia_about_you,3,,毛皮小事,70
 coppelia_(reverse:1999),4,,珐琅眼（重返未来：1999）,69
 daiginjou_(futaba_channel),4,,大吟酿（双叶频道）,69
 devil_summoner_(game),3,,真·女神转生 恶魔召唤师（游戏）,69
-heartcatch_precure!:_hana_no_miyako_de_fashion_show..._desu_ka!?,3,,Heartcatch光之美少女！花之都的时装秀……是吗！？,69
+heartcatch_precure!:_hana_no_miyako_de_fashion_show..._desu_ka!?,3,,Heartcatch光之美少女！ 花之都的时尚大作战,69
 hooded_poncho,0,,连帽套头斗篷,69
 kiritsu_tadashi,4,,起立正,69
 korekishi_eugene,4,,是岸游人,69
@@ -703,7 +704,7 @@ pink_dog,0,,粉色的狗,69
 quads,0,,股四头肌,69
 sarah_(sennen_sensou_aigis),4,,莎拉（千年战争Aigis）,69
 thick_calves,0,,粗小腿,69
-tig_(trickcal),4,,缇格（嘟嘟脸恶作剧）,69
+tig_(trickcal),4,,提格（嘟嘟脸恶作剧）,69
 tiny_creature_(arknights),4,,艾雅法拉的小羊（明日方舟）,69
 toujou_minato,4,,东条凑,69
 wedding_(duel_masters),4,,婚礼（决斗大师）,69
@@ -711,12 +712,12 @@ american_flag_bandana,0,,美国国旗头巾,68
 avery_(male)_(degrees_of_lewdity),4,,艾弗里（男）（欲都孤儿）,68
 carrie_krueger,4,,嘉莉·克鲁格,68
 cuteness_heart_attack_(meme),0,,可爱到心脏病发（梗）,68
-fary_(precure),4,,法里（光之美少女）,68
+fary_(precure),4,,法莉（光之美少女）,68
 felt_(medium),5,羊毛毡,羊毛毡（媒介）,68
 giant_of_light,0,奥特曼,光之巨人,68
 grey_dog,0,,灰色的狗,68
 lambo_(reborn),4,,蓝波（家庭教师）,68
-lary_(precure),4,,拉里（光之美少女）,68
+lary_(precure),4,,拉莉（光之美少女）,68
 lorum_piercing,0,,阴茎根部穿孔,68
 mechanical_sphinx,0,,机械斯芬克斯,68
 meiling_day,0,,美铃之日,68
@@ -731,7 +732,7 @@ grey-haired_girl_(alien_stage),4,,灰发少女（异形舞台）,67
 hanamori_moa,4,,花盛百杏,67
 inoue_orihime_(jet_artbook_swimsuit),4,,井上织姬（JET画集泳装）,67
 isaku,3,,遗作,67
-kanaka_(shigofumi),4,,卡纳卡（死后文）,67
+kanaka_(shigofumi),4,,卡娜卡（死后文）,67
 kou_reirin,4,,黄玲琳,67
 madarame_shion,4,,斑目狮音,67
 paypal_me_$30000_(meme),0,,PayPal打钱3万美元（梗）,67
@@ -753,7 +754,7 @@ naekawa_yawara,4,,苗川柔,66
 olympia_iris,4,,奥林匹娅·艾瑞斯,66
 pocky_box,0,Pocky盒,百奇盒,66
 rindou_moyu,4,,林堂萌,66
-shushu-tan,4,,咻咻坦（光之美少女）,66
+shushu-tan,4,,芙芙探（光之美少女）,66
 single_extra_arm,0,,多一只手臂,66
 star_ahoge,0,,星形呆毛,66
 the_doorman_(deadlock),4,,门童（死锁）,66
@@ -762,7 +763,7 @@ triadic_colors,0,,三角配色,66
 tsurumaki_mizuka,4,,鹤卷瑞佳,66
 twitching_bulge,0,,颤动的凸起,66
 zhang_fei_(fullbokko_heroes),4,,张飞（爆打英雄）,66
-404_game_re:set,3,,404 GAME RE:SET 错误游戏重启,65
+404_game_re:set,3,,404 GAME RE:SET 错误游戏Re:set,65
 after_exercise,0,,运动后,65
 aino_meshia,4,,爱野Meshia,65
 aizawa_ema_(military),4,,蓝泽艾玛（军装）,65
@@ -782,7 +783,7 @@ hands_on_another's_crotch,0,,双手放在他人裆部,65
 konori_mii_(swimsuit_judgment),4,,固法美伟（泳装风纪委员）,65
 kouryoukan_academy_school_uniform,0,,虹陵馆学园校服（11eyes）,65
 mejiro_ardan_(neige_emeraude)_(umamusume),4,,目白阿尔丹（雪之翡翠）（赛马娘）,65
-naia_(trickcal),4,,奈娅（嘟嘟脸恶作剧）,65
+naia_(trickcal),4,,奈亚（嘟嘟脸恶作剧）,65
 shihouin_yoruichi_(innersuit)_(sennen_kessen-hen),4,,四枫院夜一（紧身衣）（千年血战篇）,65
 asakura_maina,4,,朝仓舞奈,64
 ballista_2_(sekaiju),4,,弩炮手2（世界树迷宫）,64
@@ -801,7 +802,7 @@ illegible_text,0,,无法辨认的文字,64
 isomer_(path_to_nowhere),4,,异构体（无期迷途）,64
 kanojo_ja_nai_no_ni,3,,明明不是女朋友,64
 kawashima_shirone_(m-chai),4,,川岛白音（m-chai）,64
-kingprotea_alter_(swimsuit_avenger)_(first_ascension)_(fate),4,,魔神女王Alter（泳装Avenger·第一再临）（Fate系列）,64
+kingprotea_alter_(swimsuit_avenger)_(first_ascension)_(fate),4,,帝王花 Alter（泳装Avenger·第一再临）（Fate系列）,64
 kufufu_kekerakera,4,,库夫夫·克克拉克拉,64
 kyouko_(korezom),4,,京子（这个是僵尸吗？）,64
 lila_(houou_project),4,,芋言Lila（凤凰计划）,64
@@ -809,8 +810,8 @@ limealicious_(summer),4,,Limealicious（夏日）,64
 linko_(nte),4,,灵可（异环）,64
 minetsuki_ritsu_(virtual),4,,峰月律（虚拟形象）,64
 orchel_(fire_emblem),4,,奥尔赫尔（火焰纹章）,64
-paco_laburantes,4,,帕科·拉布兰特斯,64
-pepesha_andreanova,4,,佩佩莎·安德拉诺娃,64
+paco_laburantes,4,,帕克·拉布兰特斯,64
+pepesha_andreanova,4,,佩佩夏·安德烈诺瓦,64
 scared_potter?_(meme),0,,害怕了吗，波特？（梗）,64
 sei_ni_utokatta_watashi_wa_class_no_danshi_to_ooo_shite_shimaimashita,3,,对性迟钝的我和班上男生做了○○○,64
 tauro_(totk),4,,陶罗（塞尔达传说 王国之泪）,64
@@ -826,28 +827,28 @@ aqua_eyeliner,0,,水蓝色眼线,63
 arona_(swimsuit)_(blue_archive),4,,阿罗娜（泳装）（蔚蓝档案）,63
 billy_the_puppet,4,,比利木偶（电锯惊魂）,63
 everecho_(reverse:1999),4,,回声谣（重返未来：1999）,63
-flocke_cerha,4,,弗洛克·切尔哈,63
-hoshitsuki_miki,4,,星月美希,63
+flocke_cerha,4,,芙洛可·契尔哈,63
+hoshitsuki_miki,4,,星月美纪,63
 hyacine_(warm_cotton_skies)_(honkai:_star_rail),4,,风堇（云间漏下的阳光）（崩坏：星穹铁道）,63
 imouto_tasha_paranoia,3,,妹、他者、偏执狂,63
-kingprotea_(swimsuit_mooncancer)_(first_ascension)_(fate),4,,魔神女王（泳装MoonCancer·第一再临）（Fate系列）,63
+kingprotea_(swimsuit_mooncancer)_(first_ascension)_(fate),4,,帝王花（泳装MoonCancer·第一再临）（Fate系列）,63
 komurasaki_momoka,4,,小紫桃果,63
-kuze_shiina,4,,久濑诗衣奈,63
+kuze_shiina,4,,久濑椎名,63
 mai_(kapatarou),4,,麻衣（kapatarou）,63
 makai_princess,3,,魔界公主,63
 mashutarou_(style),0,,mashutarou画风,63
 mermaid_(chiikawa),4,,人鱼（吉伊卡哇）,63
 necrass_(as_clear_as_crystal)_(arknights),4,,死芒（澄澈如晶）（明日方舟）,63
 niiya_serina,4,,新谷芹菜,63
-niko_(c108_swimsuit)_(blue_archive),4,,妮可（C108泳装）（蔚蓝档案）,63
+niko_(c108_swimsuit)_(blue_archive),4,,吉野妮可（C108泳装）（蔚蓝档案）,63
 removing_gag,0,,取下口塞,63
-saruei_(saruei_3.0)_(vtuber),4,,Saruei（3.0）（虚拟主播）,63
+saruei_(saruei_3.0)_(vtuber),4,,萨鲁伊（3.0）（虚拟主播）,63
 turkish_clothes,0,,土耳其服饰,63
 wind_elemental,0,风精灵,风元素精灵,63
 arsene_(milky_holmes),4,,亚森（侦探歌剧：少女福尔摩斯）,62
-ayame_(twilight)_(blue_archive),4,,彩芽（黄昏）（蔚蓝档案）,62
+ayame_(twilight)_(blue_archive),4,,七棱菖蒲（黄昏）（蔚蓝档案）,62
 batman_beyond,3,,未来蝙蝠侠,62
-claes_(gunslinger_girl),4,,克拉耶斯（神枪少女）,62
+claes_(gunslinger_girl),4,,克拉艾斯（神枪少女）,62
 duo_eye_trend,0,,双人眼部特写,62
 emit_(mahou_shoujo_sae),4,,艾米特（魔法少女沙枝）,62
 fledglings_class_(blue_archive),0,,雏鸟组（蔚蓝档案）,62
@@ -858,7 +859,7 @@ honglou_meng,3,石头记,红楼梦,62
 hoshimachi_suisei_(water_gun_arpeggio),4,,星街彗星（水枪琶音）,62
 ironmouse_(underworld_goddess),4,,铁鼠（冥界女神）,62
 kikuchi_ryou,4,,菊池良,62
-mukku_(hirake!_ponkikki),4,,穆克（Hirake! Ponkikki）,62
+mukku_(hirake!_ponkikki),4,,姆克（Hirake! Ponkikki）,62
 oh_rama_havenna!,3,,噢，拉玛·哈文娜！,62
 print_garter_belt,0,,印花吊袜腰带,62
 q.e.d._(duel_masters),4,,龙素王Q.E.D.（决斗大师）,62
@@ -900,13 +901,13 @@ yi_(false_memory),4,,小一（记忆管理局）,61
 youkai_watch:_punipuni,3,,妖怪手表 噗尼噗尼,61
 zodiac_3_(sekaiju),4,,星术师3（世界树迷宫）,61
 zombie_(plants_vs._zombies),4,,普通僵尸（植物大战僵尸）,61
-amelia_(trickcal),4,,阿梅莉亚（嘟嘟脸恶作剧）,60
+amelia_(trickcal),4,,艾蜜莉雅（嘟嘟脸恶作剧）,60
 bo_peep_(toy_story),4,,牧羊女宝贝（玩具总动员）,60
 chameleon_(path_to_nowhere),4,,卡米利安（无期迷途）,60
 crepe_(trickcal),4,,可丽饼（嘟嘟脸恶作剧）,60
 cyrene_(demiurge)_(anta)_(honkai:_star_rail),4,,昔涟（德谬歌）（安踏联名）（崩坏：星穹铁道）,60
-darnic_prestone_yggdmillennia,4,,达尼克·普雷斯通·千界树,60
-dissidia_final_fantasy_nt,3,,最终幻想 纷争NT,60
+darnic_prestone_yggdmillennia,4,,达尼克·普雷斯通·尤格多米雷尼亚,60
+dissidia_final_fantasy_nt,3,,最终幻想：纷争NT,60
 eva_tsunaka,4,,伊娃·津中,60
 fencer_2_(sekaiju),4,,击剑士2（世界树迷宫）,60
 furuhonya,4,螃蟹,旧书店（吉伊卡哇）,60
@@ -932,21 +933,21 @@ shogi_ichiban!_(vocaloid),3,,将棋一番！（VOCALOID）,60
 sirocco_(fire_emblem),4,,西洛可（火焰纹章）,60
 sugar_(summon_night),4,,舒格蕾特（召唤之夜）,60
 taira_shuuji,4,,平秀司,60
-taishou_otome_otogibanashi,3,,大正少女御伽话,60
+taishou_otome_otogibanashi,3,大正少女御伽话,大正处女御伽话,60
 tasha_(ace_combat),4,,塔莎（皇牌空战）,60
-tolui_(tenmaku_no_jaadugar),4,,拖雷（天幕的Jaadugar）,60
+tolui_(tenmaku_no_jaadugar),4,,拖雷（穹庐下的魔女）,60
 usaki_nono,4,,宇佐纪诺诺,60
-yamawaki_bon_ivar_(triumph_of_the_demon_lord),4,,山胁·Bon·伊瓦尔（魔王凯旋）,60
+yamawaki_bon_ivar_(triumph_of_the_demon_lord),4,山胁·波昂·伊瓦尔,山胁·邦·伊瓦尔（魔王凯旋）,60
 yumeiro_patissiere,3,,梦色蛋糕师,60
 zeze_minami_high_school_uniform,0,,膳所南高中校服,60
 000_(path_to_nowhere),4,,000（无期迷途）,59
 aps_rifle,0,,APS水下步枪,59
 beach_city,0,,海滩城（宇宙小子）,59
 bertrand_brunhild,4,,贝特朗·布伦希尔德,59
-bokujou_monogatari:_youkoso!_kaze_no_bazaar_e,3,,牧场物语 欢迎来到风之集市,59
+bokujou_monogatari:_youkoso!_kaze_no_bazaar_e,3,,牧场物语 来吧！风之繁华集市,59
 bun_with_hair_base,0,,带底发的发髻,59
 capcom_fighting_allstars,3,,卡普空格斗全明星,59
-clantail,4,,克兰泰尔,59
+clantail,4,,古兰迪儿,59
 colored_sidelocks,0,,彩色鬓发,59
 cosmo_(fairly_oddparents),4,,科斯莫（反斗家族）,59
 cow_print_bowtie,0,,奶牛纹领结,59
@@ -955,7 +956,7 @@ crysta_(duel_masters),4,,克莉丝塔（决斗大师）,59
 dead_space_2,3,,死亡空间2,59
 exaltists_corruption,0,,堕入赞颂会,59
 folding_paizuri,0,,交叠手臂乳交,59
-fujikura_uruka_(1st_costume),4,,藤仓宇留歌（第一套服饰）,59
+fujikura_uruka_(1st_costume),4,,藤仓乌鲁卡（第一套服饰）,59
 ginga_(series),3,银牙,银牙系列,59
 harpie_lady_2,4,,哈比女郎2（游戏王）,59
 harry_potter_and_the_prisoner_of_azkaban,3,,哈利·波特与阿兹卡班的囚徒,59
@@ -964,18 +965,18 @@ hinoshita_minori,4,,日野下实,59
 ingrid_(nikke),4,,英格丽德（胜利女神：妮姬）,59
 ivy_(deadlock),4,,艾薇（死锁）,59
 kataoka_megu,4,,片冈惠,59
-kewl_tune_cue,4,,酷炫曲调·Cue,59
+kewl_tune_cue,4,,杀手级调整曲·Cue,59
 kujou_hinako,4,,九条绯那子,59
 kuri_manjuu_(chiikawa),4,,栗子馒头（吉伊卡哇）,59
-kuroki_rio,4,,黑树理央,59
+kuroki_rio,4,,黑树利奥,59
 large_chastity_cage,0,,大号贞操锁,59
 leaning_on_wall,0,靠墙,倚靠墙壁,59
 leopard_print_bow,0,,豹纹蝴蝶结,59
 leotard_under_pants,0,,裤子下穿紧身衣,59
 lineart_background,0,,线稿背景,59
 manun-chan,4,,Manun酱,59
-marion_quinn,4,,玛丽昂·奎因,59
-miyo_(c108_swimsuit)_(blue_archive),4,,美游（C108泳装）（蔚蓝档案）,59
+marion_quinn,4,,玛利翁·奎因,59
+miyo_(c108_swimsuit)_(blue_archive),4,,樱井美代（C108泳装）（蔚蓝档案）,59
 model_clipping,0,穿模,模型穿模,59
 mr._roar_(zenless_zone_zero),4,,吼吼先生（绝区零）,59
 multicolored_penis,0,,多色阴茎,59
@@ -1001,23 +1002,23 @@ black_feet,0,,黑色的脚,58
 butterfly_facial_mark,0,,蝴蝶形面部印记,58
 comically_sharp_chin,0,,夸张尖下巴,58
 cowboy_hat_mike,4,,牛仔帽麦克（三角符文）,58
-dust:_an_elysian_tail,3,,尘埃：艾尔希之尾,58
+dust:_an_elysian_tail,3,,尘埃：幸福的尾巴,58
 ecchuu_fundoshi,0,,越中兜裆布,58
 fake_television_screen,0,,伪电视画面,58
-fidget_(dust:_an_elysian_tail),4,,菲吉特（尘埃：艾尔希之尾）,58
+fidget_(dust:_an_elysian_tail),4,,菲吉特（尘埃：幸福的尾巴）,58
 food_on_floor,0,,掉在地上的食物,58
 gilgamesh_(kyou),4,,吉尔伽美什（kyou）,58
 grey_garter_belt,0,,灰色吊袜腰带,58
 grimmchild,4,,格林之子,58
 hand_on_umbrella,0,,手扶雨伞,58
-hauling_ship_(eve_online),0,,运输舰（EVE Online）,58
+hauling_ship_(eve_online),0,,运载舰（EVE Online）,58
 heather_(total_drama),4,,海瑟（Total Drama）,58
 holding_mixing_bowl,0,,手持搅拌碗,58
 holepunch_cutout_trend,0,,打孔剪纸风潮,58
-insight_(designant)_(arcaea),4,,Insight（Designant）（韵律源点）,58
-kerberos_(cardcaptor_sakura),4,,小可（真身）（魔卡少女樱）,58
+insight_(designant)_(arcaea),4,,识眼（Designant）（韵律源点）,58
+kerberos_(cardcaptor_sakura),4,可鲁贝洛斯|小可,刻耳柏洛斯（真身）（魔卡少女樱）,58
 kichikuou_rance,3,,鬼畜王兰斯,58
-lacrimosa_(new_moon_lullaby)_(nte),4,,拉克里莫萨（新月摇篮曲）（异环）,58
+lacrimosa_(new_moon_lullaby)_(nte),4,,安魂曲（新月摇篮曲）（异环）,58
 lemon_melon_cookie_(vocaloid),3,,柠檬蜜瓜曲奇（VOCALOID）,58
 lily_(ogami_kazuki),4,,莉莉（ogami kazuki）,58
 lily_killer,4,,百合杀手,58
@@ -1029,9 +1030,9 @@ michelle_"mj"_jones,4,,米歇尔·“MJ”·琼斯,58
 miko_day,0,,巫女之日,58
 milan_kestrel_(1st_costume),4,,米兰·凯斯特尔（第一套服饰）,58
 mochizuki_mari,4,,望月麻里,58
-pocket_(deadlock),4,,口袋（死锁）,58
+pocket_(deadlock),4,,提箱客（死锁）,58
 remia_aotsuki,4,,青月蕾米娅,58
-rose_guns_days,3,,玫瑰枪之日,58
+rose_guns_days,3,,玫瑰与枪的日子,58
 rune_master_3_(sekaiju),4,,符文师3（世界树迷宫）,58
 satou_shizue_(yanineko),4,,佐藤静江（烟瘾猫）,58
 selema_terez,4,,塞尔玛·特蕾泽,58
@@ -1043,22 +1044,22 @@ tail-shaped_hair,0,,尾巴状头发,58
 tang_moling,4,,唐默铃,58
 the_two-thousand_yard_stare,3,,两千码凝视,58
 tsukudani_norio_(vtuber),4,,佃煮海苔男（虚拟主播）,58
-weiss_winterprison,4,,维斯·冬之牢狱,58
+weiss_winterprison,4,,维斯·寒冬牢狱,58
 zeno_(resident_evil),4,,芝诺（生化危机）,58
 akitsu_teio_(umamusume),4,,秋津帝王（赛马娘）,57
 aogiri_shinobu,4,,苍斩忍,57
-arielle_(vtuber)_(1st_costume),4,,阿丽尔（第一套服饰）,57
+arielle_(vtuber)_(1st_costume),4,,艾莉尔（第一套服饰）,57
 asahina_kokomi,4,,朝比奈心美,57
-atelier_karia,3,,卡莉娅的炼金工房,57
+atelier_karia,3,,卡莉亚的炼金工房,57
 belorta_(pumpkin_witch)_(nikke),4,,贝洛塔（南瓜魔女）（胜利女神：妮姬）,57
 berry_(shoujo_no_nozomanu_eiyuutan),4,,贝莉（少女不愿的英雄谭）,57
 blay_buckle,0,,剑腰带（假面骑士剑）,57
 bloodbath_(project_moon),4,,血浴（Project Moon）,57
 central_heterochromia,0,,中央异色瞳,57
-chitose_(when_morning_glories_bloom_her_eyes_open)_(stella_sora),4,,千岁（牵牛花开时她睁开双眼）（星塔旅人）,57
+chitose_(when_morning_glories_bloom_her_eyes_open)_(stella_sora),4,千都世,千岁（牵牛花开时她睁开双眼）（星塔旅人）,57
 covering_pecs,0,,遮住胸肌,57
 dai_mahou_touge,3,,大魔法峠,57
-darius_burst,3,,太空战斗机 Burst,57
+darius_burst,3,,太空战斗机爆裂,57
 donna_bright,4,,唐娜·布莱特,57
 dragoon_4_(sekaiju),4,,龙骑士4（世界树迷宫）,57
 egokoro_nao,4,,绘心菜绪,57
@@ -1066,18 +1067,18 @@ ellie_(leims),4,,艾莉（leims）,57
 endogeny,4,,内生犬（传说之下）,57
 epis_(king's_raid),4,,艾皮丝（王之逆袭）,57
 erling_haaland,4,哈兰德,埃尔林·哈兰德,57
-evil_container_(meme),0,,邪恶容器（梗）,57
-faelynn_(sunkissed_shimmer)_(girls'_frontline_2),4,,菲林（晴光微闪）（少女前线2：追放）,57
+evil_container_(meme),0,,邪恶之箱（梗）,57
+faelynn_(sunkissed_shimmer)_(girls'_frontline_2),4,,芙铃（晴光微闪）（少女前线2：追放）,57
 farmer_4_(sekaiju),4,,农夫4（世界树迷宫）,57
-fenomeno_(casual)_(umamusume),4,,Fenomeno（便服）（赛马娘）,57
+fenomeno_(casual)_(umamusume),4,超常骏骥,菲诺梅诺（便服）（赛马娘）,57
 fur_panties,0,,毛皮内裤,57
 furen_e_lustario_(qipao),4,,芙莲·E·露丝塔莉欧（旗袍）,57
 furen_e_lustario_(winter_casual),4,,芙莲·E·露丝塔莉欧（冬季便服）,57
 gear_halo,0,,齿轮光环,57
-gentiana_(ff15),4,,龙胆（最终幻想15）,57
-gigi_murin_(casual),4,,吉吉·穆林（便服）,57
+gentiana_(ff15),4,,甘蒂亚娜（最终幻想15）,57
+gigi_murin_(casual),4,,琪琪·穆林（便服）,57
 god_of_war_(2018),3,,战神（2018）,57
-gran_alegria_(casual)_(umamusume),4,,格兰阿莱格里亚（便服）（赛马娘）,57
+gran_alegria_(casual)_(umamusume),4,,放声欢呼（便服）（赛马娘）,57
 hand_in_another's_bra,0,,手伸进他人胸罩,57
 hannelore_(honzuki_no_gekokujou),4,,汉娜萝蕾（小书痴的下克上）,57
 hawk_hood_(bdsm),0,,鹰式头套（BDSM）,57
@@ -1099,8 +1100,8 @@ nahida_(nord_express)_(genshin_impact),4,,纳西妲（北国特快）（原神�
 nee_icchau_yo_(idolmaster),3,,呐，要说出来了哦。（偶像大师）,57
 nervous_system,0,,神经系统,57
 nora_(you_niao),4,,诺拉（欲都孤儿）,57
-otaku_ni_yasashii_gal_wa_inai!?,3,,对阿宅温柔的辣妹不存在！？,57
-otome_kaijuu_carameliser,3,,少女怪兽焦糖化,57
+otaku_ni_yasashii_gal_wa_inai!?,3,,哪里有温柔对待阿宅的辣妹！？,57
+otome_kaijuu_carameliser,3,,少女怪兽焦糖恋心,57
 peridot_facet_6c4t_cut_2xj,4,,橄榄石 6C4T 2XJ,57
 qiang_lei_(kingdom),4,,羌瘣（王者天下）,57
 ramona_(reverse:1999),4,,拉莫纳（重返未来：1999）,57
@@ -1112,14 +1113,14 @@ same-hada,0,,鲛皮纹,57
 seahorse_girl,0,,海马娘,57
 sex_toy_replacing_penis,0,,代替阴茎的性玩具,57
 skland_watermark,0,,森空岛水印,57
-sovetsky_soyuz_(skyfall_agent)_(azur_lane),4,,苏维埃联盟（天幕危机）（碧蓝航线）,57
+sovetsky_soyuz_(skyfall_agent)_(azur_lane),4,,苏维埃同盟（天幕危机）（碧蓝航线）,57
 star_fox_2,3,,星际火狐2,57
 still_life_(backrooms),4,,静物（后室）,57
 stud_piercings,0,耳钉,钉状穿孔,57
-sumeragi_setsuna_(shooter_dress),4,,皇刹那（射手礼服）,57
+sumeragi_setsuna_(shooter_dress),4,,皇城刹那（射手礼服）,57
 taima_senki_ayane_~chijoku_saimin_no_wana~,3,,对魔战姬绫音～耻辱催眠的陷阱～,57
 takenaga_hairtie,0,,竹长发绳,57
-tanaka_michiko,4,,田中道子,57
+tanaka_michiko,4,,田中满子,57
 the_legend_of_zelda:_ocarina_of_time_3d,3,,塞尔达传说 时之笛3D,57
 tiger_(azur_lane),4,,虎（碧蓝航线）,57
 vienna_(4th_costume)_(vtuber),4,,维也纳（第四套服饰）（虚拟主播）,57
@@ -1140,7 +1141,7 @@ beam_weapon,0,,光束武器,56
 bi-han,4,初代绝对零度,毕寒,56
 bidiu_(the_legend_of_luo_xiaohei),4,,比丢（罗小黑战记）,56
 blood_on_penis,0,,阴茎上的血,56
-boraqchin_(tenmaku_no_jaadugar),4,,孛剌合真（天幕的Jaadugar）,56
+boraqchin_(tenmaku_no_jaadugar),4,,孛剌合真（穹庐下的魔女）,56
 candy_snail_(porforever),4,,糖果蜗牛（porforever）,56
 character_puppet,0,,角色木偶,56
 chloe_de_gervaise,4,,克洛伊·德·热尔韦斯,56
@@ -1152,10 +1153,10 @@ feigning_hypnosis,0,,假装被催眠,56
 felt_(spindlesong),4,,菲尔特（spindlesong）,56
 fujisaki_hikari_(person),4,,藤崎光（本人）,56
 fuurai_(sekaiju),4,,风来人（世界树迷宫）,56
-gundam_f90,3,,高达F90,56
+gundam_f90,3,高达F90,机动战士高达F90,56
 gynecomastia,0,男性女乳,男性乳房发育,56
 harry_potter_and_the_deathly_hallows,3,,哈利·波特与死亡圣器,56
-hasumi_urara,4,,莲见丽,56
+hasumi_urara,4,,莲见乌拉拉,56
 hayami_rinka,4,,速水凛香,56
 hokori_kei,4,,穗弧铃结,56
 horizontal-striped_belt,0,,横条纹腰带,56
@@ -1175,9 +1176,9 @@ maron_(dragon_ball_z),4,,玛伦（龙珠Z）,56
 mashiro_yu,4,,真城优,56
 miary_zo,4,,米亚莉·佐,56
 mikoshiba_seijuurou,4,,御子柴清十郎,56
-minael,4,,米娜艾尔,56
+minael,4,,米奈儿,56
 mononofu_4_(sekaiju),4,,武士4（世界树迷宫）,56
-ms._marvel_(series),3,,惊奇女士（剧集）,56
+ms._marvel_(series),3,,惊奇少女（系列）,56
 multicolored_unitard,0,,多色弹力紧身衣,56
 mystic_3_(sekaiju),4,,秘术师3（世界树迷宫）,56
 natsume_souichirou,4,,夏目宗一郎,56
@@ -1195,39 +1196,39 @@ red_tailcoat,0,,红色燕尾服,56
 remy_(degrees_of_lewdity),4,,雷米（欲都孤儿）,56
 rock_skin,0,,岩石皮肤,56
 rune_master_1_(sekaiju),4,,符文师1（世界树迷宫）,56
-sameko_saba_(lighthouse_maid),4,,鲛子沙巴（灯塔女仆）,56
-saruei_(1st_costume)_(vtuber),4,,Saruei（第一套服饰）（虚拟主播）,56
+sameko_saba_(lighthouse_maid),4,,鲨鱼子Saba（灯塔女仆）,56
+saruei_(1st_costume)_(vtuber),4,,萨鲁伊（第一套服饰）（虚拟主播）,56
 seal_hair_ornament,0,,海豹发饰,56
 short-sleeved_coat,0,,短袖大衣,56
 shoulder_pads_(fashion),0,垫肩,垫肩（时尚）,56
 sock_tan,0,,袜子晒痕,56
 sovereign_4_(sekaiju),4,紫姬,君主4（世界树迷宫）,56
 special_family_(umamusume),0,,特别周一家（赛马娘）,56
-synex_(path_to_nowhere),4,,辛涅克丝（无期迷途）,56
+synex_(path_to_nowhere),4,,西涅克斯（无期迷途）,56
 t-shi_no_hanashi_wo_shinjiru_na_(vocaloid),3,,别相信T氏的话（VOCALOID）,56
 texas_(young)_(arknights),4,,德克萨斯（幼年）（明日方舟）,56
 the_house_of_the_dead,3,,死亡之屋,56
-the_original_starwalker,4,,原初星行者（三角符文）,56
+the_original_starwalker,4,,原版星之行者（三角符文）,56
 uchida_yua,4,,内田优空,56
-veyle_(lacy_dress)_(fire_emblem),4,,薇尔（蕾丝连衣裙）（火焰纹章）,56
+veyle_(lacy_dress)_(fire_emblem),4,贝珥,薇尔（蕾丝连衣裙）（火焰纹章）,56
 white_army,0,,白军,56
 yamaguro_nekuro,4,,山黑音玄,56
 yukinose_kumochi,4,,雪之精云持,56
 aether_(night_hunt_in_snow)_(genshin_impact),4,,空（雪夜狩猎）（原神）,55
-alpha:_crimson_weave_(tsubaki)_(pgr),4,,露西亚·深红之渊（椿）（战双帕弥什）,55
+alpha:_crimson_weave_(tsubaki)_(pgr),4,,阿尔法·深红囚影（椿）（战双帕弥什）,55
 apocalypse_bird,4,,终末鸟,55
 art_styles_image_response,0,,六种画风对比,55
-aslaug_(fate),4,,阿斯拉琪（Fate系列）,55
+aslaug_(fate),4,,亚丝拉琪（Fate系列）,55
 azura_dulait,4,,阿祖拉·杜莱特,55
 baldric,0,,斜挎肩带,55
 bard_1_(sekaiju),4,,吟游诗人1（世界树迷宫）,55
-barry_burton,4,,巴里·伯顿,55
+barry_burton,4,,巴瑞·伯顿,55
 bitter_choco_decoration_(vocaloid),3,,苦巧克力装饰（VOCALOID）,55
 blood_on_pussy,0,,阴部上的血,55
 bokura_no_taiyou,3,,我们的太阳,55
 brown_chaps,0,,棕色皮套裤,55
-calstone_light_o_(casual)_(umamusume),4,,卡尔斯通莱特欧（便服）（赛马娘）,55
-caraway_(pokemon),4,,葛蒲（宝可梦）,55
+calstone_light_o_(casual)_(umamusume),4,金镇之光,卡尔斯通之光（便服）（赛马娘）,55
+caraway_(pokemon),4,,葛莉茴（宝可梦）,55
 check_animal,5,,动物待确认,55
 chelle_(dragalia_lost),4,,谢丝（失落的龙约）,55
 choi_yuhee_(xxl),4,,崔有喜（XXL Woofia）,55
@@ -1235,12 +1236,12 @@ clothed_male_underwear_male,0,,穿衣男性与内衣男性,55
 cooperative_breast_smother,0,乳夹,多人用胸部闷脸,55
 cum_in_ear,0,,耳中射精,55
 cyrene_(demiurge)_(keeping_promise)_(honkai:_star_rail),4,,昔涟（德谬歌）（守约）（崩坏：星穹铁道）,55
-dekatsuyo_(chiikawa),4,,大强者（吉伊卡哇）,55
+dekatsuyo_(chiikawa),4,,大强（吉伊卡哇）,55
 dokibird_(alt-girl_doki),4,,Dokibird（另类女孩）,55
 drifter_(deadlock),4,,流浪者（死锁）,55
 dshk,0,,DShK重机枪,55
-excel_(excel_saga),4,,艾克塞尔（艾克塞尔传奇）,55
-fenomeno_(violet_flame_of_fortitude)_(umamusume),4,,Fenomeno（刚毅紫焰）（赛马娘）,55
+excel_(excel_saga),4,,艾克赛尔（迷糊女战士）,55
+fenomeno_(violet_flame_of_fortitude)_(umamusume),4,超常骏骥,菲诺梅诺（刚毅紫焰）（赛马娘）,55
 floral_print_ribbon,0,,碎花丝带,55
 fujimiya_sakura,4,,藤宫樱,55
 gachihame_sex_shidou,3,,真枪实弹性指导,55
@@ -1252,11 +1253,11 @@ haniel_(nte),4,,哈尼娅（异环）,55
 hen_squad_(henya_the_genius),4,,Hen战队（亨娅）,55
 hida_kizuna,4,,飞弹伤无,55
 highleg_shorts,0,,高叉短裤,55
-hinmin_choujin_kanenashi-kun,3,,贫民超人没钱君,55
-honogurashi_no_niwa,3,,幽暮之庭,55
+hinmin_choujin_kanenashi-kun,3,,贫民超人缺钱君,55
+honogurashi_no_niwa,3,,静谧田园,55
 hoshino_(mid-autumn_festival)_(blue_archive),4,,小鸟游星野（中秋节）（蔚蓝档案）,55
 incredibox,3,节奏盒子,Incredibox节奏盒子,55
-ivy_warrington,4,,艾薇·沃灵顿,55
+ivy_warrington,4,,艾薇·瓦林顿,55
 karasuba_(sekirei),4,,鸦羽（鹡鸰女神）,55
 kate_bishop,4,,凯特·毕肖普,55
 kayoko_(blue_archive)_(cosplay),0,,佳代子（蔚蓝档案）（角色扮演）,55
@@ -1267,7 +1268,7 @@ leah_(stardew_valley),4,,莉亚（星露谷物语）,55
 lunamoon_(style),0,,lunamoon画风,55
 mage_arena,3,,法师竞技场,55
 mantis_blades_(cyberpunk),0,,螳螂刀（赛博朋克）,55
-mario_&_sonic_at_the_olympic_games_(2007),3,,马力欧与索尼克在北京奥运会（2007）,55
+mario_&_sonic_at_the_olympic_games_(2007),3,,马力欧与索尼克 AT 北京奥运会,55
 mechanical_shoes,0,,机械鞋,55
 mega_man_v,3,,洛克人世界5,55
 minibow,0,,迷你弓,55
@@ -1276,7 +1277,7 @@ mrlsexdoll,3,,MRL性爱人偶,55
 multiple_hairstyles,0,,多种发型,55
 nanally_(the_popular_kid)_(nte),4,,娜娜莉（人气王）（异环）,55
 narita_top_road_(manpuku_ryutouden:_top)_(umamusume),4,,成田路（万福龙汤传·顶）（赛马娘）,55
-natori_midori,4,,名取翠,55
+natori_midori,4,,名鸟翠,55
 one_piece_everyday,3,,每日ONE PIECE,55
 open_wrapper,0,,打开的包装纸,55
 orient_arcadia,3,,三国志幻想大陆,55
@@ -1300,14 +1301,14 @@ void_hunters_(zenless_zone_zero),0,,虚狩（绝区零）,55
 yai_ayanokoji_(mega_man),4,,绫小路弥生（洛克人）,55
 yo_chinaka_(hakuyagen),4,,余千仲（hakuyagen）,55
 yokubari_saboten,3,,贪心仙人掌,55
-ys_iii:_wanderers_from_ys,3,菲尔迦纳之誓约,伊苏III：伊苏的流浪者,55
+ys_iii:_wanderers_from_ys,3,菲尔迦纳之誓约,伊苏III：来自伊苏的冒险者,55
 2nd_scenario_(hundred_line),0,,第二剧本（百日战纪 最终防卫学园）,54
 36c_u.b.u_(idolmaster),3,,36°C U·B·U（偶像大师）,54
 after_female_ejaculation,0,,潮吹后,54
 ai-synthesized_speech,5,,AI合成语音,54
 archer_summoning_day,0,,弓兵召唤祭,54
 bandage_on_forehead,0,,额头上的绷带,54
-before_crisis:_final_fantasy_vii,3,,危机之前：最终幻想VII,54
+before_crisis:_final_fantasy_vii,3,,危机之前 -最终幻想VII-,54
 blue_sword,0,,蓝色的剑,54
 care_bears,3,,爱心熊,54
 censored_clitoris,0,,和谐的阴蒂,54
@@ -1324,7 +1325,7 @@ disposable_spoon,0,,一次性勺子,54
 duel_academy_uniform_(yu-gi-oh!_arc-v),0,,决斗学园制服（游戏王ARC-V）,54
 elena_(sf6_outfit_4)_(street_fighter),4,,艾莲娜（SF6服装4）（街头霸王）,54
 elevated_railway,0,,高架铁路,54
-eutrope_(ff14),4,,尤特罗普（最终幻想14）,54
+eutrope_(ff14),4,,尤特萝普（最终幻想14）,54
 firefly_(stella_sora),4,,萤（星塔旅人）,54
 floating_candle,0,,漂浮的蜡烛,54
 food-themed_weapon,0,,食物主题武器,54
@@ -1335,7 +1336,7 @@ gensokyo_odyssey,3,,幻想乡奥德赛,54
 glowing_legs,0,,发光的腿,54
 gwenyvere_(malberrybush),4,,格温妮薇儿（malberrybush）,54
 had_a_dream_everyone_was_drawing_lesbian_ships_like_this_(meme),0,,梦见大家都这样画百合CP（梗）,54
-haru_(chaos_zero_nightmare),4,,晴（Chaos Zero Nightmare）,54
+haru_(chaos_zero_nightmare),4,,晴（卡厄思梦境）,54
 heith_velvet,4,,海思·贝尔贝特,54
 highlander_(sekaiju),4,,高地人（世界树迷宫）,54
 holding_pineapple,0,,手持菠萝,54
@@ -1349,15 +1350,15 @@ kaga_nazuna_(8th_costume),4,,花芽荠（第八套服饰）,54
 kamijo_rui,4,,上条瑠衣,54
 kingyo_chuuihou!,3,,金鱼注意报！,54
 kirishima_ikuya,4,,桐岛郁弥,54
-klukai_(immaculate_service)_(girls'_frontline_2),4,,克罗丝（无瑕侍奉）（少女前线2：追放）,54
+klukai_(immaculate_service)_(girls'_frontline_2),4,,可露凯（无瑕侍奉）（少女前线2：追放）,54
 kohinata_kuon,4,,小日向来音,54
 kousaka_airi_(bebebe),4,,香坂爱莉（bebebe）,54
-kurai_shinya,4,,昏井深夜,54
+kurai_shinya,4,,仓井真夜,54
 kurt_cramer,4,,库尔特·克莱默,54
-laura_elfinrine,4,,劳拉·艾尔芬琳,54
+laura_elfinrine,4,,罗拉·艾尔菲利涅,54
 leash_on_penis,0,,阴茎牵绳,54
 legendary_spear_(tate_no_yuusha_no_nariagari),0,,传说之枪（盾之勇者成名录）,54
-licca-chan_(franchise),3,莉卡酱,莉卡娃娃,54
+licca-chan_(franchise),3,莉卡娃娃,丽佳娃娃,54
 lumine_(mega_man),4,,卢米涅（洛克人）,54
 lyrical_monasterio_school_uniform,0,,抒情修道院校服（卡片战斗先导者）,54
 mega_chimecho,4,,超级风铃铃,54
@@ -1372,13 +1373,13 @@ neichel_(kirby),4,,尼切尔（星之卡比）,54
 nowak_(chi.),4,,诺瓦克（地。关于地球的运动）,54
 on_barrel,0,,在木桶上,54
 pink_rabbit,0,,粉色兔子,54
-pokemon:_destiny_deoxys,3,,宝可梦 裂空的访问者 代欧奇希斯,54
+pokemon:_destiny_deoxys,3,,宝可梦超世代：裂空的访问者 代欧奇希斯,54
 purple_negligee,0,,紫色薄纱睡衣,54
 reno_(kancolle),4,,里诺（舰队Collection）,54
 rigby_the_cat_(meme),0,,猫咪Rigby（梗）,54
 ross_(fire_emblem),4,,罗斯（火焰纹章）,54
 saijou_takato,4,,西条高人,54
-saotome_berry_(2nd_costume),4,,早乙女Berry（第二套服饰）,54
+saotome_berry_(2nd_costume),4,,早乙女莓（第二套服饰）,54
 sham-nacha_(shadowverse),4,,沙姆纳库亚（影之诗）,54
 sherbet_glass,0,雪芭杯,冰沙杯,54
 shijima_daichi,4,,志岛大地,54
@@ -1388,15 +1389,15 @@ stop!!_hibari-kun!,3,,停止！！云雀君！,54
 sugasano_allen,4,,朱雀野亚伦,54
 takoyaki_pick,0,,章鱼烧签,54
 teheperinko_(heaven_burns_red),0,,嘿嘿吐舌（炽焰天穹）,54
-tilia_(stella_sora),4,,蒂莉娅（星塔旅人）,54
+tilia_(stella_sora),4,,缇莉娅（星塔旅人）,54
 time_progression,0,,时间推移,54
 tokoyami_towa_(7th_costume),4,,常暗永远（第七套服饰）,54
 torn_tunic,0,,破损的束腰外衣,54
-toshu_(live_a_hero),4,,斗守（Live A Hero）,54
+toshu_(live_a_hero),4,,东秀（Live A Hero）,54
 two-tone_bandana,0,,双色头巾,54
 uwasa_no_tsuruno,4,,传闻中的鹤乃,54
-weak_kingsley,4,,威克·金斯利,54
-wiene_(danmachi),4,,维妮（在地下城寻求邂逅是否搞错了什么）,54
+weak_kingsley,4,,微克·金斯利,54
+wiene_(danmachi),4,,薇妮（在地下城寻求邂逅是否搞错了什么）,54
 wipeout_(zenless_zone_zero),0,,全灭（绝区零）,54
 you_and_i!_(idolmaster),0,,YOU AND I!（偶像大师）,54
 z_hair_ornament,0,,Z字发饰,54
@@ -1436,12 +1437,12 @@ deep_blue_(ff14),4,,深蓝（最终幻想14）,53
 deep_dark_for_light_(project_sekai),0,,Deep Dark for Light（世界计划）,53
 dottore_(exalted_master_of_the_heretical_path)_(genshin_impact),4,,多托雷（左道的胜义尊）（原神）,53
 dry_grass,0,,枯草,53
-durandal_(casual)_(umamusume),4,,杜兰达尔（便服）（赛马娘）,53
+durandal_(casual)_(umamusume),4,多旺达,杜兰达尔（便服）（赛马娘）,53
 elysia_(summer_2026)_(honkai_impact),4,,爱莉希雅（2026夏日）（崩坏3）,53
 embroidered_garter_belt,0,,刺绣吊袜腰带,53
-empel_vollmer,4,,安佩尔·沃尔玛,53
+empel_vollmer,4,,安佩尔·沃尔默,53
 erica_(soccer_spirits),4,,艾丽卡（银河足球队）,53
-erik_(phantom_of_the_opera),4,,埃里克（歌剧魅影）,53
+erik_(phantom_of_the_opera),4,,艾瑞克（歌剧魅影）,53
 eros_valentyne,4,,爱洛丝·瓦伦泰恩,53
 fake_sky,0,,假天空,53
 fake_subtitles,0,,假字幕,53
@@ -1462,11 +1463,11 @@ hannah_(neural_cloud),4,,汉娜（少女前线：云图计划）,53
 hasu_no_sora_106th_class,0,,莲之空第106期生,53
 hestia_happiness,4,,赫斯缇雅·哈皮内斯,53
 hikariorochi,4,,光大蛇（妖怪手表）,53
-hisaki_(live_a_hero),4,,日咲（Live A Hero）,53
+hisaki_(live_a_hero),4,,久希（Live A Hero）,53
 hisuian_qwilfish,4,,洗翠千针鱼,53
 hitotsubashi_ayato,4,,一桥绫人,53
 holding_penis,0,,握着阴茎,53
-hollow_ichigo_(full_hollow),4,,虚化一护（完全虚化）,53
+hollow_ichigo_(full_hollow),4,,白一护（完全虚化）,53
 hood_bow,0,,兜帽蝴蝶结,53
 independence_(kancolle),4,,独立（舰队Collection）,53
 iyojima_anzu,4,,伊予岛杏,53
@@ -1479,9 +1480,9 @@ kyouji_takahara,4,,高原恭二,53
 labia_stretching,0,,拉扯阴唇,53
 lapis_tenebrae,4,,拉碧丝·特涅布莱,53
 li_mo_sumi,4,,礼墨Sumi,53
-logos_(radiant_serenity)_(arknights),4,,逻各斯（明澈）（明日方舟）,53
+logos_(radiant_serenity)_(arknights),4,,逻各斯（辉煌的静谧）（明日方舟）,53
 lunar_surface,0,月面,月球表面,53
-lye_batenkaitos,4,,莱伊·巴腾凯托斯,53
+lye_batenkaitos,4,,莱伊·巴登凯托斯,53
 maestrale_(azur_lane),4,,西北风（碧蓝航线）,53
 mail_chausses,0,,锁子甲护腿,53
 maliketh's_black_blade_(elden_ring),0,,玛利喀斯的黑剑（艾尔登法环）,53
@@ -1492,25 +1493,25 @@ melting_heart,0,,融化的爱心,53
 mietemasu_yo!_aizawa-san,3,,看见了哦！爱泽同学,53
 minus_(reverseblue),4,,Minus（溯回青空）,53
 mirage_koas,4,,米拉杰·科亚斯,53
-misty_olszewski,4,,米斯蒂·奥尔泽夫斯基,53
+misty_olszewski,4,,米丝蒂·奥尔谢夫斯基,53
 moudoku_denpa_shoujo_purple_lollipop,4,,猛毒电波少女☆紫色棒棒糖,53
 mudrock_(rubble)_(arknights),4,,泥岩（瓦砾）（明日方舟）,53
 mythos_(vtuber),3,,Mythos（虚拟主播）,53
 nekorindou,3,,猫铃堂,53
 nigiribashi,0,,握筷,53
-nina_klein,4,,妮娜·克莱因,53
+nina_klein,4,,尼娜·克莱因,53
 nine_(arknights),4,,九（明日方舟）,53
 one-shoulder_tunic,0,,单肩束腰外衣,53
 orange_haori,0,,橙色羽织,53
-orfevre_(gold-triumph)_(umamusume),4,,黄金船之父（黄金凯旋）（赛马娘）,53
+orfevre_(gold-triumph)_(umamusume),4,,黄金巨匠（黄金凯旋）（赛马娘）,53
 our_golden_days_(project_sekai),0,,Our Golden Days（世界计划）,53
 penis_over_breasts,0,,阴茎放在胸上,53
 perne_(fire_emblem),4,,帕恩（火焰纹章）,53
 phainon_(alternate_spacetime)_(honkai:_star_rail),4,,白厄（异时空）（崩坏：星穹铁道）,53
 pink_assault_visor,0,,粉色突击面罩,53
 plaid_cape,0,,格纹披风,53
-priest_seto,4,,祭司塞特（游戏王）,53
-rebecca_chambers_(sportswear),4,,丽贝卡·钱伯斯（运动服）,53
+priest_seto,4,,祭司赛特（游戏王）,53
+rebecca_chambers_(sportswear),4,,瑞贝卡·钱伯斯（运动服）,53
 reisa_(magical)_(blue_archive)_(cosplay),0,,玲纱（魔法少女）（蔚蓝档案）（角色扮演）,53
 repetition,0,,重复元素,53
 rim_(trickcal),4,,莉姆（嘟嘟脸恶作剧）,53
@@ -1519,12 +1520,12 @@ rune_master_4_(sekaiju),4,,符文师4（世界树迷宫）,53
 sequential_exposures,0,,连续曝光,53
 shimamura_uzuki_(cosplay),0,,岛村卯月（角色扮演）,53
 sieg_(eiyuu_densetsu),4,,齐格（英雄传说）,53
-singing_machine,4,,歌唱机器,53
+singing_machine,4,,歌唱机（Project Moon）,53
 slave_knight_gael,4,,奴隶骑士盖尔,53
 spats_(footwear),0,,鞋罩,53
 st._basil's_cathedral,0,,圣瓦西里大教堂,53
 su-27,0,,苏-27,53
-supergirl_(dcau),4,,女超人（DC动画宇宙）,53
+supergirl_(dcau),4,超级少女,女超人（DC动画宇宙）,53
 sweet_cap'n_cakes_(deltarune),0,,甜蜜船长蛋糕（三角符文）,53
 swinging_golf_club,0,,挥高尔夫球杆,53
 symbol-shaped_eyes,0,,符号形眼睛,53
@@ -1547,9 +1548,9 @@ yanagiya_otome,4,,柳谷乙女,53
 yellow_track_suit,0,,黄色运动服,53
 yu_(beatspell),4,,悠（节奏天国）,53
 yukihana_lamy_(summer),4,,雪花菈米（夏日）,53
-yunael,4,,尤娜艾尔,53
+yunael,4,,优奈儿,53
 yutori_peke,4,,柚鸟Peke,53
-yuuka_(c108_swimsuit)_(blue_archive),4,,优香（C108泳装）（蔚蓝档案）,53
+yuuka_(c108_swimsuit)_(blue_archive),4,,早濑优香（C108泳装）（蔚蓝档案）,53
 zock,4,,佐克（高达）,53
 air_groove_(eternal_hecate)_(umamusume),4,,气槽（悠久的赫卡忒）（赛马娘）,52
 akaishi_kuroe,4,,赤石黑绘,52
@@ -1564,12 +1565,12 @@ anna_liebert,4,,安娜·利贝特,52
 anya_cocolova,4,,安雅·可可洛娃,52
 anyoji_hime_(summer_training_wear),4,,安养寺姬芽（夏季训练服）,52
 asura_(mythology),0,三面六臂,阿修罗（神话）,52
-athanasia_de_alger_obelia,4,,阿塔纳西娅·德·阿尔杰·奥贝利亚,52
+athanasia_de_alger_obelia,4,阿塔娜西娅,希娅·戴·阿尔杰·奥亚,52
 azuchi_momo_(1st_costume),4,,安土桃（第一套服饰）,52
 balsa_(seirei_no_moribito),4,,巴尔莎（精灵守护者）,52
 bamboo_hair_ornament,0,,竹子发饰,52
-battle_beast_(invincible),4,,战兽（无敌少侠）,52
-beatrix_(summer)_(granblue_fantasy),4,,贝阿朵莉丝（夏日）（碧蓝幻想）,52
+battle_beast_(invincible),4,,狂战兽（无敌少侠）,52
+beatrix_(summer)_(granblue_fantasy),4,,贝阿特丽克丝（夏日）（碧蓝幻想）,52
 billy_butcher,4,屠夫,比利·布彻,52
 biwa_hayahide_(casual)_(umamusume),4,,琵琶晨光（便服）（赛马娘）,52
 black_panther_(shuri),4,,黑豹（苏睿）,52
@@ -1580,19 +1581,19 @@ broken_furniture,0,,损坏的家具,52
 bronya_zaychik_(blue_reunion),4,,布洛妮娅·扎伊切克（蔚蓝重逢）,52
 burnice_white_(cosplay),0,,柏妮思·怀特（角色扮演）,52
 c.c._day,0,,C.C.之日,52
-captain_(chaos_zero_nightmare),4,,舰长（Chaos Zero Nightmare）,52
+captain_(chaos_zero_nightmare),4,,舰长（卡厄思梦境）,52
 castlevania:_harmony_of_dissonance,3,,恶魔城 白夜协奏曲,52
 cat_cafe,0,猫咖啡馆,猫咖,52
 character_cake,0,,角色造型蛋糕,52
 check_annotation,5,,注释待确认,52
-chieru_(winter)_(princess_connect!),4,,千爱瑠（冬季）（公主连结）,52
+chieru_(winter)_(princess_connect!),4,,千爱瑠（冬日）（公主连结）,52
 chimaera_(dragon_quest),4,,奇美拉（勇者斗恶龙）,52
-chloe_(trickcal),4,,克洛伊（嘟嘟脸恶作剧）,52
+chloe_(trickcal),4,,克萝伊（嘟嘟脸恶作剧）,52
 ciel-sensei,4,,知得留老师,52
-clevatess:_majuu_no_ou_to_akago_to_shikabane_no_yuusha,3,克雷巴提斯,魔兽之王与婴儿与尸之勇者,52
+clevatess:_majuu_no_ou_to_akago_to_shikabane_no_yuusha,3,,Clevatess -魔兽之王与婴儿与尸之勇者-,52
 collared_one-piece_swimsuit,0,,带领连体泳衣,52
 conte_di_cavour_(swimsuit)_(kancolle),4,,加富尔伯爵（泳装）（舰队Collection）,52
-cyan_sung-sun,4,,丝安·孙孙,52
+cyan_sung-sun,4,,席安·孙孙,52
 dai_(dragon_quest),4,,达伊（勇者斗恶龙）,52
 dance_on_the_galaxy_(idolmaster),0,,Dance on the Galaxy（偶像大师）,52
 dealmaker_(deltarune),0,,交易达人（三角符文）,52
@@ -1608,12 +1609,12 @@ finger_to_eyewear,0,,手指推眼镜,52
 flamel_emure,4,,弗拉梅尔·艾缪尔,52
 flower_in_pocket,0,,口袋里的花,52
 francesca_(knights_of_guinevere),4,,弗朗切斯卡（桂尼维亚骑士团）,52
-frederica_aesfrost,4,,弗雷德丽卡·艾斯弗罗斯特,52
+frederica_aesfrost,4,,芙蕾德丽卡·艾斯弗罗斯特,52
 fudou_devi,4,,步堂黛薇,52
 fujimasa_march_(racing)_(umamusume),4,,藤正进行曲（决胜服）（赛马娘）,52
 gabriel_(yomi_no_tsugai),4,,加百列（黄泉使者）,52
 gero_hikaru,4,,下吕光,52
-ghost_sister_&_spooky_dogwood,4,,幽鬼兔&空蝉狗木,52
+ghost_sister_&_spooky_dogwood,4,,儚无水木（游戏王）,52
 girlfriend_booty_(meme),0,,女友屁股（梗）,52
 glenglassaugh_(duel_masters),4,,次世代龙霸格兰格拉萨（决斗大师）,52
 golden_sun:_dark_dawn,3,,黄金太阳：漆黑的黎明,52
@@ -1622,7 +1623,7 @@ grunty_(.hack//),4,,格朗蒂（黑客时空）,52
 guilt,0,,愧疚,52
 habetrot_(swimsuit_pretender)_(fate),4,,哈贝特洛特（泳装Pretender）（Fate系列）,52
 hana_association_south_uniform,0,,花协会南部制服（Project Moon）,52
-hayashibara_megumi,4,,林原惠美,52
+hayashibara_megumi,4,林原惠美,林原惠,52
 haydee_(game),3,,海蒂（游戏）,52
 headphones_on_animal_ears,0,,兽耳上戴耳机,52
 henna_(hentaiukr),4,,海娜（hentaiukr）,52
@@ -1635,15 +1636,15 @@ holding_stone_tablet,0,,手持石板,52
 hypno-shroom_(plants_vs._zombies),4,,魅惑菇（植物大战僵尸）,52
 ichimaru_kohaku,4,,市丸琥珀,52
 inconvenient_hair,0,,碍事的头发,52
-iris_(swimsuit)_(stella_sora),4,,艾瑞斯（泳装）（星塔旅人）,52
+iris_(swimsuit)_(stella_sora),4,鸢尾,爱丽丝（泳装）（星塔旅人）,52
 izumi_kota,4,,出水洸汰,52
 john_marston,4,,约翰·马斯顿,52
 kageyama_ranmaru,4,,影山兰丸,52
-kamen_rider_genm_(zombie_gamer_level_x),4,,假面骑士Genm（僵尸玩家等级X）,52
-kamen_rider_zeztz_(physicam_impact),4,,假面骑士Zeztz（Physicam Impact）,52
+kamen_rider_genm_(zombie_gamer_level_x),4,,假面骑士Genm（丧尸玩家 Lv.X）,52
+kamen_rider_zeztz_(physicam_impact),4,,假面骑士Zeztz（体梦冲击）,52
 kazuya_(megami_tensei),4,,和也（女神转生）,52
 kieran_(sygna_suit)_(pokemon),4,,乌栗（Sygna套装）（宝可梦）,52
-kimagure_temptation_2,3,,任性诱惑2,52
+kimagure_temptation_2,3,,异想魅惑2,52
 kisaragi_chihaya_(lapis_lazuli_diva),4,,如月千早（琉璃歌姬）,52
 kiss_(stand),4,,亲吻（替身）,52
 kounosuke_kuri,4,,栗幸之助,52
@@ -1653,53 +1654,54 @@ kyougoku_shigure_(tsuruse),4,,京极时雨（tsuruse）,52
 lavie_(vocaloid),3,,拉维（VOCALOID）,52
 lelia_(sinisistar),4,,莉莉娅（SiNiSistar）,52
 leverless_arcade_stick,0,按键式摇杆,无摇杆街机手柄,52
-lezard_valeth,4,,雷扎德·瓦雷斯,52
+lezard_valeth,4,,雷札德·瓦雷斯,52
 licking_screen,0,舔屏,舔屏幕,52
 lighting_practice,0,,打光练习,52
 linus_(fire_emblem),4,,莱纳斯（火焰纹章）,52
 lion_(alleyway_temptress)_(azur_lane),4,,狮（撕裂的“小巷”）（碧蓝航线）,52
 living_fish_tank,0,,活体鱼缸,52
 long_body,0,,长身体,52
-lucky_roux,4,,拉基·路,52
+lucky_roux,4,,拉奇·鲁,52
 maeda_kaori,4,,前田佳织里,52
 magicite,0,,魔石（最终幻想6）,52
 maou-chan_(ekrea_jan),4,,魔王酱（ekrea jan）,52
 marija_(violinist)_(muse_dash),4,,玛莉嘉（小提琴手）（喵斯快跑）,52
-marl_barrock,4,,马尔·巴罗克,52
+marl_barrock,4,,玛尔·巴洛克,52
 maru_(ff7),4,,玛鲁（最终幻想7）,52
 mecklenburg_(branding_witchcraft)_(azur_lane),4,,梅克伦堡（烙印魔女）（碧蓝航线）,52
 mejiro_bright_(casual)_(umamusume),4,,目白光明（便服）（赛马娘）,52
 melon_print,0,,蜜瓜印花,52
 mexican_national_soccer_team_uniform,0,,墨西哥国家足球队球衣,52
 mushroom_earrings,0,,蘑菇耳环,52
-navi_(pokemon),4,,纳维（宝可梦）,52
+navi_(pokemon),4,,娜薇（宝可梦）,52
 nehushtan_armor,0,,涅夫休坦之铠,52
 neo_akasha_terminal,0,,新阿卡夏终端,52
 neumann_u87,0,,诺依曼U87麦克风,52
 no_u-turn_sign,0,,禁止掉头标志,52
 nugget_(pokemon),0,,金珠（宝可梦）,52
 nyalra_(author),4,,Nyalra（作者）,52
-octavia_melody,4,,奥克塔维亚·美乐蒂,52
-oersted_(live_a_live),4,,奥尔斯德德（时空勇士）,52
+octavia_melody,4,,奥塔维亚·梅乐迪,52
+oersted_(live_a_live),4,,奥尔斯特德（时空勇士）,52
 oni_to_kitsune_no_hanashi,3,,鬼与狐的故事,52
 oozora_hibari,4,,大空云雀,52
 ougon_yuusha_goldran,3,,黄金勇者,52
-paulo_(pokemon),4,,雾矢（宝可梦）,52
+paulo_(pokemon),4,,梧桐（宝可梦）,52
 pink_sword,0,,粉色的剑,52
-poko_rakun_(1st_costume),4,,Poko Rakun（第一套服饰）,52
+poko_rakun_(1st_costume),4,,波可·拉昆（第一套服饰）,52
 popoi_(puyopuyo),4,,波波依（噗哟噗哟）,52
 porsche_930,0,,保时捷930,52
-power_pro-kun_pocket_7,3,,实况力量棒球口袋7,52
+power_pro-kun_pocket_7,3,,实况口袋棒球7,52
 punishment_(helltaker),4,,惩罚（地狱把妹王）,52
 purple_bodystocking,0,,紫色连身袜,52
 pyro_pup_(sinder_(vtuber)),4,,火焰小狗（Sinder）,52
-raora_panthera_(casual),4,,拉奥拉·潘瑟拉（便服）,52
+raora_panthera_(casual),4,,拉欧拉·潘特拉（便服）,52
 raptoriales,0,螳螂臂,捕捉足,52
 rayearth_(character),4,,雷亚斯（角色）,52
+re-gz,4,,Re-GZ（灵格斯）,52
 red_tongue,0,,红色舌头,52
 remi_unoya,4,,蕾米·乌诺娅,52
 rickshaw_puller,0,,人力车夫,52
-rin_(casual)_(blue_archive),4,,凛（便服）（蔚蓝档案）,52
+rin_(casual)_(blue_archive),4,,七神凛（便服）（蔚蓝档案）,52
 rirumu_(mirumo_de_pon!),4,,莉露姆（魔法咪路咪路）,52
 roblox_man_face_(meme),0,,Roblox男人脸（梗）,52
 rukia_moon,4,,露琪亚·穆恩,52
@@ -1716,9 +1718,10 @@ shirt_stay,0,,衬衫固定带,52
 shorts_around_ankles,0,,短裤褪到脚踝,52
 shy_nun_(diva),4,,害羞修女（Diva）,52
 sing_(movie),3,,欢乐好声音（电影）,52
+sinisistar_2,3,,退魔修女2,52
 sirius_black,4,,小天狼星·布莱克,52
 skeleton_(at2.),4,,骷髅（at2.）,52
-sleipnir_(final_fantasy),4,,斯雷普尼尔（最终幻想）,52
+sleipnir_(final_fantasy),4,,斯莱普尼尔（最终幻想）,52
 snake_wrapped_around_leg,0,,蛇缠在腿上,52
 snow_white's_queen_(fairy_tale_character)_(cosplay),0,,白雪公主的王后（童话角色）（角色扮演）,52
 spiked_mask,0,,尖刺面具,52
@@ -1734,7 +1737,7 @@ tennis_serve,0,,网球发球,52
 tensei_ringo_(vocaloid),3,,转生苹果（VOCALOID）,52
 tevi_(character),4,,缇薇（角色）,52
 the_judge_(off),4,,裁判（OFF）,52
-the_new_order:_last_days_of_europe,3,,新秩序：欧洲最后的日子,52
+the_new_order:_last_days_of_europe,3,,新秩序：欧洲末日,52
 theater_ikizama,3,,剧场生存方式（Love Live!）,52
 thor_(jane_foster),4,,雷神（简·福斯特）,52
 throwing_confetti,0,,抛撒彩纸,52
@@ -1744,14 +1747,14 @@ trapezius,0,,斜方肌,52
 tsukino_mito_(maid),4,,月之美兔（女仆装）,52
 tsukino_mito_(tsuki_no_usagi_ha_virtual_no_yume_wo_miru),4,,月之美兔（月兔梦见虚拟之梦）,52
 tsuneki_kotoyuki,4,,常喜寿幸,52
-typhon_(re:zero),4,,提丰（Re:从零开始的异世界生活）,52
+typhon_(re:zero),4,,缇丰（Re:从零开始的异世界生活）,52
 ultraman_80_(series),3,奥特曼80,爱迪奥特曼,52
 ultraman_fusion_fight!,3,,奥特曼融合激战,52
 unnamed_rod_stand_(jojolands),4,,无名杆子替身（The JOJOLands）,52
 vivi_(duel_masters_play's),4,,薇薇（决斗大师Play's）,52
 wanderer_(nord_express)_(genshin_impact),4,,流浪者（北国特快）（原神）,52
 whydah_(azur_lane),4,,维达号（碧蓝航线）,52
-win_variation_(principal_on_the_water_surface)_(umamusume),4,,胜利变奏（水面的首席）（赛马娘）,52
+win_variation_(principal_on_the_water_surface)_(umamusume),4,凯旋芭蕾,胜利变奏（水面的首席）（赛马娘）,52
 wolfenstein_(series),3,,德军总部系列,52
 woodpecker,0,,啄木鸟,52
 yashiro_(kyokugen_dasshutsu),4,,八代（极限脱出）,52
@@ -1761,23 +1764,24 @@ zwei_(fate),4,,茨威（Fate系列）,52
 7koma,0,,七格漫画,51
 acca_13-ku_kansatsu-ka,3,,ACCA13区监察课,51
 acr_(girls'_frontline),4,,ACR（少女前线）,51
-aikawa_megumi_(casual),4,,相川惠（便服）,51
+aikawa_megumi_(casual),4,,逢川惠（便服）,51
 airhorn,0,,气笛喇叭,51
 alcremie_(lemon_cream),4,,霜奶仙（奶油柠檬）,51
 alita:_battle_angel,3,,阿丽塔：战斗天使,51
 amamiya_maki,4,,雨宫真希,51
-amayui_moka_(1st_costume),4,,甘结萌香（第一套服饰）,51
+amayui_moka_(1st_costume),4,,甘结Moka（第一套服饰）,51
 american_revolution,0,,美国独立战争,51
 anastasia_(third_ascension)_(fate),4,,阿纳斯塔西娅（第三再临）（Fate系列）,51
 anatomical_model,0,,人体模型,51
 aogami_(megami_tensei),4,,青神（女神转生）,51
 aqua_hakama,0,,水蓝色袴,51
-arcade_gamer_fubuki,3,,街机少女吹雪,51
-areia_(alchemy_stars),4,,艾莉娜（白夜极光）,51
+arcade_gamer_fubuki,3,街机少女吹雪,电玩少女樱吹雪,51
+areia_(alchemy_stars),4,,艾蕾雅（白夜极光）,51
+armed_fantasia,3,,武装幻想,51
 assume_the_position_(meme),0,,摆好姿势（梗）,51
 atreus_(god_of_war),4,,阿特柔斯（战神）,51
 avalastia,4,,阿瓦拉斯蒂娅,51
-ayn_alwyn_(infinite_empire),4,牧首,艾因·阿尔温（无限帝国）,51
+ayn_alwyn_(infinite_empire),4,,艾因（无限帝国）（时空中的绘旅人）,51
 beacon,0,,信标,51
 bear_ear_headphones,0,,熊耳耳机,51
 beetle_boy,0,,甲虫男孩,51
@@ -1792,31 +1796,31 @@ cat_ear_smartphone_case,0,,猫耳手机壳,51
 cattiva,4,,捣蛋猫（幻兽帕鲁）,51
 ceelio_(vtuber),4,,Ceelio（虚拟主播）,51
 cestus_(sekaiju),4,,拳斗士（世界树迷宫）,51
-charming_man,4,,魅力男,51
+charming_man,4,,查明·曼,51
 cheng_lixue,4,,程立雪,51
-choppy_(precure),4,,丘比（光之美少女）,51
+choppy_(precure),4,巧比,乔比（光之美少女）,51
 clitoris_sleeve,0,,阴蒂环套,51
 clock_face,0,表盘,钟面,51
-constance_von_nuvelle_(timeskip),4,,康斯坦丝·冯·努韦尔（长大后）,51
+constance_von_nuvelle_(timeskip),4,,康斯坦丝·冯·纽维尔（长大后）,51
 corkscrew,0,,螺旋开瓶器,51
-crimzon_ruze_(1st_costume),4,,克林森·鲁兹（第一套服饰）,51
+crimzon_ruze_(1st_costume),4,,克里姆森·鲁兹（第一套服饰）,51
 cum_on_fourth_wall,0,,射在第四面墙上,51
 cursor_hair_ornament,0,,光标发饰,51
 daiba_shizuma,4,,台场静马,51
 daiichi_ruby_(flowing_blue)_(umamusume),4,,第一红宝石（流动之蓝）（赛马娘）,51
 danganronpa_2x2,3,,超级弹丸论破2×2,51
-dark_choco_cookie,4,,黑巧克力味饼干,51
+dark_choco_cookie,4,,黑巧克力饼干,51
 dawn_(sygna_suit)_(pokemon),4,,小光（Sygna套装）（宝可梦）,51
 deer_hood,0,,鹿角兜帽,51
 dellinger_(one_piece),4,,德林杰（海贼王）,51
-den'an_zon,4,,德南·宗,51
+den'an_zon,4,,德南·佐恩,51
 dende_(dragon_ball),4,,丹迪（龙珠）,51
 dengeki_daioh,3,,电击大王,51
 destoroyah,4,,戴斯特洛伊亚,51
-diesel_(winter_sweets)_(nikke),4,,迪赛尔（冬日甜点）（胜利女神：妮姬）,51
-dig_dug,3,,挖金子,51
+diesel_(winter_sweets)_(nikke),4,,迪塞尔（冬日甜点）（胜利女神：妮姬）,51
+dig_dug,3,,打空气,51
 dimentio,4,,迪门迪欧,51
-disaster_and_remorse_(genshin_impact),0,,祸祟与悔恨（原神）,51
+disaster_and_remorse_(genshin_impact),0,,灾悔（原神）,51
 dominion_(manga),3,,特搜战车队,51
 double_doors,0,,双开门,51
 double_dragon,3,,双截龙,51
@@ -1826,11 +1830,11 @@ durandal_(nibelungen_traumlied)_(honkai_impact),4,,幽兰黛尔（尼伯龙根�
 elizabeth_afton,4,,伊丽莎白·阿夫顿,51
 emilou_apacci,4,,艾米露·阿帕契,51
 enkidu_(talk_of_the_hot_sands)_(fate),4,,恩奇都（热砂之语）（Fate系列）,51
-envy_adams,4,,恩薇·亚当斯,51
+envy_adams,4,,安薇·亚当斯,51
 escargon,4,,蜗牛先生（星之卡比）,51
 f-22_raptor_(personification),4,,F-22猛禽（拟人化）,51
 faeryn_(comodox),4,,菲琳（comodox）,51
-fantasy_zone,3,,梦幻地带,51
+fantasy_zone,3,梦幻地带,幻想地带,51
 father_and_son_threesome,0,,父子3P,51
 faun,0,羊男,法翁,51
 female_corrin_(vallite_monarch)_(fire_emblem),4,,神威（女）（瓦利特君主）（火焰纹章）,51
@@ -1850,14 +1854,14 @@ garbage_doll,4,,垃圾人偶（CLANNAD）,51
 geoffrey_(fire_emblem),4,,杰弗里（火焰纹章）,51
 ghost_(among_us),4,,幽灵（Among Us）,51
 gold_aura,0,,金色气场,51
-gold_city_(autumn_cosmos)_(umamusume),4,,黄金城（秋樱舞者）（赛马娘）,51
+gold_city_(autumn_cosmos)_(umamusume),4,,黄金城市（秋樱舞娘）（赛马娘）,51
 gold_petals,0,,金色花瓣,51
 granhildr_(brown_dust),4,,格兰希尔德（棕色尘埃）,51
 green_overskirt,0,,绿色外裙,51
 gs25,3,,GS25便利店,51
 gwen_tennyson_(future),4,,格温·坦尼森（未来）,51
 h&k_vp9,0,,HK VP9手枪,51
-hakos_baelz_(cosplay),0,,哈克斯·白尔斯（角色扮演）,51
+hakos_baelz_(cosplay),0,,哈珂斯·贝尔丝（角色扮演）,51
 halo_ahoge,0,,光环呆毛,51
 handheld_metal_detector,0,,手持金属探测器,51
 harin_(byeolbich),4,,夏琳（byeolbich）,51
@@ -1866,7 +1870,7 @@ haru_urara_(umamusume)_(cosplay),0,,春乌拉拉（赛马娘）（角色扮演�
 haruka_(bokujou_monogatari),4,,遥（牧场物语）,51
 harusawa_yoshino,4,,春泽芳野,51
 hilda_(path_to_nowhere),4,,希尔达（无期迷途）,51
-hirokazu_arai_(chainsaw_man),4,,荒井浩和（电锯人）,51
+hirokazu_arai_(chainsaw_man),4,,荒井博一（电锯人）,51
 holding_by_leg,0,,抓住腿,51
 horn_scrunchie,0,,角上的发圈,51
 horse_ear_hairband,0,,马耳发箍,51
@@ -1875,7 +1879,7 @@ houjou_monica_asahi,4,,宝城·莫妮卡·朝妃,51
 houndstooth_background,0,,千鸟格背景,51
 hraesvelgr_(last_origin),4,,赫拉斯瓦尔格（最后的起源）,51
 huge_bowtie,0,,巨大的领结,51
-hyunkel,4,,修克尔,51
+hyunkel,4,,修凯尔,51
 i'm_so_fucked_up_(meme),0,,我真是差劲啊（梗）,51
 ignatius_(fire_emblem),4,,伊格尼斯（火焰纹章）,51
 ikuno_dictus_(casual)_(umamusume),4,,生野狄杜斯（便服）（赛马娘）,51
@@ -1883,7 +1887,7 @@ illusia_(dq10),4,,伊鲁莎（勇者斗恶龙10）,51
 inkblot_test,0,罗夏墨迹测验,墨迹测试,51
 inner_conch_piercing,0,,耳甲腔穿孔,51
 intrepid_kai_(kancolle),4,,无畏改（舰队Collection）,51
-intruder_(no_i'm_not_a_human),4,,入侵者（我不是人类）,51
+intruder_(no_i'm_not_a_human),4,,入侵者（不，我不是人类）,51
 inugami_kotarou,4,,犬上小太郎,51
 ireland,0,,爱尔兰,51
 irida_(anniversary_2025)_(pokemon),4,,珠贝（2025周年）（宝可梦）,51
@@ -1894,35 +1898,35 @@ james_mccloud,4,,詹姆斯·麦克劳德,51
 janaff_(fire_emblem),4,,亚纳夫（火焰纹章）,51
 jasmine_(senran_kagura),4,,小百合（闪乱神乐）,51
 jersey_(azur_lane),4,,泽西（碧蓝航线）,51
-jon_arbuckle,4,,乔恩·阿巴克尔,51
+jon_arbuckle,4,,乔恩·阿布库,51
 jr._(xenosaga),4,,Jr.（异度传说）,51
 kagurai_~kagura_and_raito~,3,,神乐雷～神乐与雷人～,51
-kamen_rider_my-th_(series),3,,假面骑士My-th,51
+kamen_rider_my-th_(series),3,,假面骑士My-Th,51
 kandima_(shadowverse),4,,坎迪玛（影之诗）,51
 kangaroo_ears,0,,袋鼠耳朵,51
 kasane_neko_(haru57928031),4,,重音猫（haru57928031）,51
-kiana_kaslana_(honkai:_nexus_anima),4,,琪亚娜·卡斯兰娜（崩坏：联结Anima）,51
+kiana_kaslana_(honkai:_nexus_anima),4,,琪亚娜·卡斯兰娜（崩坏：因缘精灵）,51
 kibagami_genjuro,4,,牙神幻十郎,51
-kiiroitori,4,,小鸡（轻松熊）,51
+kiiroitori,4,,小黄鸡（轻松熊）,51
 kijo_momiji,4,,鬼女红叶（阴阳师）,51
 king's_rock,0,,王者之证（宝可梦）,51
 kitakoji_hisui_(1st_costume),4,,北小路翡翠（第一套服饰）,51
 kitazawa_shiho_(depths_of_twilight_maid),4,,北泽志保（黄昏之渊·女仆）,51
 klara_charmwood_(1st_costume),4,,克拉拉·查姆伍德（第一套服饰）,51
 knightfight,3,,骑士之战（蝙蝠侠）,51
-kohigashi_hitona,4,,小东人奈,51
-kougei_ciel_nana,4,,虹霓·希尔·奈奈,51
+kohigashi_hitona,4,,小东人鱼,51
+kougei_ciel_nana,4,,虹霓·雪儿·奈奈,51
 koukou_tekken-den_tough,3,,高校铁拳传TOUGH,51
 kraid,4,,克雷德（密特罗德）,51
-krasny_kavkaz_(azur_lane),4,,红色高加索（碧蓝航线）,51
+krasny_kavkaz_(azur_lane),4,,红色山脉（碧蓝航线）,51
 kuboyasu_aren,4,,洼谷须亚莲,51
 kurotsuchi_(naruto),4,,黑土（火影忍者）,51
 kuu_(haibane_renmei),4,,空（灰羽联盟）,51
 kyuu_&_ei_(utau),3,,求&影（UTAU）,51
 lady_deadpool,4,,死侍女士,51
-lai_dai_corporation_(eve_online),0,,莱代公司（EVE Online）,51
+lai_dai_corporation_(eve_online),0,,莱戴公司（EVE Online）,51
 lancelot_(sonic),4,,兰斯洛特（索尼克）,51
-lappland_the_decadenza_(ambience_synesthesia_2025)_(arknights),4,,荒芜拉普兰德（2025音律联觉）（明日方舟）,51
+lappland_the_decadenza_(ambience_synesthesia_2025)_(arknights),4,,荒芜拉普兰德（音律联觉2025）（明日方舟）,51
 lavacrum_sanguinis_(e.g.o),0,,血之沐浴（E.G.O）,51
 lce_clothes_(project_moon),0,,LCE服装（Project Moon）,51
 le_rouge_(identity)_(project_moon),0,,Le Rouge人格（Project Moon）,51
@@ -1932,7 +1936,7 @@ lop_(star_wars),4,,罗普（星球大战）,51
 lulusa_(darkraart),4,,卢露莎（darkraart）,51
 magicaldraw,0,,魔法绘图（MagicalDraw）,51
 maid_for_you_(nikke),0,,Maid For You（胜利女神：妮姬）,51
-margaret_(path_to_nowhere),4,,玛格丽特（无期迷途）,51
+margaret_(path_to_nowhere),4,,玛格丽塔（无期迷途）,51
 marilyn_sue_dajie,4,,玛丽莲·苏,51
 marinangemon,4,,海天使兽,51
 mate_rin,4,,真手凛,51
@@ -1942,7 +1946,7 @@ meika_ruka,4,,冥歌琉华,51
 memorial_on_desk,0,,课桌上的悼念花瓶,51
 mettaton_neo,4,,镁塔顿NEO,51
 mike_crew_(deltarune),0,,假麦克组（三角符文）,51
-miko_(dandadan),4,,美子（胆大党）,51
+miko_(dandadan),4,,美伊子（胆大党）,51
 mildly_muscular_women_think_they're_gods_(meme),0,,微肌肉女以为自己是神（梗）,51
 millie_parfait_(anniversary_dress),4,,米莉·帕菲（周年礼服）,51
 milluki_zoldyck,4,,糜稽·揍敌客,51
@@ -1951,7 +1955,7 @@ minamoto_no_raikou_(bunny_girl_style)_(fate),4,,源赖光（兔女郎风格）�
 mococo_abyssgard_(cosplay),0,,茸茸·鸣若亚比斯加德（角色扮演）,51
 move_chart,0,,招式表,51
 moving_background,0,,动态背景,51
-mrs.pumpkin_no_kokkei_na_yume_(vocaloid),3,,南瓜夫人的滑稽之梦（VOCALOID）,51
+mrs.pumpkin_no_kokkei_na_yume_(vocaloid),3,,Mrs.Pumpkin的滑稽之梦（VOCALOID）,51
 ms._wavychu,4,,波浪皮卡丘小姐,51
 muko_(dandadan),4,,木子（胆大党）,51
 mukuhara_kazui,4,,椋原一威,51
@@ -1986,14 +1990,14 @@ pinstripe_bowtie,0,,细条纹领结,51
 plateau,0,,高原,51
 pocoloco,4,,波克洛克,51
 pokemon_the_movie:_volcanion_and_the_mechanical_marvel,3,,宝可梦 波尔凯尼恩与机巧的玛机雅娜,51
-prika_(cool_paprika)_(nikke),4,,普丽卡（清凉辣椒）（胜利女神：妮姬）,51
+prika_(cool_paprika)_(nikke),4,,普莉卡（清凉辣椒）（胜利女神：妮姬）,51
 print_chaps,0,,印花皮套裤,51
 pulpit,0,讲台,讲道台,51
-pupu_(ff8),4,,小蓝人（最终幻想8）,51
+pupu_(ff8),4,,噗噗（最终幻想8）,51
 pussy_juice_on_penis,0,,阴茎上的爱液,51
 pythagora-switch,3,,毕达哥拉斯开关,51
-r-trus_(machina_x_flayon),4,,R-TRUS（玛奇纳·X·弗莱昂）,51
-ralsei_(lightners_live),4,,拉尔西（Lightners Live）,51
+r-trus_(machina_x_flayon),4,,R-TRUS（玛奇那·X·弗雷恩）,51
+ralsei_(lightners_live),4,,拉尔塞（Lightners Live）,51
 raon_miru,4,,拉昂·米鲁,51
 rattlesnake,0,,响尾蛇,51
 raze_(valorant),4,,雷兹（无畏契约）,51
@@ -2001,19 +2005,19 @@ red_hood_(kawaguchi),3,,红兜帽漫画（kawaguchi）,51
 ringworld,0,,环形世界,51
 rinmeikan_girls_school_uniform,0,,凛明馆女子学校校服,51
 roast_beef,0,,烤牛肉,51
-rocky_(kirby),4,,洛奇（星之卡比）,51
+rocky_(kirby),4,,硬石（星之卡比）,51
 roi_(king's_raid),4,,罗伊（王之逆袭）,51
 rosa_(jesus_aponza),4,,罗莎（jesus aponza）,51
 rpk-74,0,,RPK-74轻机枪,51
 ruins_(undertale),0,,遗迹（传说之下）,51
 safety_pin_earring,0,,别针耳环,51
-sagan_iris,4,,左岸伊莉丝,51
+sagan_iris,4,,左岸伊丽丝,51
 saigou_r_irori,4,,西乡·R·伊罗莉,51
-sakanaction,3,,鱼韵乐队,51
+sakanaction,3,,鱼韵（乐队）,51
 sakuramori_akane,4,,樱森朱音,51
 sebastians_(madoka_magica),4,,影之魔女的手下（魔法少女小圆）,51
 seia_(new_year)_(blue_archive),4,,百合园圣娅（新年）（蔚蓝档案）,51
-shantae_advance:_risky_revolution,3,,桑塔Advance：险恶革命,51
+shantae_advance:_risky_revolution,3,,桑塔：里丝琦的逆袭,51
 sharron_(lord_of_the_mysteries),4,,莎伦（诡秘之主）,51
 sheryn_(comodox),4,,谢琳（comodox）,51
 shiba_kaien,4,,志波海燕,51
@@ -2052,21 +2056,22 @@ tsukiyama_sena,4,,月山濑奈,51
 two-tone_sailor_collar,0,,双色水手领,51
 ueki-chan,4,,植木酱,51
 urami_koushin_(utau),3,,怨恨交信（UTAU）,51
-vander_(fire_emblem),4,,旺德雷（火焰纹章）,51
+vander_(fire_emblem),4,,凡德雷（火焰纹章）,51
 vannini_(arknights),4,,梵里妮（明日方舟）,51
 vaporeon_(cosplay),0,,水伊布（角色扮演）,51
 veldora_(tensura),4,,维鲁德拉（关于我转生变成史莱姆这档事）,51
 velkhana,4,,冰咒龙,51
+victory_(waktaverse),4,,Victory（呜哇宇宙）,51
 vienna_(1st_costume)_(vtuber),4,,维也纳（第一套服饰）（虚拟主播）,51
 violet_detector,3,,秘封噩梦日记 Violet Detector,51
 vivian_grimelka_(siverstorm),4,,薇薇安·格里梅尔卡（siverstorm）,51
-wahira_nagomi,4,,和平和,51
+wahira_nagomi,4,,和平奈古美,51
 walking_in_line,0,,排成一列行走,51
 war_in_afghanistan,0,,阿富汗战争,51
 wax_stamp,0,,火漆印章,51
 whirlwind_(sekaiju),4,,旋风（世界树迷宫）,51
 wii_balance_board,0,,Wii平衡板,51
-wile_e_coyote,4,,威利狼,51
+wile_e_coyote,4,威利狼,歪心狼,51
 wiping_breasts,0,,擦拭胸部,51
 wrinkled_forehead,0,,额头皱纹,51
 yakumo_koishi,4,,八云恋,51
@@ -2096,33 +2101,33 @@ anto_mel,4,,杏都梅露,50
 aoyagi_youkou_(yagidon),4,,青柳阳光（yagidon）,50
 aqua_penis,0,,水蓝色阴茎,50
 aqua_slippers,0,,水蓝色拖鞋,50
-aqua_teen_hunger_force,3,,水少年饥饿部队,50
+aqua_teen_hunger_force,3,,水青少年饥饿部队,50
 aradia_megido,4,,阿拉迪亚·梅吉多,50
 arifureta_sekai_seifuku_(vocaloid),3,,平凡的世界征服（VOCALOID）,50
 arm_on_own_stomach,0,,手臂放在自己肚子上,50
 armored_core_4,3,,装甲核心4,50
-ars_almal_(4th_costume),4,,阿尔斯·阿尔玛尔（第四套服饰）,50
+ars_almal_(4th_costume),4,阿露丝·阿尔玛,阿尔斯·阿尔玛尔（第四套服饰）,50
 artzy_tyrannical_(arknights),0,,艺术暴君（明日方舟）,50
 ash_echoes,3,,白荆回廊,50
 asken,3,,Asken减肥助手,50
 asteroid_field,0,,小行星带,50
 astolfo_(sailor_paladin)_(fate)_(cosplay),0,,阿斯托尔福（水手圣骑士）（Fate系列）（角色扮演）,50
-asu_no_yozora_shoukaihan_(vocaloid),3,,明日夜空哨戒班（VOCALOID）,50
+asu_no_yozora_shoukaihan_(vocaloid),3,,明日的夜空哨戒班（VOCALOID）,50
 atashi-tachi_no_happy_end_(project_sekai),0,,我们的快乐结局（世界计划）,50
 atobe_keigo,4,,迹部景吾,50
 aug_para_(girls'_frontline),4,,AUG Para（少女前线）,50
-ayase_yuu_(1st_costume),4,,绫濑优（第一套服饰）,50
+ayase_yuu_(1st_costume),4,,绚世优（第一套服饰）,50
 b1_battle_droid,4,,B1战斗机器人,50
 bad_google_drive_id,5,,失效的谷歌云盘链接,50
 bandage_on_finger,0,,手指上的绷带,50
-bandit_heeler,4,布鲁伊爸爸,班迪特·希勒（布鲁伊）,50
+bandit_heeler,4,布鲁伊爸爸,班底特（布鲁伊）,50
 bashoku_youjou,4,,马谡幼常,50
 bcm_mcmr,0,,BCM MCMR护木,50
 beauty_(fairy_tale_character),4,,美女（童话角色）,50
 beauty_mask,0,,面膜,50
 benawi,4,,贝纳威,50
-benedikta_harman,4,,贝内迪克塔·哈曼,50
-benriya_saitou-san_isekai_ni_iku,3,,万事屋斋藤先生闯荡异世界,50
+benedikta_harman,4,,贝妮迪塔·赫曼,50
+benriya_saitou-san_isekai_ni_iku,3,,万事屋斋藤先生转生异世界,50
 berrypheasant_skewer_(honkai:_star_rail),0,糖葫芦,冰糖葫芦（崩坏：星穹铁道）,50
 bianca:_crepuscule_(pgr),4,,比安卡·薄暮（战双帕弥什）,50
 big_mukimuki_&_small_muchimuchi,3,,大块肌肉与小肉肉,50
@@ -2150,7 +2155,7 @@ cat_pasties,0,,猫咪乳贴,50
 cecilie_(pgr),4,,塞西莉（战双帕弥什）,50
 cephalopod,0,,头足类动物,50
 cerberus_(megami_tensei),4,,刻耳柏洛斯（女神转生）,50
-chang_wu_(in_full_glory_spring's_branch_blooms)_(azur_lane),4,,长武（一枝春花盛放）（碧蓝航线）,50
+chang_wu_(in_full_glory_spring's_branch_blooms)_(azur_lane),4,,彰武（一枝春花盛放）（碧蓝航线）,50
 chaos_(xenosaga),4,,卡奥斯（异度传说）,50
 chaos_alice_(original)_(grimms_notes),4,,混沌爱丽丝（原版）（格林笔记）,50
 chapatsu-chan_(hyaku_ae_mon),4,,茶发酱（Hyaku Ae Mon）,50
@@ -2160,8 +2165,8 @@ chie's_mother_(ishikei),4,,千惠的母亲（ishikei）,50
 chihaya_(senran_kagura),4,,千早（闪乱神乐）,50
 chlomaki_(funamusea),4,,黑卷（funamusea）,50
 chokha,0,,契尔克斯长外套,50
-chopper_(motorcycle),0,,嬉皮摩托（Chopper）,50
-choro-q,3,,阿Q赛车,50
+chopper_(motorcycle),0,嬉皮摩托,美式Chopper摩托车,50
+choro-q,3,阿Q赛车,绍罗Q,50
 cinemagraph,0,,动态照片,50
 clawing,0,,抓挠,50
 clouded_loong_(infinity_nikki),4,,龙隐云墨间（无限暖暖）,50
@@ -2169,28 +2174,28 @@ coco_(animal_crossing),4,,弥生（动物森友会）,50
 coco_mercury,4,,可可·墨丘利,50
 code:realize,3,,Code:Realize ～创世的公主～,50
 combee_(male),4,,三蜜蜂（雄性）,50
-command:meltdown_(e.g.o),0,,命令：熔毁（E.G.O）,50
+command:meltdown_(e.g.o),0,,指令：熔毁（E.G.O）,50
 connect_hearts_message_(project_sekai),0,,Connect Hearts Message（世界计划）,50
 constantine_(series),3,,康斯坦丁（漫画）,50
 coordinates,0,,坐标,50
-cornelia_hale,4,,科妮莉亚·黑尔,50
-corona-chan,4,,新冠酱,50
+cornelia_hale,4,,柯妮丽娅·黑尔,50
+corona-chan,4,新冠酱,冠状病毒酱,50
 corpse_paint,0,,尸体妆,50
 crab_leg,0,,蟹腿,50
 crochet,0,,钩针编织,50
 cromwell_(tank),0,,克伦威尔坦克,50
 crossdressing_under_clothes_(mtf),0,,衣下偷穿女装（男变女）,50
-cuilang_(rune_factory),4,,翠兰（符文工厂）,50
+cuilang_(rune_factory),4,,追岚（符文工厂）,50
 cupcake_(fnaf),4,,纸杯蛋糕（玩具熊的五夜后宫）,50
 daemonette,0,,色孽魔女（战锤）,50
 daffy_duck,4,,达菲鸭,50
-dalian_(dantalian_no_shoka),4,,达莉安（丹特丽安的书架）,50
+dalian_(dantalian_no_shoka),4,,妲丽安（丹特丽安的书架）,50
 dan_heng_(next_stop_yi_county)_(honkai:_star_rail),4,,丹恒（下一站一县）（崩坏：星穹铁道）,50
 darth_talon,4,,达斯·塔隆,50
 datto_(jujutsu_kaisen),4,,脱兔（咒术回战）,50
 dazai_osamu_(bungou_to_alchemist),4,,太宰治（文豪与炼金术师）,50
 demi_bourbon,4,调酒师,黛米·波本,50
-diablo_4,3,,暗黑破坏神4,50
+diablo_4,3,暗黑破坏神4,暗黑破坏神IV,50
 dias_(project_moon),4,,迪亚斯（Project Moon）,50
 diatrekhon_aster_lonkhe,0,,驰骋宙际之星之穗尖,50
 digimon_adventure_v-tamer_01,3,,数码宝贝大冒险V-Tamer 01,50
@@ -2204,14 +2209,14 @@ doner_wrap,0,沙威玛,土耳其烤肉卷,50
 doom_(mage_arena),0,,厄运（法师竞技场）,50
 doukyuusei_(manga),3,,同级生（漫画）,50
 dr._flug,4,,弗拉格博士,50
-dragon_quest_monsters:_terry's_wonderland,3,,勇者斗恶龙怪兽篇 特瑞的仙境,50
-draht_(sousou_no_frieren),4,,德拉特（葬送的芙莉莲）,50
+dragon_quest_monsters:_terry's_wonderland,3,,勇者斗恶龙怪兽篇 特瑞仙境,50
+draht_(sousou_no_frieren),4,,多拉特（葬送的芙莉莲）,50
 dredge_(game),3,,渔帆暗涌（游戏）,50
 e-soul_(to_be_hero_x),4,,魂电（凸变英雄X）,50
-eclipse_(nightmare_bunny)_(brown_dust),4,,伊克丽普斯（梦魇兔女郎）（棕色尘埃）,50
+eclipse_(nightmare_bunny)_(brown_dust),4,,伊柯利普斯（噩梦兔女郎）（棕色尘埃）,50
 eicy_(alchemy_stars),4,,艾希（白夜极光）,50
 eileen_(project_moon),4,,艾琳（Project Moon）,50
-elchi_cargo,4,,艾尔琪·卡戈,50
+elchi_cargo,4,,艾露琪·嘉戈,50
 electric_wind_instrument,0,,电吹管,50
 elesa_(sygna_suit)_(pokemon),4,,小菊儿（Sygna套装）（宝可梦）,50
 eleventh_doctor_(doctor_who),4,,第十一任博士（神秘博士）,50
@@ -2220,23 +2225,23 @@ elliot_(throtem),4,,艾略特（throtem）,50
 elvira:_mistress_of_the_dark,3,,黑暗女主人埃尔维拉,50
 elvira_(elvira:_mistress_of_the_dark),4,,埃尔维拉（黑暗女主人）,50
 end_of_the_golden_witch,3,,黄金魔女的终结（海猫鸣泣之时）,50
-engi_threepiece,4,,恩吉·斯里皮斯,50
+engi_threepiece,4,,安琪·三叶,50
 erin_(kemono_no_souja_erin),4,,艾琳（兽之奏者艾琳）,50
 espeon_(cosplay),0,,太阳伊布（角色扮演）,50
 espi_(trickcal),4,,艾斯比（嘟嘟脸恶作剧）,50
 eugene_kidd,4,,尤金·基德,50
 eva_06,4,,EVA 6号机,50
-evelyn_chevalier_(cosplay),0,,伊芙琳·舍瓦利耶（角色扮演）,50
+evelyn_chevalier_(cosplay),0,,伊芙琳·舒瓦利耶（角色扮演）,50
 eyes_on_body,0,,身体上的眼睛,50
 eyewear_in_pocket,0,,口袋里的眼镜,50
 faberge_egg,0,,法贝热彩蛋,50
 face_against_glass,0,,脸贴着玻璃,50
 faceless_(fire_emblem),4,,无貌者（火焰纹章）,50
 feather-trimmed_capelet,0,,羽毛边短披肩,50
-fecto_forgo_(larva),4,,菲克特·佛尔戈（幼虫）,50
+fecto_forgo_(larva),4,,菲克特·福尔戈（幼虫）,50
 fio_(hamico),4,,菲奥（hamico）,50
-fiona_mayfield,4,,菲奥娜·梅菲尔德,50
-fire_emblem:_archanea_saga,3,,火焰纹章 阿卡奈亚战记,50
+fiona_mayfield,4,,菲欧娜·梅菲德,50
+fire_emblem:_archanea_saga,3,,火焰纹章 阿卡尼亚战记,50
 fire_poker,0,,拨火棍,50
 floating_tray,0,,漂浮的托盘,50
 floral_memory_(infinity_nikki),4,,飞花的追忆（无限暖暖）,50
@@ -2244,17 +2249,18 @@ foam_finger,0,,泡沫手指,50
 former_capital,0,,旧都（东方Project）,50
 fourth_sister_(black_myth:_wukong),4,,四妹（黑神话：悟空）,50
 francois_(dr._stone),4,,弗朗索瓦（石纪元）,50
-freddy_fazbear's_pizzeria_simulator,3,,弗雷迪·法斯熊披萨店模拟器,50
+freddy_fazbear's_pizzeria_simulator,3,,费斯熊佛莱迪的披萨餐厅模拟器,50
 frederica_(z/x),4,,弗雷德丽卡（Z/X）,50
-friedrich_carl_(a_game_of_love)_(azur_lane),4,,腓特烈·卡尔（甜蜜游戏）（碧蓝航线）,50
+friedrich_carl_(a_game_of_love)_(azur_lane),4,,腓德雷卡·卡尔（甜蜜游戏）（碧蓝航线）,50
 frisk_(undertale)_(cosplay),0,,Frisk（传说之下）（角色扮演）,50
 fudou_yukimitsu_(tenka_hyakken),4,,不动行光（天华百剑）,50
 fujino_shion,4,,藤乃紫音,50
 fukami_(funamusea),4,,深海（funamusea）,50
 galick_gun,0,,咖喱克炮,50
+gals_panic_s2,3,,天蚕变S2,50
 gear-shaped_pupils,0,齿轮瞳,齿轮瞳孔,50
 gengar_(cosplay),0,,耿鬼（角色扮演）,50
-gibeon_(pokemon),4,,吉贝欧（宝可梦）,50
+gibeon_(pokemon),4,,吉丙（宝可梦）,50
 gigantamax_centiskorch,4,,超极巨焚焰蚣,50
 gokubara_michika,4,,狱蔷薇美血华,50
 gold_hair_tie,0,,金色发圈,50
@@ -2266,7 +2272,7 @@ gratia_(silver_palace),4,,库拉蒂（白银之城）,50
 gray_(bombergirl),4,,格蕾（炸弹少女）,50
 guido_(grandia),4,,基多（格兰蒂亚）,50
 gumi_(cosplay),0,,GUMI（角色扮演）,50
-gundou_musashi,3,,枪道MUSASHI,50
+gundou_musashi,3,,MUSASHI -GUN道-,50
 gustaf_(saga),4,,古斯塔夫（沙加）,50
 half-shirt,0,,半边衬衫,50
 hanagumo_kuyuri,4,,花云久百合,50
@@ -2284,7 +2290,7 @@ heart-shaped_bottle,0,,心形瓶子,50
 heart-shaped_cloud,0,,心形的云,50
 hecarim_(league),4,战争之影,赫卡里姆（英雄联盟）,50
 helena_(girls'_frontline_2),4,,海伦娜（少女前线2：追放）,50
-henya_the_genius_(bunniversary),4,,天才亨娅（兔年纪念）,50
+henya_the_genius_(bunniversary),4,,亨娅（兔年纪念）,50
 hershey's,0,,好时巧克力,50
 hexagon_earrings,0,,六边形耳环,50
 higashikata_josuke_(cosplay),0,,东方仗助（角色扮演）,50
@@ -2303,7 +2309,7 @@ hoshimi_miyabi_(cat),4,,星见雅（猫形态）,50
 hoshino_tetsurou,4,,星野铁郎,50
 houshou_marine_(jellyfish_swimsuit),4,,宝钟玛琳（水母泳装）,50
 hydra_(ragnarok_online),4,,海德拉（仙境传说）,50
-ibuki_leila,4,,伊吹玲罗,50
+ibuki_leila,4,,伊吹丽良,50
 igarashi_futaba's_grandfather,4,,五十岚双叶的爷爷,50
 igawa_sakura_(cosplay),0,,井河樱（角色扮演）,50
 iinchou_(justice_gakuen),4,,委员长（私立正义学园）,50
@@ -2313,38 +2319,38 @@ implied_ass_grab,0,,暗示抓臀,50
 instant_noodle_block,0,,方便面饼,50
 invasion_of_normandy,0,,诺曼底登陆,50
 ise_kotori,4,,伊势琴里,50
-isekai_cheat_magician,3,,异世界魔术师不咏唱魔法,50
+isekai_cheat_magician,3,,异世界超能魔术师,50
 iseria_queen,4,,伊塞莉亚女王,50
 itoi_toi_(neo-porte),4,,丝依Toi（Neo-Porte）,50
 itou_junji_(style),0,,伊藤润二画风,50
 itsukushima_shrine,0,,严岛神社,50
 iwakiyamayukisatoshironanogojuurokushi_akira,4,,岩木山雪里白那之五十六子晶,50
-izayoi_arisa_(cosplay),0,,十六夜亚里沙（角色扮演）,50
+izayoi_arisa_(cosplay),0,,十六夜亚理纱（角色扮演）,50
 jabaku-chan,4,,邪恶爆乳小学生酱,50
 jake_park,4,,杰克·朴,50
 jegal_geumja,4,,诸葛金子,50
 jellyfish_print,0,,水母印花,50
 jesta,4,,杰斯塔（高达）,50
 jewel_knights,3,,宝石骑士,50
-jim_crocodile_cook,4,,吉姆·克罗克代尔·库克,50
-johannes_krauser_ii,4,,约翰内斯·克劳泽二世,50
-jubilee_(marvel)_(vampy_jammies),4,,朱比莉（吸血鬼睡衣）（漫威）,50
+jim_crocodile_cook,4,,吉姆·克劳戴尔·库克,50
+johannes_krauser_ii,4,,约翰内·克劳萨二世,50
+jubilee_(marvel)_(vampy_jammies),4,,李千欢（吸血鬼睡衣）（漫威）,50
 jyu_viole_grace,4,,朱·维奥莱·格雷斯（神之塔）,50
 kagamine_len_(stylish_energy),4,,镜音连（Stylish Energy）,50
 kaguya_kimimaro,4,,辉夜君麻吕,50
 kaisa_(hilda),4,,凯萨（希尔达）,50
-kamen_rider_blade_(king_form),4,,假面骑士剑（国王形态）,50
-kamen_rider_kiva_(emperor_form),4,,假面骑士Kiva（帝王形态）,50
+kamen_rider_blade_(king_form),4,假面骑士剑,假面骑士Blade（君王形态）,50
+kamen_rider_kiva_(emperor_form),4,,假面骑士Kiva（魔皇形态）,50
 karin_wong,4,,卡琳·王,50
 katori_shin'ichi,4,,香取慎一,50
-katz_howan,4,,卡茨·哈文,50
+katz_howan,4,卡兹·小林,卡兹·哈文,50
 kazikli_bey_(fate/apocrypha),0,,血染王鬼（Fate/Apocrypha）,50
 kess_(coffeechicken),4,,凯丝（coffeechicken）,50
-kikeroga_(gquuuuuux),4,,基凯罗加（机动战士高达GQuuuuuuX）,50
+kikeroga_(gquuuuuux),4,,基克罗格（机动战士高达GQuuuuuuX）,50
 kiku_ichimonji_norimune,4,,菊一文字则宗,50
 kimono_tug,0,,扯和服,50
 kinezono_rio,4,,杵园理绪,50
-king_of_dinosaurs,4,,恐龙之王,50
+king_of_dinosaurs,4,,暴龙王,50
 king_of_the_hill,3,,乡巴佬希尔一家,50
 kinich_(hot_springs)_(genshin_impact),4,,基尼奇（温泉）（原神）,50
 kirigiri_kyoko_(cosplay),0,,雾切响子（角色扮演）,50
@@ -2352,9 +2358,9 @@ kissing_chest,0,,亲吻胸口,50
 kitakami_kai_san_(kancolle),4,,北上改三（舰队Collection）,50
 kitto_saikou_no_summer!_(project_sekai),0,,一定是最棒的summer！（世界计划）,50
 kogasa_day,0,,小伞之日,50
-kohaku_yuri_(1st_costume),4,,琥珀百合（第一套服饰）,50
+kohaku_yuri_(1st_costume),4,,瑚白由里（第一套服饰）,50
 koikoi_love_cafe_(ensemble_stars!),0,,恋恋Love Cafe（偶像梦幻祭）,50
-komagome_azuzu,4,,驹込·阿兹兹,50
+komagome_azuzu,4,,驹込·阿祖祖,50
 komako_(momozu_komamochi),4,,小真子（momozu komamochi）,50
 kondou_isami_(first_ascension)_(fate),4,,近藤勇（第一再临）（Fate系列）,50
 koseki_bijou_(gore_magala),4,,古石碧珠（黑蚀龙）,50
@@ -2376,27 +2382,27 @@ level_ball,0,,等级球,50
 lia_parapara_leazas,4,,莉娅·帕拉帕拉·利萨斯,50
 liang_yanmei,4,,梁颜梅,50
 lies_of_p:_overture,3,,匹诺曹的谎言：序曲,50
-limejuice_(one_piece),4,,莱姆果汁（海贼王）,50
+limejuice_(one_piece),4,,莱姆琼斯（海贼王）,50
 lin_(greenopi),4,,琳（greenopi）,50
-linca_(eighth)_(atelier),4,,琳卡（第八）（炼金工房）,50
+linca_(eighth)_(atelier),4,,琳卡8号（炼金工房）,50
 lindsay_(total_drama),4,,琳赛（Total Drama）,50
 liushih_(girls'_frontline_2),4,,刘莳（少女前线2：追放）,50
 loliel_(toshizou),4,,萝莉艾尔（toshizou）,50
 looking_at_foot,0,,看着脚,50
 luca_balsa_(paranormal_detective),4,,卢卡·巴尔萨（灵异侦探）,50
 lucia_(toaru_majutsu_no_index),4,,露琪亚（魔法禁书目录）,50
-ludmilla_(evertale),4,,柳德米拉（Evertale）,50
+ludmilla_(evertale),4,,露蒂蜜拉（Evertale）,50
 luke_braveheart,4,,卢克·勇心,50
 lunastra,4,,炎妃龙,50
-magallan_(shaved-ice_memories)_(arknights),4,,麦哲伦（刨冰回忆）（明日方舟）,50
+magallan_(shaved-ice_memories)_(arknights),4,,麦哲伦（回味冰霜雪）（明日方舟）,50
 magmite_(magni_dezmond),4,,Magmite（玛格尼·德斯蒙德）,50
 majo_puri_~anata_no_seieki_zenbu_shiboritotte_agechau!~,3,,魔女☆公主～把你的精液全部榨干！～,50
 mana_(magisphere),4,,玛娜（魔法灵气Magisphere）,50
-mana_(our_battle_has_just_begun!),4,,玛娜（Our Battle Has Just Begun!）,50
+mana_(our_battle_has_just_begun!),4,,猫宫又奈（Our Battle Has Just Begun!）,50
 mangle,4,,曼格尔,50
 mao_(omurice_(roza4957)),4,,卯（omurice）,50
 marie_(young)_(splatoon),4,,小萤（幼年）（斯普拉遁）,50
-marika's_hammer_(elden_ring),0,,玛丽卡之锤（艾尔登法环）,50
+marika's_hammer_(elden_ring),0,,玛莉卡的石槌（艾尔登法环）,50
 matsukiri_(arknights),4,,松桐（明日方舟）,50
 matsuko_(kazu-koto),4,,松子（kazu-koto）,50
 maya_(ricky_barnes),4,,玛雅（ricky barnes）,50
@@ -2405,7 +2411,7 @@ melpan_(pri_chan),4,,梅尔潘（美妙频道）,50
 membrane,0,,膜,50
 meshers_(nijisanji),0,,Meshers（彩虹社）,50
 metats_(dqb2),4,,金属史莱姆（勇者斗恶龙：建造者2）,50
-michaela_(brown_dust),4,,米凯拉（棕色尘埃）,50
+michaela_(brown_dust),4,,米卡埃拉（棕色尘埃）,50
 michelle_(a_summer's_end:_hong_kong_1986),4,,张凤霞（A Summer's End: Hong Kong 1986）,50
 miles_edgeworth_(cosplay),0,,御剑怜侍（角色扮演）,50
 minami_kaede,4,,南枫,50
@@ -2418,7 +2424,7 @@ monster_company,3,,怪物公司,50
 montgomery_gator,4,,蒙哥马利鳄鱼,50
 moo_moo_(mario),4,,哞哞牛（马力欧）,50
 mordecai_(regular_show),4,,莫德凯（天兵公园）,50
-mr._shine,4,,闪耀先生（星之卡比）,50
+mr._shine,4,,光亮先生（星之卡比）,50
 mu_ogosto,4,,穆·奥戈斯托,50
 mudou_setsuna,4,,无道刹那,50
 mugen_no_juunin,3,,无限之住人,50
@@ -2445,7 +2451,7 @@ new_getter_robo,3,,新盖塔机器人,50
 new_jersey_(dancing_in_the_moonlight)_(azur_lane),4,,新泽西（月下起舞）（碧蓝航线）,50
 nishimiya_mari,4,,西宫真理,50
 noel_kreiss,4,,诺艾尔·克莱斯,50
-noir_dedede,4,,暗黑帝帝帝,50
+noir_dedede,4,,暗影帝帝帝,50
 noise_(classic_diva)_(nikke),4,,诺伊斯（古典歌姬）（胜利女神：妮姬）,50
 nonstop_story,0,,Nonstop Story（hololive演唱会）,50
 nose_tube,0,鼻管,鼻饲管,50
@@ -2461,7 +2467,7 @@ ojama_black,4,,扰乱·黑,50
 olivia_park,4,,奥利维亚·帕克,50
 omochiina,4,,麻糬椎名,50
 onda_nei,4,,恩田宁,50
-one_room_hiatari_futsuu_tenshi-tsuki,3,,单间、采光普通、附带天使。,50
+one_room_hiatari_futsuu_tenshi-tsuki,3,,单人房、日照一般、附天使。,50
 onimusha:_dawn_of_dreams,3,,新鬼武者 黎明之梦,50
 ootsuka_akio,4,,大冢明夫,50
 orie_rin,4,,织江琳,50
@@ -2473,8 +2479,8 @@ paper_moon_(fate/grand_order),0,,虚数罗盘内界 纸月（Fate/Grand Order）
 papercutting,0,,剪纸艺术,50
 pearl_(grand_festival)_(splatoon),4,,小姬（大祭典）（斯普拉遁）,50
 pearl_armlet,0,,珍珠臂环,50
-peonia_(pokemon),4,,芍药（宝可梦）,50
-picnicker_(pokemon),4,,野餐少女（宝可梦）,50
+peonia_(pokemon),4,,夏科娅（宝可梦）,50
+picnicker_(pokemon),4,,野餐女孩（宝可梦）,50
 piercing_(action),0,,打孔（动作）,50
 pigma_dengar,4,,皮格玛·丹加,50
 pirate_3_(sekaiju),4,,海盗3（世界树迷宫）,50
@@ -2484,14 +2490,15 @@ pokemon_battle_revolution,3,,宝可梦对战革命,50
 polish_commentary,5,,波兰语注释,50
 popee_(popee_the_performer),4,,波比（小丑波比）,50
 poppy_(animal_crossing),4,,小雪（动物森友会）,50
-powered_suit_(toaru),0,,动力装甲（魔法禁书目录）,50
+powered_suit_(toaru),0,,驱动铠（魔法禁书目录）,50
 princess_juliette,4,,朱丽叶公主,50
 priscilla_mel_nortoria,4,,普莉希拉·梅尔·诺托莉亚,50
+project_winter,3,,冬日计划,50
 purple_bird,0,,紫色的鸟,50
 pyonpyon_rabbit_(idolmaster),0,,蹦蹦兔（偶像大师）,50
 queen_zeal,4,,吉尔女王,50
 quetzalcoatl_(mythology),4,魁札尔科亚特尔|库库尔坎,羽蛇神（神话）,50
-quin_mantha,4,,奎恩·曼萨,50
+quin_mantha,4,,昆曼沙,50
 quve_(ragnarok_online),4,,Quve（仙境传说）,50
 radiant_historia,3,,光辉物语,50
 ram_(animal),0,,公羊（动物）,50
@@ -2503,21 +2510,22 @@ reflective_wall,0,,反光的墙,50
 regulus_(a_flaring_star)_(reverse:1999),4,,星锑（灼热闪耀之星）（重返未来：1999）,50
 rengoku_ruka,4,,炼狱瑠火,50
 rhinoceros_boy,0,,犀牛男孩,50
-rift_of_the_necrodancer,3,,节奏地牢裂隙,50
+rift_of_the_necrodancer,3,,死灵舞者：节奏裂隙,50
 riika_rikkinen_(mechanical_buddy_universe),4,,丽卡·里基宁（Mechanical Buddy Universe）,50
-rimuru_tempest_(cheerleader),4,,利姆露·坦派斯特（啦啦队）,50
+rimuru_tempest_(cheerleader),4,,利姆鲁·特恩佩斯特（啦啦队）,50
 rindou_(kunoichi_tsubaki_no_mune_no_uchi),4,,龙胆（女忍者椿的心事）,50
 risoru_(dq10),4,,里索尔（勇者斗恶龙10）,50
+road_to_dragons,3,,屠龙之路,50
 robin_(fanta)_(honkai:_star_rail),4,,知更鸟（芬达联名）（崩坏：星穹铁道）,50
 roland_(project_moon)_(cosplay),0,,罗兰（Project Moon）（角色扮演）,50
 rope_around_wrist,0,,手腕上缠着绳子,50
 rosaria_le_friede,4,,罗莎莉亚·勒·弗里德,50
-rose_tomas,4,,罗丝·托马斯,50
+rose_tomas,4,,罗赛·托马斯,50
 router,0,,路由器,50
-rozaliya_olenyeva_(coral_sunrise),4,,萝莎莉娅·阿琳（珊瑚朝阳）,50
-ruan_mei_(academia)_(honkai:_star_rail),4,,阮•梅（学术）（崩坏：星穹铁道）,50
+rozaliya_olenyeva_(coral_sunrise),4,,萝莎莉娅·阿琳耶娃（珊瑚朝阳）,50
+ruan_mei_(academia)_(honkai:_star_rail),4,,阮·梅（学术）（崩坏：星穹铁道）,50
 russian_flag_print,0,,俄罗斯国旗印花,50
-ryutaros,4,,龙太罗斯,50
+ryutaros,4,,龙塔罗斯,50
 ryuusuimon,0,观世水,流水纹,50
 sabiku,4,,萨比库,50
 safety_belt,0,,安全带（高空作业）,50
@@ -2532,12 +2540,12 @@ sakurako_(blue_archive)_(cosplay),0,,樱子（蔚蓝档案）（角色扮演）,
 same_ningen,3,,鲨鱼人间,50
 samura_iori,4,,座村伊织,50
 sancha_gobzales_(basedbinkie),4,,桑查·戈布萨雷斯（basedbinkie）,50
-sandbeast_(arknights),4,,沙兽（明日方舟）,50
+sandbeast_(arknights),4,,沙地兽（明日方舟）,50
 sanjou_school_swords_(touken_ranbu),0,,三条派（刀剑乱舞）,50
 saotome_ranma_(cosplay),0,,早乙女乱马（角色扮演）,50
 sarutahiko_(housamo),4,,猿田彦（东京放课后召唤师）,50
 sasaki_(sasaki_to_p-chan),4,,佐佐木（佐佐木与文鸟小哔）,50
-schwarz_bruder,4,,舒瓦兹·布鲁达,50
+schwarz_bruder,4,,修巴鲁兹·布鲁达,50
 scotland,0,,苏格兰,50
 scratch_(the_amazing_digital_circus),4,,Scratch（神奇数字马戏团）,50
 seam_(deltarune),4,,西姆（三角符文）,50
@@ -2548,12 +2556,12 @@ sengoku_koihime_x,3,,战国†恋姬X,50
 sengoku_youko,3,,战国妖狐,50
 serika_(blue_archive)_(cosplay),0,,芹香（蔚蓝档案）（角色扮演）,50
 shaco_(league),4,恶魔小丑,萨科（英雄联盟）,50
-shadow_yu,4,,暗影悠（女神异闻录4）,50
+shadow_yu,4,,暗影鸣上悠（女神异闻录4）,50
 shaman_(sekaiju),4,,萨满（世界树迷宫）,50
 sheep_girl_(terayamaden),4,,羊娘（terayamaden）,50
 shiina_(big_mukimuki_&_small_muchimuchi),4,,椎名（大块肌肉与小肉肉）,50
-shindoine,4,,辛多伊娜,50
-shingeki_no_bahamut:_virgin_soul,3,,神击的巴哈姆特 VIRGIN SOUL,50
+shindoine,4,,辛多伊奈,50
+shingeki_no_bahamut:_virgin_soul,3,神击的巴哈姆特 VIRGIN SOUL,巴哈姆特之怒 VIRGIN SOUL,50
 shinonome_akira,4,,东云晶,50
 shinonome_chiharu,4,,东云千春,50
 side-tie_vest,0,,侧系带背心,50
@@ -2561,7 +2569,7 @@ singin'_in_the_rain,3,,雨中曲,50
 sirar_(sekaiju),4,,希拉拉（世界树迷宫）,50
 sirius_gibson,4,,天狼星·吉布森,50
 skaven,4,,斯卡文鼠人,50
-snail_(ceres_fauna),4,,蜗牛（塞莱斯·法乌娜的猫）,50
+snail_(ceres_fauna),4,,蜗牛（塞莱希·法娜的猫）,50
 snake_charmer,0,,耍蛇人,50
 snow_pea_(plants_vs._zombies),4,,寒冰射手（植物大战僵尸）,50
 softball_uniform,0,,垒球服,50
@@ -2570,7 +2578,7 @@ sonic_the_hedgehog_2_(movie),3,,刺猬索尼克2（电影）,50
 sora_wo_matotte,3,,披上天空,50
 species_name,0,,物种名,50
 specter_the_unchained_(substitute)_(born_as_one)_(arknights),4,,归溟幽灵鲨的替身（生而为一）（明日方舟）,50
-spider_baelz,4,,蜘蛛白尔斯,50
+spider_baelz,4,,蜘蛛贝尔丝,50
 spoken_battery,0,,对话中的电池,50
 sports_bra_visible_through_clothes,0,,透过衣服可见运动内衣,50
 squid_baron,4,,鱿鱼男爵,50
@@ -2578,12 +2586,12 @@ star_and_stripe_(boku_no_hero_academia),4,,星条旗（我的英雄学院）,50
 stina_(mleth),4,,斯蒂娜（mleth）,50
 stock_pot,0,,汤锅,50
 storm_the_albatross,4,,信天翁斯托姆,50
-studio_khara,3,,Khara工作室,50
+studio_khara,3,凯乐,Khara工作室,50
 stuffed_star,0,星星玩偶,星星抱枕,50
 sunday_(star_rail_live_2025)_(honkai:_star_rail),4,,星期日（星铁LIVE 2025）（崩坏：星穹铁道）,50
 suzuka_utako_(1st_costume),4,,铃鹿诗子（第一套服饰）,50
 swing_(twisted_wonderland),4,,斯温（扭曲仙境）,50
-symphony_rin_(2018-2019),4,,交响乐铃（2018-2019）,50
+symphony_rin_(2018-2019),4,,交响乐镜音铃（2018-2019）,50
 syoka_(vtuber),4,,Syoka（虚拟主播）,50
 syringe_necklace,0,,针筒项链,50
 tachibana_itsuki,4,,立花树,50
@@ -2597,7 +2605,7 @@ tamamo_lore,4,,玉藻·洛亚,50
 tanaka_kotoha_(thanatos_empress),4,,田中琴叶（塔纳托斯女帝）,50
 tarn,4,,塔恩（变形金刚）,50
 tatara_kogasa_(beach_umbrella_castaway),4,,多多良小伞（被浪卷走的沙滩伞）,50
-team_kirby_clash_deluxe,3,,大家一起！卡比猎人Z,50
+team_kirby_clash_deluxe,3,,大家一起上！卡比猎人Z,50
 team_star_grunt,4,,天星队手下,50
 tentacle_dildo,0,,触手假阳具,50
 terapagos_(terastal),4,,太乐巴戈斯（太晶形态）,50
@@ -2605,7 +2613,7 @@ testicle_lift,0,,托起睾丸,50
 the_prince_(disney),4,,王子（迪士尼）,50
 the_shawshank_redemption,3,,肖申克的救赎,50
 theresa_apocalypse_(empyrean_psalms),4,,德丽莎·阿波卡利斯（天穹圣咏）,50
-therese_alexanderite,4,,特蕾丝·亚历山大石,50
+therese_alexanderite,4,,缇丽丝·紫翠玉,50
 theseus_(azur_lane),4,,忒修斯（碧蓝航线）,50
 thumbelina_(andersen),4,,拇指姑娘（安徒生童话）,50
 tild_-_mage_a_louer,3,,Tild 魔法师出租,50
@@ -2617,20 +2625,20 @@ touzokuou_bakura,4,,盗贼王貘良,50
 toy_story_5,3,,玩具总动员5,50
 toyotomi_hideyoshi_(fate),4,,丰臣秀吉（Fate系列）,50
 training_room,0,,训练场,50
-transformers:_the_movie,3,,变形金刚大电影（1986）,50
+transformers:_the_movie,3,,变形金刚：大电影（1986）,50
 trixie_tang,4,,崔克茜·唐,50
 tsukino_mito_(astronaut),4,,月之美兔（宇航服）,50
 tsukumo_san,4,,九十九San,50
 tsukuyomi-chan,4,,月读酱,50
 tsume_(wolf's_rain),4,,爪（狼雨）,50
-tsunotori_pony,4,,角取波妮,50
+tsunotori_pony,4,,角取宝莉,50
 tusukur_(sekaiju),4,,兹斯库尔（世界树迷宫）,50
 uchi_wa_mou_enki_dekinai.,3,,我已经不能再延期了。,50
-ultraman_omega,4,,欧米伽奥特曼,50
+ultraman_omega,4,,奥美迦奥特曼,50
 ultraman_teo_(series),3,,提欧奥特曼,50
 uno_reverse_card,0,,UNO反转牌,50
 uraraka_ochaco_(cosplay),0,,丽日御茶子（角色扮演）,50
-urashima_haruka,4,,浦岛遥,50
+urashima_haruka,4,,浦岛晴香,50
 usami_(andou_you),4,,宇佐美（andou you）,50
 uzaki_hana_(cosplay),0,,宇崎花（角色扮演）,50
 violet_mizutsune_orchid_(arknights),4,,焰狐龙梓兰（明日方舟）,50
@@ -2645,7 +2653,7 @@ warrior_of_light_(twilight_overcoat)_(ff1),4,,光之战士（薄明长外套）�
 watanabe:_epitaph_(pgr),4,,渡边·墓志铭（战双帕弥什）,50
 wave_rider,0,,变形飞翔形态（高达）,50
 way_2_u_(ouro_kronii),3,,Way 2 U（奥罗·克洛尼）,50
-weiss_kreuz,3,,白色十字架,50
+weiss_kreuz,3,,白色猎人,50
 where_wanxiang_weaves_life_(infinity_nikki),4,,万相渡浮生（无限暖暖）,50
 whip_devil_(chainsaw_man),4,,鞭之恶魔（电锯人）,50
 whispered_oracle_of_hakurei_shrine,3,,东方幻存神签,50
@@ -2666,8 +2674,8 @@ yuel_(summer)_(granblue_fantasy),4,,尤埃尔（夏日）（碧蓝幻想）,50
 yuffie_kisaragi_(summer_moogle),4,,尤菲·如月（夏日莫古利）,50
 yuki_(kise_itsuki),4,,雪（kise itsuki）,50
 yuli_(pop'n_music),4,,尤里（pop'n music）,50
-yuni_(winter)_(princess_connect!),4,,优妮（冬季）（公主连结）,50
-yuri_leclerc_(timeskip),4,,尤里·勒克莱尔（长大后）,50
+yuni_(winter)_(princess_connect!),4,,优妮（冬日）（公主连结）,50
+yuri_leclerc_(timeskip),4,,尤里斯·路克雷（长大后）,50
 yuukoku_no_moriarty,3,,忧国的莫里亚蒂,50
 yuukyuu_no_euphoria,3,,悠久的愉悦,50
 yuzuhara_yuzumi,4,,柚原柚美,50

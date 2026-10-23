@@ -190,9 +190,10 @@ main 分支就是用户脚本自动更新的来源：脚本或词典有改动时
   - 被替换的旧译名会自动保留为检索词，用旧叫法仍然搜得到。其中意思不对、会抢走其他标签的 162 个已逐条删掉，如 collar 的「领子」、bukkake 的「颜射」、knees up 的「抱膝」；确认是错误的检索词（如把 kanagata sugumi 关联到「金潟直美」）也已删除。
   - 不含汉字或带假名的检索词永远查不到，构建时直接丢掉；「Katsu（食物）」这类括号里只是类别说明的，也不再把「食物」拆出来当检索词。
   - 审定由 Claude 完成，参考了上面这些人工来源和 Danbooru wiki 释义，但没有经过人工校对。冷门角色多半只能按读音或字面处理，错误在所难免；发现错误可以在编辑器里修改，或写进 `data/zh-override.csv`。
-- `data/zh-new.csv`：2026 年 10 月 Danbooru 上图片数 50 以上、来源数据里却没有的标签，共 2,679 个（通用 882、角色 1,504、作品 282、元标签 11），多是 2025 年以后新出现的，或是 Danbooru 改了名的（如 cum pool → cum puddle、tokyo (city) → tokyo），也有来源数据漏掉的老标签（如 prepuce）。
-  - 由 Claude 机翻，参考 Danbooru wiki 的释义和日文、中文别名，角色名的写法沿用上面审定的规则；Danbooru 改名的标签沿用旧名的译名。没有经过人工校对，冷门角色的译名多半是按读音推的。
-  - 只有罗马字或英文名、想不出中文译名的 100 个（如画师原创角色「Momo（juukyuu）」）没有收录，留在编辑器的「未翻译」里。
+- `data/zh-new.csv`：2026 年 10 月 Danbooru 上图片数 50 以上、来源数据里却没有的标签，共 2,687 个（通用 882、角色 1,506、作品 288、元标签 11），多是 2025 年以后新出现的，或是 Danbooru 改了名的（如 cum pool → cum puddle、tokyo (city) → tokyo），也有来源数据漏掉的老标签（如 prepuce）。
+  - 由 Claude 机翻，参考 Danbooru wiki 的释义和日文、中文别名，角色名的写法沿用上面审定的规则；Danbooru 改名的标签沿用旧名的译名。
+  - 拿不准的 1,666 个（多是角色和作品）又用网络搜索（萌娘百科、百度百科、BWIKI 等）核对了官方或通行的中文名，改了 337 个，如 kirby and the world beyond「星之卡比 跃然世界」、taishou otome otogibanashi「大正处女御伽话」、hachimi (umamusume)「哈基米」；同一角色的服装、形态等变体与词典里的本体用同一个名字，搜到的另一种叫法留作检索词。仍没有经过人工校对。
+  - 只有罗马字或英文名、想不出中文译名的 92 个（如画师原创角色「Momo（juukyuu）」）没有收录，留在编辑器的「未翻译」里。
 - `data/zh-ehtag.csv`：EhTagTranslation 的人工译名，对齐到 Danbooru 标签后作为补充检索词，共 2,032 条，如 dark skin「黑皮」、school swimsuit「死库水」。
 - 标签名以 2026 年的 Danbooru 为准，用 NovelAI 自己的联想接口抽样核实过；唯一不认的 `qipao` 已在 `data/novelai-rename.csv` 里换回 `china_dress`。
 - Danbooru 已删除或改名、但 NovelAI 还认识的旧标签（black footwear、otoko no ko 等），用旧人工词典的译名补上，英文联想里出现时也能显示中文。
