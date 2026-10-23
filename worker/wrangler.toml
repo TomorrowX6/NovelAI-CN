@@ -1,0 +1,37 @@
+# 部署步骤见 worker/README.md
+name = "novelai-cn"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+# 自定义域名，所在的域（000.moe）要在同一个 Cloudflare 账号里；改域名时同步改 package.json 的 nzh.editorUrl
+routes = [{ pattern = "novelai.000.moe", custom_domain = true }]
+
+# 把 dist/ 一起部署：编辑器从同源读 /zh-tags.tsv（带类别的词典），先 npm run build
+[assets]
+directory = "../dist"
+
+# 不用定时任务：Danbooru 拒绝来自 Workers 的请求，新标签由 GitHub Actions 拉（.github/workflows/sync-tags.yml）
+[triggers]
+crons = []
+
+[[d1_databases]]
+binding = "DB"
+database_name = "novelai-cn"
+# npx wrangler d1 create novelai-cn 输出的 database_id；自己部署一份时换成你的
+database_id = "39cf83df-e481-41e9-a277-f0d93609ec31"
+
+[vars]
+# 社区译名提交到哪个仓库、分支和文件
+GH_REPO = "TomorrowX6/NovelAI-CN"
+GH_BRANCH = "main"
+DATA_PATH = "data/zh-community.tsv"
+# 注册满多少天的 GitHub 账号才能编辑、每人每小时最多改几次、禁止编辑的账号（逗号分隔）
+MIN_ACCOUNT_DAYS = "30"
+EDITS_PER_HOUR = "30"
+BLOCKED_USERS = ""
+
+# 机密（用 npx wrangler secret put 名字 设置，不要写在这里）：
+#   GH_APP_ID / GH_APP_KEY        GitHub App 的 ID 和私钥（PKCS#8 PEM），用来提交到仓库
+#   GH_CLIENT_ID / GH_CLIENT_SECRET  同一个 GitHub App 的用户授权，用来登录
+#   GH_INSTALLATION_ID            可选，GitHub App 安装到仓库后的 id；不填时自动查
+#   SESSION_SECRET                给登录 Cookie 签名的随机串
+#   ADMIN_TOKEN                   scripts/sync-tags.mjs 存 Danbooru 新标签用的口令

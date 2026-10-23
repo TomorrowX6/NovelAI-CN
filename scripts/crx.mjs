@@ -1,4 +1,4 @@
-// 把 dist/novelai-zh-tags.user.js 打包成 Chrome 扩展（Manifest V3），先 npm run build
+// 把 dist/novelai-zh-tags.user.js 打包成 Chrome 扩展（Manifest V3），再加上 extension/ 里的面板，先 npm run build
 // 用法: node scripts/crx.mjs
 // 输出到 build/：
 //   extension/                  解压的扩展，可在 chrome://extensions 「加载已解压的扩展程序」，manifest 带公钥，扩展 ID 固定
@@ -11,6 +11,7 @@ import path from 'node:path';
 import zlib from 'node:zlib';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { readUiData, uiDataStats, readHardData, buildHardData } from './ui-data.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const BUILD_DIR = path.join(ROOT, 'build');
@@ -21,7 +22,7 @@ const ICON_SIZES = [16, 32, 48, 128];
 // 扩展和商店里显示的名称、简介（简介即商店摘要，最多 132 个字符）。用户脚本的 @name 不跟着改：
 // 脚本管理器按名称识别脚本，改名会让已安装的用户更新时装出第二份
 const EXT_NAME = 'NovelAI中文化助手';
-const EXT_DESCRIPTION = '用中文畅玩 NovelAI：输入中文就能找到对应的英文标签，英文标签也附上中文释义，界面和教程都能切换成中文。（非官方扩展）';
+const EXT_DESCRIPTION = '用中文畅玩 NovelAI：输入中文就能找到对应的英文标签，英文标签也附上中文释义，界面和教程都能切换成中文。非官方扩展，与 NovelAI 及其开发商 Anlatan 无关。';
 
 // ---- CRC32 ----
 const CRC_TABLE = new Int32Array(256).map((_, n) => {
@@ -169,6 +170,8 @@ function crx3(zipBuf, privateKey) {
 
 function loadOrCreateKey() {
   if (fs.existsSync(KEY_FILE)) return crypto.createPrivateKey(fs.readFileSync(KEY_FILE));
+  // CI 里生成新私钥会换掉扩展 ID，直接失败（.github/workflows/release.yml）
+  if (process.env.CI) throw new Error(`找不到私钥 ${KEY_FILE}`);
   const { privateKey } = crypto.generateKeyPairSync('rsa', { modulusLength: 2048 });
   fs.mkdirSync(path.dirname(KEY_FILE), { recursive: true });
   fs.writeFileSync(KEY_FILE, privateKey.export({ type: 'pkcs8', format: 'pem' }), { mode: 0o600 });
@@ -199,16 +202,43 @@ function main() {
     // 要在 NovelAI 的脚本运行前接管 fetch 和 Turbopack 的模块注册，所以注入页面自身的环境
     content_scripts: [
       { matches: ['https://novelai.net/*'], js: [SCRIPT_NAME], run_at: 'document_start', world: 'MAIN', all_frames: false },
+      // 面板读写设置用的桥，在隔离环境里运行（extension/bridge.js）
+      { matches: ['https://novelai.net/*'], js: ['bridge.js'], run_at: 'document_start', all_frames: false },
     ],
+    // 工具栏按钮的面板：版本、构建哈希、词条数和设置（extension/popup.*）
+    action: { default_title: EXT_NAME, default_popup: 'popup.html' },
+    // 没打开 NovelAI 时面板改的设置先存在扩展里，页面打开时由 bridge.js 写进 localStorage
+    permissions: ['storage'],
   };
+  const ext = (f) => fs.readFileSync(path.join(ROOT, 'extension', f));
+  const tagCount = fs.readFileSync(path.join(ROOT, 'dist', 'zh-tags.tsv'), 'utf8').split('\n').filter(Boolean).length;
+  const build = {
+    version: pkg.version,
+    // 内容脚本的 SHA-256 前 8 位，用来确认装的是哪一次构建
+    hash: crypto.createHash('sha256').update(script).digest('hex').slice(0, 8),
+    tags: tagCount,
+    ui: uiDataStats(readUiData()).translated,
+    hard: buildHardData(readHardData()).length,
+    communityUrl: (pkg.nzh?.editorUrl || '').replace(/\/+$/, ''),
+  };
+  const popupJs = ext('popup.js').toString('utf8').replace(/^const BUILD = .*;$/m, `const BUILD = ${JSON.stringify(build)};`);
+  if (!popupJs.includes(JSON.stringify(build))) throw new Error('extension/popup.js 里找不到 const BUILD 那一行');
   const files = [
     [SCRIPT_NAME, Buffer.from(script)],
+    ['bridge.js', ext('bridge.js')],
+    ['popup.html', ext('popup.html')],
+    ['popup.css', ext('popup.css')],
+    ['popup.js', Buffer.from(popupJs)],
     ...ICON_SIZES.map((s) => [`icons/${s}.png`, iconPng(s)]),
   ];
   const json = (m) => Buffer.from(JSON.stringify(m, null, 2) + '\n');
 
   const key = loadOrCreateKey();
   const spki = crypto.createPublicKey(key).export({ type: 'spki', format: 'der' });
+  // 发布用的私钥必须是正式的那把：package.json 的 nzh.extensionId 记着它对应的扩展 ID
+  if (process.env.CI && pkg.nzh?.extensionId && extensionId(spki) !== pkg.nzh.extensionId) {
+    throw new Error(`私钥对应的扩展 ID ${extensionId(spki)} 不是 ${pkg.nzh.extensionId}，请检查 CRX_PRIVATE_KEY`);
+  }
 
   // 解压目录的 manifest 带公钥，「加载已解压的扩展程序」时 ID 与 crx 相同；商店不接受带公钥的 manifest，压缩包里不放
   fs.rmSync(EXT_DIR, { recursive: true, force: true });
@@ -222,7 +252,7 @@ function main() {
   fs.writeFileSync(`${base}.crx`, crx3(zipBuf, key));
 
   const rel = (p) => path.relative(ROOT, p).replace(/\\/g, '/');
-  console.log(`扩展 ${pkg.version}，ID ${extensionId(spki)}`);
+  console.log(`扩展 ${pkg.version}（构建 ${build.hash}），ID ${extensionId(spki)}`);
   for (const p of [EXT_DIR, `${base}.zip`, `${base}.crx`]) console.log(`  ${rel(p)}`);
 }
 

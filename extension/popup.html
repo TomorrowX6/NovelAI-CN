@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NovelAI中文化助手</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<div class="app-shell">
+  <div class="panels">
+    <main id="main-panel" class="panel">
+      <header class="topbar">
+        <span id="version" class="version"></span>
+        <button id="settings-open" class="text-button" type="button" aria-controls="settings-panel" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 3-.6 2.2-2 .9-2-.6-2.4 4.1 1.5 1.6v2.2L2.5 15l2.4 4.1 2-.6 2 .9.6 2.1h5l.6-2.1 2-.9 2 .6 2.4-4.1-1.5-1.6v-2.2l1.5-1.6-2.4-4.1-2 .6-2-.9-.6-2.2Z"/><circle cx="12" cy="12" r="3"/></svg>
+          设置
+        </button>
+      </header>
+
+      <div class="brand">
+        <img class="brand-icon" src="icons/128.png" alt="" width="64" height="64">
+        <h1>NovelAI<span>中文化助手</span></h1>
+        <div id="connection" class="connection" role="status"><i aria-hidden="true"></i><span id="connection-text">正在连接页面</span></div>
+      </div>
+
+      <section aria-label="翻译词条" class="stats">
+        <div class="stat"><span>标签词典</span><strong id="n-tags">—</strong></div>
+        <div class="stat"><span>社区译名</span><strong id="n-community">—</strong></div>
+        <div class="stat"><span>界面文案</span><strong id="n-ui">—</strong></div>
+        <div class="stat"><span>教程文字</span><strong id="n-hard">—</strong></div>
+      </section>
+
+      <section class="sync" aria-label="社区译名更新">
+        <dl>
+          <dt>译名版本</dt><dd><code id="community-hash">—</code></dd>
+          <dt>上次检查</dt><dd id="community-time">—</dd>
+        </dl>
+        <button id="refresh" class="primary-button" type="button" disabled aria-busy="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M6.1 6.1A8 8 0 0 1 20 12M4 12a8 8 0 0 0 13.9 5.9"/></svg>
+          <span id="refresh-label">更新社区译名</span>
+        </button>
+        <p id="community-meta" class="sync-hint"></p>
+      </section>
+    </main>
+
+    <section id="settings-panel" class="panel settings-panel" aria-labelledby="settings-title" hidden>
+      <header class="topbar">
+        <h2 id="settings-title">翻译设置</h2>
+        <button id="settings-close" class="icon-button" type="button" aria-label="关闭设置，回到首页">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </header>
+      <div class="switches">
+        <label class="switch" for="ui">
+          <span class="switch-copy"><b id="ui-label">中文界面</b><small id="ui-description">翻译按钮、设置和教程文字</small></span>
+          <input type="checkbox" id="ui" role="switch" aria-labelledby="ui-label" aria-describedby="ui-description" disabled>
+        </label>
+        <label class="switch" for="tags">
+          <span class="switch-copy"><b id="tags-label">中文标签</b><small id="tags-description">用中文搜索标签，显示中文释义</small></span>
+          <input type="checkbox" id="tags" role="switch" aria-labelledby="tags-label" aria-describedby="tags-description" disabled>
+        </label>
+        <div class="switch">
+          <span class="switch-copy"><label for="auto"><b id="auto-label">自动更新</b></label><small id="auto-description">每 <select id="hours" aria-label="检查间隔" disabled><option value="1">1 小时</option><option value="6">6 小时</option><option value="12">12 小时</option><option value="24" selected>1 天</option><option value="168">7 天</option></select> 检查一次社区译名</small></span>
+          <input type="checkbox" id="auto" role="switch" aria-labelledby="auto-label" aria-describedby="auto-description" disabled>
+        </div>
+      </div>
+      <div class="settings-bottom"><button id="settings-done" class="secondary-button" type="button">完成</button></div>
+    </section>
+  </div>
+
+  <div class="feedback">
+    <p id="notice" class="notice" role="status" aria-live="polite" hidden></p>
+  </div>
+  <footer>
+    <a id="contribute" href="#" target="_blank" rel="noopener">参与翻译 <span aria-hidden="true">↗</span></a>
+    <a href="https://github.com/TomorrowX6/NovelAI-CN" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+  </footer>
+</div>
+<script src="popup.js"></script>
+</body>
+</html>

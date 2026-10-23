@@ -1,11 +1,14 @@
 # NovelAI 中文标签联想
 
+> 非官方项目，与 NovelAI 及其开发商 Anlatan 无关。
+
 在 NovelAI 生图页（novelai.net/image）的提示词框里：
 
 - **输入中文就能联想英文标签**：例如输入「黑丝」会出现 black thighhighs / black pantyhose，点选或用方向键 + 回车选中后插入英文标签。
 - **英文联想附中文释义**：输入英文时，NovelAI 原生联想的每一项下面都会多一行中文。
 - **全角逗号、冒号自动转半角**：NovelAI 只把半角逗号当作标签分隔符，中文输入法打出的「，」会被转成 `, `。不转的话，「长发，猫耳」会被当成一个标签，点选联想时前面的「长发，」也会被一起替换掉。权重写法 `1.2::标签::` 也只认半角冒号，「：」会被转成 `:`。
 - **界面汉化**：语言选单里多了「中文」，选中后 NovelAI 的界面文字（生图页、设置、订阅、文字生成等）显示为中文。
+- **社区译名**：任何人都可以在 [NovelAI Tag Editor](https://novelai.000.moe) 用 GitHub 登录后修改标签的中文译名和检索词，修改直接提交到本仓库，脚本和扩展默认每天从 GitHub 拉取一次。
 
 ![效果](screenshot.png)
 
@@ -36,6 +39,8 @@ npm run crx     # 打包到 build/
 
 签名私钥第一次打包时生成在 `.keys/novelai-zh-tags.pem`（已在 `.gitignore` 里），也可以用环境变量 `CRX_KEY` 指定。扩展 ID 由私钥决定，换了私钥就成了另一个扩展，请备份好。扩展不会自动更新，也不要和用户脚本同时启用。
 
+点工具栏上的扩展图标会打开面板：首页显示连接状态、各类词条数、社区译名版本和更新时间，可一键更新社区译名；右上角「设置」里可以开关「中文界面」「中文标签」和社区译名的「自动更新」：检查间隔可选 1 小时、6 小时、12 小时、1 天或 7 天（默认 1 天），关掉后只在点「更新社区译名」时拉取。鼠标停在版本号上可查看内容脚本的构建哈希（SHA-256 的前 8 位）。在 NovelAI 的标签页上切换后页面会刷新；没打开 NovelAI 时也能改，改动先存在扩展里，下次打开 NovelAI 时生效。关掉「中文标签」后不接管联想、不加中文释义、不拉社区译名，全角标点照常转换。弹窗的首页与设置分层参考了 [EhSyringe](https://github.com/EhTagTranslation/EhSyringe)。
+
 扩展在商店里叫「NovelAI中文化助手」。上架用的介绍文字、截图、宣传图和隐私权一栏的填法在 [store/](store/README.md)，隐私政策见 [PRIVACY.md](PRIVACY.md)。
 
 ## 界面汉化
@@ -44,9 +49,21 @@ npm run crx     # 打包到 build/
 
 - 译文覆盖 NovelAI 界面文案里的全部约 4000 条，模型名、采样器名和 Anlas、Opus 等专有名词保留英文。
 - 生图教程、文字生成教程、故事编辑器下方的提示、连接出错的横幅和一些弹窗，文字是直接写在页面代码里的，另外翻译了约 380 段。服务条款、隐私政策和历届周年活动页保持英文；Cookie 弹窗来自第三方，也是英文。
-- 账号设置里的界面语言只有 en 和 jp，所以选中文时，保存到服务器的是 en，「中文」只记在当前浏览器里。换一台设备，或在没装脚本的浏览器里，界面照常是英文；在别处把语言改成日文，这里也会跟着变成日文。
+- 账号设置里的界面语言只有 en 和 jp，所以选中文时，保存到服务器的是 en，「中文」只记在当前浏览器里。换一台设备，或在没装脚本的浏览器里，界面照常是英文；在别处把语言改成日文，这里也会跟着变成日文。用扩展面板打开中文界面时例外：账号语言是日文也显示中文，在 NovelAI 里保存一次设置后，账号语言就存成 en。
 - 主要译名：Undesired Content →「负面提示词」，Vibe Transfer →「氛围迁移」，Precise Reference →「精确参考」，Director Tools →「导演工具」，Inpaint →「局部重绘」，Lorebook →「设定集」，AI Module →「AI 模组」。
 - 译文由 Claude 翻译，没有经过人工校对。发现问题可以改 `data/ui-zh.json`，见下文「更新界面译文」。
+
+## 参与标签翻译
+
+觉得某个标签的译名不准，或者用某个说法搜不到想要的标签，可以在 [NovelAI Tag Editor](https://novelai.000.moe) 修改。它仿照 EhTagTranslation 的 [EhTag Editor](https://ehtt.vercel.app)：
+
+- 列表页可以按类别（通用、角色、作品、元标签）筛选、用普通文字或 `/正则/` 搜索；「显示」里的「未翻译」是还没有中文的标签，「社区修订」是改过的标签。
+- 点铅笔图标进入编辑页，改「名称」（联想里显示的中文）和「检索词」（多个用 `/` 分隔），右边实时预览，「编辑日志」里是这个标签的修改记录。只能改标签的中文译名和检索词，界面文案仍随版本发布。
+- 用 GitHub 账号登录后才能提交（账号要注册满 30 天，每小时最多 30 次）。每次修改以你的名义提交到本仓库的 [`data/zh-community.tsv`](data/zh-community.tsv)，**立即生效**、不经审核；改错了可以再改，历史都在 git 里，维护者也可以回滚。
+- 「未翻译」里的新标签来自 Danbooru：GitHub Actions 每天拉一次最新出现、图片数 50 以上的标签（不含画师），词典里还没有的列出来；给它们填好名称后，扩展会直接收录。
+- 脚本和扩展打开 NovelAI 时默认每天从 GitHub 拉一次这个文件：替换显示译名、追加检索词，新标签直接加进词典。拉来的内容同样检查：必须含汉字、长度有限，不能有 `<` `>`、网址；新标签名不能含逗号、`|`、括号、`::` 这类会影响提示词的字符。
+
+编辑器的代码和部署方法见 [worker/](worker/README.md)。
 
 ## 原理
 
@@ -82,6 +99,7 @@ NovelAI 拼查询串时用的是「光标前的旧文本 + 新输入」。微软
 - 标签名以 2026 年的 Danbooru 为准。我用 NovelAI 自己的联想接口抽样核实过，NovelAI V5 认识这些新名字；唯一不认的 `qipao` 已在 `data/novelai-rename.csv` 里换回 `china_dress`。
 - Danbooru 已删除或改名、但 NovelAI 还认识的旧标签（black footwear、otoko no ko 等），会用旧人工词典的译名补上，英文联想里出现时也能显示中文。
 - 用 V5 Curated（审核版）时，NovelAI 的联想里没有 NSFW 标签，但本脚本的中文联想不区分模型，仍会给出这类标签。
+- 社区新加的 Danbooru 新标签比 NovelAI V5 的训练数据新，NovelAI 未必认识。
 
 ## 自定义词典
 
@@ -97,11 +115,14 @@ NovelAI 拼查询串时用的是「光标前的旧文本 + 新输入」。微软
 ```sh
 npm run build            # 生成 dist/ 下的脚本、更新用的 .meta.js、词典和繁简对照
 npm test                 # 检索质量回归测试，用例在 scripts/search-cases.tsv
+npm run test:worker      # 编辑器（worker/）的测试，需要 Node.js 22.13 或更高版本
 node scripts/test.mjs 黑丝 刘海    # 查看某些词的联想结果
 npm run build -- --refresh         # 重新下载上游词典
 ```
 
 main 分支就是自动更新的发布源：脚本或词典有改动时，要先把 `package.json` 的 `version` 调高再构建，否则脚本管理器不会推送更新。CI（`.github/workflows/ci.yml`）会在每次推送和 PR 时构建、跑回归测试，并检查 `dist/` 是否已重新构建、版本号是否已调高（`node scripts/check-version.mjs origin/main` 可在本地做同样的检查）。
+
+发布时把调高了版本的提交合并到 main，再推送同名标签（如 `git tag 1.7.1 && git push origin 1.7.1`）：`.github/workflows/release.yml` 会构建、跑测试，然后发布 GitHub Release，附上用户脚本、签名的 `.crx` 和上架商店用的 `.zip`。签名私钥要先存进仓库的 Secrets：`gh secret set CRX_PRIVATE_KEY < .keys/novelai-zh-tags.pem`。CI 会核对私钥对应的扩展 ID 和 `package.json` 里的 `nzh.extensionId`，对不上就失败，不会悄悄换掉扩展 ID。也可以在 Actions 页手动运行这个工作流，只构建不发布，产物在运行页的 Artifacts 里。
 
 ### 更新界面译文
 
@@ -125,6 +146,7 @@ node scripts/ui-strings.mjs --untranslated  # 列出中文还空着的条目
 - 抽样核实时，2024 年以后新出现的标签约八成能在 NovelAI 联想里查到，其余（多为冷门角色）NovelAI 可能不认识。
 - 依赖 NovelAI 当前的接口格式和 `.image-prompt-suggestions` 面板结构，NovelAI 改版后可能需要更新脚本。
 - 界面汉化依赖 Turbopack 的模块注册方式和 `languageNames`、`Localization`、`Session` 这些导出名。NovelAI 换了打包方式或改了这些名字时，语言选单里不会再出现中文，界面回到英文，标签联想不受影响。
+- 设置只在扩展面板里有。用户脚本可以在 NovelAI 页面的控制台里改，刷新页面后生效：`localStorage.setItem('nzh-tags', 'off')` 关掉中文标签，`localStorage.setItem('nzh-community-auto', 'off')` 关掉社区译名的自动更新，`localStorage.setItem('nzh-community-hours', '6')` 把检查间隔改成 6 小时（可选 1、6、12、24、168），`removeItem` 恢复默认；界面语言在语言选单里切换。
 - 写死的文字按原文整段匹配，NovelAI 改了措辞就不再替换（`node scripts/ui-strings.mjs` 会列出来）。只有一个词的条目（如 Settings、Delete）会替换页面上任何只含这个词的元素，用户自己起的故事名、条目名恰好是这个词时也会显示成中文，只是显示，不改内容。
 
 ## 数据来源与许可

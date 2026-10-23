@@ -1,0 +1,21 @@
+name: Sync new tags
+
+# 每天从 Danbooru 拉最新创建的标签交给社区标签译名平台（见 scripts/sync-tags.mjs）。
+# 需要在仓库的 Settings → Secrets 里设置 NZH_ADMIN_TOKEN（平台的审核口令）。
+on:
+  schedule:
+    - cron: '23 19 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Sync tags
+        run: node scripts/sync-tags.mjs
+        env:
+          NZH_ADMIN_TOKEN: ${{ secrets.NZH_ADMIN_TOKEN }}
