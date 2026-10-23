@@ -89,13 +89,13 @@ for (const [tag, expect] of LOOKUPS) {
     failed++;
     console.log('✗ 没有图片数的新标签不应收录');
   }
-  // 平台从 Danbooru 拉来的新标签带图片数，词典里没有时新增
-  if (!d.amend('mary sue (black souls)', '玛丽苏（黑魂）', ['黑魂玛丽苏'], 160) || d.size !== dict.size + 1) {
+  // 平台从 Danbooru 拉来的新标签带图片数，词典里没有时新增（用虚构的标签，免得哪天词典收录了它）
+  if (!d.amend('nzh test tag (zzz)', '测试新标签（虚构）', ['虚构测试标签'], 160) || d.size !== dict.size + 1) {
     failed++;
     console.log('✗ 带图片数的新标签应当收录');
   }
-  const hit = d.search('黑魂玛丽苏', 15)[0];
-  if (!hit || hit.tag !== 'mary sue (black souls)' || hit.count !== 160 || d.lookup('mary_sue_(black_souls)') !== '玛丽苏（黑魂）') {
+  const hit = d.search('虚构测试标签', 15)[0];
+  if (!hit || hit.tag !== 'nzh test tag (zzz)' || hit.count !== 160 || d.lookup('nzh_test_tag_(zzz)') !== '测试新标签（虚构）') {
     failed++;
     console.log(`✗ 新增的标签搜不到：${JSON.stringify(hit)}`);
   }

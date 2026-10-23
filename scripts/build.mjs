@@ -165,6 +165,7 @@ async function main() {
   for (const name of Object.keys(SOURCES)) raw[name] = await readSource(name, refresh);
   const t2s = parseT2S(raw['opencc-ts-characters.txt']);
   toSimp = coreFns.createT2S(t2s);
+  const newCsv = await readOptional(path.join(ROOT, 'data', 'zh-new.csv'));
   const curatedCsv = await readOptional(path.join(ROOT, 'data', 'zh-curated.csv'));
   const ehtagCsv = await readOptional(path.join(ROOT, 'data', 'zh-ehtag.csv'));
   const extraCsv = await readOptional(path.join(ROOT, 'data', 'zh-extra.csv'));
@@ -173,21 +174,24 @@ async function main() {
 
   const entries = new Map(); // 标签 -> { category, count, label, names: Set, oldNames: Set }
   const aliasOf = new Map(); // 英文别名（含旧标签名）-> 标签
-  for (const file of PRIMARY) {
-    for (const r of parseTable(raw[file])) {
-      const tag = normTag(r.tag);
-      const category = +r.category;
-      const label = cleanText(r.zh);
-      if (!tag || !label) continue;
-      const names = new Set(nameParts(label, category).map(cleanText));
-      const aliases = r.aliases ? r.aliases.split('|').map(cleanText).filter(Boolean) : [];
-      for (const a of aliases) {
-        if (searchable(a)) names.add(a);
-        else if (/^[\x21-\x7e ]+$/.test(a) && !aliasOf.has(normTag(a))) aliasOf.set(normTag(a), tag);
-      }
-      entries.set(tag, { category, count: +r.count || 0, label, names, oldNames: new Set() });
+  const addEntry = (r) => {
+    const tag = normTag(r.tag);
+    const category = +r.category;
+    const label = cleanText(r.zh);
+    if (!tag || !label) return false;
+    const names = new Set(nameParts(label, category).map(cleanText));
+    const aliases = r.aliases ? r.aliases.split('|').map(cleanText).filter(Boolean) : [];
+    for (const a of aliases) {
+      if (searchable(a)) names.add(a);
+      else if (/^[\x21-\x7e ]+$/.test(a) && !aliasOf.has(normTag(a))) aliasOf.set(normTag(a), tag);
     }
-  }
+    entries.set(tag, { category, count: +r.count || 0, label, names, oldNames: new Set() });
+    return true;
+  };
+  for (const file of PRIMARY) for (const r of parseTable(raw[file])) addEntry(r);
+  // data/zh-new.csv：Danbooru 上图片数够多、来源数据却没有的标签（机翻），列与来源数据相同；来源数据有了就以来源为准
+  let newTags = 0;
+  for (const r of parseTable(newCsv)) if (!entries.has(normTag(r.tag)) && addEntry(r)) newTags++;
   const resolve = (t) => {
     t = normTag(t);
     return entries.has(t) ? t : aliasOf.get(t) ?? null;
@@ -358,7 +362,7 @@ async function main() {
   for (const e of entries.values()) byCat[e.category] = (byCat[e.category] || 0) + 1;
   console.log(
     `通用 ${byCat[0] || 0}，作品 ${byCat[3] || 0}，角色 ${byCat[4] || 0}，元标签 ${byCat[5] || 0}；` +
-      `补充人工译名 ${stats.manual}，旧标签 ${stats.legacy}，EhTag ${stats.ehtag}，审定 ${stats.curated}，自定义检索词 ${stats.extra}，覆盖 ${stats.override}，改名 ${renamed.size}；共 ${rows.length} 条`,
+      `机翻新标签 ${newTags}，补充人工译名 ${stats.manual}，旧标签 ${stats.legacy}，EhTag ${stats.ehtag}，审定 ${stats.curated}，自定义检索词 ${stats.extra}，覆盖 ${stats.override}，改名 ${renamed.size}；共 ${rows.length} 条`,
   );
   const ui = uiDataStats(uiData);
   console.log(`界面文案 ${ui.total} 条，已翻译 ${ui.translated}，待翻译 ${ui.untranslated}；写死的文字 ${hardData.length} 段，打包 ${hardZh.length} 段`);

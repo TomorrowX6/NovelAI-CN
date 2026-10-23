@@ -135,6 +135,7 @@ npm run build -- --refresh     # 重新下载上游词典
 - `data/zh-curated.csv`：`标签,译名,补充检索词`，审定结果。译名留空表示只补检索词；检索词用 `/` 分隔，前面加 `-` 表示删掉一个错误的检索词（如 `fear_kubrick,,-害怕侧目`）。
 - `data/zh-extra.csv`：`标签,词1/词2`，追加检索词（俗称、简称），不改变显示内容。词表里没有的标签也会收录，比如 NovelAI 的质量词 masterpiece。
 - `data/novelai-rename.csv`：`Danbooru新名,NovelAI用的名字`，NovelAI 不认识新名字时输出旧名字。
+- `data/zh-new.csv`：`tag,category,aliases,zh,count`，列与来源数据相同，收录 Danbooru 上有、来源数据里没有的标签（检索词用 `|` 分隔）。来源数据以后有了同一个标签时以来源数据为准。
 
 标签用 Danbooru 写法，空格或下划线都可以，别名会自动归并到正式标签。改完后运行 `npm run build` 和 `npm test`。
 
@@ -169,7 +170,7 @@ main 分支就是用户脚本自动更新的来源：脚本或词典有改动时
 
 **输入法**：NovelAI 拼查询串时用的是「光标前的旧文本 + 新输入」。微软拼音这类会把拼音写进编辑器的输入法，上屏时查询会变成 `luo'li萝莉`。所以脚本不用请求里的 `prompt` 参数，而是读取光标前的实际文本作为片段。组字过程中触发的联想先挂起，上屏后再按实际文本回答，选字时停顿不会冒出拼音的乱联想。
 
-**检索**：按「精确 > 前缀 > 包含 > 宽松（字间最多隔 3 个字）」匹配，再结合 Danbooru 使用次数综合排序。繁体字按 [OpenCC](https://github.com/BYVoid/OpenCC) 的对照表逐字转成简体后再检索。词典约 7.5 万条，在生图页空闲时解析，从其他页面切过来时在提示词框获得焦点时解析。Node 下实测解析约 0.25 秒，单次检索约 4 ms。
+**检索**：按「精确 > 前缀 > 包含 > 宽松（字间最多隔 3 个字）」匹配，再结合 Danbooru 使用次数综合排序。繁体字按 [OpenCC](https://github.com/BYVoid/OpenCC) 的对照表逐字转成简体后再检索。词典约 7.8 万条，在生图页空闲时解析，从其他页面切过来时在提示词框获得焦点时解析。Node 下实测解析约 0.25 秒，单次检索约 4 ms。
 
 **界面汉化**：NovelAI 的界面文字都来自一个英文文案对象，日文是在它上面合并一份日文覆盖，再由 `Localization` atom 按账号设置的 `uiLanguage` 算出当前文案。NovelAI 用 Turbopack 打包，脚本在页面脚本加载前接管 `globalThis.TURBOPACK`，在模块注册导出时给语言表 `languageNames` / `languageIcons` 加上中文，并让 `Localization` atom 在 `uiLanguage` 为 `zh` 时把中文合并到算好的文案上，没翻译的条目保持英文。保存设置（`PUT /user/clientsettings`）时把 `zh` 换成 `en`、在 localStorage 记下选的是中文，读取账号数据（`GET /user/data`）时再换回 `zh`。
 
@@ -189,6 +190,9 @@ main 分支就是用户脚本自动更新的来源：脚本或词典有改动时
   - 被替换的旧译名会自动保留为检索词，用旧叫法仍然搜得到。其中意思不对、会抢走其他标签的 162 个已逐条删掉，如 collar 的「领子」、bukkake 的「颜射」、knees up 的「抱膝」；确认是错误的检索词（如把 kanagata sugumi 关联到「金潟直美」）也已删除。
   - 不含汉字或带假名的检索词永远查不到，构建时直接丢掉；「Katsu（食物）」这类括号里只是类别说明的，也不再把「食物」拆出来当检索词。
   - 审定由 Claude 完成，参考了上面这些人工来源和 Danbooru wiki 释义，但没有经过人工校对。冷门角色多半只能按读音或字面处理，错误在所难免；发现错误可以在编辑器里修改，或写进 `data/zh-override.csv`。
+- `data/zh-new.csv`：2026 年 10 月 Danbooru 上图片数 50 以上、来源数据里却没有的标签，共 2,679 个（通用 882、角色 1,504、作品 282、元标签 11），多是 2025 年以后新出现的，或是 Danbooru 改了名的（如 cum pool → cum puddle、tokyo (city) → tokyo），也有来源数据漏掉的老标签（如 prepuce）。
+  - 由 Claude 机翻，参考 Danbooru wiki 的释义和日文、中文别名，角色名的写法沿用上面审定的规则；Danbooru 改名的标签沿用旧名的译名。没有经过人工校对，冷门角色的译名多半是按读音推的。
+  - 只有罗马字或英文名、想不出中文译名的 100 个（如画师原创角色「Momo（juukyuu）」）没有收录，留在编辑器的「未翻译」里。
 - `data/zh-ehtag.csv`：EhTagTranslation 的人工译名，对齐到 Danbooru 标签后作为补充检索词，共 2,032 条，如 dark skin「黑皮」、school swimsuit「死库水」。
 - 标签名以 2026 年的 Danbooru 为准，用 NovelAI 自己的联想接口抽样核实过；唯一不认的 `qipao` 已在 `data/novelai-rename.csv` 里换回 `china_dress`。
 - Danbooru 已删除或改名、但 NovelAI 还认识的旧标签（black footwear、otoko no ko 等），用旧人工词典的译名补上，英文联想里出现时也能显示中文。
