@@ -16,12 +16,13 @@ npm run crx
 名称和摘要来自 manifest（`scripts/crx.mjs` 里的 `EXT_NAME`、`EXT_DESCRIPTION`），上传后自动填好：
 
 - 名称：NovelAI中文化助手
-- 摘要：用中文畅玩 NovelAI：输入中文就能找到对应的英文标签，英文标签也附上中文释义，界面和教程都能切换成中文。（非官方扩展）
+- 摘要：用中文畅玩 NovelAI：输入中文就能找到对应的英文标签，英文标签也附上中文释义，界面和教程都能切换成中文。非官方扩展，与 NovelAI 及其开发商 Anlatan 无关。
 
 **说明（中文）**
 
 ```
 NovelAI中文化助手，让中文用户用起 NovelAI 更顺手。
+本扩展为非官方扩展，与 NovelAI 及其开发商 Anlatan 无关。
 
 ✦ 用中文找标签
 在生图提示词框里直接打中文，比如「黑丝」「猫耳」「七分身」，就会联想出对应的英文标签，点一下或按回车即可插入。繁体中文也能识别。
@@ -36,7 +37,6 @@ NovelAI中文化助手，让中文用户用起 NovelAI 更顺手。
 中文输入法打出的全角逗号、冒号会自动换成半角，避免几个标签被当成一个。
 
 说明
-· 非官方扩展，与 NovelAI 及其开发商 Anlatan 无关。
 · 不收集个人信息。约 7.5 万条标签词典随扩展打包，联想和翻译都在本地完成。
 · 社区译名：人人都能在 https://novelai.000.moe 用 GitHub 登录后修改标签译名，修改直接提交到 GitHub 仓库，扩展默认每天从 GitHub 更新一次（只下载译名数据，不上传任何内容）。
 · 点工具栏图标打开面板，查看版本和词条数，开关中文界面、中文标签和社区译名的自动更新（可选检查间隔）。
@@ -48,6 +48,7 @@ NovelAI中文化助手，让中文用户用起 NovelAI 更顺手。
 
 ```
 NovelAI中文化助手 makes NovelAI comfortable to use in Chinese.
+This is an unofficial extension, not affiliated with NovelAI or its developer Anlatan.
 
 ✦ Find tags in Chinese
 Type Chinese in the image prompt box (e.g. 黑丝, 猫耳) and get the matching English Danbooru tags as suggestions; click or press Enter to insert. Traditional Chinese works too.
@@ -62,7 +63,6 @@ Pick ZH in the language selector at the bottom of the side menu, or 中文 in Us
 Full-width commas and colons typed by Chinese input methods are converted to half-width, so tags are separated correctly.
 
 Notes
-· Unofficial; not affiliated with NovelAI or Anlatan.
 · Collects no personal data. The ~75,000-entry dictionary is bundled and suggestions and translation run locally.
 · Community translations: anyone can edit tag translations at https://novelai.000.moe after signing in with GitHub; edits are committed to the GitHub repository and the extension picks them up once a day by default (it only downloads the translation list and uploads nothing).
 · Click the toolbar icon for a popup with the version and entry counts and settings for the Chinese UI, Chinese tags and automatic updates of community translations.
@@ -73,7 +73,7 @@ Notes
 - 类别：艺术与设计（Art & Design）；列表里没有的话选「工具」（Tools）
 - 语言：中文（简体）
 - 商店图标：扩展包里的 `icons/128.png`，后台会自动取用
-- 屏幕截图（1280×800，最多 5 张）：`screenshot-1-ui.png`、`screenshot-2-popup.png`（扩展面板的首页和设置）、`screenshot-3-tags.png`（输入「猫娘」时的中文标签联想），还可以再加一张英文联想带中文的截图（见文末）
+- 屏幕截图（1280×800，最多 5 张）：`screenshot-1-ui.png`、`screenshot-2-popup.png`（扩展面板的首页和设置）、`screenshot-3-tags.png`（输入「猫娘」时的中文标签联想）、`screenshot-4-english.png`（输入「cat ea」时英文联想附中文）
 - 小型宣传图块（440×280，必填）：`promo-small-440x280.png`
 - 顶部宣传图块（1400×560，可选）：`promo-marquee-1400x560.png`
 - 官方网址：不填（没有已验证的网站）；首页网址：https://github.com/TomorrowX6/NovelAI-CN ；支持网址：https://github.com/TomorrowX6/NovelAI-CN/issues
@@ -127,4 +127,4 @@ Tag suggestions need a NovelAI account, because NovelAI does not request suggest
 NovelAI 未登录时不会请求联想，要登录后拍，浏览器窗口内容区调到 1280×800（或截图后缩放到这个尺寸）：
 
 1. 清空提示词框后输入「猫娘」，联想面板出现时截图（已拍：`screenshot-3-tags.png`）。
-2. 清空后输入「cat ea」，NovelAI 自带的联想每项下有中文时截图。
+2. 清空后输入「cat ea」，NovelAI 自带的联想每项下有中文时截图（已拍：`screenshot-4-english.png`）。

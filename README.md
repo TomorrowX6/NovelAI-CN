@@ -1,5 +1,7 @@
 # NovelAI 中文标签联想
 
+> 非官方项目，与 NovelAI 及其开发商 Anlatan 无关。
+
 在 NovelAI 生图页（novelai.net/image）的提示词框里：
 
 - **输入中文就能联想英文标签**：例如输入「黑丝」会出现 black thighhighs / black pantyhose，点选或用方向键 + 回车选中后插入英文标签。

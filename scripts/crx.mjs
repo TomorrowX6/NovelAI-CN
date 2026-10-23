@@ -22,7 +22,7 @@ const ICON_SIZES = [16, 32, 48, 128];
 // 扩展和商店里显示的名称、简介（简介即商店摘要，最多 132 个字符）。用户脚本的 @name 不跟着改：
 // 脚本管理器按名称识别脚本，改名会让已安装的用户更新时装出第二份
 const EXT_NAME = 'NovelAI中文化助手';
-const EXT_DESCRIPTION = '用中文畅玩 NovelAI：输入中文就能找到对应的英文标签，英文标签也附上中文释义，界面和教程都能切换成中文。（非官方扩展）';
+const EXT_DESCRIPTION = '用中文畅玩 NovelAI：输入中文就能找到对应的英文标签，英文标签也附上中文释义，界面和教程都能切换成中文。非官方扩展，与 NovelAI 及其开发商 Anlatan 无关。';
 
 // ---- CRC32 ----
 const CRC_TABLE = new Int32Array(256).map((_, n) => {
