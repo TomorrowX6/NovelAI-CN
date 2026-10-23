@@ -170,6 +170,8 @@ function crx3(zipBuf, privateKey) {
 
 function loadOrCreateKey() {
   if (fs.existsSync(KEY_FILE)) return crypto.createPrivateKey(fs.readFileSync(KEY_FILE));
+  // CI 里生成新私钥会换掉扩展 ID，直接失败（.github/workflows/release.yml）
+  if (process.env.CI) throw new Error(`找不到私钥 ${KEY_FILE}`);
   const { privateKey } = crypto.generateKeyPairSync('rsa', { modulusLength: 2048 });
   fs.mkdirSync(path.dirname(KEY_FILE), { recursive: true });
   fs.writeFileSync(KEY_FILE, privateKey.export({ type: 'pkcs8', format: 'pem' }), { mode: 0o600 });
@@ -203,8 +205,10 @@ function main() {
       // 面板读写设置用的桥，在隔离环境里运行（extension/bridge.js）
       { matches: ['https://novelai.net/*'], js: ['bridge.js'], run_at: 'document_start', all_frames: false },
     ],
-    // 工具栏按钮的面板：版本、构建哈希、词条数和两个开关（extension/popup.*）
+    // 工具栏按钮的面板：版本、构建哈希、词条数和设置（extension/popup.*）
     action: { default_title: EXT_NAME, default_popup: 'popup.html' },
+    // 没打开 NovelAI 时面板改的设置先存在扩展里，页面打开时由 bridge.js 写进 localStorage
+    permissions: ['storage'],
   };
   const ext = (f) => fs.readFileSync(path.join(ROOT, 'extension', f));
   const tagCount = fs.readFileSync(path.join(ROOT, 'dist', 'zh-tags.tsv'), 'utf8').split('\n').filter(Boolean).length;
@@ -231,6 +235,10 @@ function main() {
 
   const key = loadOrCreateKey();
   const spki = crypto.createPublicKey(key).export({ type: 'spki', format: 'der' });
+  // 发布用的私钥必须是正式的那把：package.json 的 nzh.extensionId 记着它对应的扩展 ID
+  if (process.env.CI && pkg.nzh?.extensionId && extensionId(spki) !== pkg.nzh.extensionId) {
+    throw new Error(`私钥对应的扩展 ID ${extensionId(spki)} 不是 ${pkg.nzh.extensionId}，请检查 CRX_PRIVATE_KEY`);
+  }
 
   // 解压目录的 manifest 带公钥，「加载已解压的扩展程序」时 ID 与 crx 相同；商店不接受带公钥的 manifest，压缩包里不放
   fs.rmSync(EXT_DIR, { recursive: true, force: true });

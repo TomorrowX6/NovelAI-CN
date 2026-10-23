@@ -760,7 +760,12 @@ function uiSettingsFetch(url, init, nativeRequest) {
 // 新标签点选后原样插入提示词，所以标签名不能含 NovelAI 的分隔符和权重语法。
 
 const COMMUNITY_CACHE_KEY = 'nzh-community';
-const COMMUNITY_INTERVAL = 3 * 60 * 60 * 1000;
+// 扩展面板设置里的「自动更新」（extension/bridge.js 写入）：关掉后只在面板里点「更新社区译名」时拉取；
+// 检查间隔（小时）只能是面板下拉框里的几档，默认 1 天
+const COMMUNITY_AUTO_KEY = 'nzh-community-auto';
+const COMMUNITY_HOURS_KEY = 'nzh-community-hours';
+const COMMUNITY_HOURS = [1, 6, 12, 24, 168];
+const COMMUNITY_DEFAULT_HOURS = 24;
 const COMMUNITY_UNSAFE = /[<>\u0000-\u001f\u007f]|[a-z][\w+.-]*:\/\/|javascript:|www\./i;
 const COMMUNITY_TAG_UNSAFE = /[,|{}[\]#<>\\]|::/;
 
@@ -826,11 +831,31 @@ async function refreshCommunity() {
   } catch {}
 }
 
+const communityAuto = (() => {
+  try {
+    return localStorage.getItem(COMMUNITY_AUTO_KEY) !== 'off';
+  } catch {
+    return true;
+  }
+})();
+
+const communityHours = (() => {
+  try {
+    const hours = Number(localStorage.getItem(COMMUNITY_HOURS_KEY));
+    return COMMUNITY_HOURS.includes(hours) ? hours : COMMUNITY_DEFAULT_HOURS;
+  } catch {
+    return COMMUNITY_DEFAULT_HOURS;
+  }
+})();
+
 if (NZH_COMMUNITY_DATA && tagsEnabled) {
   const cached = readCommunityCache();
   if (cached) communityEntries = sanitizeCommunity(cached);
+  // 时间为 0 表示面板点了「更新社区译名」，自动更新关着也要拉
+  const requested = cached && cached.time === 0;
+  const due = !cached || !(Date.now() - cached.time < communityHours * 60 * 60 * 1000);
   // 页面加载完再检查，不和 NovelAI 抢网络
-  if (!cached || !(Date.now() - cached.time < COMMUNITY_INTERVAL)) {
+  if (requested || (communityAuto && due)) {
     window.addEventListener('load', () => setTimeout(refreshCommunity, 3000));
   }
 }

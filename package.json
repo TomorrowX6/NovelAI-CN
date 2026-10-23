@@ -12,6 +12,7 @@
     "test:popup": "node scripts/test-popup.mjs"
   },
   "nzh": {
+    "extensionId": "cngcbealnjdakcjnelbjdeldelhgepeb",
     "editorUrl": "https://novelai.000.moe",
     "communityData": "https://raw.githubusercontent.com/TomorrowX6/NovelAI-CN/main/data/zh-community.tsv"
   }

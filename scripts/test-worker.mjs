@@ -110,6 +110,7 @@ check(
     `serializeCommunity 按标签排序：${JSON.stringify(serializeCommunity(data))}`,
   );
   check(eq(parseCommunity('').header, COMMUNITY_HEADER), '空文件用默认说明');
+  check(eq(parseCommunity('# 旧的说明\nsmile\t笑\n').header, COMMUNITY_HEADER), '文件里的旧说明换成当前的说明');
   check(serializeCommunity(parseCommunity(serializeCommunity(data))) === serializeCommunity(data), '读写往返不变');
 
   check(!!validateEdit(null).error && !!validateEdit({ label: 'neko' }).error && !!validateEdit({ aliases: '猫/neko' }).error, 'validateEdit 拒绝不合格的内容');

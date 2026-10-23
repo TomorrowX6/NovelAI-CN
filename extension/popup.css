@@ -34,9 +34,13 @@
 }
 * { box-sizing: border-box; scrollbar-width: none; }
 *::-webkit-scrollbar { display: none; }
-[hidden] { display: none !important; }
+[hidden]:not(.panel) { display: none !important; }
 body { width: 360px; margin: 0; background: var(--bg); color: var(--text); font: 13px/1.5 system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
 .app-shell { padding: 16px 20px; }
+/* Both panels share one grid cell and a hidden one keeps its box, so the popup keeps the taller one's height. */
+.panels { display: grid; }
+.panel { grid-area: 1 / 1; display: flex; flex-direction: column; min-width: 0; }
+.panel[hidden] { visibility: hidden; }
 .topbar { display: flex; align-items: center; justify-content: space-between; min-height: 32px; gap: 12px; }
 .version { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
 h1, h2, p { margin: 0; }
@@ -74,21 +78,23 @@ code { font: 12px ui-monospace, Consolas, monospace; }
 .primary-button[aria-busy="true"] svg { animation: spin 1s linear infinite; }
 .secondary-button { background: var(--card); border-color: var(--line); color: var(--text); }
 .secondary-button:hover { background: var(--soft); }
-.sync-hint { margin-top: 8px; min-height: 18px; text-align: center; color: var(--muted); font-size: 11px; }
+.sync-hint { margin-top: 8px; text-align: center; color: var(--muted); font-size: 11px; }
+.sync-hint:empty { display: none; }
 .notice { margin-top: 12px; padding: 10px 12px; background: var(--soft); color: var(--muted); border-radius: 8px; font-size: 12px; line-height: 1.65; overflow-wrap: anywhere; }
 .notice.ok { color: var(--ok); background: var(--ok-bg); }
 .notice.err { color: var(--err); background: var(--err-bg); }
-.open-link { display: block; width: fit-content; margin: 8px auto 0; font-size: 12px; }
 footer { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 13px; border-top: 1px solid var(--line); font-size: 12px; }
 a { color: var(--accent); text-decoration: none; border-radius: 3px; }
 a:hover { text-decoration: underline; text-underline-offset: 3px; }
-footer a span, .open-link span { margin-left: 3px; color: var(--muted); }
-.settings-panel { min-height: 424px; display: flex; flex-direction: column; }
-.settings-intro { margin: 24px 0 20px; font-size: 13px; line-height: 1.8; color: var(--muted); }
-.switches { background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+footer a span { margin-left: 3px; color: var(--muted); }
+.switches { margin-top: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
 .switch { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 18px 15px; cursor: pointer; }
 .switch + .switch { border-top: 1px solid var(--line); }
 .switch:has(input:disabled) { cursor: default; }
+/* The auto-update row holds a <select>, so only its title is a label. */
+div.switch { cursor: default; }
+div.switch label { cursor: pointer; }
+div.switch:has(input:disabled) label { cursor: default; }
 .switch-copy { display: flex; flex-direction: column; gap: 5px; }
 .switch b { font-size: 14px; font-weight: 600; }
 .switch small { color: var(--muted); font-size: 11px; line-height: 1.6; }
@@ -100,9 +106,10 @@ footer a span, .open-link span { margin-left: 3px; color: var(--muted); }
 .switch input:checked { background: var(--accent); }
 .switch input:checked::after { transform: translateX(16px); background: var(--on-accent); }
 .switch input:disabled { opacity: .45; cursor: default; }
-.settings-hint { margin-top: 14px; color: var(--muted); font-size: 11px; text-align: center; }
+.switch select { margin: 0 2px; padding: 0 2px; border: 1px solid var(--line); border-radius: 6px; background: var(--soft); color: var(--text); font: inherit; cursor: pointer; }
+.switch select:disabled { opacity: .6; cursor: default; }
 .settings-bottom { margin-top: auto; padding-top: 24px; }
-:is(button, a, input):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+:is(button, a, input, select):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) {
   *, *::after { animation: none !important; transition: none !important; }

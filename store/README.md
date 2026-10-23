@@ -38,8 +38,8 @@ NovelAI中文化助手，让中文用户用起 NovelAI 更顺手。
 说明
 · 非官方扩展，与 NovelAI 及其开发商 Anlatan 无关。
 · 不收集个人信息。约 7.5 万条标签词典随扩展打包，联想和翻译都在本地完成。
-· 社区译名：人人都能在 https://novelai.000.moe 用 GitHub 登录后修改标签译名，修改直接提交到 GitHub 仓库，扩展每 3 小时从 GitHub 更新（只下载译名数据，不上传任何内容）。
-· 点工具栏图标打开面板，查看版本和词条数，开关中文界面、中文标签。
+· 社区译名：人人都能在 https://novelai.000.moe 用 GitHub 登录后修改标签译名，修改直接提交到 GitHub 仓库，扩展默认每天从 GitHub 更新一次（只下载译名数据，不上传任何内容）。
+· 点工具栏图标打开面板，查看版本和词条数，开关中文界面、中文标签和社区译名的自动更新（可选检查间隔）。
 · 词典以 ame-la/danbooru-tags-data-zh（MIT）为基础并经过审定，补充检索词含 EhTagTranslation 的人工译名（CC BY-NC-SA 3.0），因此词典部分同样按 CC BY-NC-SA 3.0 提供，不得用于商业用途。
 · 源代码和问题反馈：https://github.com/TomorrowX6/NovelAI-CN
 ```
@@ -64,8 +64,8 @@ Full-width commas and colons typed by Chinese input methods are converted to hal
 Notes
 · Unofficial; not affiliated with NovelAI or Anlatan.
 · Collects no personal data. The ~75,000-entry dictionary is bundled and suggestions and translation run locally.
-· Community translations: anyone can edit tag translations at https://novelai.000.moe after signing in with GitHub; edits are committed to the GitHub repository and the extension picks them up every 3 hours (it only downloads the translation list and uploads nothing).
-· Click the toolbar icon for a popup with the version and entry counts and switches for the Chinese UI and Chinese tags.
+· Community translations: anyone can edit tag translations at https://novelai.000.moe after signing in with GitHub; edits are committed to the GitHub repository and the extension picks them up once a day by default (it only downloads the translation list and uploads nothing).
+· Click the toolbar icon for a popup with the version and entry counts and settings for the Chinese UI, Chinese tags and automatic updates of community translations.
 · The dictionary is based on ame-la/danbooru-tags-data-zh (MIT) and includes search terms from EhTagTranslation (CC BY-NC-SA 3.0), so the dictionary is provided under CC BY-NC-SA 3.0 and may not be used commercially.
 · Source and issues: https://github.com/TomorrowX6/NovelAI-CN
 ```
@@ -87,10 +87,16 @@ Notes
 Provides Chinese language support for novelai.net: Chinese input for English prompt tags, Chinese explanations for English tags, and a Chinese translation of the site's interface.
 ```
 
-**主机权限理由**（manifest 里只有内容脚本的匹配网址 `https://novelai.net/*`，没有其他权限）
+**主机权限理由**（manifest 里是内容脚本的匹配网址 `https://novelai.net/*`，另有下面的 `storage` 权限）
 
 ```
-The content scripts run only on https://novelai.net/*, the site this extension localizes. The main script runs at document_start in the page's main world because it has to be in place before NovelAI's own scripts load: it answers NovelAI's tag-suggestion requests for Chinese input from the bundled dictionary (by wrapping the page's fetch) and adds Chinese to NovelAI's built-in UI localization. A second, isolated content script lets the toolbar popup read and change the extension's two on/off switches, which are kept in novelai.net's localStorage. Besides novelai.net, the page script only downloads a public text file of community tag translations from the project's GitHub repository (raw.githubusercontent.com) at most every 3 hours, without cookies and without sending any user data.
+The content scripts run only on https://novelai.net/*, the site this extension localizes. The main script runs at document_start in the page's main world because it has to be in place before NovelAI's own scripts load: it answers NovelAI's tag-suggestion requests for Chinese input from the bundled dictionary (by wrapping the page's fetch) and adds Chinese to NovelAI's built-in UI localization. A second, isolated content script lets the toolbar popup read and change the extension's settings, which are kept in novelai.net's localStorage. Besides novelai.net, the page script only downloads a public text file of community tag translations from the project's GitHub repository (raw.githubusercontent.com), automatically once a day by default (the user can choose 1 hour to 7 days or turn it off) and when the user clicks the update button, without cookies and without sending any user data.
+```
+
+**storage 权限理由**
+
+```
+The popup keeps a copy of the extension's settings (Chinese UI, Chinese tags, automatic update and its interval) in chrome.storage.local, so they can be shown and changed while no NovelAI tab is open. Changes made that way are applied to novelai.net the next time a NovelAI page loads. Nothing else is stored and nothing leaves the browser.
 ```
 
 **远程代码**：选「否，我没有使用远程代码」。所有脚本都在扩展包里；从 GitHub 下载的社区译名是文本数据，只当文字显示，不会执行。

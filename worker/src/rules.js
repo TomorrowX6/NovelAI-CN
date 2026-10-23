@@ -71,24 +71,20 @@ export function parseAliases(input) {
 // 一个标签一行，按标签排序，方便看 diff 和逐行追溯：英文标签 \t 译名 \t 检索词（/ 分隔）\t Danbooru 图片数（只有词典里没有的新标签才有）
 // # 开头的是说明。译名留空表示不改词典译名，只加检索词
 export const COMMUNITY_HEADER = [
-  '# 社区标签译名。在 https://novelai.000.moe 用 GitHub 登录后编辑，每次修改都会提交到这里；脚本和扩展每 3 小时从 GitHub 拉取一次。',
+  '# 社区标签译名。在 https://novelai.000.moe 用 GitHub 登录后编辑，每次修改都会提交到这里；脚本和扩展默认每天从 GitHub 拉取一次。',
   '# 每行用 Tab 分隔：英文标签、译名、检索词（/ 分隔）、Danbooru 图片数（只有词典里没有的新标签才填）。译名留空表示只加检索词。',
 ];
 
+// # 开头的说明行不保留，写回时换成当前的 COMMUNITY_HEADER，改了说明下次提交就会更新
 export function parseCommunity(text) {
-  const header = [];
   const entries = new Map();
   for (const line of String(text || '').split(/\r?\n/)) {
-    if (!line.trim()) continue;
-    if (line.startsWith('#')) {
-      if (!entries.size) header.push(line);
-      continue;
-    }
+    if (!line.trim() || line.startsWith('#')) continue;
     const [tag, label = '', aliases = '', count = ''] = line.split('\t');
     if (!tag) continue;
     entries.set(tag, { tag, label, aliases: aliases ? aliases.split('/') : [], count: +count || 0 });
   }
-  return { header: header.length ? header : COMMUNITY_HEADER, entries };
+  return { header: COMMUNITY_HEADER, entries };
 }
 
 export function serializeCommunity({ header, entries }) {
