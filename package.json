@@ -1,6 +1,6 @@
 {
   "name": "novelai-zh-tags",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "NovelAI 生图中文标签联想用户脚本",
   "private": true,
   "type": "module",

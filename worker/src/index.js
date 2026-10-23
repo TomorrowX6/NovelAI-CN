@@ -11,6 +11,7 @@
 //   GET  /api/tags                       从 Danbooru 拉来的新标签（缓存 1 小时）
 //   POST /api/admin/tags                 存入从 Danbooru 拉来的标签（凭 ADMIN_TOKEN，见 scripts/sync-tags.mjs）
 import {
+  MAX_TAGS_PER_POST,
   normalizeTag,
   parseDanbooruTags,
   parseCommunity,
@@ -21,7 +22,6 @@ import {
 } from './rules.js';
 import { editorPage, pageCsp } from './pages.js';
 
-const MAX_TAGS_PER_POST = 5000;
 const TAGS_PER_QUERY = 1000;
 const SESSION_DAYS = 30;
 const GH_API = 'https://api.github.com';

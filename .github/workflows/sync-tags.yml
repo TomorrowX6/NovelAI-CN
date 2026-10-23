@@ -1,6 +1,6 @@
 name: Sync new tags
 
-# 每天从 Danbooru 拉最新创建的标签交给社区标签译名平台（见 scripts/sync-tags.mjs）。
+# 每天从 Danbooru 拉全部图片数够多的标签，把词典里没有的交给社区标签译名平台（见 scripts/sync-tags.mjs）。
 # 需要在仓库的 Settings → Secrets 里设置 NZH_ADMIN_TOKEN（平台的审核口令）。
 on:
   schedule:
