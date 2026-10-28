@@ -1,6 +1,7 @@
 // ---- 标签中文对照 ----
 // 每个提示词框（基础提示词、负面提示词、角色提示词）的标题栏多一个「中」按钮。打开后在框下面列出框里的每个标签和它的中文，
-// 没有中文的标签暗着显示；点一项就在提示词里选中这个标签。开关对所有提示词框生效，记在 localStorage 里。
+// 没有中文的标签暗着显示；点一项就在提示词里选中这个标签。开关对所有提示词框生效，记在 localStorage 里，
+// 扩展面板的「中文对照」开关改的是同一个值（extension/bridge.js），改了当场生效、不刷新页面。
 // 只在框外面加元素，不改编辑器（ProseMirror）里的内容。
 
 const COMPARE_PREF_KEY = 'nzh-tag-compare';
@@ -22,13 +23,15 @@ const CMP_CSS = `
 .${CMP_PANEL} .nzh-cmp-none{opacity:.55}
 `;
 
-let compareOn = (() => {
+function readComparePref() {
   try {
     return localStorage.getItem(COMPARE_PREF_KEY) === 'on';
   } catch {
     return false;
   }
-})();
+}
+
+let compareOn = readComparePref();
 
 function setCompare(on) {
   compareOn = on;
@@ -204,10 +207,14 @@ function scheduleCompare() {
 if (tagsEnabled) {
   // 编辑器里打字改的是文本节点，也要看 characterData；面板内容没变时 updateCompare 不写 DOM，不会循环触发
   new MutationObserver(scheduleCompare).observe(document, { childList: true, subtree: true, characterData: true });
+  const reloadComparePref = () => {
+    compareOn = readComparePref();
+    scheduleCompare();
+  };
   // 其他标签页切换了开关
   window.addEventListener('storage', (e) => {
-    if (e.key !== COMPARE_PREF_KEY) return;
-    compareOn = e.newValue === 'on';
-    scheduleCompare();
+    if (e.key === COMPARE_PREF_KEY) reloadComparePref();
   });
+  // 扩展面板在这个页面上改了开关：同一个页面里改 localStorage 不触发 storage 事件，由 bridge.js 发这个事件
+  document.addEventListener('nzh-compare', reloadComparePref);
 }

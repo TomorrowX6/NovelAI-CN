@@ -102,7 +102,7 @@ The content scripts run only on https://novelai.net/*, the site this extension l
 **storage 权限理由**
 
 ```
-The popup keeps a copy of the extension's settings (Chinese UI, Chinese tags, automatic update and its interval) in chrome.storage.local, so they can be shown and changed while no NovelAI tab is open. Changes made that way are applied to novelai.net the next time a NovelAI page loads. Nothing else is stored and nothing leaves the browser.
+The popup keeps a copy of the extension's settings (Chinese UI, Chinese tags, tag reference, automatic update and its interval) in chrome.storage.local, so they can be shown and changed while no NovelAI tab is open. Changes made that way are applied to novelai.net the next time a NovelAI page loads. Nothing else is stored and nothing leaves the browser.
 ```
 
 **远程代码**：选「否，我没有使用远程代码」。所有脚本都在扩展包里；从 GitHub 下载的社区译名是文本数据，只当文字显示，不会执行。
