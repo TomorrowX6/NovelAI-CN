@@ -1,28 +1,75 @@
+<div align="center">
+
+<img src="store/icon-128.png" width="96" height="96" alt="NovelAI中文化助手的图标">
+
 # NovelAI中文化助手
 
-> 非官方项目，与 NovelAI 及其开发商 Anlatan 无关。
+**让中文用户用起 NovelAI 更顺手**
 
-让中文用户用起 NovelAI 更顺手：在提示词框里打中文就能联想英文标签，英文标签附上中文释义，界面和教程也能切换成中文。
+在提示词框里打中文就能联想英文标签，英文标签附上中文释义，界面和教程也能切换成中文。
 
-同一份代码有三种装法：Chrome 扩展和 Firefox 附加组件「NovelAI中文化助手」，以及用户脚本「NovelAI 中文标签联想」（Tampermonkey / Violentmonkey）。
+<a href="https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah"><img src="store/badges/chrome-web-store.png" height="58" alt="在 Chrome 应用商店获取"></a>&nbsp;&nbsp;<a href="https://addons.mozilla.org/addon/novelai%E4%B8%AD%E6%96%87%E5%8C%96%E5%8A%A9%E6%89%8B/"><img src="store/badges/firefox-get-the-addon.svg" height="58" alt="在 Firefox 附加组件站获取"></a>
 
-![输入「猫娘」时的中文标签联想](store/screenshot-3-tags.png)
+[![Chrome 应用商店](https://img.shields.io/chrome-web-store/v/mbkdadfailijiglghflchpbmoofmohah?logo=googlechrome&logoColor=white&label=Chrome&color=4285F4)](https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah)
+[![Firefox 附加组件](https://img.shields.io/amo/v/novelai-zh-tags@azusamoe?logo=firefoxbrowser&logoColor=white&label=Firefox&color=FF7139)](https://addons.mozilla.org/addon/novelai%E4%B8%AD%E6%96%87%E5%8C%96%E5%8A%A9%E6%89%8B/)
+[![用户脚本](https://img.shields.io/badge/%E7%94%A8%E6%88%B7%E8%84%9A%E6%9C%AC-%E5%AE%89%E8%A3%85-00485B?logo=tampermonkey&logoColor=white)](https://raw.githubusercontent.com/TomorrowX6/NovelAI-CN/main/dist/novelai-zh-tags.user.js)
+[![Release](https://img.shields.io/github/v/release/TomorrowX6/NovelAI-CN?label=Release)](https://github.com/TomorrowX6/NovelAI-CN/releases)
+[![CI](https://github.com/TomorrowX6/NovelAI-CN/actions/workflows/ci.yml/badge.svg)](https://github.com/TomorrowX6/NovelAI-CN/actions/workflows/ci.yml)
+
+[功能](#功能) · [安装](#安装) · [使用](#使用) · [参与标签翻译](#参与标签翻译) · [已知限制](#已知限制) · [开发](#开发) · [数据来源与许可](#数据来源与许可)
+
+<sub>非官方项目，与 NovelAI 及其开发商 Anlatan 无关。</sub>
+
+</div>
+
+同一份代码有三种装法：Chrome 扩展和 Firefox 附加组件「NovelAI中文化助手」，以及用户脚本「NovelAI 中文标签联想」（Tampermonkey / Violentmonkey）。标签词典和界面译文都打包在里面，联想和翻译在浏览器里完成，不收集个人信息（见[隐私政策](PRIVACY.md)）。
 
 ## 功能
 
-- **用中文找标签**：在生图页（novelai.net/image）的提示词框里输入「猫娘」「黑丝」「七分身」这样的中文，会联想出 cat girl、black thighhighs、cowboy shot 等英文标签，点选或用方向键 + 回车插入。繁体中文也能识别。
-- **看懂英文标签**：输入英文时，NovelAI 自带联想的每一项下面多一行中文。
-- **界面汉化**：语言选单里多了「中文」，按钮、设置、提示和生图、写作教程都显示为中文。
-- **自动修正中文标点**：NovelAI 只把半角逗号当作标签分隔符，中文输入法打出的「，」会被转成 `, `，否则「长发，猫耳」会被当成一个标签。权重写法 `1.2::标签::` 里的「：」也会转成 `:`。
-- **社区译名**：任何人都可以在 [NovelAI Tag Editor](https://novelai.000.moe) 用 GitHub 登录后修改标签的中文译名和检索词，脚本和扩展默认每天从 GitHub 拉取一次。
+<table>
+  <tr>
+    <td colspan="2" align="center">
+      <img src="store/screenshot-3-tags.png" alt="输入「猫娘」时的中文标签联想"><br>
+      <sub>输入「猫娘」，联想出 cat girl、nekopara 等英文标签</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="store/screenshot-4-english.png" alt="输入「cat ea」时英文联想的每一项附上中文"><br>
+      <sub>英文联想的每一项附上中文释义</sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="store/screenshot-1-ui.png" alt="切换成中文界面的 NovelAI 生图页"><br>
+      <sub>按钮、设置和教程显示为中文</sub>
+    </td>
+  </tr>
+</table>
+
+- 🔍 **用中文找标签**：在生图页（novelai.net/image）的提示词框里输入「猫娘」「黑丝」「七分身」这样的中文，会联想出 cat girl、black thighhighs、cowboy shot 等英文标签，点选或用方向键 + 回车插入。繁体中文也能识别。
+- 📖 **看懂英文标签**：输入英文时，NovelAI 自带联想的每一项下面多一行中文。
+- 🌐 **界面汉化**：语言选单里多了「中文」，按钮、设置、提示和生图、写作教程都显示为中文。
+- ✏️ **自动修正中文标点**：NovelAI 只把半角逗号当作标签分隔符，中文输入法打出的「，」会被转成 `, `，否则「长发，猫耳」会被当成一个标签。权重写法 `1.2::标签::` 里的「：」也会转成 `:`。
+- 🤝 **社区译名**：任何人都可以在 [NovelAI Tag Editor](https://novelai.000.moe) 用 GitHub 登录后修改标签的中文译名和检索词，脚本和扩展默认每天从 GitHub 拉取一次。
 
 ## 安装
 
-几种方式选一种，不要同时启用。
+| 方式 | 从哪里装 | 要求 |
+| --- | --- | --- |
+| [Chrome 扩展](#chrome-扩展) | [Chrome 应用商店](https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah) | Chrome 111 或更新 |
+| [Firefox 附加组件](#firefox-附加组件) | [Firefox 附加组件站](https://addons.mozilla.org/addon/novelai%E4%B8%AD%E6%96%87%E5%8C%96%E5%8A%A9%E6%89%8B/) | Firefox 140 或更新（安卓版 142） |
+| [用户脚本](#用户脚本) | [novelai-zh-tags.user.js](https://raw.githubusercontent.com/TomorrowX6/NovelAI-CN/main/dist/novelai-zh-tags.user.js) | Tampermonkey 或 Violentmonkey |
+
+> [!NOTE]
+> 几种方式选一种，不要同时启用。应用商店里的 Chrome 扩展和从 Releases 手动加载的扩展 ID 不同，是两个扩展，换装时先移除原来那个。
 
 ### Chrome 扩展
 
 需要 Chrome 111 或更新的版本。
+
+从 [Chrome 应用商店](https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah) 安装，装好后刷新 NovelAI 页面。之后扩展会随应用商店自动更新。
+
+<details>
+<summary>打不开 Chrome 应用商店时：手动安装</summary>
 
 1. 在 [Releases](https://github.com/TomorrowX6/NovelAI-CN/releases) 下载最新的 `novelai-zh-tags-版本.zip` 并解压。
 2. 打开 `chrome://extensions`，打开右上角的「开发者模式」，点「加载已解压的扩展程序」，选解压出来的文件夹。
@@ -32,11 +79,20 @@
 
 Releases 里的 `.crx` 是自签名的安装包：Windows 和 macOS 上的 Chrome 只接受应用商店签名的 .crx，拖进去会报 `CRX_REQUIRED_PROOF_MISSING`，它只适合通过企业策略部署，或在允许这类安装包的浏览器里使用。
 
+</details>
+
 ### Firefox 附加组件
 
-需要 Firefox 140 或更新的版本（安卓版 142）。上架 Firefox 附加组件站后可以直接从那里安装，并会自动更新。
+需要 Firefox 140 或更新的版本（安卓版 142）。
 
-在此之前可以临时试用：在 [Releases](https://github.com/TomorrowX6/NovelAI-CN/releases) 下载 `novelai-zh-tags-版本-firefox.zip`，打开 `about:debugging#/runtime/this-firefox`，点「临时载入附加组件」，选这个 zip。临时载入的附加组件在关闭 Firefox 后会被移除；正式版 Firefox 只能长期安装经过 Mozilla 签名的附加组件。
+从 [Firefox 附加组件站](https://addons.mozilla.org/addon/novelai%E4%B8%AD%E6%96%87%E5%8C%96%E5%8A%A9%E6%89%8B/) 安装，桌面版和安卓版都可以，装好后刷新 NovelAI 页面。之后附加组件会自动更新。
+
+<details>
+<summary>临时载入 Releases 里的版本</summary>
+
+在 [Releases](https://github.com/TomorrowX6/NovelAI-CN/releases) 下载 `novelai-zh-tags-版本-firefox.zip`，打开 `about:debugging#/runtime/this-firefox`，点「临时载入附加组件」，选这个 zip。临时载入的附加组件在关闭 Firefox 后会被移除；正式版 Firefox 只能长期安装经过 Mozilla 签名的附加组件。
+
+</details>
 
 ### 用户脚本
 
@@ -202,11 +258,15 @@ main 分支就是用户脚本自动更新的来源：脚本或词典有改动时
 
 ## 数据来源与许可
 
-- 译名、别名、使用次数：[ame-la/danbooru-tags-data-zh](https://huggingface.co/datasets/ame-la/danbooru-tags-data-zh)（[GitHub](https://github.com/amenorira/danbooru-tags-data-zh)），MIT
-- 补充检索词：[EhTagTranslation/Database](https://github.com/EhTagTranslation/Database)，**CC BY-NC-SA 3.0**
-- 补充检索词和旧标签译名：[byzod/a1111-sd-webui-tagcomplete-CN](https://github.com/byzod/a1111-sd-webui-tagcomplete-CN)，MIT
-- 旧标签名（用于识别改名）：[DominikDoom/a1111-sd-webui-tagcomplete](https://github.com/DominikDoom/a1111-sd-webui-tagcomplete)，MIT
-- 繁简对照：[BYVoid/OpenCC](https://github.com/BYVoid/OpenCC) 的 `TSCharacters.txt`，Apache-2.0
-- 审定时参考了[标签超市](https://github.com/wfjsw/danbooru-diffusion-prompt-builder)（AGPL-3.0），但没有把它的数据并入词典。
+| 用途 | 来源 | 许可 |
+| --- | --- | --- |
+| 译名、别名、使用次数 | [ame-la/danbooru-tags-data-zh](https://huggingface.co/datasets/ame-la/danbooru-tags-data-zh)（[GitHub](https://github.com/amenorira/danbooru-tags-data-zh)） | MIT |
+| 补充检索词 | [EhTagTranslation/Database](https://github.com/EhTagTranslation/Database) | **CC BY-NC-SA 3.0** |
+| 补充检索词和旧标签译名 | [byzod/a1111-sd-webui-tagcomplete-CN](https://github.com/byzod/a1111-sd-webui-tagcomplete-CN) | MIT |
+| 旧标签名（用于识别改名） | [DominikDoom/a1111-sd-webui-tagcomplete](https://github.com/DominikDoom/a1111-sd-webui-tagcomplete) | MIT |
+| 繁简对照 | [BYVoid/OpenCC](https://github.com/BYVoid/OpenCC) 的 `TSCharacters.txt` | Apache-2.0 |
 
-`data/zh-ehtag.csv` 和 `data/zh-curated.csv` 含 EhTagTranslation 的派生内容，内嵌这些数据的 `dist/novelai-zh-tags.user.js` 和 Chrome 扩展也一样，因此按 CC BY-NC-SA 3.0 提供：转发需署名，不得商用，修改后须以相同许可发布。自己使用不受影响。
+审定时参考了[标签超市](https://github.com/wfjsw/danbooru-diffusion-prompt-builder)（AGPL-3.0），但没有把它的数据并入词典。
+
+> [!IMPORTANT]
+> `data/zh-ehtag.csv` 和 `data/zh-curated.csv` 含 EhTagTranslation 的派生内容，内嵌这些数据的 `dist/novelai-zh-tags.user.js`、Chrome 扩展和 Firefox 附加组件也一样，因此按 CC BY-NC-SA 3.0 提供：转发需署名，不得商用，修改后须以相同许可发布。自己使用不受影响。
