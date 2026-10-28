@@ -153,3 +153,10 @@ The Firefox package is build/novelai-zh-tags-<version>-firefox.zip. novelai-zh-t
    - 截图：和 Chrome 应用商店相同，用 `screenshot-0-intro.png` 到 `screenshot-4-english.png`。
    - 主页：https://github.com/TomorrowX6/NovelAI-CN ；支持网址：https://github.com/TomorrowX6/NovelAI-CN/issues
 4. **给审核员的说明**：粘贴第 4 节的测试说明。
+
+## 徽章
+
+`badges/` 里是 README 用的官方安装徽章，原样使用，不要改颜色或文字：
+
+- `chrome-web-store.png`：「Available in the Chrome Web Store」，来自 [Chrome 应用商店品牌指南](https://developer.chrome.com/docs/webstore/branding)。
+- `firefox-get-the-addon.svg`：「Get the Add-on」，来自 [Extension Workshop](https://extensionworkshop.com/documentation/publish/promoting-your-extension/)。
