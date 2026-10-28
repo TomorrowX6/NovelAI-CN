@@ -337,6 +337,7 @@ async function main() {
   const header = (await fs.readFile(path.join(ROOT, 'src', 'header.js'), 'utf8')).replace(/\r\n/g, '\n').replace('{{version}}', pkg.version);
   const core = await fs.readFile(path.join(ROOT, 'src', 'core.js'), 'utf8');
   const mainJs = await fs.readFile(path.join(ROOT, 'src', 'main.js'), 'utf8');
+  const compareJs = await fs.readFile(path.join(ROOT, 'src', 'compare.js'), 'utf8');
   const uiJs = await fs.readFile(path.join(ROOT, 'src', 'ui.js'), 'utf8');
   // 界面汉化（data/ui-zh.json）：只打包已翻译的条目，结构与 NovelAI 的文案对象一致
   const uiData = readUiData();
@@ -349,7 +350,7 @@ async function main() {
   // 社区标签译名（编辑器提交到仓库的 data/zh-community.tsv）的下载地址，在 package.json 的 nzh.communityData 里配置；留空则不拉取
   const communityJs = await fs.readFile(path.join(ROOT, 'src', 'community.js'), 'utf8');
   const communityData = pkg.nzh?.communityData || '';
-  const script = `${header.trim()}\n\n(function () {\n'use strict';\n\nconst ZH_TAG_DATA = ${JSON.stringify(tsv)};\nconst ZH_T2S_DATA = ${JSON.stringify(t2s)};\nconst ZH_UI_DATA = ${JSON.stringify(uiZh)};\nconst ZH_HARD_DATA = ${JSON.stringify(hardZh)};\nconst NZH_COMMUNITY_DATA = ${JSON.stringify(communityData)};\n\n${core.trim()}\n\n${mainJs.trim()}\n\n${uiJs.trim()}\n\n${communityJs.trim()}\n})();\n`;
+  const script = `${header.trim()}\n\n(function () {\n'use strict';\n\nconst ZH_TAG_DATA = ${JSON.stringify(tsv)};\nconst ZH_T2S_DATA = ${JSON.stringify(t2s)};\nconst ZH_UI_DATA = ${JSON.stringify(uiZh)};\nconst ZH_HARD_DATA = ${JSON.stringify(hardZh)};\nconst NZH_COMMUNITY_DATA = ${JSON.stringify(communityData)};\n\n${core.trim()}\n\n${mainJs.trim()}\n\n${compareJs.trim()}\n\n${uiJs.trim()}\n\n${communityJs.trim()}\n})();\n`;
 
   await fs.mkdir(DIST_DIR, { recursive: true });
   await fs.writeFile(path.join(DIST_DIR, 'zh-tags.tsv'), webTsv + '\n');

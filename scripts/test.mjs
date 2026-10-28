@@ -12,7 +12,7 @@ const core = fs.readFileSync(path.join(ROOT, 'src', 'core.js'), 'utf8');
 const data = fs.readFileSync(path.join(ROOT, 'dist', 'zh-tags.tsv'), 'utf8');
 const t2s = fs.readFileSync(path.join(ROOT, 'dist', 'zh-t2s.txt'), 'utf8').trim();
 const ctx = vm.createContext({});
-vm.runInContext(`${core}\nthis.createZhDict = createZhDict;`, ctx);
+vm.runInContext(`${core}\nthis.createZhDict = createZhDict;\nthis.promptTags = promptTags;`, ctx);
 
 let t = performance.now();
 const dict = ctx.createZhDict(data, t2s);
@@ -98,6 +98,28 @@ for (const [tag, expect] of LOOKUPS) {
   if (!hit || hit.tag !== 'nzh test tag (zzz)' || hit.count !== 160 || d.lookup('nzh_test_tag_(zzz)') !== '测试新标签（虚构）') {
     failed++;
     console.log(`✗ 新增的标签搜不到：${JSON.stringify(hit)}`);
+  }
+}
+
+// 中文对照：按 NovelAI 的分隔符和权重写法切出标签，位置要能对回原文
+{
+  const s = '1girl, {{cat girl}}, 1.2::smile, looking at viewer::, [blush]|source#hugging, artist:foo, -1::bad hands::、 .5::x::\nnext line';
+  const got = ctx.promptTags(s);
+  const want = [
+    ['1girl', '1girl'],
+    ['cat girl', 'cat girl'],
+    ['smile', 'smile'],
+    ['looking at viewer', 'looking at viewer'],
+    ['blush', 'blush'],
+    ['source#hugging', 'hugging'],
+    ['artist:foo', 'artist:foo'],
+    ['bad hands', 'bad hands'],
+    ['x', 'x'],
+    ['next line', 'next line'],
+  ];
+  if (JSON.stringify(got.map((t) => [t.text, t.tag])) !== JSON.stringify(want) || got.some((t) => s.slice(t.start, t.end) !== t.text)) {
+    failed++;
+    console.log(`✗ promptTags 切分不对：${JSON.stringify(got)}`);
   }
 }
 

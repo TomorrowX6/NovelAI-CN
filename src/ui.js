@@ -208,7 +208,8 @@ if (!globalThis[UI_HOOKED]) {
 // 加粗、链接等标签切开的地方一一对应；null 是名字、数字这类动态内容，匹配任意文字并保持原样。
 // 只改文本节点的内容、不动元素结构，React 照常更新；切回其他语言时还原。
 const HARD_MAX_DEPTH = 6;
-const HARD_SKIP = '[contenteditable], .ProseMirror, textarea, script, style';
+// 中文对照面板（src/compare.js）里是标签原文，不当界面文字翻译
+const HARD_SKIP = '[contenteditable], .ProseMirror, textarea, script, style, .nzh-cmp';
 let hardIndex = null; // 第一个片段 -> 以它开头的条目
 let hardMaxFrags = 0;
 let hardActive = false;

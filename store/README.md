@@ -30,6 +30,9 @@ NovelAI中文化助手，让中文用户用起 NovelAI 更顺手。
 ✦ 看懂英文标签
 输入英文时，NovelAI 自带的联想列表里每一项下面都会多一行中文释义，不用再一个个查词典。
 
+✦ 标签中文对照
+点提示词框上的「中」按钮，框下面会列出提示词里每个标签的中文，别人分享的提示词也能一眼看懂；点一项就在提示词里选中它。
+
 ✦ 整个界面换成中文
 在左侧菜单最下方的语言选单里选 ZH，或在「用户设置 → 界面 → 界面语言」里选「中文」，按钮、设置、提示以及生图和写作教程都会变成中文。账号里保存的语言仍是英文，不影响你在其他设备上使用。
 
@@ -56,6 +59,9 @@ Type Chinese in the image prompt box (e.g. 黑丝, 猫耳) and get the matching 
 ✦ Understand English tags
 When you type in English, every item in NovelAI's own suggestion list gets a line of Chinese explanation.
 
+✦ Tag reference
+Click the 中 button above a prompt box to list every tag in the prompt with its Chinese meaning, so shared prompts are easy to read; click one to select it in the prompt.
+
 ✦ Chinese interface
 Pick ZH in the language selector at the bottom of the side menu, or 中文 in User Settings → Interface. Buttons, settings, tips and the image and story tutorials turn Chinese. Your account keeps English as its saved language, so other devices are unaffected.
 
@@ -73,7 +79,7 @@ Notes
 - 类别：艺术与设计（Art & Design）；列表里没有的话选「工具」（Tools）
 - 语言：中文（简体）
 - 商店图标（128×128）：上传 `icon-128.png`，和扩展包里的 `icons/128.png` 相同（`npm run crx` 生成）
-- 屏幕截图（1280×800，JPEG 或不带透明通道的 24 位 PNG，最多 5 张）：`screenshot-0-intro.png`（总览，和顶部宣传图同样的设计）、`screenshot-1-ui.png`、`screenshot-2-popup.png`（扩展面板的首页和设置）、`screenshot-3-tags.png`（输入「猫娘」时的中文标签联想）、`screenshot-4-english.png`（输入「cat ea」时英文联想附中文）
+- 屏幕截图（1280×800，JPEG 或不带透明通道的 24 位 PNG，最多 5 张）：`screenshot-0-intro.png`（总览，和顶部宣传图同样的设计）、`screenshot-1-ui.png`、`screenshot-2-popup.png`（扩展面板的首页和设置）、`screenshot-3-tags.png`（输入「猫娘」时的中文标签联想）、`screenshot-4-english.png`（输入「cat ea」时英文联想附中文）。`screenshot-5-compare.png`（提示词框下面的中文对照）是第 6 张，要放进商店就替换掉其中一张
 - 小型宣传图块（440×280，必填）：`promo-small-440x280.png`
 - 顶部宣传图块（1400×560，可选）：`promo-marquee-1400x560.png`
 - 官方网址：不填（没有已验证的网站）；首页网址：https://github.com/TomorrowX6/NovelAI-CN ；支持网址：https://github.com/TomorrowX6/NovelAI-CN/issues
@@ -142,7 +148,7 @@ The package is built from this source without minification or third-party bundle
   npm run build
   npm run crx
 
-The Firefox package is build/novelai-zh-tags-<version>-firefox.zip. novelai-zh-tags.js is dist/novelai-zh-tags.user.js without its userscript header: scripts/build.mjs concatenates src/core.js, src/main.js, src/ui.js and src/community.js and embeds the tag dictionary and UI translations from data/ as string constants. bridge.js and popup.* are copied from extension/ (popup.js gets the version and entry counts filled in).
+The Firefox package is build/novelai-zh-tags-<version>-firefox.zip. novelai-zh-tags.js is dist/novelai-zh-tags.user.js without its userscript header: scripts/build.mjs concatenates src/core.js, src/main.js, src/compare.js, src/ui.js and src/community.js and embeds the tag dictionary and UI translations from data/ as string constants. bridge.js and popup.* are copied from extension/ (popup.js gets the version and entry counts filled in).
 ```
 
 3. **商品信息**：
@@ -150,7 +156,7 @@ The Firefox package is build/novelai-zh-tags-<version>-firefox.zip. novelai-zh-t
    - 类别：Language Support（语言支持），没有的话选 Other。
    - 许可协议：Creative Commons Attribution-NonCommercial-ShareAlike（CC BY-NC-SA），和内嵌词典的许可一致（见 README「数据来源与许可」）；有版本可选时选 3.0。
    - 隐私政策：粘贴 `PRIVACY.md` 的内容，或写上它的网址。
-   - 截图：和 Chrome 应用商店相同，用 `screenshot-0-intro.png` 到 `screenshot-4-english.png`。
+   - 截图：和 Chrome 应用商店相同，用 `screenshot-0-intro.png` 到 `screenshot-4-english.png`，也可以再加上 `screenshot-5-compare.png`。
    - 主页：https://github.com/TomorrowX6/NovelAI-CN ；支持网址：https://github.com/TomorrowX6/NovelAI-CN/issues
 4. **给审核员的说明**：粘贴第 4 节的测试说明。
 
