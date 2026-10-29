@@ -2,8 +2,15 @@
 # 标签不在 danbooru 词表里时也会收录（如 NovelAI 质量词），按使用次数 10000 排序
 masterpiece,杰作/大师之作
 best_quality,最佳质量/高质量
+amazing_quality,极佳质量
+great_quality,很好的质量
+good_quality,良好质量
 very_aesthetic,非常美观/高美感
+aesthetic,美观
+displeasing,不美观
+very_displeasing,非常不美观
 no_text,无文字
+nsfw,成人内容/色情/r18
 black_pantyhose,黑丝/黑丝袜/黑色丝袜
 black_thighhighs,黑丝/黑色长筒袜/黑长筒袜
 white_pantyhose,白丝/白丝袜/白色丝袜

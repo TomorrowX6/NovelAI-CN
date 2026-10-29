@@ -39,7 +39,7 @@ export function danbooruTagsUrl(before) {
   return u.href;
 }
 
-// 词典（dist/zh-tags.tsv）里已有的标签名，含旧标签名；返回判断 Danbooru 标签在不在词典里的函数。
+// 词典（dist/zh-tags.tsv）里已有的标签名，含旧标签名和英文别名；返回判断 Danbooru 标签在不在词典里的函数。
 // 查法与扩展（src/core.js 的 indexOf）相同：先按原样，再把下划线换成空格（^_^ 这类表情本身带下划线）
 export function dictionaryLookup(tsv) {
   const known = new Set();

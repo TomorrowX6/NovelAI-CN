@@ -279,6 +279,7 @@ main 分支就是用户脚本自动更新的来源：脚本或词典有改动时
 | 补充检索词 | [EhTagTranslation/Database](https://github.com/EhTagTranslation/Database) | **CC BY-NC-SA 3.0** |
 | 补充检索词和旧标签译名 | [byzod/a1111-sd-webui-tagcomplete-CN](https://github.com/byzod/a1111-sd-webui-tagcomplete-CN) | MIT |
 | 旧标签名（用于识别改名） | [DominikDoom/a1111-sd-webui-tagcomplete](https://github.com/DominikDoom/a1111-sd-webui-tagcomplete) | MIT |
+| 英文别名（提示词里写 peace sign、sparkles 也能查到中文） | [Danbooru](https://danbooru.donmai.us/tag_aliases) 现行的标签别名表 | — |
 | 繁简对照 | [BYVoid/OpenCC](https://github.com/BYVoid/OpenCC) 的 `TSCharacters.txt` | Apache-2.0 |
 
 审定时参考了[标签超市](https://github.com/wfjsw/danbooru-diffusion-prompt-builder)（AGPL-3.0），但没有把它的数据并入词典。

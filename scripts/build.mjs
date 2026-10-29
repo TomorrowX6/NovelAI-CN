@@ -21,6 +21,8 @@ const SOURCES = {
   'zh-manual.csv': 'https://raw.githubusercontent.com/byzod/a1111-sd-webui-tagcomplete-CN/HEAD/tags/Tags-zh-full-pack.csv',
   // 2024 年前后的 Danbooru 标签表：用来找出改名标签的旧名，给 NovelAI 英文联想里的旧名配上中文
   'danbooru-old.csv': 'https://raw.githubusercontent.com/DominikDoom/a1111-sd-webui-tagcomplete/HEAD/tags/danbooru.csv',
+  // Danbooru 现行的全部标签别名：提示词里写别名（peace_sign、sparkles）时也能查到中文
+  'danbooru-aliases.tsv': fetchDanbooruAliases,
   // 繁体字 → 简体字对照（OpenCC，Apache-2.0）：繁体输入转成简体后再检索
   'opencc-ts-characters.txt': 'https://raw.githubusercontent.com/BYVoid/OpenCC/master/data/dictionary/TSCharacters.txt',
 };
@@ -46,13 +48,44 @@ async function readSource(name, refresh) {
       if (e.code !== 'ENOENT') throw e;
     }
   }
-  console.log(`下载 ${SOURCES[name]}`);
-  const res = await fetch(SOURCES[name]);
-  if (!res.ok) throw new Error(`下载失败 ${res.status}: ${SOURCES[name]}`);
-  const text = await res.text();
+  const src = SOURCES[name];
+  console.log(`下载 ${typeof src === 'function' ? name : src}`);
+  const text = typeof src === 'function' ? await src() : await download(src);
   await fs.mkdir(RAW_DIR, { recursive: true });
   await fs.writeFile(file, text);
   return text;
+}
+
+async function download(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`下载失败 ${res.status}: ${url}`);
+  return res.text();
+}
+
+// 每行 `别名\t正式名`，排好序以便比较更新前后的差异；接口一页最多 1000 条，按 id 往前翻
+async function fetchDanbooruAliases() {
+  const lines = [];
+  for (let before = 0; ; ) {
+    const url = new URL('https://danbooru.donmai.us/tag_aliases.json');
+    url.search = new URLSearchParams({ 'search[status]': 'active', limit: 1000, only: 'id,antecedent_name,consequent_name' });
+    if (before) url.searchParams.set('page', `b${before}`);
+    const res = await fetch(url, { headers: { 'User-Agent': 'NovelAI-CN build (+https://github.com/TomorrowX6/NovelAI-CN)' } });
+    if (!res.ok) throw new Error(`下载失败 ${res.status}: ${url}`);
+    const list = await res.json();
+    for (const a of list) lines.push(`${a.antecedent_name}\t${a.consequent_name}`);
+    if (list.length < 1000) break;
+    before = Math.min(...list.map((a) => a.id));
+  }
+  return lines.sort().join('\n') + '\n';
+}
+
+// Danbooru 别名表 -> [[别名, 正式名]]
+function parseAliases(text) {
+  return text
+    .split('\n')
+    .map((l) => l.trim().split('\t'))
+    .filter(([alias, tag]) => alias && tag)
+    .map(([alias, tag]) => [normTag(alias), normTag(tag)]);
 }
 
 async function readOptional(file) {
@@ -303,6 +336,27 @@ async function main() {
     }
   }
 
+  // 英文别名（peace_sign → v、sparkles → sparkle）和旧名一样输出：提示词里常直接写别名，中文对照和英文联想都按它查中文。
+  // 一个别名只给一个标签，依次取 Danbooru 现行的别名表、来源数据、旧快照的别名表；本身是词典里标签的名字不算，
+  // 带 | 的（||_|| 这类表情）放不进以 | 分隔的旧名列
+  const aliasTarget = new Map();
+  for (const [tag, e] of entries) for (const n of e.oldNames) aliasTarget.set(n, tag);
+  let aliasCount = 0;
+  const addAlias = (alias, tag) => {
+    if (!tag || !entries.has(tag) || alias.includes('|') || entries.has(alias) || aliasTarget.has(alias)) return;
+    entries.get(tag).oldNames.add(alias);
+    aliasTarget.set(alias, tag);
+    aliasCount++;
+  };
+  const danbooruAliases = parseAliases(raw['danbooru-aliases.tsv']);
+  // Danbooru 改了名、词典里还是旧名的标签（watermark_grid → grid_watermark）：新名字和指向新名字的别名都算旧名的
+  const renamedOnDanbooru = new Map();
+  for (const [alias, tag] of danbooruAliases) if (!resolve(tag) && entries.has(alias)) renamedOnDanbooru.set(tag, alias);
+  for (const [tag, old] of renamedOnDanbooru) addAlias(tag, old);
+  for (const [alias, tag] of danbooruAliases) addAlias(alias, resolve(tag) ?? renamedOnDanbooru.get(tag));
+  for (const [alias, tag] of aliasOf) addAlias(alias, tag);
+  for (const [alias, old] of oldAliasOf) addAlias(normTag(alias), resolve(old));
+
   // NovelAI 不认识 Danbooru 新名字的标签，输出为 NovelAI 认识的名字
   const renamed = new Map();
   for (const [from, to] of parseTranslations(renameCsv)) {
@@ -326,7 +380,7 @@ async function main() {
     })
     .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag, 'en'));
 
-  // 每行: 标签 \t 使用次数 \t 显示译名 \t 检索词(|分隔) \t 旧标签名(|分隔，只用于给英文联想配中文)
+  // 每行: 标签 \t 使用次数 \t 显示译名 \t 检索词(|分隔) \t 旧标签名和英文别名(|分隔，只用于按英文查中文)
   const columns = (r) => [displayTag(r.tag), r.count, r.label, r.names.join('|'), r.oldNames.map(displayTag).join('|')];
   const tsv = rows.map((r) => columns(r).join('\t').replace(/\t+$/, '')).join('\n');
   // dist/zh-tags.tsv 给编辑器（worker/）用，多一列 Danbooru 类别（0 通用 / 3 作品 / 4 角色 / 5 元标签）；打进脚本的那份不带
@@ -363,7 +417,7 @@ async function main() {
   for (const e of entries.values()) byCat[e.category] = (byCat[e.category] || 0) + 1;
   console.log(
     `通用 ${byCat[0] || 0}，作品 ${byCat[3] || 0}，角色 ${byCat[4] || 0}，元标签 ${byCat[5] || 0}；` +
-      `机翻新标签 ${newTags}，补充人工译名 ${stats.manual}，旧标签 ${stats.legacy}，EhTag ${stats.ehtag}，审定 ${stats.curated}，自定义检索词 ${stats.extra}，覆盖 ${stats.override}，改名 ${renamed.size}；共 ${rows.length} 条`,
+      `机翻新标签 ${newTags}，补充人工译名 ${stats.manual}，旧标签 ${stats.legacy}，EhTag ${stats.ehtag}，审定 ${stats.curated}，自定义检索词 ${stats.extra}，覆盖 ${stats.override}，改名 ${renamed.size}，英文别名 ${aliasCount}；共 ${rows.length} 条`,
   );
   const ui = uiDataStats(uiData);
   console.log(`界面文案 ${ui.total} 条，已翻译 ${ui.translated}，待翻译 ${ui.untranslated}；写死的文字 ${hardData.length} 段，打包 ${hardZh.length} 段`);
