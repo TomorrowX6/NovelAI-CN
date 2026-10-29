@@ -57,6 +57,7 @@
 | 方式 | 从哪里装 | 要求 |
 | --- | --- | --- |
 | [Chrome 扩展](#chrome-扩展) | [Chrome 应用商店](https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah) | Chrome 111 或更新 |
+| [Edge 扩展](#chrome-扩展) | 同上（Chrome 应用商店） | Edge 111 或更新 |
 | [Firefox 附加组件](#firefox-附加组件) | [Firefox 附加组件站](https://addons.mozilla.org/addon/novelai%E4%B8%AD%E6%96%87%E5%8C%96%E5%8A%A9%E6%89%8B/) | Firefox 140 或更新（安卓版 142） |
 | [用户脚本](#用户脚本) | [novelai-zh-tags.user.js](https://raw.githubusercontent.com/TomorrowX6/NovelAI-CN/main/dist/novelai-zh-tags.user.js) | Tampermonkey 或 Violentmonkey |
 
@@ -69,16 +70,18 @@
 
 从 [Chrome 应用商店](https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah) 安装，装好后刷新 NovelAI 页面。之后扩展会随应用商店自动更新。
 
+Edge 也从 Chrome 应用商店安装：打开上面的链接，按页面顶部的提示「允许来自其他应用商店的扩展」，再点「获取」。
+
 <details>
 <summary>打不开 Chrome 应用商店时：手动安装</summary>
 
-1. 在 [Releases](https://github.com/TomorrowX6/NovelAI-CN/releases) 下载最新的 `novelai-zh-tags-版本.zip` 并解压。
-2. 打开 `chrome://extensions`，打开右上角的「开发者模式」，点「加载已解压的扩展程序」，选解压出来的文件夹。
+1. 在 [Releases](https://github.com/TomorrowX6/NovelAI-CN/releases) 下载最新的 `novelai-zh-tags-版本-chrome.zip`（Edge 用 `-edge.zip`，内容相同）并解压。
+2. 打开 `chrome://extensions`（Edge 是 `edge://extensions`），打开「开发者模式」，点「加载已解压的扩展程序」，选解压出来的文件夹。
 3. 刷新 NovelAI 页面。
 
 这样装的扩展不会自动更新。出新版时，下载新的 zip 覆盖到同一个文件夹，再在扩展页点刷新按钮。
 
-Releases 里的 `.crx` 是自签名的安装包：Windows 和 macOS 上的 Chrome 只接受应用商店签名的 .crx，拖进去会报 `CRX_REQUIRED_PROOF_MISSING`，它只适合通过企业策略部署，或在允许这类安装包的浏览器里使用。
+Releases 里的 `-chrome.crx`、`-edge.crx` 是自签名的安装包：Windows 和 macOS 上的 Chrome 只接受应用商店签名的 .crx，拖进去会报 `CRX_REQUIRED_PROOF_MISSING`，它只适合通过企业策略部署，或在允许这类安装包的浏览器里使用。
 
 </details>
 
@@ -91,7 +94,7 @@ Releases 里的 `.crx` 是自签名的安装包：Windows 和 macOS 上的 Chrom
 <details>
 <summary>临时载入 Releases 里的版本</summary>
 
-在 [Releases](https://github.com/TomorrowX6/NovelAI-CN/releases) 下载 `novelai-zh-tags-版本-firefox.zip`，打开 `about:debugging#/runtime/this-firefox`，点「临时载入附加组件」，选这个 zip。临时载入的附加组件在关闭 Firefox 后会被移除；正式版 Firefox 只能长期安装经过 Mozilla 签名的附加组件。
+在 [Releases](https://github.com/TomorrowX6/NovelAI-CN/releases) 下载 `novelai-zh-tags-版本-firefox.zip`（`-firefox.xpi` 是同一个包，没经 Mozilla 签名，正式版 Firefox 装不上），打开 `about:debugging#/runtime/this-firefox`，点「临时载入附加组件」，选这个 zip。临时载入的附加组件在关闭 Firefox 后会被移除；正式版 Firefox 只能长期安装经过 Mozilla 签名的附加组件。
 
 </details>
 
@@ -116,7 +119,10 @@ Releases 里的 `.crx` 是自签名的安装包：Windows 和 macOS 上的 Chrom
 点提示词框标题栏右侧的「中」按钮，框下面会列出提示词里的每个标签和它的中文，再点一次关掉。基础提示词、负面提示词和角色提示词的框上都有这个按钮，开关对所有框生效，刷新后保持。扩展面板设置里的「中文对照」是同一个开关，在那里改也当场生效。
 
 - 提示词改了，对照跟着更新。权重写法 `1.2::标签::` 和 `{}`、`[]` 会去掉，`source#hug` 这类动作标签按 `#` 后面的部分查，重复的标签只列一次。
-- 词典里没有中文的（画师、自然语言描述、冷门标签）暗着显示，可以到[编辑器](https://novelai.000.moe)里补上译名。
+- 从别处抄来的写法也认得：Stable Diffusion 的 `(标签:1.2)`、`((标签))`，中文输入法打出的全角括号和逗号，粘在第一个负面标签前的 `Negative prompt:`，Danbooru 网页侧栏复制的 `? blue eyes 1.3m`，标注工具带置信度的 `long hair 0.845`，用句号隔开的 `vibrant. happy.`，名和姓写反的角色名，「角色 from 作品」。
+- 不是标签的写法给个说明：`artist:xxx` 显示「画师」，`year 2025` 显示「2025年画风」，采样器、种子等参数显示「生成参数（不是标签）」。没有通用中文名的标签（3d、Love Live!）直接显示原名。
+- 常见的拼写错误（`worth quality`、`absurdes`）用黄色显示正确写法的中文，鼠标停留时看正确写法，方便发现写错了。
+- 词典里没有中文的（不带 `artist:` 的画师名、自然语言长句、冷门标签）暗着显示，可以到[编辑器](https://novelai.000.moe)里补上译名。
 - 点对照里的一项，提示词里对应的那段文字会被选中，直接打字就能替换，按退格就能删掉。
 
 ### 界面汉化
@@ -133,10 +139,10 @@ Releases 里的 `.crx` 是自签名的安装包：Windows 和 macOS 上的 Chrom
 
 ![扩展面板的首页和设置](store/screenshot-2-popup.png)
 
-点工具栏上的扩展图标打开面板。
+点工具栏上的扩展图标打开面板。面板大小固定，首页和设置之间切换时一个缩小淡出、一个放大淡入；提示消息出现在底栏，不会把面板撑高。
 
-- **首页**：连接状态、各类词条数、社区译名的版本和上次检查时间，可以手动「更新社区译名」。鼠标停在版本号上可以看到内容脚本的构建哈希（SHA-256 的前 8 位）。
-- **设置**（右上角）：
+- **首页**：连接状态、各类词条数、社区译名的版本和上次检查时间，可以手动「更新社区译名」，更新时图标外面转一圈进度环。鼠标停在版本号上可以看到内容脚本的构建哈希（SHA-256 的前 8 位）。
+- **设置**（右上角的齿轮，左上角箭头返回）：
   - 中文界面：按钮、设置和教程显示为中文。打开后 NovelAI 页面刷新成中文界面，不用再去 NovelAI 的语言选单里选。
   - 中文标签：关掉后不接管联想、不加中文释义和中文对照按钮、不拉社区译名，全角标点照常转换。
   - 中文对照：在提示词框下面列出每个标签的中文，和提示词框上的「中」按钮是同一个开关。要先开着「中文标签」。
@@ -190,9 +196,9 @@ npm run build -- --refresh     # 重新下载上游词典
 `npm run crx` 输出：
 
 - `build/extension/`：解压的扩展，manifest 带公钥，「加载已解压的扩展程序」时扩展 ID 固定。
-- `build/novelai-zh-tags-版本.zip`：上架应用商店用的压缩包（不含公钥）。
-- `build/novelai-zh-tags-版本.crx`：用私钥签名的安装包。
-- `build/firefox/` 和 `build/novelai-zh-tags-版本-firefox.zip`：Firefox 版，内容和 Chrome 版相同，manifest 里多了附加组件 ID（`novelai-zh-tags@azusamoe`）、最低版本和「不收集数据」的声明。
+- `build/novelai-zh-tags-版本-chrome.zip`：上架 Chrome 应用商店用的压缩包（不含公钥）。`-edge.zip` 内容相同，上架 Edge 加载项商店。
+- `build/novelai-zh-tags-版本-chrome.crx`、`-edge.crx`：用私钥签名的安装包。
+- `build/firefox/` 和 `build/novelai-zh-tags-版本-firefox.zip`（`.xpi` 同内容）：Firefox 版，内容和 Chrome 版相同，manifest 里多了附加组件 ID（`novelai-zh-tags@azusamoe`）、最低版本和「不收集数据」的声明。
 
 签名私钥第一次打包时生成在 `.keys/novelai-zh-tags.pem`（已在 `.gitignore` 里），也可以用环境变量 `CRX_KEY` 指定。扩展 ID 由私钥决定，换了私钥就成了另一个扩展，请备份好。
 
@@ -227,7 +233,7 @@ node scripts/ui-strings.mjs --untranslated  # 列出中文还空着的条目
 
 main 分支就是用户脚本自动更新的来源：脚本或词典有改动时，要先把 `package.json` 的 `version` 调高再构建，否则脚本管理器不会推送更新。CI（`.github/workflows/ci.yml`）在每次推送和 PR 时构建、跑测试，并检查 `dist/` 是否已重新构建、版本号是否已调高（本地可以运行 `node scripts/check-version.mjs origin/main`）。
 
-把调高了版本的提交合并到 main 后，推送同名标签（如 `git tag 1.7.1 && git push origin 1.7.1`）：`.github/workflows/release.yml` 会构建、跑测试，发布 GitHub Release，附上用户脚本、签名的 `.crx`、上架 Chrome 应用商店用的 `.zip` 和 Firefox 版的 `-firefox.zip`。
+把调高了版本的提交合并到 main 后，推送同名标签（如 `git tag 1.7.1 && git push origin 1.7.1`）：`.github/workflows/release.yml` 会构建、跑测试，发布 GitHub Release，附上用户脚本，以及 Chrome、Edge 的 `-chrome.crx/.zip`、`-edge.crx/.zip` 和 Firefox 的 `-firefox.zip/.xpi`。
 
 - 签名私钥要先存进仓库的 Secrets：`gh secret set CRX_PRIVATE_KEY < .keys/novelai-zh-tags.pem`。
 - CI 会核对私钥对应的扩展 ID 和 `package.json` 里的 `nzh.extensionId`，对不上就失败，不会悄悄换掉扩展 ID。

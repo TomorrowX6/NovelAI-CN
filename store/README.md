@@ -9,7 +9,7 @@ npm run build
 npm run crx
 ```
 
-上传 `build/novelai-zh-tags-版本.zip`（不含公钥的商店版）。商店会给扩展分配新的 ID，和本地「加载已解压的扩展程序」时的 ID 不同。
+上传 `build/novelai-zh-tags-版本-chrome.zip`（不含公钥的商店版）。商店会给扩展分配新的 ID，和本地「加载已解压的扩展程序」时的 ID 不同。
 
 ## 1. 商品详情（Store listing）
 
@@ -79,9 +79,10 @@ Notes
 - 类别：艺术与设计（Art & Design）；列表里没有的话选「工具」（Tools）
 - 语言：中文（简体）
 - 商店图标（128×128）：上传 `icon-128.png`，和扩展包里的 `icons/128.png` 相同（`npm run crx` 生成）
-- 屏幕截图（1280×800，JPEG 或不带透明通道的 24 位 PNG，最多 5 张）：`screenshot-0-intro.png`（总览，和顶部宣传图同样的设计）、`screenshot-1-ui.png`、`screenshot-2-popup.png`（扩展面板的首页和设置）、`screenshot-3-tags.png`（输入「猫娘」时的中文标签联想）、`screenshot-4-english.png`（输入「cat ea」时英文联想附中文）。`screenshot-5-compare.png`（提示词框下面的中文对照）是第 6 张，要放进商店就替换掉其中一张
+- 屏幕截图（1280×800，JPEG 或不带透明通道的 24 位 PNG，最多 5 张）：`screenshot-0-intro.png`（总览，和两张宣传图块一样用 `promo.html` 生成）、`screenshot-1-ui.png`、`screenshot-2-popup.png`（扩展面板的首页和设置）、`screenshot-3-tags.png`（输入「猫娘」时的中文标签联想）、`screenshot-4-english.png`（输入「cat ea」时英文联想附中文）。`screenshot-5-compare.png`（提示词框下面的中文对照）是第 6 张，要放进商店就替换掉其中一张
 - 小型宣传图块（440×280，必填）：`promo-small-440x280.png`
 - 顶部宣传图块（1400×560，可选）：`promo-marquee-1400x560.png`
+- 重新生成：总览和两张宣传图块用浏览器打开 `promo.html?size=intro`、`?size=marquee`、`?size=small`，把内容区调到对应尺寸截图，存成不带透明通道的 PNG；里面的面板图是 `src/popup-home.png`。`screenshot-2-popup.png` 是 `src/popup-home.png`、`src/popup-settings.png`（扩展面板的 2 倍截图，深色主题）放在模糊调暗的 `screenshot-1-ui.png` 上拼成的
 - 官方网址：不填（没有已验证的网站）；首页网址：https://github.com/TomorrowX6/NovelAI-CN ；支持网址：https://github.com/TomorrowX6/NovelAI-CN/issues
 
 ## 2. 隐私权（Privacy practices）
@@ -148,7 +149,7 @@ The package is built from this source without minification or third-party bundle
   npm run build
   npm run crx
 
-The Firefox package is build/novelai-zh-tags-<version>-firefox.zip. novelai-zh-tags.js is dist/novelai-zh-tags.user.js without its userscript header: scripts/build.mjs concatenates src/core.js, src/main.js, src/compare.js, src/ui.js and src/community.js and embeds the tag dictionary and UI translations from data/ as string constants. bridge.js and popup.* are copied from extension/ (popup.js gets the version and entry counts filled in).
+The Firefox package is build/novelai-zh-tags-<version>-firefox.zip. novelai-zh-tags.js is dist/novelai-zh-tags.user.js without its userscript header: scripts/build.mjs concatenates src/core.js, src/main.js, src/compare.js, src/ui.js and src/community.js and embeds the tag dictionary and UI translations from data/ as string constants. scripts/crx.mjs then moves the tag dictionary string out into tag-data-1.js, tag-data-2.js, ... (each well under 5 MB so the AMO linter can parse every file); they load before novelai-zh-tags.js, which joins the pieces back. bridge.js and popup.* are copied from extension/ (popup.js gets the version and entry counts filled in).
 ```
 
 3. **商品信息**：

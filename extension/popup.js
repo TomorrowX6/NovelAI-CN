@@ -158,7 +158,6 @@ else $('contribute').hidden = true;
 
 $('settings-open').addEventListener('click', () => showSettings(true));
 $('settings-close').addEventListener('click', () => showSettings(false));
-$('settings-done').addEventListener('click', () => showSettings(false));
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !$('settings-panel').hidden) showSettings(false);
 });
