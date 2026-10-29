@@ -126,6 +126,22 @@ if (dict.typo('worst quality') !== null) {
   failed++;
   console.log('✗ 写对的标签不应该提示拼错');
 }
+// 词典里没有的词组按词拼译名：只用通用标签和常用词（neon 是人物「尼恩」，不能拼进去），本身就是标签的不拼
+{
+  const cases = [
+    ['dog plushie', (g) => g === '狗·毛绒动物玩具'],
+    ['bed of roses', (g) => g === '玫瑰的床'],
+    ['neon window', (g) => !(g || '').includes('尼恩')],
+    ['long hair', (g) => g === null],
+    ['qwerty zzz', (g) => g === null],
+  ];
+  for (const [phrase, ok] of cases) {
+    if (!ok(dict.gloss(phrase))) {
+      failed++;
+      console.log(`✗ gloss(${phrase}) = ${dict.gloss(phrase)}`);
+    }
+  }
+}
 // 单复数变体不能把常用词变成别的意思：shorts → short、人物作品名 minis → mini
 for (const [tag, wrong] of [['short', '短裤'], ['sweet', '甜食'], ['flat', '平底鞋'], ['mini', '米妮'], ['loves', '中二病']]) {
   if ((dict.lookup(tag) || '').includes(wrong)) {
