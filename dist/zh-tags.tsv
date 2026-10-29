@@ -4,7 +4,7 @@ solo	6984063	单人		alone|one character|female solo|solo female|solos	0
 commentary request	6264839	请求注释翻译		commentary requests	5
 long hair	6134076	长发	黑长直|长髪	/lh|longhair|long hairs	0
 rating:sensitive	5270447	敏感		rating:s	5
-breasts	4913021	胸部	上乳|乳房|欧派	oppais|boobs|breast|tits|/b|breats|oppai	0
+breasts	4913021	胸部	上乳|乳房|欧派	oppais|boob|boobs|breast|tits|/b|breats|oppai	0
 looking at viewer	4850803	看向观众	看着观众|看着你|看镜头|看向镜头|注视观众|看向观者	look at viewer|look at viewers|looking at the viewer|looking at you|looking at camera|looks at camera|looks at viewer|look at camera|view on viewer|watching the viewer|l looking at viewer|look at the viewer|/lav|/pec|pov eye contact|looking at viewers	0
 rating:general	4486953	全年龄		rating:g	5
 smile	4120285	微笑	笑容|笑颜	:)|:}|smiling|smiles|~simle	0
@@ -378,7 +378,7 @@ expressionless	178872	面无表情	无表情|三无|平然|真颜|无表情的|�
 window	178751	窗户	窗辺|窗	windows	0
 turtleneck	178343	高领上衣	高领|高领服饰	turtle neck|turtlenecks	0
 blue bow	178286	蓝色蝴蝶结		blue bows	0
-bare legs	178110	裸腿	光腿|生脚|露腿	bare leg	0
+bare legs	178110	裸腿	光腿|生脚|露腿	naked leg|bare leg	0
 lips	177627	嘴唇		lip	0
 holding sword	177176	持剑	剣士|手持刀剑|手持剑	holding katana|holding rapier|holding swords	0
 double bun	176984	双丸子头	包子头|团子头|双团子头	buns|double buns|double hair bun|hair buns|twin bun|twin buns|odango	0
@@ -419,7 +419,7 @@ blush stickers	157116	圆形腮红	脸红贴纸|表情贴纸	blush sticker	0
 blue jacket	156460	蓝色夹克		blue blazer|blue jackets	0
 colored inner hair	156426	内层挑染	内染|内层彩色头发|内挑染	colored  inner hair|inner colored hair|inner color|colored inner hairs	0
 sideboob	156375	侧乳	横乳|腋乳	side boob|side boobs|sideboobs	0
-shiny skin	156361	光泽皮肤	闪亮的皮肤|有光泽的皮肤	shiny luster skin|glistening skin|shiny skins|~skiny skin	0
+shiny skin	156361	光泽皮肤	闪亮的皮肤|有光泽的皮肤	shiny luster skin|shine skin|glistening skin|shiny skins|~skiny skin	0
 azur lane	156332	碧蓝航线		bilan hangxian|azurlane	3
 partial commentary	155869	部分译注		partial commentaries	5
 kneeling	155668	跪姿	跪|下跪|跪着	kneel|kneel down|on knees|kneelings|~knelling	0
@@ -1382,7 +1382,7 @@ pout	37667	嘟嘴	噘嘴|撅嘴	pouting|pouts	0
 card	37637	卡片	卡牌	cards	0
 sailor shirt	37551	水手衬衫	水手服款衬衫	sailor shirts	0
 very short hair	37488	超短发	平头|很短的头发	really short hair|very short hairs	0
-dragon	37448	龙	竜奸	dragons	0
+dragon	37448	龙	竜奸	a dragon|dragons	0
 artist logo	37437	画师标志	艺术家标志|艺术家logo	artist logos	0
 contrapposto	37425	重心偏移站姿	单腿重心|对立式平衡	contrappostos	0
 character doll	37396	角色玩偶	角色娃娃|角色公仔	character dolls	0
@@ -3513,7 +3513,7 @@ bangs	10000	刘海		bang	0
 displeasing	10000	不美观		displeasings|~displeasingr	0
 good quality	10000	良好质量		good qualities	0
 great quality	10000	很好的质量		great qualities	0
-masterpiece	10000	杰作	大师之作	1 masterpiece|masterpieces|~master piece|~masterpeace|~materpiece	0
+masterpiece	10000	杰作	大师之作	1 masterpiece|a masterpiece|masterpieces|~master piece|~masterpeace|~materpiece	0
 no text	10000	无文字		no texts	0
 nsfw	10000	成人内容	色情	nsfws|~nswf|~nfsw	0
 very aesthetic	10000	非常美观	高美感	very aesthetics|~very aestheti|~very aesthet	0
@@ -8276,7 +8276,7 @@ military combat uniform	2579	军用作战服		battle dress uniform|military comb
 telekinesis	2579	念力		object manipulation	0
 crate	2578	板条箱	大木箱	crates	0
 unworn coat	2577	未穿的大衣		coat removed|unworn coats	0
-squinting	2576	眯眼		squint|squinted eyes|squintings	0
+squinting	2576	眯眼		squints|squint|squinted eyes|squintings	0
 arm between breasts	2573	手臂夹在胸间	两只乳房之间的臂|手放在胸前|胳膊在乳沟里	hand between breasts|arm between breast	0
 marshmallow (site)	2573	marshmallow（匿名提问箱）	匿名提问箱		0
 watashi ni tenshi ga maiorita!	2573	天使降临到了我身边		wataten	3
@@ -41938,7 +41938,7 @@ fish head	151	鱼头			0
 fishnet dress	151	渔网连衣裙			0
 fluttershy (equestria girls)	151	小蝶（小马宝莉：小马国女孩）	小蝶		4
 fugee (granblue fantasy)	151	Fugee（碧蓝幻想）			4
-hangover	151	宿醉			0
+hangover	151	宿醉		hang over	0
 harai kuko	151	波罗夷空却		harai kuuko|harai kuukou	4
 hazama michio	151	硲道夫			4
 head arms	151	头臂			0
@@ -77778,6 +77778,7 @@ deal with it (meme)	2	Deal With It（梗）			0
 hitodama print	1	人魂印花			0
 -m=2 skinny female	0	瘦削的女性			0
 :3orange eyes	0	:3 橙色眼睛			0
+"final fantasy" drawing style	0	最终幻想画风			0
 1 black pirate hat	0	一顶黑色海盗帽			0
 1 eye	0	一只眼睛			0
 1 girl 32 year old	0	女孩 32岁			0
@@ -78055,7 +78056,7 @@ awesome view	0	壮观景色			0
 azure	0	天蓝色			0
 azure eyes	0	天蓝色眼睛			0
 azure sky	0	蔚蓝的天空			0
-babs bunny	0	巴布丝兔（乐一通）			0
+babs bunny	0	巴布丝兔（乐一通）		babs bunny jackrabbit hare	0
 baby carrying	0	抱着婴儿			0
 babyface	0	娃娃脸		baby face|doll face	0
 back close view	0	背部近景			0
@@ -78166,6 +78167,7 @@ bad gloves	0	手套画得差		poorly drawn gloves	0
 bad hairs	0	头发画得差		poorly drawn hairs	0
 bad knee	0	膝盖画得差			0
 bad nipples	0	乳头画得差		poorly drawn nipples	0
+bad prmpt	0	负面嵌入（bad_prompt）			0
 bad pussy	0	阴部画得差		poorly drawn pussy	0
 bad quality	0	质量差			5
 bad shadow	0	阴影画得差			0
@@ -78497,6 +78499,7 @@ black-blue eyes	0	黑蓝色眼睛			0
 black-brown eyes	0	黑棕色眼睛			0
 black-white	0	黑白			0
 blacksad	0	黑猫侦探			0
+bladder insertion	0	膀胱插入			0
 bleak	0	萧瑟	凄凉		0
 bleeding arms	0	手臂流血			0
 bleeding chest	0	胸口流血			0
@@ -78569,6 +78572,7 @@ blue thong	0	蓝色丁字裤			0
 blue torn pleated skirt	0	破损的蓝色百褶裙		blue pleated torn skirt	0
 blue-green eyes	0	蓝绿色眼睛		bluegreen eyes	0
 blur	0	模糊			0
+blur nose	0	模糊的鼻子			0
 blurry foggy cemetery	0	模糊雾气中的墓地			0
 blurry street	0	模糊的街道			0
 blush face	0	脸红		blushing face|blushed face	0
@@ -78611,7 +78615,7 @@ breast fondle	0	揉胸			0
 breast hold	0	托胸			0
 breast milk	0	母乳			0
 breasts bigger than head	0	比头还大的胸部			0
-breasts exposed	0	露出胸部		tits out|showing breasts|show tits|her breasts are exposed|open breasts|showing breast	0
+breasts exposed	0	露出胸部		tits out|showing breasts|show tits|her breasts are exposed|open breasts|showing breast|open boobs	0
 breasts in different directions	0	胸部朝向不同方向			0
 breasts pressed against the ground	0	胸部压在地上			0
 breasts under t-shirt	0	T恤下的胸部			0
@@ -78645,6 +78649,7 @@ bruised skin	0	淤青的皮肤			0
 bruises under the eyes	0	眼下的淤青			0
 brunette milf	0	棕发熟女			0
 brunette skin	0	黝黑皮肤		dark black skin	0
+brutal barbaric eccentric violence sex	0	野蛮暴力的性爱			0
 brutal sex	0	粗暴性交			0
 bubble socks	0	泡泡袜			0
 bulge of cheeks	0	鼓起的脸颊			0
@@ -78810,6 +78815,7 @@ colorless hair	0	无色头发			0
 colorless manga	0	无色漫画			0
 colossal tits	0	巨乳		huge busty	0
 coming out of the bathroom with a small towel covering her private parts	0	裹着小毛巾遮住私处走出浴室			0
+communist party	0	共产党			0
 completely nude torso	0	完全赤裸的上身			0
 concept	0	概念			0
 concept design	0	概念设计			0
@@ -79466,6 +79472,7 @@ fiery red sharp eyes	0	火红锐利的眼睛			0
 film noir	0	黑色电影			0
 film still	0	电影剧照		movie still|cinematic still	0
 final fantasy xv drawing style	0	最终幻想15画风		"final fantasy xv" drawing style	0
+fine art america	0	Fine Art America（艺术品网站）			0
 fine background	0	精美背景			0
 fine details	0	细节精致			0
 fine hands	0	精致的手			0
@@ -79840,6 +79847,7 @@ hand-drawn	0	手绘		hand drawn|drawn	0
 handbag in hand	0	手拿手提包			0
 handcuffed above head	0	双手铐在头顶			0
 handcuffed cowboy shot	0	戴手铐 七分身			0
+handcuffed extremely sperm addicted	0	戴手铐 极度渴求精液			0
 handing over the plate	0	递出盘子			0
 hands	0	手		hand	0
 hands back	0	双手背后			0
@@ -80209,7 +80217,7 @@ large penis erection	0	勃起的大阴茎			0
 large vaginal lips	0	大阴唇			0
 large view	0	大视野			0
 large vulva	0	大阴部		big pussy	0
-large wide breasts	0	宽大的胸部		wide breasts|wide large breasts	0
+large wide breasts	0	宽大的胸部		wide breasts|wide large breasts|wideboobs	0
 lascivious	0	淫荡		slutty	0
 latex clothes	0	乳胶衣			0
 latex overalls	0	乳胶背带裤			0
@@ -80715,7 +80723,7 @@ muscular thighs	0	肌肉发达的大腿			0
 muslim girl	0	穆斯林女孩			0
 muslim milf	0	穆斯林熟女			0
 mutant	0	变种人			0
-mutant finger	0	手指变异			0
+mutant finger	0	手指变异		mutant fingers	0
 mutated	0	变异			0
 mutated belly	0	变异的肚子			0
 mutated hands	0	手部变异			0
@@ -81165,6 +81173,8 @@ primitive	0	原始			0
 professional artwork	0	专业作品			0
 professional light	0	专业灯光			0
 professional shadow	0	专业阴影			0
+prominent hips nipple piercings lactating breasts hairy vagina and armpits posing on all fours showing her anus and dripping vagina (doggy style)	0	丰满的臀部 乳头穿环 泌乳 阴毛和腋毛 四肢着地 露出肛门和湿润的阴部（后入式）			0
+prominent hips nipple piercings lactating breasts vagina and hairy armpits wearing a very small bikini showing her groin	0	丰满的臀部 乳头穿环 泌乳 腋毛 穿超小比基尼露出胯部			0
 promotional menu	0	宣传菜单			5
 proper kiss	0	正式的吻			0
 ps5 graphics professional unreal engine 6	0	PS5画质 专业虚幻引擎6			0
@@ -81228,6 +81238,7 @@ raised	0	抬起			0
 raising her hands in the air	0	双手举向空中			0
 ramming lines	0	冲击线			0
 random pose	0	随机姿势			0
+rape and cum in belly	0	强奸 内射腹中			0
 rape ass	0	强奸 屁股			0
 rape breasts	0	强奸 胸部			0
 rape in pussy	0	强奸插入阴道			0
@@ -81474,6 +81485,7 @@ seinen	0	青年漫画			0
 seizing	0	抓住			0
 seizuring	0	抽搐			0
 selfharm cuts	0	自残割伤			0
+selfharm cuts on legs	0	腿上的自残割伤			0
 semen dripping	0	精液滴落		cum dripping	0
 semen flow out from mouth	0	精液从嘴里流出			0
 semi-realistic	0	半写实		half-realistic	0
@@ -81665,7 +81677,7 @@ sitting on a large royal throne	0	坐在巨大的王座上			0
 sitting on a rock	0	坐在岩石上			0
 sitting on a throne	0	坐在王座上			0
 sitting on bench	0	坐在长椅上			0
-sitting on chair	0	坐在椅子上		sit on chair|sitting in a chair	0
+sitting on chair	0	坐在椅子上		sit on chair|sitting in a chair|sitting on a chair	0
 sitting on couch	0	坐在沙发上		sit on sofa|sitting on sofa|sitting on a sofa|in a sofa	0
 sitting on edge of bed	0	坐在床边			0
 sitting on huge penis	0	坐在巨大阴茎上			0
@@ -81711,6 +81723,7 @@ sleepy bdsm	0	困倦 BDSM			0
 sleepy eyes	0	困倦的眼睛			0
 sleeve lace	0	袖口蕾丝			0
 sleeveless top	0	无袖上衣			0
+sleeves	0	袖子			0
 slender figure	0	纤细身材			0
 slicked down hair	0	贴服的头发			0
 slicked hair	0	背头			0
@@ -81935,6 +81948,7 @@ succubus tail	0	魅魔尾巴			0
 succubus wings	0	魅魔翅膀			0
 succubus woman	0	魅魔女人			0
 sucking	0	吮吸			0
+sucking my penis whith cum	0	吸着我的阴茎 带着精液			0
 sugar	0	糖			0
 suit maid	0	女仆装		maid suit	0
 suit maid bikini	0	女仆比基尼套装			0
@@ -81999,6 +82013,7 @@ tall figure	0	高挑身材			0
 tall girl	0	高个子女孩			0
 tall man	0	高个子男人		tall guy	0
 tarame alluring face	0	垂眼 诱人的脸			0
+tatsumaki from the anime one punch man voluptuous and with big hips naked	0	龙卷（一拳超人） 丰满 大屁股 裸体			0
 tattered	0	破烂			0
 tattered dress	0	破烂的连衣裙			0
 tattoo on arms	0	手臂纹身			0
@@ -82119,7 +82134,7 @@ tights lower knees	0	褪到膝盖下的裤袜			0
 tiki	0	提基神像			0
 tilt shift	0	移轴		tilt-shift	0
 tiny	0	微小			0
-tiny dicks	0	小阴茎			0
+tiny dicks	0	小阴茎		1 tiny dick	0
 tiny girl	0	娇小女孩			0
 tiny humans	0	小人			0
 tired	0	疲倦			0
@@ -82130,6 +82145,7 @@ tits udder	0	乳牛般的胸部			0
 to drink beer	0	喝啤酒			0
 to smoke a cigarette	0	抽烟			0
 tom cat	0	汤姆猫			0
+tomboy short haircut mature female muscle muscular big pussy	0	假小子短发 熟女 肌肉发达 大阴部			0
 tone	0	色调			0
 toned body	0	紧致的身材		taut figure	0
 tongue within mouth	0	舌头在嘴里			0
@@ -82285,6 +82301,7 @@ velvet purple skirt	0	紫色天鹅绒裙			0
 velvet yellow polo	0	黄色天鹅绒Polo衫			0
 venetian blinds	0	百叶窗			0
 very amativeness	0	性欲旺盛			0
+very awa	0	极高美学评分（NoobAI 质量词）			0
 very beautiful	0	非常美丽			0
 very beautiful blue eyes	0	非常美丽的蓝眼睛			0
 very beautiful gem necklace	0	非常美丽的宝石项链			0
@@ -82331,6 +82348,7 @@ very realistic	0	非常写实			0
 very realistic body	0	非常写实的身体			0
 very sad	0	非常悲伤			0
 very shaggy	0	非常蓬乱			0
+very short deep blue pussy cutout pleated skirt under the sweater	0	毛衣下的深蓝色开裆超短百褶裙			0
 very short stature	0	非常矮小			0
 very small	0	非常小			0
 very small breasts	0	非常小的胸部			0
@@ -82594,6 +82612,7 @@ windy weather	0	刮风天		windy day	0
 winter landscape	0	冬季风景			0
 wistful	0	怅然			0
 with 1girl spread legs	0	女孩张开双腿			0
+with 1women spread legs	0	女人张开双腿			0
 with a gun	0	拿着枪			0
 with a guys	0	和男人们一起			0
 with bangs	0	有刘海			0
@@ -82632,6 +82651,7 @@ xray rainbow glow	0	X光彩虹光			0
 yakuza green outfit	0	黑道绿色装束			0
 yakuza grey outfit	0	黑道灰色装束			0
 yakuza outfit	0	黑道装束			0
+yandere highre	0	病娇 高分辨率			0
 yandere slight smile	0	病娇微笑			0
 yandere smile	0	病娇的笑			0
 year	0	年份			0
