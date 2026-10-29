@@ -31,6 +31,24 @@ function escapeRe(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+// 提示词里的标签，给中文对照（src/compare.js）用：按逗号、|、顿号和权重写法的 :: 切开，去掉 {} [] 和权重数字。
+// 单个冒号是标签的一部分（artist:xxx）。返回 [{ text, tag, start, end }]：text 是 s.slice(start, end)，
+// tag 是查词典用的部分，source#hugging 这类动作标签取 # 后面
+const PROMPT_PART_RE = /(?:[^,|、:\n]|(?<!:):(?!:))+/g;
+const PROMPT_WEIGHT_RE = /^-?(?:\d+\.?\d*|\.\d+)$/;
+
+function promptTags(s) {
+  const out = [];
+  for (const m of s.matchAll(PROMPT_PART_RE)) {
+    const lead = m[0].match(/^[\s{}[\]]*/)[0].length;
+    const text = m[0].slice(lead).replace(/[\s{}[\]]+$/, '');
+    if (!text || PROMPT_WEIGHT_RE.test(text)) continue;
+    const start = m.index + lead;
+    out.push({ text, tag: text.slice(text.lastIndexOf('#') + 1).trim(), start, end: start + text.length });
+  }
+  return out;
+}
+
 // raw: 每行 `英文标签\t使用次数\t显示译名(多个用/分隔)\t额外检索词(用|分隔)\t旧标签名(用|分隔)`
 // 旧标签名只用于给 NovelAI 英文联想里出现的旧名配上中文，不参与检索
 // t2s: 繁简对照（见 createT2S），用来转换查询；译名里有繁体字的，构建时已把转换后的写法加进额外检索词

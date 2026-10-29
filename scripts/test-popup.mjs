@@ -90,6 +90,7 @@ async function popup(state = connected, stored = {}) {
     focus: () => focused,
     key: (key) => documentEvents.keydown?.({ key }),
     async settle() { const t = timers.shift(); assert.ok(t, 'a post-reload status check is scheduled'); await t.fn(); await flush(); },
+    timers: () => timers.length,
   };
 }
 
@@ -121,6 +122,29 @@ test('without a page, changes wait in extension storage for the next NovelAI pag
   assert.equal(p.node('auto').disabled, true);
   assert.match(p.node('notice').className, /ok/);
   assert.match(p.node('notice').textContent, /刷新/);
+});
+
+test('the tag reference switch needs Chinese tags and applies on the page without a reload', async () => {
+  const p = await popup({ ...connected, compare: false });
+  assert.equal(p.node('compare').checked, false);
+  assert.equal(p.node('compare').disabled, false);
+  p.io.state = { ...connected, compare: true };
+  p.node('compare').checked = true;
+  await p.node('compare').fire('change');
+  assert.deepEqual(p.messages.map((m) => [m.key, m.value]), [['compare', true]]);
+  assert.equal(p.timers(), 0);
+  assert.equal(p.node('compare').checked, true);
+  assert.equal(p.node('compare').disabled, false);
+  assert.equal(p.node('connection').dataset.state, 'connected');
+  assert.match(p.node('notice').className, /ok/);
+  assert.doesNotMatch(p.node('notice').textContent, /刷新/);
+  assert.equal((await popup({ ...connected, tags: false, compare: true })).node('compare').disabled, true);
+  // Without a page the change waits like the other settings.
+  const offline = await popup(null, { settings: { ui: false, tags: true, compare: true, auto: true, hours: 24 } });
+  assert.equal(offline.node('compare').checked, true);
+  offline.node('compare').checked = false;
+  await offline.node('compare').fire('change');
+  assert.deepEqual({ ...offline.io.storage.data.queued }, { compare: false });
 });
 
 test('a page whose settings changed since it loaded asks for a refresh', async () => {
@@ -298,7 +322,13 @@ async function loadPage(store, storage = extensionStorage(), chrome = { runtime:
   const scheduled = [];
   let reloads = 0;
   const visibility = [];
-  const document = { hidden: false, addEventListener: (type, fn) => type === 'visibilitychange' && visibility.push(fn) };
+  const events = [];
+  const timers = [];
+  const document = {
+    hidden: false,
+    addEventListener: (type, fn) => type === 'visibilitychange' && visibility.push(fn),
+    dispatchEvent: (e) => events.push(e.type),
+  };
   const context = vm.createContext({
     NZH_COMMUNITY_DATA: 'https://example.test/tags.tsv', tagsEnabled: true, dict: null,
     HAN_RE: /\p{Script=Han}/u, crypto: globalThis.crypto, TextEncoder,
@@ -308,13 +338,16 @@ async function loadPage(store, storage = extensionStorage(), chrome = { runtime:
       removeItem: (key) => store.delete(key),
     },
     window: { addEventListener: (type) => scheduled.push(type) },
-    location: { reload() { reloads++; } }, setTimeout() {}, document, chrome,
+    sessionStorage: { getItem: () => null },
+    location: { reload() { reloads++; } }, setTimeout: (fn) => timers.push(fn), document, chrome, Event,
   });
   vm.runInContext(fs.readFileSync(new URL('../src/community.js', import.meta.url), 'utf8'), context);
   vm.runInContext(fs.readFileSync(new URL('../extension/bridge.js', import.meta.url), 'utf8'), context);
   await flush();
   const hide = async () => { document.hidden = true; for (const fn of visibility) fn(); await flush(); };
-  return { scheduled, context, reloads: () => reloads, hide };
+  // Runs what the bridge scheduled, such as the reload after a setting change.
+  const runTimers = () => timers.splice(0).forEach((fn) => fn());
+  return { scheduled, context, reloads: () => reloads, hide, events, runTimers };
 }
 
 test('with auto update off the page only downloads after a manual refresh', async () => {
@@ -361,7 +394,7 @@ test('a page applies settings queued while it was closed, reloads once, then rec
   assert.equal('queued' in storage.data, false);
   const next = await loadPage(store, storage);
   assert.equal(next.reloads(), 0);
-  assert.deepEqual(storage.data.settings, { ui: false, tags: false, auto: true, hours: 6 });
+  assert.deepEqual(storage.data.settings, { ui: false, tags: false, compare: false, auto: true, hours: 6 });
   // Queued values the page already uses do not cause a reload.
   storage.data.queued = { tags: false };
   assert.equal((await loadPage(store, storage)).reloads(), 0);
@@ -396,6 +429,55 @@ test('the saved copy follows settings the page changes itself and is only rewrit
   assert.equal(storage.data.settings.ui, true);
   await page.hide();
   assert.equal(writes, 1);
+});
+
+test('the tag reference switch is applied by the page script in place, without a reload or a stale page', async () => {
+  const store = new Map();
+  const page = await loadPage(store);
+  assert.equal((await page.context.state()).compare, false);
+  assert.equal(page.context.set('compare', true), true);
+  assert.equal(store.get('nzh-tag-compare'), 'on');
+  assert.deepEqual(page.events, ['nzh-compare']);
+  page.runTimers();
+  assert.equal(page.reloads(), 0);
+  const s = await page.context.state();
+  assert.equal(s.compare, true);
+  assert.equal(s.stale, false);
+  page.context.set('compare', false);
+  assert.equal(store.has('nzh-tag-compare'), false);
+  // Other settings still reload the page.
+  page.context.set('tags', false);
+  page.runTimers();
+  assert.equal(page.reloads(), 1);
+});
+
+test('turning on the Chinese UI also switches the language NovelAI saved for logged-out use', async () => {
+  const store = new Map([['noAccountSettings', JSON.stringify({ uiLanguage: 'en', settingsVersion: 17 })]]);
+  const page = await loadPage(store);
+  assert.equal((await page.context.state()).ui, false);
+  page.context.set('ui', true);
+  assert.deepEqual(JSON.parse(store.get('noAccountSettings')), { uiLanguage: 'zh', settingsVersion: 17 });
+  assert.equal(store.get('nzh-ui-lang'), 'zh');
+  assert.equal((await page.context.state()).ui, true);
+  page.context.set('ui', false);
+  assert.equal(JSON.parse(store.get('noAccountSettings')).uiLanguage, 'en');
+  // Turning it off leaves Japanese chosen in NovelAI alone.
+  store.set('noAccountSettings', JSON.stringify({ uiLanguage: 'jp' }));
+  page.context.set('ui', false);
+  assert.equal(JSON.parse(store.get('noAccountSettings')).uiLanguage, 'jp');
+  // Logged out, the switch shows the language NovelAI uses, also when chosen in NovelAI's own menu.
+  store.set('noAccountSettings', JSON.stringify({ uiLanguage: 'zh' }));
+  assert.equal((await page.context.state()).ui, true);
+  // Logged in, the account settings decide and the logged-out copy is ignored.
+  store.set('session', JSON.stringify({ auth_token: 'x' }));
+  assert.equal((await page.context.state()).ui, false);
+  // Nothing is created when NovelAI has no logged-out settings yet; the first visit uses the preference.
+  const fresh = new Map();
+  (await loadPage(fresh)).context.set('ui', true);
+  assert.equal(fresh.has('noAccountSettings'), false);
+  store.set('noAccountSettings', 'not json');
+  assert.equal((await loadPage(store)).context.set('ui', true), true);
+  assert.equal(store.get('noAccountSettings'), 'not json');
 });
 
 test('a manual refresh clears the previous failure so the popup waits for the new attempt', async () => {

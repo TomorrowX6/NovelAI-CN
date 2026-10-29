@@ -16,14 +16,14 @@
 
 ## 扩展面板
 
-扩展面板里的设置（「中文界面」「中文标签」「自动更新」和检查间隔）存在 novelai.net 的 localStorage 里；扩展自己的存储（chrome.storage.local）里另存一份，用来在没打开 NovelAI 时显示和修改设置。两处都只在你的浏览器中。
+扩展面板里的设置（「中文界面」「中文标签」「中文对照」「自动更新」和检查间隔）存在 novelai.net 的 localStorage 里；扩展自己的存储（chrome.storage.local）里另存一份，用来在没打开 NovelAI 时显示和修改设置。两处都只在你的浏览器中。提示词框上的「中」按钮和面板里的「中文对照」是同一个开关。没登录时，在面板里开关「中文界面」还会改 NovelAI 自己存在 localStorage 里的界面语言（`noAccountSettings`），让页面跟着切换。
 
 ## 在 novelai.net 页面上做的事
 
 脚本只在 `https://novelai.net/` 的页面上运行，会：
 
 - 拦截 NovelAI 网页发出的标签联想请求：含中文的输入由本地词典直接回答，不会发出这次请求；其他请求原样交给 NovelAI。
-- 在网页上显示中文：替换界面文字、在英文联想下方补充中文释义、把提示词里的全角逗号和冒号换成半角。
+- 在网页上显示中文：替换界面文字、在英文联想下方补充中文释义、在提示词框下面列出标签的中文对照、把提示词里的全角逗号和冒号换成半角。
 - 选择中文界面时，网页向 NovelAI 保存账号设置的请求里，界面语言 `zh` 会改成 `en`（NovelAI 只接受 en 和 jp），并在浏览器的 localStorage 里记下你选的是中文；网页读取账号数据时，再把界面语言换回 `zh`。账号数据的其他内容原样交回网页，不会被保存或改动。
 
 这些请求本来就由 NovelAI 网页发往 NovelAI 的服务器，脚本不会把其中任何内容发往别处，包括 GitHub 和编辑器。
@@ -38,7 +38,7 @@ This policy covers the userscript "NovelAI 中文标签联想" and the Chrome ex
 
 **No personal data is collected.** The extension does not collect, store or transmit any personal or usage data and contains no analytics or advertising code. The tag dictionary and UI translations are bundled, and no code is downloaded at runtime.
 
-**Community translations.** While a NovelAI page is open, the script downloads the community tag translations from GitHub (`https://raw.githubusercontent.com/TomorrowX6/NovelAI-CN/main/data/zh-community.tsv`) once a day by default; in the extension popup the interval can be set from 1 hour to 7 days, or automatic updates turned off. It is a public text file in this repository with English tags, Chinese labels and search terms (data, not code), kept in the browser's localStorage. The request carries no cookies, no referrer and no user data; like any web request it reveals your IP address to GitHub. Turning off "中文标签" in the extension popup stops the download. Editing translations at <https://novelai.000.moe> is voluntary and requires signing in with GitHub: the editor reads only your GitHub login, id and avatar and never stores your GitHub token; each edit is committed publicly to this repository under your name, and the editor keeps an edit log (login, avatar, the change and its time). The sign-in state is a cookie on the editor's site. The popup's settings are stored in novelai.net's localStorage, with a copy in the extension's own storage (chrome.storage.local) so they can be shown and changed while no NovelAI page is open; both stay in your browser.
+**Community translations.** While a NovelAI page is open, the script downloads the community tag translations from GitHub (`https://raw.githubusercontent.com/TomorrowX6/NovelAI-CN/main/data/zh-community.tsv`) once a day by default; in the extension popup the interval can be set from 1 hour to 7 days, or automatic updates turned off. It is a public text file in this repository with English tags, Chinese labels and search terms (data, not code), kept in the browser's localStorage. The request carries no cookies, no referrer and no user data; like any web request it reveals your IP address to GitHub. Turning off "中文标签" in the extension popup stops the download. Editing translations at <https://novelai.000.moe> is voluntary and requires signing in with GitHub: the editor reads only your GitHub login, id and avatar and never stores your GitHub token; each edit is committed publicly to this repository under your name, and the editor keeps an edit log (login, avatar, the change and its time). The sign-in state is a cookie on the editor's site. The popup's settings are stored in novelai.net's localStorage, with a copy in the extension's own storage (chrome.storage.local) so they can be shown and changed while no NovelAI page is open; both stay in your browser. The 中 (tag reference) button above the prompt boxes and the popup's tag reference switch share one setting in novelai.net's localStorage. When you are not logged in, turning the Chinese UI on or off in the popup also changes the UI language NovelAI keeps in localStorage (`noAccountSettings`), so the page follows.
 
 **What it does on novelai.net.** It runs only on `https://novelai.net/` pages. It answers NovelAI's tag-suggestion requests for Chinese input from the bundled dictionary (other requests pass through unchanged), shows Chinese text on the page, and converts full-width commas and colons in the prompt. When the Chinese UI is selected, it changes the UI language `zh` to `en` in the settings that the page saves to NovelAI (NovelAI only accepts en and jp) and remembers the choice in the browser's localStorage; when the page loads account data, it changes `en` back to `zh`. The rest of the account data is passed back to the page unchanged and is never stored. These requests are made by the NovelAI page to NovelAI's own servers, and nothing from them is sent anywhere else, including GitHub and the editor.
 

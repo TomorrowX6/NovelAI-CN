@@ -1,9 +1,14 @@
 // 扩展面板（popup.html）和 NovelAI 页面之间的桥。运行在内容脚本的隔离环境里，
 // 和页面里的脚本共用 novelai.net 的 localStorage：面板来读状态、改设置，改完刷新页面，
-// 让 document_start 注入的脚本按新设置重新运行。
+// 让 document_start 注入的脚本按新设置重新运行（中文对照例外，页面脚本当场切换）。
 // 面板没连上页面时把改动存进扩展的 storage（queued），这里写进 localStorage：页面刚打开时随即刷新，
 // 已经开着的页面等用户自己刷新。当前设置也存一份（settings），面板没连上页面时照着显示。
-const KEYS = { ui: 'nzh-ui-lang', uiForce: 'nzh-ui-force', tags: 'nzh-tags', auto: 'nzh-community-auto', hours: 'nzh-community-hours', community: 'nzh-community' };
+const KEYS = {
+  ui: 'nzh-ui-lang', uiForce: 'nzh-ui-force', tags: 'nzh-tags', compare: 'nzh-tag-compare',
+  auto: 'nzh-community-auto', hours: 'nzh-community-hours', community: 'nzh-community',
+  // NovelAI 没登录时自己存设置（含界面语言 uiLanguage）的地方，不经过账号接口，src/ui.js 改不到
+  noAccount: 'noAccountSettings',
+};
 // 自动更新的检查间隔（小时），可选的几档和默认值与 src/community.js 的 COMMUNITY_HOURS 一致
 const validHours = (h) => [1, 6, 12, 24, 168].includes(h);
 
@@ -21,6 +26,30 @@ function readCommunity() {
   }
 }
 
+function readNoAccount() {
+  try {
+    const s = JSON.parse(localStorage.getItem(KEYS.noAccount) || 'null');
+    return s && typeof s === 'object' && !Array.isArray(s) ? s : null;
+  } catch {
+    return null;
+  }
+}
+
+// 和 NovelAI 一样，会话在 sessionStorage 或 localStorage 里就是登录了
+function loggedIn() {
+  try {
+    return !!(sessionStorage.getItem('session') || localStorage.getItem('session'));
+  } catch {
+    return false;
+  }
+}
+
+// 没登录时页面按 noAccountSettings 里的界面语言显示，面板也照它显示开关
+function uiOn() {
+  const s = !loggedIn() && readNoAccount();
+  return s && s.uiLanguage ? s.uiLanguage === 'zh' : localStorage.getItem(KEYS.ui) === 'zh';
+}
+
 async function shortHash(text) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
   return [...new Uint8Array(buf, 0, 4)].map((b) => b.toString(16).padStart(2, '0')).join('');
@@ -28,8 +57,9 @@ async function shortHash(text) {
 
 function settings() {
   return {
-    ui: localStorage.getItem(KEYS.ui) === 'zh',
+    ui: uiOn(),
     tags: localStorage.getItem(KEYS.tags) !== 'off',
+    compare: localStorage.getItem(KEYS.compare) === 'on',
     auto: localStorage.getItem(KEYS.auto) !== 'off',
     hours: readHours(),
   };
@@ -54,9 +84,18 @@ function write(key, value) {
       localStorage.removeItem(KEYS.ui);
       localStorage.removeItem(KEYS.uiForce);
     }
+    // 没登录时 NovelAI 用自己存的界面语言，上面两个标记只管登录后和第一次打开，这里一起改掉：
+    // 打开时换成中文，关掉时中文换回英文（日文保持不变）
+    const s = readNoAccount();
+    if (s && (value || s.uiLanguage === 'zh')) localStorage.setItem(KEYS.noAccount, JSON.stringify({ ...s, uiLanguage: value ? 'zh' : 'en' }));
   } else if (key === 'tags') {
     if (value) localStorage.removeItem(KEYS.tags);
     else localStorage.setItem(KEYS.tags, 'off');
+  } else if (key === 'compare') {
+    if (value) localStorage.setItem(KEYS.compare, 'on');
+    else localStorage.removeItem(KEYS.compare);
+    // 页面脚本（src/compare.js）收到后当场切换；同一个页面里改 localStorage 不会触发 storage 事件
+    document.dispatchEvent(new Event('nzh-compare'));
   } else if (key === 'auto') {
     if (value) localStorage.removeItem(KEYS.auto);
     else localStorage.setItem(KEYS.auto, 'off');
@@ -75,16 +114,21 @@ function write(key, value) {
 
 function set(key, value) {
   if (!write(key, value)) return false;
-  setTimeout(() => location.reload(), 50);
+  if (key !== 'compare') setTimeout(() => location.reload(), 50);
   return true;
 }
 
-// 页面脚本在 document_start 读到的设置。localStorage 和它不一样时（别的标签页或面板改过），页面刷新后才用上新设置
+// 页面脚本在 document_start 读到的设置。localStorage 和它不一样时（别的标签页或面板改过），页面刷新后才用上新设置。
+// 中文对照随时生效（页面上的「中」按钮也会改它），不算在内
+const reloadSettings = () => {
+  const { compare, ...s } = settings();
+  return JSON.stringify(s);
+};
 let loaded = null;
 try {
-  loaded = JSON.stringify(settings());
+  loaded = reloadSettings();
 } catch {}
-const stale = () => JSON.stringify(settings()) !== loaded;
+const stale = () => reloadSettings() !== loaded;
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (sender.id !== chrome.runtime.id || !msg) return;

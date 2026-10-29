@@ -7,7 +7,7 @@ const SUGGEST_PATH = '/ai/generate-image/suggest-tags';
 const SUB_CLASS = 'nzh-sub';
 // 同时装了两份脚本（比如升级时旧版没删）时，互相改对方的副标题会让 MutationObserver 无限触发
 const INSTANCE = Math.random().toString(36).slice(2);
-// 扩展面板的「中文标签」开关（extension/bridge.js 写入，改了会刷新页面）：关掉后不接管联想、不加中文释义、不拉社区译名
+// 扩展面板的「中文标签」开关（extension/bridge.js 写入，改了会刷新页面）：关掉后不接管联想、不加中文释义和中文对照按钮、不拉社区译名
 const TAGS_PREF_KEY = 'nzh-tags';
 const tagsEnabled = (() => {
   try {

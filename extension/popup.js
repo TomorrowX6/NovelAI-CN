@@ -8,7 +8,7 @@ const fmt = (n) => n.toLocaleString('zh-CN');
 let tabId = null;
 let current = null;
 let pending = false;
-const DEFAULTS = { ui: false, tags: true, auto: true, hours: 24 };
+const DEFAULTS = { ui: false, tags: true, compare: false, auto: true, hours: 24 };
 // Last settings seen by bridge.js plus changes made while no page was connected.
 let offline = { ...DEFAULTS };
 
@@ -37,6 +37,8 @@ async function query() {
 function controls() {
   const prefs = current || offline;
   $('ui').disabled = $('tags').disabled = pending;
+  // The tag reference is part of the Chinese tags feature.
+  $('compare').disabled = pending || !prefs.tags;
   $('auto').disabled = pending || !BUILD.communityUrl || !prefs.tags;
   $('hours').disabled = $('auto').disabled || !prefs.auto;
   $('refresh').disabled = pending || !current || !BUILD.communityUrl || !current.tags;
@@ -50,6 +52,7 @@ function render(s) {
   const prefs = s || offline;
   $('ui').checked = !!prefs.ui;
   $('tags').checked = !!prefs.tags;
+  $('compare').checked = !!prefs.compare;
   $('auto').checked = !!prefs.auto;
   $('hours').value = String(prefs.hours || DEFAULTS.hours);
   $('connection').dataset.state = s ? 'connected' : 'disconnected';
@@ -105,6 +108,13 @@ async function set(key, value) {
   try {
     const r = await chrome.tabs.sendMessage(tabId, { type: 'nzh-set', key, value });
     if (!r?.ok) throw new Error('Setting rejected');
+    if (key === 'compare') {
+      // The page script switches the tag reference in place, so the page does not reload.
+      pending = false;
+      render((await query()) || { ...current, compare: value });
+      notice(value ? '中文对照已打开' : '中文对照已关闭', 'ok');
+      return;
+    }
     $('connection').dataset.state = 'loading';
     $('connection-text').textContent = '正在刷新 NovelAI 页面';
     notice(key === 'refresh' ? '正在重新获取社区译名…' : '设置已保存，正在刷新页面…');
@@ -154,6 +164,7 @@ document.addEventListener('keydown', (e) => {
 });
 $('ui').addEventListener('change', (e) => set('ui', e.target.checked));
 $('tags').addEventListener('change', (e) => set('tags', e.target.checked));
+$('compare').addEventListener('change', (e) => set('compare', e.target.checked));
 $('auto').addEventListener('change', (e) => set('auto', e.target.checked));
 // Arrow keys on a closed <select> fire change at every step, so keyboard choices are saved once they settle.
 let hoursKeyAt = 0;
