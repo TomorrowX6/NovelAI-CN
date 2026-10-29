@@ -76,6 +76,15 @@ const LOOKUPS = [
   ['beam of light', '光束'],
   ['battle-worn', '战损'],
   ['grim', '冷峻'],
+  ['dramatic sky', '天空'],
+  ['anime', '动漫'],
+  ['1 girl', '一个女孩'],
+  ['look at viewer', '看向观众'],
+  // 单复数写错
+  ['cat ear', '猫耳'],
+  ['freckle', '雀斑'],
+  ['high heel', '高跟鞋'],
+  ['denim short', '牛仔短裤'],
   ['^_^', null],
 ];
 for (const [tag, expect] of LOOKUPS) {
@@ -90,6 +99,38 @@ for (const tag of ['_', '']) {
   if (dict.lookup(tag) !== null) {
     failed++;
     console.log(`✗ lookup(${JSON.stringify(tag)}) = ${dict.lookup(tag)}，期望查不到`);
+  }
+}
+// 不是标签的写法按规则说明；「角色 from 作品」先按「角色 (作品)」查，单个词的角色名不单查（yuri 是「百合」）
+for (const [tag, expect] of [['artist:wlop', '画师'], ['negative prompt', '负面提示词'], ['k dpmpp sde', '生成参数'], ['-seed=229821', '生成参数'], ['break', '分段']]) {
+  if (!(dict.lookup(tag) || '').includes(expect)) {
+    failed++;
+    console.log(`✗ lookup(${tag}) = ${dict.lookup(tag)}，期望包含 ${expect}`);
+  }
+}
+for (const [phrase, same] of [['ryuuguu rena from higurashi no naku koro ni', 'ryuuguu rena'], ['yuri from doki doki literature club', 'yuri (doki doki literature club)']]) {
+  if (!dict.lookup(same) || dict.lookup(phrase) !== dict.lookup(same)) {
+    failed++;
+    console.log(`✗ lookup(${phrase}) = ${dict.lookup(phrase)}，期望和 ${same}（${dict.lookup(same)}）相同`);
+  }
+}
+// 常见的拼写错误：lookup 查不到（不能当别名，免得掩盖写错），typo 给出正确的标签
+for (const [wrong, right] of [['worth quality', 'worst quality'], ['absurdes', 'absurdres'], ['missing fngers', 'missing finger']]) {
+  const hint = dict.typo(wrong);
+  if (dict.lookup(wrong) !== null || !hint || hint.tag !== right || hint.zh !== dict.lookup(right)) {
+    failed++;
+    console.log(`✗ ${wrong}：lookup = ${dict.lookup(wrong)}，typo = ${JSON.stringify(hint)}，期望提示 ${right}`);
+  }
+}
+if (dict.typo('worst quality') !== null) {
+  failed++;
+  console.log('✗ 写对的标签不应该提示拼错');
+}
+// 单复数变体不能把常用词变成别的意思：shorts → short、人物作品名 minis → mini
+for (const [tag, wrong] of [['short', '短裤'], ['sweet', '甜食'], ['flat', '平底鞋'], ['mini', '米妮'], ['loves', '中二病']]) {
+  if ((dict.lookup(tag) || '').includes(wrong)) {
+    failed++;
+    console.log(`✗ lookup(${tag}) = ${dict.lookup(tag)}，不应该是「${wrong}」`);
   }
 }
 
@@ -130,7 +171,9 @@ for (const tag of ['_', '']) {
 
 // 中文对照：按 NovelAI 的分隔符和权重写法切出标签，位置要能对回原文
 {
-  const s = '1girl, {{cat girl}}, 1.2::smile, looking at viewer::, [blush]|source#hugging, artist:foo, -1::bad hands::、 .5::x::\nnext line';
+  const s =
+    '1girl, {{cat girl}}, 1.2::smile, looking at viewer::, [blush]|source#hugging, artist:foo, -1::bad hands::、 .5::x::\nnext line, ' +
+    '(big hair:1.5), ((masterpiece)), (albedo (overlord):1.2), (best quality, open mouth), albedo (overlord), 16:9';
   const got = ctx.promptTags(s);
   const want = [
     ['1girl', '1girl'],
@@ -143,7 +186,60 @@ for (const tag of ['_', '']) {
     ['bad hands', 'bad hands'],
     ['x', 'x'],
     ['next line', 'next line'],
+    // Stable Diffusion 的括号和权重：查词典时去掉，标签名自带的括号保留
+    ['(big hair:1.5)', 'big hair'],
+    ['((masterpiece))', 'masterpiece'],
+    ['(albedo (overlord):1.2)', 'albedo (overlord)'],
+    ['(best quality', 'best quality'],
+    ['open mouth)', 'open mouth'],
+    ['albedo (overlord)', 'albedo (overlord)'],
+    ['16:9', '16:9'],
   ];
+  // 别处抄来的写法：Negative prompt: 标题、Danbooru 网页侧栏、标注工具的置信度、全角括号逗号、零宽空格、括号连写、character: 前缀
+  const zwsp = String.fromCharCode(0x200b);
+  const s2 = `negative prompt:lowres, ? blue eyes 1.3m, long hair 0.845, （artist:hiten）, bad feet${zwsp}lowres, (artist:a)[[artist:b]], character:yazawa nico, smile;, ( , 1girl，solo`;
+  const want2 = [
+    ['negative prompt:lowres', 'lowres'],
+    ['? blue eyes 1.3m', 'blue eyes'],
+    ['long hair 0.845', 'long hair'],
+    ['（artist:hiten）', 'artist:hiten'],
+    ['bad feet', 'bad feet'],
+    ['lowres', 'lowres'],
+    ['(artist:a)', 'artist:a'],
+    ['artist:b', 'artist:b'],
+    ['character:yazawa nico', 'yazawa nico'],
+    ['smile;', 'smile'],
+    ['1girl', '1girl'],
+    ['solo', 'solo'],
+  ];
+  const got2 = ctx.promptTags(s2);
+  if (JSON.stringify(got2.map((t) => [t.text, t.tag])) !== JSON.stringify(want2) || got2.some((t) => s2.slice(t.start, t.end) !== t.text)) {
+    failed++;
+    console.log(`✗ promptTags 整理抄来的写法不对：${JSON.stringify(got2)}`);
+  }
+  // 句号隔开的、括号后面紧跟着的再切开；缩写后面的句号不切
+  const s3 =
+    'vibrant. happy. large breasts, (wlop)year 2023, st. louis (azur lane), mr. game & watch, ' +
+    'saber (fate) (cosplay), (curly) hair, absurdly (long hair:1.5), purple ribbon in ((black twintails))';
+  const want3 = [
+    ['vibrant.', 'vibrant'],
+    ['happy.', 'happy'],
+    ['large breasts', 'large breasts'],
+    ['(wlop)', 'wlop'],
+    ['year 2023', 'year 2023'],
+    ['st. louis (azur lane)', 'st. louis (azur lane)'],
+    ['mr. game & watch', 'mr. game & watch'],
+    // 两层出处括号不切开；夹在中间的 Stable Diffusion 括号查词典时去掉
+    ['saber (fate) (cosplay)', 'saber (fate) (cosplay)'],
+    ['(curly) hair', 'curly hair'],
+    ['absurdly (long hair:1.5)', 'absurdly long hair'],
+    ['purple ribbon in ((black twintails))', 'purple ribbon in black twintails'],
+  ];
+  const got3 = ctx.promptTags(s3);
+  if (JSON.stringify(got3.map((t) => [t.text, t.tag])) !== JSON.stringify(want3) || got3.some((t) => s3.slice(t.start, t.end) !== t.text)) {
+    failed++;
+    console.log(`✗ promptTags 句号、括号连写切分不对：${JSON.stringify(got3)}`);
+  }
   if (JSON.stringify(got.map((t) => [t.text, t.tag])) !== JSON.stringify(want) || got.some((t) => s.slice(t.start, t.end) !== t.text)) {
     failed++;
     console.log(`✗ promptTags 切分不对：${JSON.stringify(got)}`);

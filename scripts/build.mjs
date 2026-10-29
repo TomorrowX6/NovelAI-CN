@@ -29,6 +29,10 @@ const SOURCES = {
 const PRIMARY = ['zh-general.csv', 'zh-character.csv', 'zh-copyright.csv', 'zh-meta.csv'];
 
 const MAX_SEARCH_NAMES = 8;
+// 图片数到这个数的通用、元标签才生成单复数变体（约 9000 个，词典多 120 KB）
+const NUMBER_VARIANT_MIN_COUNT = 1000;
+// 复数标签去掉 s 后是常用形容词或别的意思的，不生成（shorts → short「短裤」、overalls → overall「背带裤」）
+const NOT_SINGULAR = new Set(['short', 'flat', 'sweet', 'overall', 'organ', 'chap', 'gather', 'variation', 'thermo', 'croc', 'stat']);
 
 // 这些表情标签的下划线是标签本身的一部分（与 tagcomplete 的排除列表一致）
 const KEEP_UNDERSCORE = new Set([
@@ -188,6 +192,22 @@ function normTag(t) {
   return t.trim().toLowerCase().replace(/ /g, '_');
 }
 
+// 标签最后一个词换成另一种单复数写法：cat_ears ↔ cat_ear、panties → panty、dress → dresses、strawberry → strawberries。
+// 以 us、is 结尾的（octopus、hypnosis）和带数字、括号的不处理
+function numberVariant(tag) {
+  const m = tag.match(/^(.*_)?([a-z]{3,})$/);
+  if (!m || /(us|is)$/.test(m[2])) return null;
+  const [, head = '', w] = m;
+  let v;
+  if (w.endsWith('ies')) v = w.slice(0, -3) + 'y';
+  else if (/(x|ch|sh|ss)es$/.test(w)) v = w.slice(0, -2);
+  else if (w.endsWith('ss') || /(x|ch|sh)$/.test(w)) v = w + 'es';
+  else if (w.endsWith('s')) v = w.slice(0, -1);
+  else if (/[^aeiou]y$/.test(w)) v = w.slice(0, -1) + 'ies';
+  else v = w + 's';
+  return !head && NOT_SINGULAR.has(v) ? null : head + v;
+}
+
 function displayTag(tag) {
   return KEEP_UNDERSCORE.has(tag) ? tag : tag.replace(/_/g, ' ');
 }
@@ -242,7 +262,7 @@ async function main() {
     if (target) entries.get(target).oldNames.add(tag);
   }
 
-  const stats = { manual: 0, legacy: 0, ehtag: 0, curated: 0, extra: 0, override: 0, words: 0 };
+  const stats = { manual: 0, legacy: 0, ehtag: 0, curated: 0, extra: 0, override: 0, words: 0, typos: 0 };
   for (const [t, zh] of parseTranslations(raw['zh-manual.csv'])) {
     const names = zh.split(/[/|]/).map(cleanText).filter(searchable);
     if (!names.length) continue;
@@ -326,18 +346,29 @@ async function main() {
   if (customOnly.size) console.log(`新数据里没有的自定义标签（请确认拼写）: ${[...customOnly].join(', ')}`);
 
   // 常用英文词（data/zh-words.csv）：提示词里常写、但不是 Danbooru 标签的描述词（dramatic、cinematic lighting），
-  // 让中文对照也能显示中文。没有使用次数，检索时排在标签后面。已经是标签或 Danbooru 别名的不收；
+  // 让中文对照也能显示中文。没有使用次数，检索时排在标签后面。已经是标签或查得到中文的 Danbooru 别名的不收；
   // 来源数据把它当成别名的（crusader → 仙境传说的十字军）以这里为准
   const danbooruAliases = parseAliases(raw['danbooru-aliases.tsv']);
-  const danbooruAliasNames = new Set(danbooruAliases.map(([alias]) => alias));
+  // 指向的标签词典里也没有的 Danbooru 别名（eyebrows_visible_through_hair）查不到中文，不算冲突
+  const danbooruAliasNames = new Set(danbooruAliases.filter(([, tag]) => resolve(tag)).map(([alias]) => alias));
   const wordConflicts = [];
   // 译名完全相同的写法（hyperrealistic、hyper realistic）记为第一个的别名，检索时只出一条
   const wordByZh = new Map();
+  // 译名写成「=标签」的是那个标签的另一种写法（1 girl → 1girl），记为它的别名；
+  // 写成「?标签」的是常见的拼写错误（worth quality → worst quality），中文对照里提示可能拼错，不当成别名
+  const wordAliases = [];
+  const wordTypos = [];
   for (const [w, zh] of parseTranslations(wordsCsv)) {
     const tag = normTag(w);
     const names = zh.split('/').map(cleanText).filter(Boolean);
-    if (entries.has(tag) || danbooruAliasNames.has(tag) || !names.length) {
+    const target = /^[=?]/.test(zh) && resolve(zh.slice(1));
+    if (entries.has(tag) || danbooruAliasNames.has(tag) || !names.length || target === null) {
       wordConflicts.push(w);
+      continue;
+    }
+    if (target) {
+      (zh[0] === '?' ? wordTypos : wordAliases).push([tag, target]);
+      stats[zh[0] === '?' ? 'typos' : 'words']++;
       continue;
     }
     const same = wordByZh.get(zh);
@@ -348,7 +379,7 @@ async function main() {
     }
     stats.words++;
   }
-  if (wordConflicts.length) console.log(`zh-words.csv 里已经是标签、Danbooru 别名或没写译名的词（请删掉）: ${wordConflicts.join(', ')}`);
+  if (wordConflicts.length) console.log(`zh-words.csv 里已经是标签、Danbooru 别名、没写译名或 = ? 后的标签不存在的词（请改掉）: ${wordConflicts.join(', ')}`);
 
   // 别名、旧译名、被审定替换下来的原译名常常正好是另一个标签的正式译名（chinese_clothes 的别名「汉服」、
   // choker 换下来的「项圈」），留着会让它精确命中两个标签、热门的那个反而排前面，所以丢掉。
@@ -364,13 +395,13 @@ async function main() {
   }
 
   // 英文别名（peace_sign → v、sparkles → sparkle）和旧名一样输出：提示词里常直接写别名，中文对照和英文联想都按它查中文。
-  // 一个别名只给一个标签，依次取 Danbooru 现行的别名表、来源数据、旧快照的别名表；本身是词典里标签的名字不算，
-  // 带 | 的（||_|| 这类表情）放不进以 | 分隔的旧名列
+  // 一个别名只给一个标签，依次取 zh-words.csv 里手写的、Danbooru 现行的别名表、来源数据、旧快照的别名表，最后是单复数变体；
+  // 本身是词典里标签的名字不算，带 | 的（||_|| 这类表情）放不进以 | 分隔的旧名列
   const aliasTarget = new Map();
   for (const [tag, e] of entries) for (const n of e.oldNames) aliasTarget.set(n, tag);
   let aliasCount = 0;
   const addAlias = (alias, tag) => {
-    if (!tag || !entries.has(tag) || alias.includes('|') || entries.has(alias) || aliasTarget.has(alias)) return;
+    if (!alias || !tag || !entries.has(tag) || alias.includes('|') || entries.has(alias) || aliasTarget.has(alias)) return;
     entries.get(tag).oldNames.add(alias);
     aliasTarget.set(alias, tag);
     aliasCount++;
@@ -378,10 +409,17 @@ async function main() {
   // Danbooru 改了名、词典里还是旧名的标签（watermark_grid → grid_watermark）：新名字和指向新名字的别名都算旧名的
   const renamedOnDanbooru = new Map();
   for (const [alias, tag] of danbooruAliases) if (!resolve(tag) && entries.has(alias)) renamedOnDanbooru.set(tag, alias);
+  for (const [alias, tag] of wordAliases) addAlias(alias, tag);
   for (const [tag, old] of renamedOnDanbooru) addAlias(tag, old);
   for (const [alias, tag] of danbooruAliases) addAlias(alias, resolve(tag) ?? renamedOnDanbooru.get(tag));
   for (const [alias, tag] of aliasOf) addAlias(alias, tag);
   for (const [alias, old] of oldAliasOf) addAlias(normTag(alias), resolve(old));
+  // 单复数写错（cat_ear、freckle、high_heel）：只给常用的通用、元标签生成，人物、作品名的变体常常撞上普通词（mini → minis）
+  for (const [tag, e] of entries) {
+    if ((e.category === 0 || e.category === 5) && e.count >= NUMBER_VARIANT_MIN_COUNT) addAlias(numberVariant(tag), tag);
+  }
+  // 拼写错误加「~」放在旧名列里，运行时单独收着（src/core.js 的 typo）；已经能查到的写法不算拼错
+  for (const [typo, tag] of wordTypos) if (!aliasTarget.has(typo)) entries.get(tag).oldNames.add('~' + typo);
 
   // NovelAI 不认识 Danbooru 新名字的标签，输出为 NovelAI 认识的名字
   const renamed = new Map();
@@ -443,7 +481,7 @@ async function main() {
   for (const e of entries.values()) byCat[e.category] = (byCat[e.category] || 0) + 1;
   console.log(
     `通用 ${byCat[0] || 0}，作品 ${byCat[3] || 0}，角色 ${byCat[4] || 0}，元标签 ${byCat[5] || 0}；` +
-      `机翻新标签 ${newTags}，补充人工译名 ${stats.manual}，旧标签 ${stats.legacy}，EhTag ${stats.ehtag}，审定 ${stats.curated}，自定义检索词 ${stats.extra}，覆盖 ${stats.override}，常用英文词 ${stats.words}，改名 ${renamed.size}，英文别名 ${aliasCount}；共 ${rows.length} 条`,
+      `机翻新标签 ${newTags}，补充人工译名 ${stats.manual}，旧标签 ${stats.legacy}，EhTag ${stats.ehtag}，审定 ${stats.curated}，自定义检索词 ${stats.extra}，覆盖 ${stats.override}，常用英文词 ${stats.words}，拼写错误 ${stats.typos}，改名 ${renamed.size}，英文别名 ${aliasCount}；共 ${rows.length} 条`,
   );
   const ui = uiDataStats(uiData);
   console.log(`界面文案 ${ui.total} 条，已翻译 ${ui.translated}，待翻译 ${ui.untranslated}；写死的文字 ${hardData.length} 段，打包 ${hardZh.length} 段`);

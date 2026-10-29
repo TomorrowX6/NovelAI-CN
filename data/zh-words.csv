@@ -1,6 +1,8 @@
 # 提示词里常写、但不是 Danbooru 标签的英文描述词：英文,译名/检索词
 # 只为了让「中」对照也显示中文；检索时排在所有标签后面。已经是标签或 Danbooru 别名的词不要写进来（构建时会提示）
-# 词表参考 Stable Diffusion 提示词语料里的高频词，由 Claude 翻译，没有经过人工校对
+# 译名写成「=标签」表示是那个标签的另一种写法（1 girl,=1girl），只查中文、不单独出现在检索里
+# 译名写成「?标签」表示常见的拼写错误（worth quality,?worst quality）：不当成别名，对照里用黄色显示正确写法的中文，提醒写错了
+# 词表参考 Stable Diffusion 和 NovelAI 提示词语料里的高频词，由 Claude 翻译，没有经过人工校对
 
 # 氛围、情绪
 dramatic,戏剧性/戏剧感
@@ -382,3 +384,3581 @@ templar,圣殿骑士
 crusader,十字军
 mercenary,佣兵
 adventurer,冒险者
+
+# 奇幻、角色气质
+anime,动漫风格
+dark armor,暗黑盔甲
+dramatic sky,戏剧性天空
+dramatic clouds,戏剧性云层
+ominous sky,不祥的天空
+evil,邪恶
+badass,霸气/酷炫
+cool,酷/帅气
+stylish,时尚
+edgy,叛逆/有个性
+imposing,威严
+fearsome,令人畏惧
+formidable,强大可畏
+mighty,强大
+brooding,阴沉/忧思
+demonic,恶魔般
+angelic,天使般
+ghostly,幽灵般
+otherworldly,超凡脱俗
+cosmic,宇宙感
+celestial,天界/星辰
+infernal,地狱般
+shadowy,阴影笼罩
+blood red,血红
+crimson,深红
+
+# 负面提示词里常写的
+low quality,低质量
+poorly drawn,画得差
+poorly drawn hands,手画得差
+poorly drawn face,脸画得差
+poorly drawn feet,脚画得差
+bad eyes,眼睛画得差
+mutated,变异
+mutated hands,手部变异
+mutated hands and fingers,手和手指变异
+mutated legs,腿部变异
+malformed,畸形
+malformed hands,手部畸形
+malformed limbs,肢体畸形
+missing arms,缺少手臂
+missing legs,缺少腿
+missing limbs,缺少肢体
+extra limbs,多余的肢体
+extra limb,多余的肢体
+too many fingers,手指过多
+fused fingers,手指粘连
+gross proportions,比例严重失调
+ugly,丑陋
+morbid,病态
+mutilated,残缺
+cloned face,重复的脸
+
+# 正面提示词里常写的
+detailed eyes,细致的眼睛
+beautiful detailed eyes,精致美丽的眼睛
+detailed face,细致的面部
+beautiful detailed face,精致美丽的面部
+detailed hands,细致的手
+detailed hair,细致的头发
+extremely detailed cg,极致精细CG
+extremely detailed cg unity 8k wallpaper,极致精细CG Unity 8K壁纸
+extremely detailed 8k wallpaper,极致精细8K壁纸
+8k wallpaper,8K壁纸
+4k wallpaper,4K壁纸
+wallpaper,壁纸
+cg,CG插画
+ultra hd,超高清
+high detailed,高细节
+super detail,超精细
+ultra-detailed,超精细
+finely detailed,精细
+perfect anatomy,完美人体结构
+correct anatomy,正确人体结构
+accurate anatomy,正确人体结构
+perfect face,完美的脸
+perfect eyes,完美的眼睛
+beautiful face,美丽的脸
+beautiful eyes,美丽的眼睛
+cute face,可爱的脸
+face focus,脸部特写
+front view,正面视角
+top view,俯视
+close view,近景
+cinematic light,电影光效
+strong light,强光
+natural colors,自然色彩
+dramatic angle,戏剧性角度
+detail,细节
+details,细节
+amazing,惊人
+exquisite,精致
+charming,迷人
+classic,经典
+doodle,涂鸦
+simple sketch,简单草图
+photography,摄影
+realistic face,写实的脸
+realistic body,写实的身体
+realistic eyes,写实的眼睛
+sunny day,晴天
+rainy,雨天
+snowfall,降雪
+bright,明亮
+happy face,开心的脸
+angry face,生气的脸
+sweet smile,甜美的微笑
+cute smile,可爱的微笑
+happy smile,开心的微笑
+sly smile,狡黠的微笑
+flirtatious,挑逗
+flirtatious smile,挑逗的微笑
+naughty,淘气
+hentai,工口
+porn,色情
+erotic,情色
+lewd,下流
+sexy look,性感眼神
+sexy body,性感身材
+kawaii,可爱
+boy,男孩
+woman,女人
+female,女性
+young,年轻
+adult,成年
+teen,青少年
+teenage,青少年
+slim,苗条
+tall,高个子
+eyes,眼睛
+hair,头发
+hands,手
+face,脸
+
+# 已有标签的其他写法
+1 girl,=1girl
+one girl,=1girl
+1 boy,=1boy
+one boy,=1boy
+two girls,=2girls
+look at viewer,=looking at viewer
+first-person perspective,=pov
+first person view,=pov
+background blurry,=blurry background
+missing fingers,=missing finger
+
+# NovelAI 提示词语料（la-ji/novelai-prompt-in-the-wild）里出现最多、词典查不到的短语，按出现次数排列
+bad,差
+fewer,更少
+missing,缺失
+more than 2 nipples,超过两个乳头
+more than 2 thighs,超过两条大腿
+bad crotch seam,裆部缝线错误
+fused anus,肛门融合
+fused pussy,阴部融合
+wide thighs,粗大腿
+three arms,三只手臂
+humpbacked,驼背
+sharp face,尖脸
+abnormal eye proportion,眼睛比例异常
+abnormal legs,腿部异常
+abnormal feet abnormal fingers,脚和手指异常
+abnormal hands,手部异常
+limbs,四肢
+defined eyes,轮廓分明的眼睛
+hip slim,窄臀
+shape eyes,眼型
+hourglass figure,沙漏型身材
+messy bangs,凌乱刘海
+without bangs,无刘海
+parted middle,中分
+perfect big boobs,完美的大胸
+missing limbs face,缺少肢体和脸
+vulgar smile,粗俗的笑
+cuerpo mujer fitness,健身女性身材
+fit,健美
+black wavy long hair,黑色波浪长发
+detailed pussy,细致的阴部
+sexy figure,性感身材
+uncensored pussy,无码阴部
+long white hair,白色长发
+arm sleeves,=detached sleeves
+white stockings,白色长筒袜
+solo girl,单人女孩
+bad toes,脚趾画得差
+black sharp eyeliner,黑色锐利眼线
+large ass,大屁股
+clear,清晰
+clear eyes,清澈的眼睛
+medium height,中等身高
+shiny hair,有光泽的头发
+slim anatomy,苗条身材
+small nose,小鼻子
+long dark purple hair,深紫色长发
+heavy upper lips,厚上唇
+jungle background,丛林背景
+sweatbody,满身大汗
+pink nipples,粉色乳头
+female focus,以女性为主
+very beautiful,非常美丽
+elastic body,柔韧的身体
+little girl,小女孩
+ridiculous,荒谬
+black stockings,黑色长筒袜
+thin girl,瘦女孩
+bad finger,手指画得差
+disheveled hair,蓬乱的头发
+low height,矮个子
+furry bunny,兽人兔子
+2 men,两个男人
+bright skin,白皙皮肤
+female villain,女反派
+furryart rabbit,兽人兔子
+nude naked topless,全裸
+bad body,身体画得差
+white long hair,白色长发
+perfect medium boobs,完美的中等胸部
+brunette skin,黝黑皮肤
+goddess,女神
+hair covering one eye,=hair over one eye
+smug smile,得意的笑
+wide shoulder,宽肩
+female villains,女反派
+blur,模糊
+feminine,女性化
+finely detail,精细
+insert into the vagina,插入阴道
+raped by tentacles,被触手侵犯
+in natural,在自然中
+hands bondage the back,双手反绑
+beach background,海滩背景
+tentacles bondage hands,触手捆住双手
+mature girl,成熟女孩
+low fov,低视场角
+put hands around shoulders,双手搭在肩上
+word,文字
+cute eyes,可爱的眼睛
+black cat tail,黑色猫尾
+tentacles in pussy,触手插入阴道
+natural,自然
+cat ear fluff,猫耳绒毛
+gigantic large boobs,超大胸部
+fitgirls,健身女孩
+ashamed,羞愧
+multiple orgasm,多次高潮
+yuno gasai future diary,=gasai yuno
+soft pale skin,柔嫩白皙的皮肤
+flat breast,=flat chest
+hair updo,盘发
+sun rays,=light rays
+alluring face,诱人的脸
+pale color tone,淡色调
+mosaic,=mosaic censoring
+body fitness woman,健身女性身材
+tentacle around waist,触手缠腰
+shaved pussy,无毛阴部
+big boobs,=large breasts
+erection nipples,乳头勃起
+young girl,少女
+love juice,=pussy juice
+lush hair,浓密的头发
+medium ass,中等臀部
+19 years old,19岁
+delicate vagina,精致的阴部
+neko ears,=cat ears
+black underpants,黑色内裤
+fishnet legwear,渔网袜
+glimpse of nipple,隐约露出乳头
+large chest,大胸
+logotype,标志字体
+500px,500px（摄影网站）
+half-undressing of clothes,半脱衣服
+guy fucked by girl,男人被女人上
+vagina exposed,露出阴部
+seriously,认真
+view front,正面视角
+frown shape eyes,皱眉眼
+hands clutching ass,双手抓着屁股
+glimpse of cleavage,隐约露出乳沟
+tiny girl,娇小女孩
+thicc,丰满
+sharp eyeliner,锐利眼线
+lying on bed,躺在床上
+detailed nipples,细致的乳头
+detailed background,细致的背景
+creampie,内射
+babyface,娃娃脸
+black tie,黑色领带
+cunt,阴部（粗俗）
+detailed fingers,细致的手指
+half-stripped clothes,半脱衣服
+small,小
+reference,参考
+buttoned up,扣好扣子
+spreading legs,=spread legs
+stripped clothes,被脱下的衣服
+very blush,满脸通红
+thighs highleg swimsuit,高开衩泳衣
+thong leopard,豹纹丁字裤
+blue plaid skirt,蓝色格子裙
+sitting open legs,张腿坐
+short crop top,短款露脐上衣
+naruto shippuden theme,火影忍者疾风传主题
+dark herbal-green eyes,深草绿色眼睛
+long locks,长发绺
+light blue cat ears,浅蓝色猫耳
+messy long hair,凌乱长发
+slim body,苗条身材
+light pink hair,浅粉色头发
+round face,圆脸
+rich dark purple-blue hair,深紫蓝色头发
+blue light glowing ears,发蓝光的耳朵
+shawty,辣妹
+insert into the vaginas,插入阴道
+angel halo above head,头顶天使光环
+ultrashort right parted hair,超短右分发
+background blurry indoor bedroom,模糊的室内卧室背景
+midget,侏儒
+pleated microskirt,百褶超短裙
+chibi style,Q版风格
+sweet,甜美
+character: yazawa nico,=yazawa nico
+nun clothes,修女服
+close,近
+girl toned stomach,女孩紧致腹部
+blue star eyes,蓝色星星眼
+without bang,无刘海
+2023 year,2023年
+thong straps,丁字裤带子
+extra super mutated legs,严重变异的腿
+high school theme,高中主题
+realistic image,写实图像
+small earring,小耳环
+earring looks like star,星形耳环
+naughty posture,淘气的姿势
+hetero sex,异性性交
+very realistic body,非常写实的身体
+top down,俯视
+standing open legs,张腿站立
+white legwear,白色袜子
+horny face,发情脸
+amativeness,性欲
+rape sex,强奸
+blue sharp eyes,蓝色锐利眼睛
+climax,=orgasm
+lewd theme,色情主题
+horror,恐怖
+excitement,兴奋
+love live,=love live!
+white thong,白色丁字裤
+breasts exposed,露出胸部
+more than 8 nipples,超过八个乳头
+thighs grab,=thigh grab
+high complexity,高复杂度
+busty milf,丰满熟女
+sitting ass focus,坐姿臀部特写
+elastic figure,柔韧的身体
+shiny pink eyes eyeballs,闪亮的粉色眼睛
+amused look,被逗乐的表情
+shame,羞耻
+sweet happy smile,甜美开心的笑
+more than 8 thighs,超过八条大腿
+pleated short skirt,百褶短裙
+veins on dicks,=veiny penis
+clenching teeth,=clenched teeth
+black long hair,黑色长发
+pale cyan-blue eyes,淡青蓝色眼睛
+white fox ears,白色狐耳
+cheerful expression,开朗的表情
+grey background texture,灰色纹理背景
+revealing rags,暴露的破布衣
+character,角色
+disgusted look,嫌弃的表情
+detailed illustration,精细插画
+straight back,挺直后背
+big eyes,大眼睛
+thick tights,厚裤袜
+lie on the bed,躺在床上
+wavy bangs,波浪刘海
+1 man,一个男人
+year,年份
+hidden hands,手藏起来
+erection red nipples,勃起的红乳头
+tight underboob,紧绷的下乳
+half closed eyes,=half-closed eyes
+lace chest,蕾丝胸部
+shoulder-length short hair,齐肩短发
+warm gray hair,暖灰色头发
+light green skin,浅绿色皮肤
+beautiful figure,美丽身材
+hair covers one eye,=hair over one eye
+small chin,小下巴
+small ass,小屁股
+detailed cg,精细CG
+wind blowing hair,风吹头发
+white rabbit ears,白色兔耳
+neon signs,=neon sign
+look up,=looking up
+female child,女童
+inaccurate limb and fingers,肢体和手指不准确
+detailed shiny eyes,细致闪亮的眼睛
+lace top,蕾丝上衣
+pink pussy,粉色阴部
+look at viewers,=looking at viewer
+full black eyes,全黑眼睛
+long pink hair,粉色长发
+full height,=full body
+squirting,潮吹
+stars in the sky,星空
+oily skin,油亮的皮肤
+flowers field,=flower field
+adult girl,成年女性
+bad foot,脚画得差
+embraced,被拥抱
+correct body anatomy,正确人体结构
+18 years old,18岁
+detailed vaginal,细致的阴部
+short stature,矮个子
+extremely detailed cg unity,极致精细CG Unity
+handsome face,英俊的脸
+black stocking,黑色长筒袜
+silver hair,银发
+float hair,=floating hair
+bad pussy,阴部画得差
+viewer pov,=pov
+night street on background,夜晚街道背景
+sexy pose,性感姿势
+oral sex,=oral
+face close-up,脸部特写
+1girl goblin,哥布林女孩
+sharp eyes,锐利的眼睛
+long lace sleeves,蕾丝长袖
+different nipples,乳头不对称
+close up face,脸部特写
+stand up straight,站直
+small booty,小屁股
+pink long hair,粉色长发
+black pleated skirt,黑色百褶裙
+full figure,=full body
+1man,一个男人
+lift one leg,抬起一条腿
+naked girl,裸体女孩
+overlord style art,Overlord画风
+huge eyes,大眼睛
+bad nipples,乳头画得差
+detailed body,细致的身体
+ugly fingers,手指丑陋
+kneel,=kneeling
+worst face,脸画得极差
+bad and mutated hands,手部画得差且变异
+multiple limbs,多肢体
+deformed fingers,手指畸形
+hyper realistic body,超写实的身体
+1child,一个孩子
+torso,躯干
+strings low cut groin,低腰系带露腹股沟
+plump breasts,丰满的胸部
+cute hairstyle,可爱的发型
+full naked,全裸
+sperm on her teeth,牙齿上沾着精液
+ultra masterpiece,超级杰作
+perfect boobs,完美的胸部
+focus on the vagina,阴部特写
+chinese style,中国风
+lace stockings,蕾丝长筒袜
+straight long black hair,黑色直长发
+elongated eye shape,细长的眼型
+slanting eyes,上挑眼
+white short dress,白色短连衣裙
+glimpse of over boobs,隐约露出上乳
+don't care face,无所谓的表情
+long bangs to side,侧分长刘海
+plashing,飞溅
+small size,小尺寸
+slightly wavy hair,微卷发
+chinese style clothing,中式服装
+more obvious physical lines,更明显的身体线条
+extremely detailed pussy,极致细致的阴部
+open belly,露肚子
+chinese clothing,=chinese clothes
+white elbow gloves,白色长手套
+bare breasts,裸露的胸部
+byakugan white eyes,白眼（火影忍者）
+mature women,=mature female
+one view,单一视角
+small tits,=small breasts
+no clothes,=nude
+extremely detailed hands,极致细致的手
+beautiful boobs,美丽的胸部
+large vaginal lips,大阴唇
+very small breasts,非常小的胸部
+young child,幼童
+ui,界面
+orgasm face,=orgasm
+soft skin,柔嫩的皮肤
+extra feet,多余的脚
+bikini leopard,豹纹比基尼
+michelia hair flowers,含笑花发饰
+gal woman,辣妹
+big tits,=large breasts
+enjoy,享受
+narrow shoulders,窄肩
+big muscles,大块肌肉
+guy,男人
+teenage girl,少女
+bad shoes,鞋子画得差
+close-up face,脸部特写
+bitch,婊子
+missing feet,缺少脚
+garter belt suspension,吊袜带
+bad breasts,胸部画得差
+bad ears,耳朵画得差
+white micro bikini,白色超小比基尼
+hard nipples,乳头挺立
+netflix adoption,Netflix改编
+not colored,未上色
+short hairstyle,短发型
+white cat ears,白色猫耳
+sweet face,甜美的脸
+missing hand,缺少手
+disappearing thigh,大腿消失
+disappearing calf,小腿消失
+disappearing legs,腿消失
+bad digit,手指画得差
+bad shadow,阴影画得差
+unnatural body,不自然的身体
+disappearing arms,手臂消失
+malformed feet,脚部畸形
+bad gloves,手套画得差
+tender,温柔
+shalltear,=shalltear bloodfallen
+hands on the wall,双手撑墙
+flying hair,=floating hair
+nsfw theme,成人主题
+extremely detailed eyes,极致细致的眼睛
+boy behind girl,男孩在女孩身后
+fitness female body,健身女性身材
+3d character,3D角色
+close-up on face,脸部特写
+torn tights,破洞裤袜
+shy skin,害羞泛红的皮肤
+cropped blonde hair,金色短发
+lowers,下装
+nico yazawa,=yazawa nico
+more than 4 nipples,超过四个乳头
+nipples exposed,露出乳头
+enjoying,享受
+black-white,黑白
+huge calf,粗小腿
+fused hand,手部融合
+skinny body,骨感身材
+wide pelvis,宽骨盆
+thin-rimmed round glasses,细框圆眼镜
+3d game,3D游戏
+daylight,日光
+blonde brown hair,金棕色头发
+liquid body,身体液化
+liquid tongue,舌头液化
+text font ui,界面文字
+uncoordinated body,身体不协调
+liquid breasts,胸部液化
+heavy breasts,沉甸甸的胸部
+missing breasts,胸部缺失
+fused ears,耳朵融合
+poorly drawn ears,耳朵画得差
+liquid ears,耳朵液化
+heavy ears,耳朵过重
+missing ears,缺少耳朵
+fused animal ears,兽耳融合
+bad animal ears,兽耳画得差
+poorly drawn animal ears,兽耳画得差
+extra animal ears,多余的兽耳
+liquid animal ears,兽耳液化
+missing animal ears,缺少兽耳
+missing digit,缺少手指
+liquid digit,手指液化
+colorful tongue,彩色舌头
+3d game scene,3D游戏场景
+fused feet,脚部融合
+extra shoes,多余的鞋
+fused shoes,鞋子融合
+more than two shoes,超过两只鞋
+poorly drawn shoes,鞋子画得差
+poorly drawn gloves,手套画得差
+bad cum,精液画得差
+poorly drawn cum,精液画得差
+bad hairs,头发画得差
+poorly drawn hairs,头发画得差
+bad asshole,肛门画得差
+fused asshole,肛门融合
+missing asshole,缺少肛门
+bad anus,肛门画得差
+bad crotch,裆部画得差
+poorly drawn mouth,嘴画得差
+very long white hair,白色超长发
+fused breasts,胸部融合
+poorly drawn breasts,胸部画得差
+huge haunch,大臀部
+heavy animal ears,兽耳过重
+fused digit,手指融合
+fused gloves,手套融合
+fused cum,精液融合
+fused hairs,头发融合
+fused face,脸部融合
+big face,大脸
+missing nipples,缺少乳头
+fused nipples,乳头融合
+poorly drawn nipples,乳头画得差
+colorful nipples,彩色乳头
+gross proportions. short arm,比例失调、手臂过短
+missing thighs,缺少大腿
+missing calf,缺少小腿
+extra thighs,多余的大腿
+extra calf,多余的小腿
+fused calf,小腿融合
+bad knee,膝盖画得差
+extra knee,多余的膝盖
+more than 2 legs,超过两条腿
+bad tails,尾巴画得差
+bad mouth,嘴画得差
+fused mouth,嘴部融合
+bad tongue,舌头画得差
+tongue within mouth,舌头在嘴里
+cracked mouth,嘴角开裂
+fused pantie,内裤融合
+poorly drawn pantie,内裤画得差
+fused cloth,衣服融合
+poorly drawn cloth,衣服画得差
+bad pantie,内裤画得差
+bad cameltoe,骆驼趾画得差
+colorful cameltoe,彩色骆驼趾
+poorly drawn asshole,肛门画得差
+fused crotch,裆部融合
+poorly drawn crotch,裆部画得差
+fused seam,缝线融合
+poorly drawn anus,肛门画得差
+poorly drawn pussy,阴部画得差
+poorly drawn crotch seam,裆部缝线画得差
+bad thigh gap,腿缝画得差
+missing thigh gap,缺少腿缝
+fused thigh gap,腿缝融合
+safety panties,安全裤
+safety knickers,安全裤
+long black hair,黑色长发
+pencil illustration,铅笔插画
+waist cutout,腰部镂空
+hinata hyuga naruto shippuden,=hyuuga hinata
+lie down,=lying
+dangerous,危险
+tentacles in anal,触手插入肛门
+labia,阴唇
+ultra detailed face,超精细的脸
+night city,夜晚城市
+fine background,精美背景
+dark green eyes,深绿色眼睛
+obesity,肥胖
+city background,城市背景
+tentacle spread pussy,触手撑开阴部
+tentacle open pussy,触手撑开阴部
+tentacle open vagina,触手撑开阴部
+shit,屎
+liquid thigh gap,腿缝液化
+poorly drawn thigh gap,腿缝画得差
+bad collarbone,锁骨画得差
+fused collarbone,锁骨融合
+missing collarbone,缺少锁骨
+liquid collarbone,锁骨液化
+strong girl,强壮的女孩
+liquid tentacles,触手液化
+bad tentacles,触手画得差
+poorly drawn tentacles,触手画得差
+split tentacles,触手分叉
+fused tentacles,触手融合
+missing clit,缺少阴蒂
+bad clit,阴蒂画得差
+fused clit,阴蒂融合
+colorful clit,彩色阴蒂
+black clit,黑色阴蒂
+liquid clit,阴蒂液化
+background blurry street,模糊的街道背景
+drawing style,绘画风格
+super realistic body,超写实的身体
+in her school uniform,穿着校服
+red glowing wings,发红光的翅膀
+wide butt,宽臀
+dynamic hair,飘动的头发
+faeces,粪便
+long twin braids hair,长双麻花辫
+medieval theme,中世纪主题
+too long tongue,舌头过长
+flat breasts,=flat chest
+small fox ears,小狐耳
+dirty teeth,脏牙齿
+dirty pantie,脏内裤
+various postures,各种姿势
+pink fur character,粉色毛皮角色
+detailed light,细致的光影
+dark purple eyes,深紫色眼睛
+pretty pussy,漂亮的阴部
+excrement,排泄物
+nico yazawa love live,=yazawa nico
+big nipples,=large nipples
+not neatly drawn,画得不整齐
+sexual woman,性感女性
+absurdly long white hair,白色超长发
+medium boobs,=medium breasts
+whole body,=full body
+human,人类
+sweet milf,甜美熟女
+dark black skin,黝黑皮肤
+character: kuroki tomoko,=kuroki tomoko
+buttocks curve women,女性臀部曲线
+showing pussy,露出阴部
+see through,=see-through clothes
+under boobs,=underboob
+long wild hair,狂野长发
+cg sketch manga,CG草图漫画
+sex position,性交体位
+squeezing own breast,揉捏自己的胸部
+sexy lingerie,性感内衣
+pink vagina,粉色阴部
+white chinese clothes,白色中式服装
+european,欧洲人
+dark red sharp eyes,深红色锐利眼睛
+deep v white shirt,深V白衬衫
+warm sunny atmosphere,温暖阳光的氛围
+40 years old,40岁
+cyberpunk background,赛博朋克背景
+calm posture,平静的姿态
+stars,=star (sky)
+extremely beautiful eyes,极其美丽的眼睛
+naked breasts,裸露的胸部
+bottom view,仰视
+crimson strawberry hair,草莓红头发
+exposed breasts,裸露的胸部
+erotic water,色情的水
+in the room,在房间里
+tight fishnet stockings,紧身渔网袜
+more than 4 thighs,超过四条大腿
+large penis erection,勃起的大阴茎
+very beautiful blue eyes,非常美丽的蓝眼睛
+watery eyes,泪汪汪的眼睛
+very detailed silver hair,非常细致的银发
+slim face,瘦脸
+medium round tits,中等圆润的胸部
+small stature,矮个子
+beautiful ass,美丽的屁股
+hearts in her eyes,眼中的爱心
+tight skirt,紧身裙
+fine hands,精致的手
+model sheet character,角色设定图
+brown bobhair,棕色波波头
+looking view,看向观众
+delicate white clouds,精致的白云
+close up of face,脸部特写
+arab bedroom,阿拉伯风卧室
+white bomber jacket,白色飞行夹克
+looking at the viewer,=looking at viewer
+pleated black skirt,黑色百褶裙
+laced,系带
+cold and elegant,高冷优雅
+rich in color,色彩丰富
+gradient,=gradient background
+oiled skin,=oiled
+without panties,=no panties
+ashamed shy blush,羞愧害羞脸红
+cg graphics,CG图像
+perfect body,完美身材
+detailing,细节刻画
+french braid,法式编发
+loneliness,孤独
+sexy underwear,性感内衣
+spacious room,宽敞的房间
+infant,婴儿
+normal breasts,正常大小的胸部
+standing straight,站直
+cold attitude,冷淡的态度
+beauty,美人
+orange kinky hair,橙色卷曲头发
+slave neck cuffed,戴项圈的奴隶
+sweaty,=sweat
+full-body photo,全身照
+slut,荡妇
+little boy,小男孩
+neckline,领口
+tall man,高个子男人
+yandere slight smile,病娇微笑
+slavic race,斯拉夫人
+slav hairstyle,斯拉夫发型
+flower wreath on head,头戴花环
+handsome portrait,英俊肖像
+empty park,空旷的公园
+adult man,成年男性
+crimson natural bunny ears,深红色天生兔耳
+manhwa,韩漫
+shoulder off,=off shoulder
+minimalism interior,极简主义室内
+retro 1920s,复古1920年代
+nightmares,=nightmare
+smile closed mouth,闭嘴微笑
+aquamarine eyes,海蓝色眼睛
+penetration,插入
+pussy open,张开的阴部
+slicked down hair,贴服的头发
+low cut groin,低腰露腹股沟
+single focus,单一焦点
+sex with man,和男人性交
+realistic features,写实的五官
+dark green hair,深绿色头发
+detailed groin,细致的腹股沟
+aestheticism painting,唯美主义绘画
+absurdly long black hair,黑色超长发
+delicate pupils,精致的瞳孔
+pleated micro skirt,百褶超短裙
+modern house,现代房屋
+large wide breasts,宽大的胸部
+bare belly,=midriff
+line artwork,线稿
+without clothes,=nude
+squirt,潮吹
+high-leg,=highleg
+small girl,小女孩
+muscular body,肌肉身材
+short messy hair,凌乱短发
+shizuku ousaka,=osaka shizuku
+opened hands,张开的手
+nipple exposure,露出乳头
+red sharp eyes,红色锐利眼睛
+swimsuit taken off,脱下泳衣
+pussy facing the camera,阴部对着镜头
+water splash,水花飞溅
+sunset beach,日落海滩
+pink areolae,粉色乳晕
+stand facing the viewer,面向观众站立
+flappers style,摩登女郎风格
+mature body,成熟身材
+short girl,矮个子女孩
+high detail rendering,高细节渲染
+high detail lighting,高细节光影
+very spoiled face,非常任性的表情
+pov from customer,顾客第一人称视角
+squatting open legs,张腿蹲下
+customer,顾客
+beautiful detailed sky,精致美丽的天空
+looking at you,=looking at viewer
+head portrait,头像
+fhd,全高清
+full hd,全高清
+slavic girl,斯拉夫女孩
+raised,抬起
+light tracing,光线追踪
+arknight,=arknights
+bunny ear decoration,兔耳装饰
+extremely details,极致细节
+detailed shiny color,细致闪亮的色彩
+medieval theme seductive,中世纪主题诱惑
+vaginal reflection,阴部反光
+realistic nsfw theme,写实成人主题
+tactical gear,战术装备
+long sleeve top,长袖上衣
+black string panties,黑色系带内裤
+deep v-neck,深V领
+underwear show,露出内衣
+big perspective,大透视
+wet and smooth body,湿润光滑的身体
+busty,丰满
+leopard hood,豹纹兜帽
+black straight long hair,黑色直长发
+yellow hair flower,黄色发花
+look embarrassed,看起来很尴尬
+character:reiner braun,=reiner braun
+high perspective,高视角
+worry,担忧
+close-up of vagina,阴部特写
+vagina exposure,露出阴部
+theme celebration,庆祝主题
+middle size boobs,=medium breasts
+rough lines,粗糙的线条
+proper kiss,正式的吻
+bbw,胖女人
+beautifully gorgeous necklace,华丽的项链
+beautiful girl,美丽的女孩
+curly,=curly hair
+very thin legs,非常细的腿
+character interaction,角色互动
+light brown skin,浅棕色皮肤
+posters on wall,墙上的海报
+super detailed,超精细
+suzuya  kantai collection,=suzuya (kancolle)
+neoclassicism,新古典主义
+shiny red eyes eyeballs,闪亮的红色眼睛
+laying on bed,躺在床上
+tiny breasts,=small breasts
+rosy cheeks,红润的脸颊
+lights city,城市灯光
+stand in middle,站在中间
+spreads legs,=spread legs
+glimpse of cameltoe,隐约露出骆驼趾
+olive skin,橄榄色皮肤
+alone,=solo
+bloody wounds,流血的伤口
+loose sleeves,宽松袖子
+very large breasts,非常大的胸部
+hand,手
+juice milf,多汁熟女
+put hands together,双手合十
+lights night,夜晚灯光
+white unbutton shirt,解开扣子的白衬衫
+white qixiong ruqun,白色齐胸襦裙
+shy girl,害羞的女孩
+background bedroom,卧室背景
+ears,耳朵
+fitness,健身
+water surface,水面
+close to cameltoe,靠近骆驼趾
+dark-purple hair,深紫色头发
+student attire,学生装
+dark brown eyes,深棕色眼睛
+perfect facial features,完美的五官
+she is looking deadly,她的眼神致命
+perfect hand,完美的手
+naked belly,裸露的肚子
+very cute face,非常可爱的脸
+in the classroom,在教室里
+view from top,俯视
+garters,=garter straps
+triangular base panties,三角内裤
+very detailed background,非常细致的背景
+fullbody,=full body
+light novel illustration,轻小说插画
+fern green eyes,蕨绿色眼睛
+ripped,撕破
+bob hair,=bob cut
+detailed pupils,细致的瞳孔
+leg spread,=spread legs
+nude aprons,=naked apron
+exposing pussy without panties,不穿内裤露出阴部
+strong light feeling,强烈的光感
+gigantic tits,=gigantic breasts
+high detailing,高细节
+middle breast,=medium breasts
+watch on left arm,左手戴手表
+clothes accessories,服饰配件
+studio photography,影棚摄影
+one-dimensional black contour line,单线黑色轮廓
+exquisite and gorgeous,精致华丽
+white blouse shirt,白色衬衫
+long sleeves blouse shirt,长袖衬衫
+hair two tails,=twintails
+black glasses,黑框眼镜
+big cow boobs,奶牛般的大胸
+bigger boobs,更大的胸部
+forest background,森林背景
+detailed foot,细致的脚
+teen girl,少女
+anime face,动漫脸
+30 years old,30岁
+realistic style,写实风格
+sad face,悲伤的脸
+twin ponytails,=twintails
+ruined church,废墟教堂
+smirk naughty face,坏笑的淘气脸
+pale painful skin,苍白的病态皮肤
+background: cozy room,温馨房间背景
+white t-shirt,=white shirt
+honkai impact 3,=honkai impact 3rd
+fishnet tights,渔网裤袜
+arrogant,傲慢
+vagina close-up,阴部特写
+depth composition,纵深构图
+sense of distance,距离感
+rich picture layers,丰富的画面层次
+off-shoulder white blouse,露肩白衬衫
+honkai star rail,=honkai: star rail
+extremely lewd,极其色情
+strong sense of light,强烈的光感
+a man a woman,一男一女
+exposing the pussy,露出阴部
+open eyes,睁开眼睛
+fair skin,白皙皮肤
+sitting on the bed,坐在床上
+expressive eyes,富有表现力的眼睛
+high quality eyes,高质量的眼睛
+mechanisms,机械装置
+legwear,腿部服饰
+miruko,=mirko
+embarrassed pose,害羞的姿势
+white loose-fitting shirt,宽松白衬衫
+fairy wings on fire,燃烧的妖精翅膀
+glimpse nipple,隐约露出乳头
+glimpse of breast,隐约露出胸部
+elastic,有弹性
+black short hair,黑色短发
+street background,街道背景
+traditional slavic white sundress,传统斯拉夫白色吊带裙
+completely topless,=topless
+with bangs,有刘海
+blurred background,=blurry background
+medium long hair,=medium hair
+black and white illustration,黑白插画
+white sundress,白色吊带裙
+extra huge breasts,超大胸部
+extra huge ass,超大屁股
+bright light,明亮的光
+spread legs slightly,微微张开双腿
+realistic theme,写实主题
+button-up front,前排扣
+city roofs,城市屋顶
+soft blue light behind,身后柔和的蓝光
+little face,小脸
+silver blue hair,银蓝色头发
+silver blue dress,银蓝色连衣裙
+half naked,半裸
+shining river background,闪光的河流背景
+looking forward,=looking ahead
+one leg up,=leg up
+girls,=multiple girls
+round eyes,圆眼睛
+yakuza outfit,黑道装束
+aberration,色差
+lifted ass,翘起的屁股
+red filigree,红色花丝
+one black ribbon tie,黑色缎带领结
+kinky,癖好特殊
+mother body,母亲般的身材
+owl feathers ears top-head,头顶猫头鹰羽毛耳
+bob brown hair,棕色波波头
+over boobs,上乳
+technicolor nipples,彩色乳头
+braless,=no bra
+shiny pink eyes,闪亮的粉色眼睛
+sitting on bed,坐在床上
+circle glasses,=round eyewear
+hang down breasts,=hanging breasts
+emerald eyes,翠绿色眼睛
+opened mouth,=open mouth
+lascivious,淫荡
+background sunset sky,日落天空背景
+sadistic smile,施虐的笑
+black short dress,黑色短连衣裙
+back close view,背部近景
+dark-green eyes,深绿色眼睛
+black thong leotard,黑色丁字紧身衣
+clothed male clothed female,穿衣男性和穿衣女性
+human veiny penis,=veiny penis
+black leather jacket,黑色皮夹克
+pointed nose,尖鼻子
+tatsumaki from one punch,=tatsumaki
+stand in water,站在水中
+nun hats,修女帽
+covered private parts,遮住私处
+background blurry indoor room,模糊的室内背景
+from front,正面视角
+tits out,露出胸部
+medium sharp breasts,中等尖挺的胸部
+retro 1910s,复古1910年代
+awesome view,壮观景色
+watercolor painting,=watercolor (medium)
+red face,红脸
+gigantic large breasts,超大胸部
+loose-fitting dress,宽松连衣裙
+beautiful breast,美丽的胸部
+extremely detailed hair,极致细致的头发
+dark-red bob lush hair,浓密的深红色波波头
+very amativeness,性欲旺盛
+vivid sky,鲜艳的天空
+black legwear,黑色袜子
+shiny blue eyes,闪亮的蓝眼睛
+extremely detailed face,极致细致的脸
+real photography,真实摄影
+day light,日光
+concept,概念
+sad depression face,悲伤抑郁的脸
+light pink rays,浅粉色光线
+ijn shinano azur lane,=shinano (azur lane)
+athletic body,运动型身材
+wide breasts,宽大的胸部
+large bed,大床
+semen in pussy,=cum in pussy
+deep-v,深V领
+skin,皮肤
+straight wide long hair,宽厚直长发
+small wolf ears,小狼耳
+sweet pinkish peach hair,甜美的粉桃色头发
+kitty ears,=cat ears
+tail covers private parts,尾巴遮住私处
+with her feet raised,抬起双脚
+not shaved pussy,未剃毛的阴部
+professional light,专业灯光
+background,背景
+full lips,丰满的嘴唇
+jumping in the air,跳到空中
+black pupils,黑色瞳孔
+deep cobalt blue eyes,深钴蓝色眼睛
+big horsecock dildo,大号马阴茎假阳具
+lava flow fire,熔岩火流
+yellow polo,黄色Polo衫
+anime girl,=1girl
+straight view,正视
+sharp lines,锐利的线条
+love live! sunshine,=love live! sunshine!!
+short brown robe,棕色短袍
+uncensored breasts nipples,无码胸部乳头
+ramming lines,冲击线
+blue glamorous glasses,蓝色时髦眼镜
+delicate watercolor illustration,精致的水彩插画
+black latex bodysuit,黑色乳胶紧身衣
+goblin girl,哥布林女孩
+pussy sticking out,阴部凸出
+realistic fur,写实的毛发
+lifted wet sundress,掀起的湿吊带裙
+black,黑色
+breasts focus,=breast focus
+glass tint,玻璃色调
+holiday celebration,节日庆祝
+messy short dark hair,凌乱的深色短发
+baby face,娃娃脸
+shiny blue eyes eyeballs,闪亮的蓝眼睛
+bruised eyelids,淤青的眼睑
+young adult,青年
+in centre,居中
+beautiful details eyes,精致美丽的眼睛
+sexy leg,性感的腿
+juice breasts,多汁的胸部
+cum inside vagina,=cum in pussy
+ash gold eyes,灰金色眼睛
+nipples covered,遮住乳头
+high string-panties line,高腰系带内裤线
+love eyes,爱心眼
+wavy long hair,波浪长发
+reanimated corpse girl,复活的尸体女孩
+fat breast,肥大的胸部
+short curly hair,短卷发
+jet black hair,乌黑的头发
+sitting bed,坐在床上
+on a basement,在地下室
+pagan girl,异教徒女孩
+unintentionally exposed cleavage,无意中露出乳沟
+paint drawn,手绘上色
+tired,疲倦
+white torn t-shirt,白色破T恤
+muted eyes,黯淡的眼睛
+medium chest,=medium breasts
+light brown hair,浅棕色头发
+blue cat hood,蓝色猫耳兜帽
+cow bikini,=cow print bikini
+background blurry shop window,模糊的橱窗背景
+body arc back,弓背
+colorless hair,无色头发
+low cut,低胸
+blue pleated skirt,蓝色百褶裙
+sad eyes,悲伤的眼睛
+stand in the middle,站在中间
+instep,脚背
+seductive pose,诱惑的姿势
+hair between the eyes,=hair between eyes
+sitting on a rock,坐在岩石上
+gather long boots,褶皱长靴
+undead zombie girl,不死僵尸女孩
+terrifying,恐怖骇人
+waist-up shot,=upper body
+clip,夹子
+strong wind,强风
+galaxy eyes,星系眼
+wide shoulders,宽肩
+oval face,鹅蛋脸
+genitalia,生殖器
+golden hair,=blonde hair
+front view body,正面身体
+smile smug,得意的笑
+fake tits,假胸
+highlights in the eyes,眼睛高光
+russian blue cat,俄罗斯蓝猫
+leather shoes,皮鞋
+background blurry sunset window,模糊的日落窗景背景
+reflective,反光
+very wavy hair,大波浪发
+black witch hat,黑色女巫帽
+few juices,少量爱液
+in bath,在浴缸里
+white school shirt,白色校服衬衫
+modern room,现代房间
+decaying skin,腐烂的皮肤
+cartoon drawn,卡通画风
+bright eyes,明亮的眼睛
+raindrops on street,街上的雨滴
+pretty face,漂亮的脸
+holy light,圣光
+short jeans,=denim shorts
+vacant red eyes,空洞的红眼睛
+infected bite marks,感染的咬痕
+anime drawn,动漫画风
+full body view,=full body
+perfect legs,完美的腿
+slim hips,纤细的臀部
+highly detailed body,高度细致的身体
+camera lens,相机镜头
+absurdly long dynamic hair,飘动的超长发
+background blurry bedroom,模糊的卧室背景
+black oversized hoodie,黑色宽大连帽衫
+white short sleeve t-shirt,白色短袖T恤
+flirtatious smug charming,挑逗得意迷人
+impossibly large thighs,夸张的粗大腿
+anthro-furry,兽人
+realistic hair,写实的头发
+succubus wings,魅魔翅膀
+fresh lawn grass,新鲜草坪
+certainly,当然
+shining hair,有光泽的头发
+small body,娇小身材
+green detailed eyes,细致的绿眼睛
+shiny body,有光泽的身体
+pigtails hairstyle,=twintails
+walks through the forest,在森林里散步
+perfume around,香水环绕
+green pale skin,苍白的绿色皮肤
+multi-color hair,=multicolored hair
+latex overalls,乳胶背带裤
+half-opened eyes,=half-closed eyes
+standing in middle,站在中间
+bikini cow,=cow print bikini
+expressive sharp,锐利有神
+white,白色
+leotard skin tight,紧身连体衣
+sheer lace long sleeves,透明蕾丝长袖
+bare,裸露
+torn pale skin,撕裂的苍白皮肤
+torn bloody skin,撕裂流血的皮肤
+slim young women,苗条的年轻女性
+gigantic nipples,巨大乳头
+highly detailed character,高度细致的角色
+half nude,半裸
+lying on the bed,躺在床上
+giant tits,=gigantic breasts
+in room,在房间里
+pleated miniskirt,百褶迷你裙
+blonde horns,金色的角
+r18,成人向
+blurry foggy cemetery,模糊雾气中的墓地
+black playboy bunny leotard,=playboy bunny
+white simple dress,简单的白色连衣裙
+shiny golden eyes eyeballs,闪亮的金色眼睛
+with her school uniform,穿着校服
+detailed shiny black eyes,细致闪亮的黑眼睛
+succubus tail,魅魔尾巴
+yakuza grey outfit,黑道灰色装束
+age down,=aged down
+sitting astride,跨坐
+essential oil,精油
+golden egyptian clothes,金色埃及服饰
+long yellow hair,黄色长发
+only ass in frame,画面中只有屁股
+bad legs,=bad leg
+summer park,夏日公园
+short feathered black hair,黑色羽毛状短发
+frills choker,荷叶边颈圈
+blue torn pleated skirt,破损的蓝色百褶裙
+light purple dress,浅紫色连衣裙
+cum pussy,=cum in pussy
+light green eyes,浅绿色眼睛
+light eyes,浅色眼睛
+pigtails hair,=twintails
+tall figure,高挑身材
+summer night sky,夏夜星空
+drunk smile,醉醺醺的笑
+melancholic face,忧郁的脸
+girl on all fours,=all fours
+fur  clothing,毛皮衣服
+ultra detailed body,超精细的身体
+vaginal sex with man,和男人阴道性交
+cum in vagina,=cum in pussy
+in a car,在车里
+extremely blush,满脸通红
+short white hair,白色短发
+epic realism,史诗写实
+elegant shirt,优雅的衬衫
+tone,色调
+to smoke a cigarette,抽烟
+white lace stockings,白色蕾丝长筒袜
+glimpse of cleavage breast,隐约露出乳沟
+strongly bent back,大幅弯腰
+jk,女高中生
+dark twilight,昏暗的黄昏
+sitting kneeling,跪坐
+light tracking,光线追踪
+two same girls,两个相同的女孩
+light tender skin,白嫩的皮肤
+blue painful eyes,痛苦的蓝眼睛
+black green frilled kimono,黑绿色荷叶边和服
+lips sweating,嘴唇出汗
+foggy,=fog
+detailed picture,细致的画面
+tentacles tentacles,触手
+small neko ears,小猫耳
+red gothic lolita,红色哥特洛丽塔
+red gothic,红色哥特风
+red lolita fashion,红色洛丽塔服装
+high cut hips,高开衩
+haughty posture,傲慢的姿态
+green thick vines,绿色粗藤蔓
+long breasts,长形胸部
+cheek to penis,脸颊贴着阴茎
+cunt panties,内裤
+erected nipples,乳头勃起
+extremely detailed hd wallpapers,极致精细高清壁纸
+long red hair,红色长发
+perfect light,完美的光线
+looking from back,=looking back
+white bed background,白色床铺背景
+photo vhs,VHS录像质感照片
+hourglass figure fitness,沙漏型健身身材
+hands on breasts,=hands on own chest
+fuchsia hair,紫红色头发
+elegant red shirt,优雅的红衬衫
+sunray,=light rays
+big deformed red horns,畸形的大红角
+trending pixiv,Pixiv热门
+dark blue eyes,深蓝色眼睛
+cute pussy,可爱的阴部
+blue egyptian makeup,蓝色埃及妆容
+no background,=simple background
+visible pussy,可见阴部
+large buttocks,=huge ass
+athletical body,运动型身材
+shy smile,害羞的微笑
+penis in,阴茎插入
+revealing,暴露
+breasts in different directions,胸部朝向不同方向
+loose breasts,松弛的胸部
+gigantic large tits,超大胸部
+large buttocks naked,裸露的大屁股
+detailed clothes,细致的衣服
+wide large breasts,宽大的胸部
+body,身体
+slightly bare chest,微微露出胸口
+expose belly,露出肚子
+hand in another head,手放在另一人头上
+veins on boobs,胸部青筋
+on grass,在草地上
+honkai impact,=honkai impact 3rd
+very cold,非常冷
+short legs,短腿
+no watermark,无水印
+vaginal juice stain,爱液污渍
+seminal fluid,精液
+hot temperature,高温
+movement line,=motion lines
+pink leather zipper boots-panties,粉色皮革拉链靴裤
+very short stature,非常矮小
+beautiful appearance,美丽的外表
+adult woman,成年女性
+light purple hair,浅紫色头发
+lolita shoes,洛丽塔鞋
+standing close to viewer,靠近观众站立
+reaching to hug viewer,伸手拥抱观众
+pussy leaking,阴部流出液体
+white oil-paper umbrella,白色油纸伞
+vaginal swelling,阴部肿胀
+vibrant background,鲜艳的背景
+sexy boobies,性感的胸部
+room,房间
+white wavy medium hair,白色波浪中发
+tall guy,高个子男人
+shojo,少女漫画风格
+sitting on chair,坐在椅子上
+black cat hood,黑色猫耳兜帽
+loose-fitting black micro top,宽松黑色超短上衣
+sunset sun rays,日落阳光
+kaga kancolle,=kaga (kancolle)
+double peace sign,=double v
+elsa hair,艾莎发型
+female character,女性角色
+the creamy smooth skin,奶油般光滑的皮肤
+lifted dress,掀起的连衣裙
+many details,大量细节
+real,真实
+fingers,手指
+cute fang,可爱的虎牙
+alps,阿尔卑斯山
+milk nipples,泌乳的乳头
+with perspective,带透视
+an delicate and beautiful,精致美丽
+bleeding wound,流血的伤口
+photo,照片
+sucking,吮吸
+free overalls,宽松背带裤
+funny,有趣
+translucent jacket,半透明夹克
+full body image,=full body
+dirty rags torn shirt,脏破布衬衫
+in bedroom,在卧室里
+polar light,极光
+milf girl,熟女
+very sad,非常悲伤
+hair high pigtails,高双马尾
+bobcut blunt bangs,齐刘海波波头
+character:porco galliard,=porco galliard
+leaking breasts,泌乳的胸部
+leaking vagina,阴部流出液体
+brown miniskirt,棕色迷你裙
+25 years old,25岁
+solo guy,单人男性
+high quality processing,高质量处理
+focus on face,脸部特写
+micro girl,微型女孩
+mid-bust heart-cut top,心形开口上衣
+dark pubic hair,深色阴毛
+cute shiny eyes,可爱闪亮的眼睛
+sitting cross legs,盘腿坐
+white stocking,白色长筒袜
+neon colors,霓虹色
+moe,萌
+nacho hairstyle,玉米片发型
+nacho eyestyle,玉米片眼型
+blue-green eyes,蓝绿色眼睛
+towel on breasts,胸前盖着毛巾
+restoran,餐厅
+in sky,在天空中
+single ponytail,单马尾
+penis in anal,阴茎插入肛门
+large moon,巨大的月亮
+1girl freckle,有雀斑的女孩
+show pussy,露出阴部
+villain,反派
+short denim shorts,牛仔短裤
+nude legs,裸腿
+naked boobs,裸露的胸部
+naiad,水泽仙女
+small yellow earrings,黄色小耳环
+happy ahegao face,开心的阿嘿颜
+detailed pink nipples,细致的粉色乳头
+ningen meme,人类梗
+white beret,白色贝雷帽
+hat frilled ribbon,帽子荷叶边缎带
+luxury,奢华
+thick,丰满
+refined facial features,精致的五官
+background street,街道背景
+wavy hair style,波浪发型
+doll face,娃娃脸
+waist,腰
+toned body,紧致的身材
+alluring eyes,诱人的眼睛
+vagina open,张开的阴部
+dark skin male,深色皮肤男性
+long twin braids,长双麻花辫
+untucked shirt over skirt,衬衫下摆没塞进裙子
+squeezing breast,揉捏胸部
+expose the whole back,露出整个后背
+adult ass,成年人的屁股
+without bra,=no bra
+shading,阴影上色
+white miniskirt,白色迷你裙
+red wavy long hair,红色波浪长发
+from the bottom up,从下往上
+straight legs,直腿
+head turned up,抬头
+splashing water,溅水
+white long socks,白色长袜
+long blue hair,蓝色长发
+black eye shadow,=black eyeshadow
+long sweater,长毛衣
+opened arms,张开双臂
+brutal sex,粗暴性交
+elastic sexy figure,柔韧性感的身材
+female imp,女小恶魔
+reveal pussy,露出阴部
+sitting on the floor,=sitting on floor
+21 years old,21岁
+dark black hair,乌黑的头发
+chocolate skin,巧克力色皮肤
+big round eyes,大圆眼睛
+heart-shape pupils,=heart-shaped pupils
+perspective angle,透视角度
+satisfying,令人满足
+huge hips,=wide hips
+braided rainbow colored hair,彩虹色编发
+spikes bracelet,=spiked bracelet
+big decolletage,大领口
+gigantic boobs,=gigantic breasts
+colossal tits,巨乳
+tits bigger than body,胸比身体还大
+tits growing,胸部变大
+ahegao face,=ahegao
+big cock,大阴茎
+a girl,=1girl
+8k hd picture,8K高清图片
+bunny bow tie,兔女郎领结
+white open shirt,敞开的白衬衫
+shiny dark blue hair,闪亮的深蓝色头发
+bell neck,脖子上的铃铛
+crop jacket,短款夹克
+whore,妓女
+scarlet eyes,猩红色眼睛
+anal filled with sperm,肛门里满是精液
+cum face,=facial
+blue galaxy background,蓝色星系背景
+two boy,两个男孩
+background cozy bedroom,温馨的卧室背景
+doggystyle sexual position,=doggystyle
+black over-ear headphones wireless,黑色无线头戴式耳机
+character: nishikino maki,=nishikino maki
+upside-down face,倒着的脸
+black neckwear,=black necktie
+dslr photo,单反相机照片
+crying with depression,抑郁地哭泣
+elastic ass,有弹性的屁股
+dramatic shadow,戏剧性阴影
+lift the skirt,掀起裙子
+behind head pillow,脑后的枕头
+view from side,侧面视角
+cg manga masterpiece,CG漫画杰作
+3d face,3D脸
+trademark,商标
+toddlers,=toddler
+sd character,Q版角色
+gold filigree,金色花丝
+ass side,臀部侧面
+cute-sexy smile,可爱又性感的笑
+white layered flurry dress,白色多层蓬松连衣裙
+open your legs,张开双腿
+pink leather panties,粉色皮革内裤
+oil,油
+deep throat,=deepthroat
+half body portrait,半身肖像
+medium length hair,=medium hair
+future,未来
+happy eyes,开心的眼睛
+light green hair,浅绿色头发
+bruises under the eyes,眼下的淤青
+big red eyes,红色大眼睛
+slicked hair,背头
+rich,丰富
+manga masterpiece,漫画杰作
+deep neckline,深领口
+background night bedroom,夜晚卧室背景
+on street,在街上
+ripped skin,撕裂的皮肤
+bottom up,从下往上
+more abdominal muscle,更多腹肌
+hybrid,混合
+detailed hand,=detailed hands
+long lush hair,浓密长发
+pov focus,第一人称视角焦点
+student,学生
+dark sky,黑暗的天空
+ssbbw,超胖女人
+ganyu genshin impact,=ganyu (genshin impact)
+city japonese,日本城市
+covered body,遮住身体
+red micro bikini,红色超小比基尼
+long platinum blonde hair,铂金色长发
+slightly big breasts,稍大的胸部
+pussy penetration and anal,阴道和肛门插入
+wide naked ass,宽大的裸臀
+cute girl,可爱的女孩
+student uniform,学生制服
+sitting on couch,坐在沙发上
+anime novel style,动漫小说风格
+light pink tender skin,粉嫩的皮肤
+city streets background,城市街道背景
+sexy schoolgirl,性感女学生
+pink cat ears,粉色猫耳
+horny smile,发情的笑
+spread hand,张开手
+a steam punk city,蒸汽朋克城市
+elaborate pussy,精细的阴部
+glossy skin,有光泽的皮肤
+detailed lips,细致的嘴唇
+high definition,高清
+emerald sharp eyes,翠绿色锐利眼睛
+sweet slight smile,甜美的微笑
+straight,直
+deep square neckline,深方领
+covering labia,遮住阴唇
+two hands rest,双手搭着
+high height,高个子
+shower,淋浴
+anime guilty crown,=guilty crown
+game saya no uta,=saya no uta
+chaos;head game,=chaos;head
+high stature,高个子
+elder sister,姐姐
+sweet smile face,甜美的笑脸
+stand close,站得很近
+serious expression,严肃的表情
+loose-fitting boyshorts,宽松的平角内裤
+short blonde ponytail hair,金色短马尾
+line clarity,线条清晰
+naked suit,裸体西装
+white lace long gloves,白色蕾丝长手套
+brown cardigan ribbed sweater,棕色罗纹开衫
+glimpse of cleavages,隐约露出乳沟
+extremely delicate,极其精致
+naked legs,裸腿
+detailed and intricate,细致繁复
+gold sharp eyes,金色锐利眼睛
+narrow anal,紧窄的肛门
+psycho,精神病
+cum mouth,=cum in mouth
+women,女性
+night view,夜景
+red short hair,红色短发
+muscular legs,肌肉发达的腿
+black headwear,黑色头饰
+absurd,荒诞
+riding on a man,骑在男人身上
+background future-modern-simple bedroom,未来简约风卧室背景
+dark room decor,昏暗的房间装饰
+running forward,向前跑
+front perspective,正面透视
+high wide pigtails,高宽双马尾
+lowered glasses,=adjusting eyewear
+background blurry church,模糊的教堂背景
+crystal buttplug,水晶肛塞
+tiny,微小
+naked body,裸体
+thin figure,瘦削身材
+retrowave sun,复古浪潮太阳
+asuna sao,=asuna (sao)
+different hair,不同的发型
+background wasteland,荒原背景
+view back,背面视角
+black lace panty shorts,黑色蕾丝内裤短裤
+high string line,高系带线
+colorful sunrise,多彩的日出
+city park,城市公园
+legs cutouts,=leg cutout
+background blurry cow barn,模糊的牛棚背景
+bright white skin,白皙皮肤
+missing digits,缺少手指
+petite eye bags,卧蚕
+sweating wet,汗湿
+ultraviolet,紫外线
+ultra highres,超高分辨率
+ultra detailed hair,超精细的头发
+white school uniform,白色校服
+loose-fitting sport top,宽松运动上衣
+thicc body,丰满的身体
+very small eyes,非常小的眼睛
+plump chicks,丰满的女孩
+in her school suit,穿着校服
+hyper photorealistic,超写实
+small orange cat-ears,橙色小猫耳
+spreading leg,=spread legs
+looking another,=looking at another
+tail error,尾巴错误
+hug sword,抱着剑
+one adult foxgirl,一个成年狐娘
+tall girl,高个子女孩
+1 male,一个男人
+killer,杀手
+lying on grass,躺在草地上
+black latex overalls,黑色乳胶背带裤
+ultra 8k wallpaper,超清8K壁纸
+ultra realistic hair,超写实的头发
+ultra realistic eyes,超写实的眼睛
+ultra best quality,超级最佳质量
+ultra photorealism,超照片写实
+photosession,写真拍摄
+large brown eyes,棕色大眼睛
+long curvy black hairs,黑色卷曲长发
+best shadow,最佳阴影
+evil aura,邪恶气场
+detailed camel toe,细致的骆驼趾
+juicy milf,多汁熟女
+middle hair,=medium hair
+huge wide ass,巨大的宽臀
+summer forest park,夏日森林公园
+shaggy hair,蓬松乱发
+water bubbles,水泡
+western-style house,西式房屋
+squatting leg open,张腿蹲下
+wide adult breasts,宽大的成熟胸部
+20 years old,20岁
+full-length,全身
+very big breast,非常大的胸部
+hands near each other,双手靠近
+arms support,=arm support
+bra under breasts,胸罩在胸部下方
+sharp tone,锐利色调
+falling stars,=falling star
+small waist,细腰
+lush-wide-pigtails,浓密宽双马尾
+hair updo bun,盘发髻
+standing shy,害羞地站着
+jerking off,手淫
+amethyst earrings,紫水晶耳环
+petal hairpin,花瓣发夹
+cum from nose,精液从鼻子流出
+curly brown hair,棕色卷发
+short black hair,黑色短发
+sensual pose,性感姿势
+loose-fitting top,宽松上衣
+massive plump body,巨大丰满的身体
+open shoulder,露肩
+black elbow gloves,黑色长手套
+detailed lighting,细致的光影
+sleeping on bed,睡在床上
+argentina soccer shirt,阿根廷足球衫
+normal skin,正常皮肤
+white knee socks,=white socks
+simple,简单
+shine eyes,闪亮的眼睛
+realistic lighting,写实光影
+slightly spread legs,微微张开双腿
+deep v-neckline,深V领
+short black cat tail,黑色短猫尾
+handing over the plate,递出盘子
+curly kinky,卷曲
+bull dick,公牛阴茎
+fit body,健美身材
+slim figure,苗条身材
+night window,夜晚窗户
+best,最佳
+a rough face,粗犷的脸
+black ripped jeans,黑色破洞牛仔裤
+symmetrical eyes,对称的眼睛
+blush face,脸红
+ample,丰满
+armrests,=arm rest
+smug smile perfect,完美的得意笑
+detailed shaved pussy,细致的无毛阴部
+curly blonde hair,金色卷发
+indian style spread legs,盘腿张开
+cogita pokemon,=cogita (pokemon)
+cross on neck,脖子上的十字架
+seia  blue archive,=yurizono seia
+raise your legs,抬起双腿
+red pussy,红色阴部
+wearing cat ears,戴着猫耳
+beautiful tits,美丽的胸部
+zipped overalls,拉上拉链的背带裤
+upper,上半
+cum on nipples,精液在乳头上
+different bodies,不同的身体
+palms behind the scenes,幕后的手掌
+spanked marks ass,屁股上的打痕
+oversized black crop top,宽大的黑色露脐上衣
+pure orange bikini,纯橙色比基尼
+white glass slipper,白色玻璃鞋
+heart censored,=heart censor
+hands rest,=hand rest
+denim micro shorts,超短牛仔裤
+in motion,运动中
+school uniform theme,校服主题
+black thighband pantyhose,黑色腿环连裤袜
+notebook paper list,笔记本纸清单
+blue gym clothes,蓝色运动服
+massage room,按摩室
+bakelite texture,电木质感
+handsome man,英俊的男人
+anal sex with tentacles,触手肛交
+looking at camera,=looking at viewer
+shigure from kancolle,=shigure (kancolle)
+not artwork,非艺术作品
+dark skin color,深色皮肤
+2.5d,2.5D风格
+loose-fitting t-shirt,宽松T恤
+muscle line,肌肉线条
+raw photo,RAW照片
+long boobs,长形胸部
+white pendant,白色吊坠
+asian girl,亚洲女孩
+natural hair,自然发型
+city streets,城市街道
+black short top,黑色短上衣
+chiya urara meirochou,=chiya (urara meirochou)
+stand on all fours,=all fours
+finger insertion into vagina,手指插入阴道
+colored  inner hair,=colored inner hair
+black lace-trimmed gloves,黑色蕾丝边手套
+glimpse of bra cleavage,隐约露出胸罩和乳沟
+dynamic posture,动感姿势
+sly lewd smile,狡黠下流的笑
+front,正面
+sitting on the ground,坐在地上
+thickets,灌木丛
+edge,边缘
+perfect figure,完美身材
+angry eye,愤怒的眼睛
+light gray eyes,浅灰色眼睛
+average height,平均身高
+symmetrical face,对称的脸
+flying splashes,飞溅的水花
+holding bible,拿着圣经
+cum out,精液流出
+golden choker,金色颈圈
+kneeling on the bed,跪在床上
+8k resolution,8K分辨率
+huge mesh,大网眼
+sperm on her feet,脚上的精液
+moon star print legwear,月亮星星图案袜子
+flying waterdrop,飞溅的水滴
+glimpse of over cameltoe,隐约露出骆驼趾
+solo man,单人男性
+medium tits,=medium breasts
+white pantsu,白色内裤
+pulsating surface aurora,脉动的极光
+very cute,非常可爱
+overdetailed,细节过多
+medium white hair,白色中发
+low fringes,低刘海
+intricate illustration,精细插画
+perfect nipples,完美的乳头
+amiya's hair,阿米娅的发型
+sexy foot,性感的脚
+long purple hair,紫色长发
+realistic shadow,写实阴影
+excessive details,过多细节
+background blurry sunset,模糊的日落背景
+galaxy in pupils,瞳孔里的星系
+red chest bow-butterfly,胸前红色蝴蝶结
+character: kosaka honoka,=kousaka honoka
+rich palette,丰富的配色
+colorful contour,彩色轮廓
+detailed cum,细致的精液
+cartoon style,卡通风格
+sexy lips,性感的嘴唇
+maki nishikino,=nishikino maki
+wet cameltoe,湿润的骆驼趾
+cutout clothes,=clothing cutout
+heart-shape pasties,心形乳贴
+pink big hair,粉色蓬松头发
+cum semen,精液
+white underpants,白色内裤
+cigarette burns on legs,腿上的烟头烫痕
+3boys dicks,三个男孩的阴茎
+see-through lingerie,透视内衣
+cheeks bulge,=cheek bulge
+sexy open lips,性感微张的嘴唇
+background indoor bedroom,室内卧室背景
+polar aurora,极光
+auroral corona,极光冕
+auroral crown,极光冠
+triangle strapless top,三角无肩带上衣
+two big up pigtails,两个高高的大马尾
+white tights,白色裤袜
+hands behind,双手在身后
+blue flowers hair ornaments,蓝色花朵发饰
+godlike,神一般
+perfect lighting,完美的光线
+detailed purple eyes,细致的紫色眼睛
+ancient hair accessories,古风发饰
+erection nipples under t-shirt,T恤下凸起的乳头
+red lingerie evening gown,红色内衣式晚礼服
+curly vine hair,藤蔓般的卷发
+nun dress,修女服
+introvert,内向
+tight pink shorts,粉色紧身短裤
+flirty,轻佻
+lace trim stockings,蕾丝边长筒袜
+face focused,脸部特写
+lift up the skirt,掀起裙子
+transparent pantyhose,透明连裤袜
+fetal  position,=fetal position
+blue denim short shorts,蓝色牛仔短裤
+black crop top overhang,黑色露脐上衣
+very muscular,非常强壮
+pink and hairy vagina,粉色有毛的阴部
+crop top camisole,露脐吊带背心
+vibrant makeup,鲜艳的妆容
+vivid clitoris,鲜明的阴蒂
+bright vulva,鲜亮的外阴
+pale pink lighting,淡粉色光线
+aggressive,有攻击性
+cold shading,冷色阴影
+yellow ribbon on braid,辫子上的黄缎带
+rtx,RTX光追
+bewitch,蛊惑
+teens,=teen
+vine hair,藤蔓头发
+wind storm,风暴
+angel halo,天使光环
+very realistic,非常写实
+right girl red eyes,右边的女孩红眼睛
+left girl red eyes,左边的女孩红眼睛
+right girl black hair,右边的女孩黑发
+left girl black hair,左边的女孩黑发
+dark gray jacket,深灰色夹克
+unbutton jacket,解开扣子的夹克
+red shine hair,闪亮的红发
+high leg,=highleg
+the rear-entry position,后入式
+long light green hair,浅绿色长发
+small prickles breast,小而尖挺的胸部
+round black glasses,黑色圆框眼镜
+adult breasts,成熟的胸部
+squirting pussy,潮吹的阴部
+on the stomach,趴着
+delicate and ruddy skin,细腻红润的皮肤
+twin high bun,高双丸子头
+top quality,顶级质量
+standing ass focus,站姿臀部特写
+frenzy,狂乱
+look through,看穿
+backview,=from behind
+fluffy large cat ears,毛茸茸的大猫耳
+big saggy breasts apart,下垂分开的大胸
+oversized padded down jacket,宽大的羽绒夹克
+oversized padded puffer jacket,宽大的羽绒夹克
+oversized padded down coat,宽大的羽绒外套
+oversized padded puffer coat,宽大的羽绒外套
+medium lush white hair,浓密的白色中发
+leaning to side,向一侧倾斜
+tight stockings,紧身长筒袜
+highly detail face,高度细致的脸
+light skin,浅色皮肤
+dark street,昏暗的街道
+very messy hair,非常凌乱的头发
+white short hair,白色短发
+laughs,=laughing
+long pink-turquoise hair,粉蓝绿色长发
+long straight orange hair,橙色直长发
+delicate pattern,精致的花纹
+small pink areolae,粉色小乳晕
+standing on all fours,=all fours
+thicc mature female,丰满熟女
+bare vampire fangs teeth,露出吸血鬼尖牙
+big areolas,=large areolae
+blue sofa,蓝色沙发
+short torso,短躯干
+black china dress,黑色旗袍
+loose-fitting fluffy sweater,宽松蓬松的毛衣
+sweater-dress,=sweater dress
+red wine sweater,酒红色毛衣
+ash dark red sweater,灰暗红色毛衣
+pantyhose black,=black pantyhose
+pussy show,露出阴部
+red-white-black stripes sweater,红白黑条纹毛衣
+skin bruises,皮肤淤青
+skin blood injured,皮肤流血受伤
+cow breasts,奶牛般的胸部
+depression,抑郁
+showing ass and pussy,露出屁股和阴部
+high cheekbones,高颧骨
+white lingerie,白色内衣
+dark night,漆黑的夜晚
+realistic skin,写实的皮肤
+1920's,1920年代
+neat oval face,端正的鹅蛋脸
+steaming,冒热气
+masterpiece best quality,杰作 最佳质量
+hand on pussy,手放在阴部
+royal palace,皇宫
+no collar,无领
+unbuttoned collar,解开扣子的领口
+unbuttoned hem,解开扣子的下摆
+hands on breast,=hands on own chest
+trim,镶边
+foot job,=footjob
+shy sitting,害羞地坐着
+hospital corridor,医院走廊
+pale ice skin,冰冷苍白的皮肤
+black ice eyes,冰冷的黑眼睛
+thin straps,细肩带
+black oil-paper umbrella,黑色油纸伞
+one leg standing,单脚站立
+glimpse cleavage,隐约露出乳沟
+extremely feminine,极其女性化
+opening the pussy,张开阴部
+jeanne alter,=jeanne d'arc alter (fate)
+detailed penis,细致的阴茎
+excited smile,兴奋的笑
+bremerton from azur lane,=bremerton (azur lane)
+adult face,成熟的脸
+gigantic large boobies,超大胸部
+black hairstyle,黑色发型
+suit maid bikini,女仆比基尼套装
+beach night,夜晚海滩
+hot figure,火辣身材
+macromastia,巨乳症
+dark chocolate skin male,深巧克力色皮肤男性
+ornate decoration,华丽的装饰
+charming eyes,迷人的眼睛
+white china dress,白色旗袍
+heavy contrast,强烈对比
+ballet costume,芭蕾舞服
+clitoris piercing jewel,阴蒂穿环宝石
+dark chestnut long hair,深栗色长发
+light blue sky,浅蓝色天空
+slave auction background,奴隶拍卖背景
+sexually inviting posture,性邀请的姿势
+manhwa drawn,韩漫画风
+dark chocolate long hair,深巧克力色长发
+green leather jacket,绿色皮夹克
+beautiful sky,美丽的天空
+swimwear,泳装
+view above,俯视
+pretty hair,漂亮的头发
+black turtleneck,黑色高领毛衣
+sitting on a throne,坐在王座上
+gothic monokini,哥特连体泳衣
+lie on the floor,=lying
+background inside medieval castle,中世纪城堡内部背景
+six pointed,六角
+orange yellow eyes,橙黄色眼睛
+cow print stockings,奶牛纹长筒袜
+through skin color,透肤色
+rose vines print legwear,玫瑰藤蔓图案袜子
+black beanie,黑色毛线帽
+extremely flirtatious,极其挑逗
+inviting posture,邀请的姿势
+full body bondage,全身捆绑
+mini bikini,迷你比基尼
+20 years,20岁
+2000s manga style,2000年代漫画风格
+90s manga style,90年代漫画风格
+sleeve lace,袖口蕾丝
+waist belt,腰带
+lace edging stockings,蕾丝边长筒袜
+middle breasts,=medium breasts
+beautiful nipples,美丽的乳头
+nudity,=nude
+love live sunshine,=love live! sunshine!!
+black lace bra,黑色蕾丝胸罩
+separate long sleeves,=detached sleeves
+green vines,绿色藤蔓
+woman with huge tits,巨乳女性
+spanked mark ass,屁股上的打痕
+classrooms backgrounds,教室背景
+open lips,微张的嘴唇
+schoolgirl attire,女学生装
+vibrant colors purple,鲜艳的紫色
+blue tracksuit,=blue track suit
+ruby,红宝石
+small chest,=small breasts
+highly quality,高质量
+little girls,小女孩们
+very large ass,非常大的屁股
+height 154cm,身高154厘米
+look from behind,=looking back
+perfect waifu,完美老婆
+himbo,肌肉傻男
+naked pussy,裸露的阴部
+chest,胸部
+royal,皇家
+sunset outdoors,户外日落
+beige soft knitted sweater,米色柔软针织毛衣
+sweet ass,可爱的屁股
+queen of spades tattoo,黑桃皇后纹身
+waist-length,及腰长度
+background night forest,夜晚森林背景
+darkness around,周围一片黑暗
+shiny green eyes eyeballs,闪亮的绿眼睛
+kitty tail,=cat tail
+background:sunny windows,阳光窗户背景
+wide buttocks,宽臀
+sitting position,坐姿
+exhibitionistic pussy,暴露的阴部
+black short skirt,黑色短裙
+tired face,疲惫的脸
+close face,脸部特写
+thin body,瘦削身材
+lesbians,=yuri
+00s manga style,2000年代漫画风格
+1990s manga style,90年代漫画风格
+magic girls,=magical girl
+magician girls,魔术师女孩
+magic wands,=wand
+magic sticks,魔法棒
+plot,剧情
+scary smile,可怕的笑
+piranha teeth,食人鱼牙齿
+midsummer,盛夏
+shigure kancolle,=shigure (kancolle)
+latina,拉丁裔女性
+big white rabbit ear,大白兔耳
+azure eyes,天蓝色眼睛
+hand on breast,=hand on own chest
+without skin,没有皮肤
+naked pretty pussy,裸露的漂亮阴部
+embellished,装饰华丽
+parts of bra,胸罩的部分
+plow open dress,敞开的连衣裙
+in a garden,在花园里
+sharp dark pink eyes,深粉色锐利眼睛
+long light beige hair,浅米色长发
+hair ends pink,发梢粉色
+hair length back waist,及腰长发
+two strands hair front,前面两缕头发
+black filigree,黑色花丝
+interaction,互动
+next to each other,并排
+vivid shades,鲜艳色调
+teal accents,青色点缀
+japanese temple,日本寺庙
+black niqab,黑色面纱
+pink bob hair,粉色波波头
+excited nipples,兴奋的乳头
+background summer night,夏夜背景
+close eyes,=closed eyes
+on bedroom,在卧室里
+gamer,游戏玩家
+pervert and sex,变态与性
+glitter eye,闪粉眼妆
+gymnastics clothes,体操服
+long black ponytail,黑色长马尾
+long bangs to back,向后梳的长刘海
+shy standing,害羞地站着
+white high heels,白色高跟鞋
+bare collarbone,露出锁骨
+uncensored nipples,无码乳头
+shameless,不知羞耻
+close-up of face,脸部特写
+red china dress,红色旗袍
+male penetration from behind,男性从后面插入
+reveal briefs,露出三角内裤
+playing brains,玩弄大脑
+chest against chest,胸贴胸
+manga illustration,漫画插画
+tentacle entering mouth,触手进入嘴里
+red labia,红色阴唇
+dark brown hair,深棕色头发
+big penis in pussy,大阴茎插入阴道
+background city,城市背景
+neko musume,=cat girl
+thick legs,粗腿
+galaxy suit,星空套装
+lace up,=lace-up
+group girls,一群女孩
+medium sleeves,中袖
+breasts under t-shirt,T恤下的胸部
+crowd background,人群背景
+american girl,美国女孩
+bbc,黑人大阴茎
+green thick vine,绿色粗藤蔓
+exposed nipples,露出乳头
+pussy under fishnet,渔网下的阴部
+fiery ends of hair,火焰般的发梢
+insert dick in mouth,把阴茎插进嘴里
+cursed mutated,被诅咒的变异
+blue ice eyes,冰蓝色眼睛
+black box,黑盒子
+lifting one leg,抬起一条腿
+seductive collarbone,诱人的锁骨
+petite feminine anatomy,娇小的女性身体
+christmas cap,圣诞帽
+photo realistic,=photorealistic
+blood from wounds,伤口流血
+short brown hair,棕色短发
+full legs,丰满的腿
+anthropomorphic,拟人化
+giant penis,巨大阴茎
+slim thighs,纤细的大腿
+huge busty,巨乳
+hands on desk,双手放在桌上
+crossing arms,=crossed arms
+ass up,=top-down bottom-up
+black pasties,黑色乳贴
+fluffy fox ears,毛茸茸的狐耳
+explosion pussy,爆炸的阴部
+sfw,全年龄
+villainess,女反派
+short black feathered hair,黑色羽毛状短发
+background summer park,夏日公园背景
+jpeg,JPEG
+less legs,缺少腿
+under skirt uncensored pussy,裙下无码阴部
+girl brown skin,棕色皮肤女孩
+shoulder off plain hijab,露肩素色头巾
+white knitted cute stockings,白色可爱针织长筒袜
+fornication,私通
+chinese decoration,中式装饰
+dick in pussy,阴茎插入阴道
+black middle hair,黑色中发
+medium big breast,中大胸
+focus on pussy,阴部特写
+dominant,强势
+looks at camera,=looking at viewer
+cum legs,腿上的精液
+cum arms,手臂上的精液
+black clothes,黑色衣服
+cute ruffle red panties,可爱的红色荷叶边内裤
+five fingers,五根手指
+nijigasaki,=love live! nijigasaki high school idol club
+naked ass,裸露的屁股
+chiaki nanami,=nanami chiaki
+beautiful detailed blue eyes,精致美丽的蓝眼睛
+nude girl,裸体女孩
+inlaid with gems,镶嵌宝石
+hollow out,镂空
+tulle sleeves,薄纱袖
+unblemished flawless porcelain-white skin,无瑕的瓷白皮肤
+striking,引人注目
+detailed cloth texture,细致的布料质感
+detailed body texture,细致的身体质感
+gradient dyeing,渐变染色
+triangular shape base string,三角系带
+dark forest background,黑暗森林背景
+ultra definition,超清晰
+shy hands together,害羞地双手合拢
+gothic church,哥特式教堂
+interior,室内
+inside classroom,在教室里
+pink filigree,粉色花丝
+messy short,凌乱短发
+sexual inviting posture,性邀请的姿势
+eye details,眼部细节
+tenderness,温柔
+transparent girl,透明的女孩
+good anatomy,良好的人体结构
+messy short hair,凌乱短发
+unity,Unity引擎
+detailed sketch,细致的草图
+muscular thighs,肌肉发达的大腿
+mistress,女主人
+pose near retro car,在复古汽车旁摆姿势
+black contour,黑色轮廓
+super long hair,=very long hair
+dark chocolate skin,深巧克力色皮肤
+black micro bikini,黑色超小比基尼
+black bikini bow,黑色比基尼蝴蝶结
+background modern bedroom,现代卧室背景
+miko outfit,=miko
+nsfw ancient customs,成人向古代风俗
+point at viewer,=pointing at viewer
+red lingerie,红色内衣
+very large boobs,非常大的胸部
+sheer dress,透视连衣裙
+perverted smile,变态的笑
+nsfw girl best quality,成人向女孩 最佳质量
+blue sneakers,蓝色运动鞋
+dark tanned skin,深棕色晒黑皮肤
+blurry street,模糊的街道
+rotten flesh,腐肉
+pearl beads on neck,脖子上的珍珠串
+triangular figure,三角形身材
+overboobs,=cleavage
+red sharingan eyes,红色写轮眼
+aestheticism,唯美主义
+visual novel background,视觉小说背景
+light blue shirt,浅蓝色衬衫
+light blue skirt,浅蓝色裙子
+18mm,18毫米镜头
+cold shadows,冷色阴影
+in the black turtleneck,穿着黑色高领毛衣
+high growth,高个子
+shiny lipstick,闪亮的口红
+massive ass,巨大的屁股
+showing breasts,露出胸部
+sit on bed,坐在床上
+undead girl,不死族女孩
+two big buns,两个大发髻
+black and white manga,黑白漫画
+oppais,=breasts
+detailed toe,细致的脚趾
+long messy blonde hair,凌乱的金色长发
+perfect medium breasts,完美的中等胸部
+sexy smile,性感的笑
+long dress lolita,洛丽塔长裙
+dark brown skin male,深棕色皮肤男性
+breasts tattoo,=breast tattoo
+deep v,深V领
+wounds splatter blood,伤口溅血
+misted glass,起雾的玻璃
+white tight,白色紧身衣
+a cat ears,=cat ears
+black fur-trimmed cape,黑色毛边斗篷
+pom pom clothes,绒球衣服
+huge yellow bow,巨大的黄色蝴蝶结
+shinobi ninja theme,忍者主题
+neck leash,脖子上的牵绳
+view from upper,俯视
+tentacle ejaculation,触手射精
+shape shiny eyes,闪亮的眼睛
+open white armor,敞开的白色盔甲
+chubby ass,丰满的屁股
+black top,黑色上衣
+the future,未来
+space ship room,宇宙飞船舱室
+2 pointed ears,两只尖耳朵
+a pure white coat,纯白外套
+little emotion,面无表情
+detailed arm,细致的手臂
+beautiful detailed body,精致美丽的身体
+masculine,男性化
+fat ass,肥臀
+hyper ass,超大屁股
+giant ass,巨大的屁股
+muscular ass,肌肉发达的屁股
+too big ass,屁股过大
+ass-shelf,翘臀
+thick outline,=thick outlines
+dice body,骰子身体
+hard sex,激烈性交
+long latex gloves,乳胶长手套
+sit on sofa,坐在沙发上
+body leaning back,身体后仰
+mini denim short,牛仔短裤
+micro bikini leopard,豹纹超小比基尼
+summer sunny day,夏日晴天
+pink labia,粉色阴唇
+skinny female,骨感女性
+fluffy home bathrobe,蓬松的居家浴袍
+black lace stockings,黑色蕾丝长筒袜
+1boy thai men,一个泰国男人
+in city,在城市里
+fiery pupils,火焰般的瞳孔
+pale soft skin,苍白柔软的皮肤
+sunny sky,晴朗的天空
+long lush red hair,浓密的红色长发
+red kitty ears,红色猫耳
+dark green excitation eyes,兴奋的深绿色眼睛
+red kitty tail,红色猫尾
+long aquamarine hair tails,海蓝色长发辫
+cumming dick,射精的阴茎
+hold ass with hands,双手抓住屁股
+dim room,昏暗的房间
+original painting,原画
+flirtatious blonde,挑逗的金发女郎
+christmas red oversized sweater,宽大的圣诞红毛衣
+photographic background,摄影背景
+on head ear handset,头戴耳机
+saturated purple hair,饱和紫色头发
+black bob hair,黑色波波头
+shamed,羞耻
+beautiful detailed hair,精致美丽的头发
+ultra detailed eyes,超精细的眼睛
+dead god,死神
+visible part of breast,露出部分胸部
+in city square,在城市广场
+background tokyo,东京背景
+poke ass to viewer,屁股对着观众
+ass tease,屁股挑逗
+sit on chair,坐在椅子上
+cucumber on pussy,阴部上的黄瓜
+upper finger,上方手指
+dark brown skin penis,深棕色阴茎
+lie,=lying
+dark purple long dress,深紫色长裙
+very deep-v,非常深的V领
+solo 1girl,单人女孩
+wide detached sleeves,宽大的分离袖
+black bunny suit,黑色兔女郎装
+pink middle hair,粉色中发
+beach chairs,=beach chair
+pink small nipples,粉色小乳头
+bite lips,咬嘴唇
+brunette milf,棕发熟女
+sakura haruno naruto shippuden,=haruno sakura
+wide adult ass,宽大的成熟臀部
+cloudy,=cloudy sky
+shining river on background,背景中闪光的河流
+sadistic,施虐
+abrasion,擦伤
+head down ass up,=top-down bottom-up
+high,高
+detailed lower body,细致的下半身
+high resolution illustration,高分辨率插画
+exhibitionist,=exhibitionism
+viewer,观众
+transparent clothes,透明衣服
+slightly curly hair,微卷发
+standing beautifully,优美地站着
+super-detailed,超精细
+excellent quality,优秀质量
+look at,看着
+beautiful red eyes,美丽的红眼睛
+fancy earrings and necklace,华丽的耳环和项链
+seductive expression,诱惑的表情
+straight wavy hair,直发带波浪
+deep cutout,深镂空
+upper figure,上半身
+cute armpits,可爱的腋下
+less toes,缺少脚趾
+dark colors,深色调
+all body in cum,全身都是精液
+showcase,展示
+loose dress,宽松连衣裙
+cute handsome,可爱帅气
+meow pose,喵喵姿势
+background blurry indoor garden,模糊的室内花园背景
+underboob open mouth,下乳 张嘴
+body tattoo,身体纹身
+colored drawing,彩色画
+thin collarbone,纤细的锁骨
+flirtatious smug,挑逗得意
+beautiful digital image,美丽的数字图像
+walk,=walking
+forest in the background,背景中的森林
+kneel down,=kneeling
+bright yellow eyes,明亮的黄眼睛
+separate tail and braid,分开的尾巴和辫子
+no cats,没有猫
+on the bed,在床上
+sketch doodle,涂鸦草图
+in black peaked cap,戴着黑色鸭舌帽
+lush dress,华丽的连衣裙
+detailed man face,细致的男性面孔
+very much light hair,非常浅色的头发
+light hair,浅色头发
+big light green eyes,浅绿色大眼睛
+oil-stained,沾满油污
+sexy juicy ass,性感多汁的屁股
+sexy big breasts,性感大胸
+without skin head,没有皮肤的头
+sitting in bed,坐在床上
+generous,丰满
+fitness woman body,健身女性身材
+a long black hair,黑色长发
+rich gorgeous,富丽华美
+loose-fitting bathrobe,宽松浴袍
+exposed vagina,露出阴部
+long simple black dress,简单的黑色长裙
+super detailed skin,超精细的皮肤
+platinum blonde hair,铂金色头发
+sexy thin girl,性感瘦女孩
+whole penis in mouth,整根阴茎含在嘴里
+rotten girl,腐烂的女孩
+rotten skin,腐烂的皮肤
+look at penis,看着阴茎
+spread your pussy,张开阴部
+background interior grocery hypermarket,超市内部背景
+platinum armor,铂金盔甲
+adamantium armor,精金盔甲
+closed pussy,闭合的阴部
+eyebrows visible through hair,透过头发可见眉毛
+traditional slavic white-red sundress,传统斯拉夫红白吊带裙
+marked pussy,有标记的阴部
+scary face,可怕的脸
+sleek,光滑流畅
+embarrassment on the face,脸上的尴尬
+drawn,手绘
+shine,光泽
+black jeans,黑色牛仔裤
+mature face,成熟的脸
+not so large breasts,不太大的胸部
+head shift,头部偏移
+flawless,完美无瑕
+professional artwork,专业作品
+art of love live,Love Live画风
+nude pussy,裸露的阴部
+body hourglass figure,沙漏型身材
+background summer street,夏日街道背景
+shiny eyes eyeballs,闪亮的眼睛
+different faces,不同的脸
+different poses,不同的姿势
+multiple hands,多只手
+black sheer loose-fitting stockings,黑色透视宽松长筒袜
+delicate eyes,精致的眼睛
+emma verde love live,=emma verde
+yakuza green outfit,黑道绿色装束
+green suite jacket green,绿色西装外套
+elegant green pants,优雅的绿色裤子
+elegant white shirt,优雅的白衬衫
+lustful smile,色欲的笑
+embracing,拥抱
+long sleeve blouse,长袖衬衫
+grey china dress,灰色旗袍
+sit opposite viewer,坐在观众对面
+background blurry bathroom,模糊的浴室背景
+hairless pussy,无毛阴部
+mini skirts,=miniskirt
+seizing,抓住
+featureless breasts,无乳头的胸部
+notebook paper,笔记本纸
+detailed fabric textures,细致的布料纹理
+visible nipples,可见乳头
+modesty,端庄
+young man,年轻男人
+marker sketch,马克笔草图
+1 guy,一个男人
+high quality wallpapers,高质量壁纸
+beautiful hips,美丽的臀部
+cum on anus,肛门上的精液
+detailed shadows,细致的阴影
+adult maid,成年女仆
+3d model,3D模型
+pretty tall,相当高
+calm pose,平静的姿势
+black lace panties,黑色蕾丝内裤
+sky orange,橙色天空
+emerald,祖母绿
+body in water,身体浸在水中
+focus on foot,脚部特写
+waist-high,齐腰高
+battlesuits,=battlesuit
+black lace string,黑色蕾丝系带
+white lace bra,白色蕾丝胸罩
+luxurious wedding dress,奢华婚纱
+walkway tiles,人行道瓷砖
+rose bushes,=rose bush
+mini,迷你
+bare chest,裸露的胸口
+stand up,站起来
+background white,=white background
+orange red hair,橙红色头发
+loose sweater,宽松毛衣
+pink panties falling off,粉色内裤滑落
+petite collarbone,娇小的锁骨
+azure,天蓝色
+green lime eyes,青柠绿眼睛
+wildflowers,野花
+super quality,超高质量
+with a guys,和男人们一起
+slender figure,纤细身材
+big bra,大号胸罩
+white clothes,白色衣服
+diamond eyes,钻石眼
+two brown cat ears,两只棕色猫耳
+cg art,CG艺术
+8k ultra hd,8K超高清
+heterochromatic,=heterochromia
+lie on bed,躺在床上
+extremely detailed 8k cg,极致精细8K CG
+light orange hair,浅橙色头发
+booty to the viewer,屁股对着观众
+black high heels,黑色高跟鞋
+lying bed,躺在床上
+art of light novel,轻小说画风
+drawing of the face,脸部画法
+1woman,一个女人
+long low closed dress,低领长裙
+opened clothes,=open clothes
+angel eyes,天使之眼
+collarless,无领
+groin cutout,腹股沟镂空
+yandere smile,病娇的笑
+anime posters on wall,墙上的动漫海报
+tattoo on arms,手臂纹身
+very wide thighs,非常粗的大腿
+porno,色情
+soft black short blouse,柔软的黑色短衬衫
+grey frilled capelet,灰色荷叶边短斗篷
+background cozy neon bedroom,温馨的霓虹卧室背景
+ink anime,水墨动漫
+with her school suit,穿着校服
+veins on whole body,全身青筋
+mouth covered in cum,嘴边沾满精液
+spoiled body,娇惯的身体
+red horns on fire,燃烧的红角
+pure white hairband,纯白发带
+sparkling yellow eyes,闪耀的黄眼睛
+blue cat panties,蓝色猫咪内裤
+stratification,层次感
+bandages crop top,绷带露脐上衣
+scrunchy face,皱脸
+beautiful image,美丽的图像
+big dick,大阴茎
+extremely detailed wallpaper,极致精细壁纸
+dark skinned,=dark skin
+gym,健身房
+at night,=night
+very beautiful gem necklace,非常美丽的宝石项链
+with 1girl spread legs,女孩张开双腿
+huge tummy,大肚子
+short haircut,短发型
+small boy,小男孩
+30 years,30岁
+hd quality,高清
+flying in sky,在天空中飞翔
+colorless manga,无色漫画
+embellished shimmering costume,闪闪发光的华丽服装
+pretty anatomically body,人体结构良好的漂亮身体
+lace lingerie,蕾丝内衣
+suit maid,女仆装
+dynamic background,动感背景
+cunt hole,阴道口
+blue thong,蓝色丁字裤
+completely nude torso,完全赤裸的上身
+realistic plump face,写实的圆润脸
+miko clothing,=miko
+baby carrying,抱着婴儿
+soft cute pillows,柔软可爱的枕头
+large branched massive horns,巨大分叉的角
+yun jin genshin impact,=yun jin (genshin impact)
+background blurry shower cubicle,模糊的淋浴间背景
+black office jacket,黑色职业夹克
+look at another,=looking at another
+high heeled slippers,高跟拖鞋
+sylphiette mushoku tensei,=sylphiette (mushoku tensei)
+ro-500 kancolle,=ro-500 (kancolle)
+black ponytail,黑色马尾
+large insert,大型插入物
+baseball cheerleader theme,棒球啦啦队主题
+atmospheric artwork,氛围感作品
+two anime-style girls,两个动漫风格的女孩
+one leg lift,抬起一条腿
+third-person overlooking,第三人称俯视
+light of day,日光
+furryart jackrabbit,兽人长耳大野兔
+cryengine jungle,CryEngine丛林
+wet sundress,湿透的吊带裙
+white top shirt,白色上衣
+black fingerless gloves,黑色无指手套
+on park,在公园里
+beautiful gem pendant,美丽的宝石吊坠
+black lace gloves,黑色蕾丝手套
+black high-heeled shoes,黑色高跟鞋
+detail face,细致的脸
+long dark brown hair,深棕色长发
+she beautiful,她很美
+professional shadow,专业阴影
+beautiful style,唯美风格
+puffy eyelashes,浓密的睫毛
+focus pussy,阴部特写
+teenager,=teen
+contrast brown nipples,对比鲜明的棕色乳头
+purple shimmer hair,紫色微光头发
+very big breasts,非常大的胸部
+ultra detail,超精细
+simple art,简约画风
+extremely detailed clothes,极致细致的衣服
+picture-perfect face,完美的脸
+famous artwork,名作
+cinematic bloom,电影感泛光
+wave hair,=wavy hair
+separated breasts,分开的胸部
+porn star,=pornstar
+sharpen forced,强制锐化
+oversized t-shirt,宽大的T恤
+american flag print bikini,美国国旗图案比基尼
+black round eyewear,黑色圆框眼镜
+pussy hole,阴道口
+flat boobs,=flat chest
+bobcut,=bob cut
+ornament trim,装饰镶边
+sex between 2 females,两个女性之间的性爱
+intricate classic updo,精致的古典盘发
+oil painting style,油画风格
+shiny red eyes,闪亮的红眼睛
+nurse headdress,护士头饰
+ganyu in genshin impact,=ganyu (genshin impact)
+pavement tiles,人行道地砖
+pills scattered on bed,床上散落的药片
+white mini shoulder handbag,白色迷你单肩包
+opening her legs,张开双腿
+long colored eyelashes,彩色长睫毛
+blue short sport shorts,蓝色运动短裤
+blue lineart,蓝色线稿
+fully wrapped in bandages,全身缠满绷带
+light orange eyes,浅橙色眼睛
+character: oyama mahiro,=oyama mahiro
+oniichan wa oshimai!,=onii-chan wa oshimai!
+holding girl sex,抱着女孩做爱
+extreme barbarian rough sex,极其粗暴的性爱
+yuri theme,百合主题
+warm pants,保暖裤
+centered in the frame,画面居中
+divergence meter faintly visible,隐约可见的世界线变动率探测仪
+subtle steampunk gadgets,低调的蒸汽朋克小物
+pink leather tatoo,粉色皮革纹身
+sexy boots,性感的靴子
+third person,第三人称
+beautiful hair,美丽的头发
+very curvy,曲线非常丰满
+orange disheveled hair,蓬乱的橙发
+lovely,可爱
+full size,全尺寸
+anya forger,=anya (spy x family)
+excited face,兴奋的脸
+guy frowns,男人皱眉
+have green eyes,绿眼睛
+rigged,绑定骨骼
+black t shirt,黑色T恤
+wide oval face,宽鹅蛋脸
+bright multi-colored strand,鲜艳的多色发缕
+cute shorty girl,可爱的矮个子女孩
+blue screen,蓝色屏幕
+lolita socks,洛丽塔袜
+wide,宽
+black leather pants,黑色皮裤
+different color hair,不同颜色的头发
+bad fingers,手指画得差
+perfect big breasts,完美的大胸
+maid suit,女仆装
+covered chest,遮住胸部
+open arms towards viewer,向观众张开双臂
+above view,俯视
+intricate dragon pattern,精细的龙纹
+incomplete curious body,不完整的奇怪身体
+lifting or lowered bra,掀起或拉下的胸罩
+female teacher,女教师
+no sleeve,=sleeveless
+big lustful smile,色欲满满的笑
+frame card,卡片边框
+background usa,美国背景
+depressed sexy smile,忧郁性感的笑
+in garage,在车库里
+opposite viewer,在观众对面
+rape in pussy,强奸插入阴道
+photorealistic hyper realistic body,照片级超写实身体
+background blurry kitchen,模糊的厨房背景
+succubus gal woman,魅魔辣妹
+rkgk,涂鸦
+character: uchiha sasuke,=uchiha sasuke
+cherry print legwear,樱桃图案袜子
+solo freckle,单人 雀斑
+handcuffed above head,双手铐在头顶
+earth-tone palette,大地色系配色
+rich colour manhwa,色彩丰富的韩漫
+animal character,动物角色
+anime artstyle,动漫画风
+stockings with garters,吊带长筒袜
+dark long hair,深色长发
+full arms,丰满的手臂
+in black trousers,穿着黑色长裤
+in a black blazer,穿着黑色西装外套
+relaxed position,放松的姿势
+white curl hair,白色卷发
+athletic,运动型
+background school,学校背景
+torn stockings,破损的长筒袜
+overdetalization,细节过度
+enlarged image,放大的图像
+water glow,水面发光
+dark green coat,深绿色外套
+gray blue eyes,灰蓝色眼睛
+bad colored,上色差
+adult women,成年女性
+moles on body,身上的痣
+in front to viewer,在观众面前
+oil paintings,=oil painting (medium)
+sex with boy,和男孩做爱
+anime style cover,动漫风格封面
+white elegant dress,优雅的白色连衣裙
+night beach,夜晚海滩
+eyes half open,=half-closed eyes
+sleepy eyes,困倦的眼睛
+maid long dress,女仆长裙
+short hair bob cut,=bob cut
+latex strings stockings,乳胶系带长筒袜
+the generous,丰满
+sexual secretions,性分泌物
+white loose dress,宽松的白色连衣裙
+white spaghetti strap negligee,白色细肩带睡裙
+leg vines,腿上的藤蔓
+see-through chiffon,透明雪纺
+gold fishnet legwear,金色渔网袜
+background:old dirt garage,破旧肮脏的车库背景
+doing foot job,=footjob
+see-through hanfu,透视汉服
+flying strips,飘动的布条
+panting tongue out blowjob,喘着气吐舌口交
+naughty nsfw cameltoe,淘气的成人向骆驼趾
+see through lingerie theme,透视内衣主题
+offscreen male,=faceless male
+onigirl,鬼娘
+positive id photo,证件照
+small hips,小臀部
+sitting on penis,坐在阴茎上
+excited expression,兴奋的表情
+soft pink skin,柔嫩的粉色皮肤
+detailed labia,细致的阴唇
+excited pussy,兴奋的阴部
+moderate breasts,=medium breasts
+lime green hair,青柠绿头发
+dancing in water,在水中跳舞
+neck collar,=collar
+1 eye,一只眼睛
+bangs on eye,刘海遮住眼睛
+long bangs on eye,长刘海遮住眼睛
+choker on neck,=choker
+dark spiky on head,头上深色的尖刺
+open wounds,开放性伤口
+wavy blond hair,金色波浪发
+sticker style,贴纸风格
+8k unity,8K Unity
+9 months pregnant,怀孕九个月
+white lace panties,白色蕾丝内裤
+straight lying,笔直地躺着
+spring,春天
+school corridor,学校走廊
+beautiful detailed water,精致美丽的水
+shizuku osaka,=osaka shizuku
+puffer coat,羽绒外套
+pink stockings,粉色长筒袜
+long orange hair,橙色长发
+short silver hair,银色短发
+photo on vhs camera,VHS录像质感照片
+bubble socks,泡泡袜
+playing on guitar,弹吉他
+fringe covering one eye,=hair over one eye
+red string-monokini,红色系带连体泳衣
+wedding veil micro bikini,婚纱头纱超小比基尼
+nude naked,全裸
+thick lines,粗线条
+high waist skirt,=high-waist skirt
+sitting in a chair,坐在椅子上
+in his school suit,穿着校服
+sperm on suckers,吸盘上的精液
+undead red eyes,不死族的红眼睛
+silver pupils,银色瞳孔
+foggy glass,起雾的玻璃
+thoughtfully,若有所思
+character: maki nishikino,=nishikino maki
+grey naked cape,灰色斗篷
+orange  chinese clothes,橙色中式服装
+orange ruqun,橙色襦裙
+swollen vagina,肿胀的阴部
+ninja outfits,忍者服
+early medieval theme,中世纪早期主题
+juicy pussy,多汁的阴部
+big chest,大胸
+beautiful detailed girl,精致美丽的女孩
+surrounded by tentacles,被触手包围
+covered,遮盖
+lavender eyes,淡紫色眼睛
+long blond hair,金色长发
+female only,只有女性
+full length,全身
+mature woman's breasts,熟女的胸部
+light-and-shadow,光影
+dark atmosphere,黑暗氛围
+finely detailed beautiful eyes,精致美丽的眼睛
+beautiful detailed,精致美丽
+twin braids hair,=twin braids
+black pants and boots,黑色裤子和靴子
+black eyes without shining,无光的黑眼睛
+shining clothes,闪亮的衣服
+detailed 4k wallpaper,精细4K壁纸
+8k quality,8K画质
+warm hugs,温暖的拥抱
+spread one's legs,=spread legs
+blushing face,脸红
+green park,绿色公园
+revealing clothes lingerie underwear,暴露的内衣
+low resolution,=lowres
+low single ponytail,低单马尾
+white sleeveless shirt,白色无袖衬衫
+deep shadows,深阴影
+different breasts,不同的胸部
+dark purple dress,深紫色连衣裙
+one tall adult woman,一个高个子成年女性
+giant dragon wings,巨大的龙翼
+white dot pupils,白点瞳孔
+sun ray,=light rays
+light blue jeans,浅蓝色牛仔裤
+visible asshole and pussy,可见肛门和阴部
+black oval glasses,黑色椭圆眼镜
+fur-trimmed mini top hat,毛边迷你礼帽
+sitting at the table,坐在桌边
+hands out of frame,双手在画面外
+sit in box,坐在箱子里
+6 girls,=6+girls
+white animal ears girl,白色兽耳女孩
+green long hair girl,绿色长发女孩
+blonde short hair girl,金色短发女孩
+black hair bangs girl,黑发刘海女孩
+blue hair girl,蓝发女孩
+lewd exhibitionism,下流的露出
+dark brown skin,深棕色皮肤
+body arch upward,身体向上弓起
+lewdly look at viewer,色眯眯地看着观众
+large fox tail,大狐狸尾巴
+dull expression,呆滞的表情
+straight standing,笔直站立
+wide large ass,宽大的屁股
+tights lower knees,褪到膝盖下的裤袜
+down skirt,放下的裙子
+square face,方脸
+lot of details,大量细节
+small parts,小部件
+grievous injury,重伤
+focus on ass,臀部特写
+bend down,弯腰
+characters don't move,角色不动
+official dress,正装
+revealing dress,暴露的连衣裙
+27 years,27岁
+has short green hair,绿色短发
+
+# 语料里的其他写法和常用词（不按出现次数排列）
+hearts in eyes,=heart in eye
+realistic images,=realistic image
+2 girl,=2girls
+3 girls,=3girls
+1 woman,=1woman
+sun glasses,=sunglasses
+black body suit,=black bodysuit
+knee high socks,=kneehighs
+legs focus,=leg focus
+legs grab,=leg grab
+fish net,=fishnets
+blushed,=blush
+masturbates,=masturbation
+female masturbating,=female masturbation
+hanging boobs,=hanging breasts
+two boys,=2boys
+hyper realism,=hyperrealism
+sexy poses,=sexy pose
+illustrations,=illustration
+wallpapers,=wallpaper
+detailed shadow,=detailed shadows
+detailed toes,=detailed toe
+detailed finger,=detailed fingers
+detailed shine eyes,=detailed shiny eyes
+areola,=areolae
+white knee sock,=white socks
+white one piece swimsuit,=white one-piece swimsuit
+bluegreen eyes,=blue-green eyes
+showing breast,=breasts exposed
+long blonde hair,=long blond hair
+hand on feet,=hands on feet
+thick tight,=thick tights
+full figures,=full body
+sun rise,=sunrise
+sun light,=sunlight
+bed room,=bedroom
+rain forest,=rainforest
+collar bone,=collarbone
+breast out,=breasts out
+no pantie,=no panties
+cigarette burns,=cigarette burn
+humiliating,=humiliation
+pink eye shadow,=pink eyeshadow
+hand on penis,=hands on penis
+breasts bondage,=breast bondage
+vivid color,=vivid colors
+looks at viewer,=looking at viewer
+look at camera,=looking at viewer
+intricate dragon patterns,=intricate dragon pattern
+impregnated,=impregnation
+nipples chain,=nipple chain
+muscular woman,=muscular female
+breast on glass,=breasts on glass
+see through shirt,=see-through shirt
+blind eyes,=blind eye
+realistic shadows,=realistic shadow
+zipper overalls,=zipped overalls
+lacy stockings,=lace stockings
+non human,=no humans
+large ear rings,=large earrings
+white hair band,=white hairband
+lots of details,=many details
+crystal eyes,=crystal eye
+oil skin,=oily skin
+mini shorts,=short shorts
+gold eye,=yellow eyes
+scathach (fate grand order),=scathach (fate)
+devil smile,=evil smile
+fast and furious,=fast & furious
+snakes tattoo,=snake tattoo
+wet sock,=wet socks
+perfect hands,=perfect hand
+curves,=curvy
+ahe gao,=ahegao
+clitoris piercing jewels,=clitoris piercing jewel
+beautiful breasts,=beautiful boobs
+scare,=scared
+ultra high res,=ultra highres
+upperbody,=upper body
+ultrahd,=uhd
+raped,=rape
+elf girl,=elf
+classrooms background,=classrooms backgrounds
+checkered,棋盘格
+argyle,菱格纹
+argyle legwear,菱格袜
+sunny,晴朗
+happiness,幸福
+windows,=window
+arms,手臂
+paradise,天堂
+emotion,情绪
+air,空气
+lily,=lily (flower)
+red,红色
+blue,蓝色
+green,绿色
+yellow,黄色
+pink,粉色
+purple,紫色
+orange,橙色
+grey,灰色
+gray,灰色
+brown,棕色
+silver,银色
+snowy,下雪
+chunky,厚实
+blocky,方块状
+cheeks,脸颊
+poster,海报
+rooms,房间
+two hands,双手
+big lips,厚嘴唇
+small lips,小嘴唇
+roped,被绳子绑着
+shocking,震惊
+light dress,轻薄连衣裙
+mommy,妈咪
+cumming,射精
+crotch open,裆部开口
+restrain,束缚
+robot body,机器人身体
+black cane,黑色手杖
+turn around,转身
+glow wings,发光的翅膀
+in cum,浸在精液里
+different races,不同种族
+tummy,肚子
+showing,展示
+high boots,高筒靴
+fetters,镣铐
+bending,弯腰
+middle,中间
+males,男性
+poker face,扑克脸
+rear sex,后入式
+seinen,青年漫画
+sex maniac,性欲狂
+insert,插入
+normal,正常
+beige,米色
+worst,最差
+2people,两个人
+red lines,红色线条
+large,大
+three,三
+narrow,狭窄
+nympho,色情狂
+snorting,喷鼻息
+dirty hair,脏头发
+old dress,旧连衣裙
+cider,苹果酒
+sporty,运动风
+swallow,吞咽
+rubber,橡胶
+touch,触摸
+grabs skirt,抓着裙子
+in suitcase,在行李箱里
+choked,窒息
+dark light,暗光
+penis in pussy,阴茎插入阴道
+an extremely delicate and beautiful,极其精致美丽
+an extremely delicate and beautiful girl,极其精致美丽的女孩
+extremely delicate and beautiful face,极其精致美丽的脸
+blender,=blender (medium)
+mutant finger,手指变异
+hair moved by the wind,头发被风吹动
+hair flying with the wind,头发被风吹动
+sweat dripping down from front of body,汗水从身前流下
+countless numerous large tentacle,无数巨大的触手
+nekogirl,=cat girl
+extra mutated hands and fingers,手和手指严重变异
+girl abs on the stomach,女孩腹肌
+closed nipples,内陷乳头
+more than 5 fingers on each limb,每只手超过五根手指
+black and white maid outfit,黑白女仆装
+view from between legs looking up,从双腿间向上看
+background of a beautiful nebula galaxy,美丽的星云背景
+extra digit and hands and fingers and legs and arms,多余的手指、手、腿和手臂
+arms that penetrate clothes,手臂穿模
+background summer day summer street,夏日街道背景
+one hand with more than 5 fingers,一只手超过五根手指
+one hand with less than 5 fingers,一只手少于五根手指
+one hand with more than 5 digit,一只手超过五根手指
+one hand with less than 5 digit,一只手少于五根手指
+open vagina with one hand,单手掰开阴部
+fused eyes poorly drawn eyes,眼睛融合、画得差
+more than 1 left hand,不止一只左手
+more than 1 right hand,不止一只右手
+the penis is inserted into the vagina,阴茎插入阴道
+very long dark purple hair,深紫色超长发
+glimpse of cleavage nipple breast,隐约露出乳沟和乳头
+very detailed cg unified 16k wallpaper,非常精细的CG统一16K壁纸
+breasts pressed against the ground,胸部压在地上
+hair cover on one eye,=hair over one eye
+hair cover one eye,=hair over one eye
+raising her hands in the air,双手举向空中
+unbuttoned shirt showing her breasts,解开衬衫露出胸部
+the girl's whole body is in the camera,女孩全身入镜
+whole penis in the mouth,整根阴茎含在嘴里
+blood on jacket and legs,夹克和腿上有血
+sex with a black man,和黑人性交
+new york city of 30's,30年代的纽约
+insert full dick into the vagina,整根阴茎插入阴道
+lift her skirt to reveal her asshole,掀起裙子露出肛门
+penis penetrating her wet vagina,阴茎插入湿润的阴道
+deformed belly from big dick in pussy,大阴茎插入使肚子变形
+blonde medium wavy lush hair,浓密的金色波浪中发
+crying with an empty eyes,眼神空洞地哭泣
+cursed girl with red horns,长着红角的被诅咒女孩
+a mole under left eye,左眼下有痣
+the girl lay on the bed with her ass cocked,女孩翘着屁股躺在床上
+the girl sticks her finger in her asshole,女孩把手指插进肛门
+huge penis insert into pussy,巨大阴茎插入阴道
+messy orange hair with shading,带阴影的凌乱橙发
+bad anatomy disfigured malformed mutated,人体结构错误、毁容、畸形、变异
+
+# 常见的拼写错误：?正确的标签。中文对照里用黄色显示正确写法的中文，不当成别名
+worth quality,?worst quality
+worstquality,?worst quality
+wort quality,?worst quality
+missing fngers,?missing finger
+extra digt,?extra digits
+absurdes,?absurdres
+brunete,?brown hair
+blight skin,?bright skin
+spuirting,?squirting
+serius,?serious
+chabby,?plump
+displeasingr,?displeasing
+naval,?navel
+scinematic light,?cinematic lighting
+tohsaka lin,?tohsaka rin
+pregant,?pregnant
+batterfly wings,?butterfly wings
+batterfly,?butterfly
+reveling clothes,?revealing clothes
+public hair,?pubic hair
+bluy eyes,?blue eyes
+beautifly eyes,?beautiful eyes
+beautifly breasts,?beautiful boobs
+ass visible though thighs,?ass visible through thighs
+greektoes,?greek toe
+greektoe,?greek toe
+kagur nana,?kagura nana
+master piece,?masterpiece
+masterpeace,?masterpiece
+materpiece,?masterpiece
+black bunny suite,?black bunny suit
+cypberpunk,?cyberpunk
+cyperpunk,?cyberpunk
+whiteone-piece swimsuit,?white one-piece swimsuit
+chibie,?chibi
+beasts apart,?breasts apart
+anime screenshort,?anime screenshot
+de formed,?deformed
+thick thights,?thick thighs
+thick thinghs,?thick thighs
+mulitcolored hair,?multicolored hair
+dark nippels,?dark nipples
+nippels,?nipples
+large nippels,?large nipples
+erected nippels,?erection nipples
+contrast brown nippels,?contrast brown nipples
+yea miko,?yae miko
+fishnet tighs,?fishnet tights
+very aestheti,?very aesthetic
+very aesthet,?very aesthetic
+nothern lights,?aurora
+dbest quality,?best quality
+perfect bobbs,?perfect boobs
+stradding,?straddling
+perfect mefium boobs,?perfect medium boobs
+simle,?smile
+coverd pussy,?covered pussy
+glowinge eyes,?glowing eyes
+hight quality,?high quality
+hing quality,?high quality
+gater belt,?garter belt
+idelocks,?sidelocks
+iorgasm face,?orgasm
+tarame,?tareme
+ast asian architecture,?east asian architecture
+school swinsuit,?school swimsuit
+embrassed,?embarrassed
+orgams,?orgasm
+blurry backgrond,?blurry background
+slyghtly wavy hair,?slightly wavy hair
+spread pissy,?spread pussy
+cyberpunk backround,?cyberpunk background
+pussy juise,?pussy juice
+llowres,?lowres
+collarbonen,?collarbone
+liner drawing,?line drawing
+lens flqre,?lens flare
+petite femininen anatomy,?petite feminine anatomy
+womb tatoo,?pubic tattoo
+1gril,?1girl
+kuruki tomoko,?kuroki tomoko
+kukoki tomoko,?kuroki tomoko
+koroki tomoko,?kuroki tomoko
+car ear,?cat ears
+cat years,?cat ears
+stoking,?thighhighs
+dynamic angel,?dynamic angle
+meduim breasts,?medium breasts
+hadsome face,?handsome face
+simpl background,?simple background
+upper theeth only,?upper teeth only
+dig deformed red horns,?big deformed red horns
+laarge breast,?large breasts
+small breats,?small breasts
+plated skirt,?pleated skirt
+rick dark purple-blue hair,?rich dark purple-blue hair
+wide thights,?wide thighs
+wavy mouyh,?wavy mouth
+rubber duc,?rubber duck
+from aboce,?from above
+saliva trai,?saliva trail
+multiplie girls,?multiple girls
+hight resolution,?highres
+vainy penis,?veiny penis
+tougue out,?tongue out
+prefect face,?perfect face
+nacked legs,?nude legs
+age diference,?age difference
+lelouch vi britania,?lelouch vi britannia
+zettai ryoki,?zettai ryouiki
+love live! school idol proyect,?love live! school idol project
+stranging,?strangling
+juice pussy,?juicy pussy
+knelling,?kneeling
+one eyes closed,?one eye closed
+lied down,?lying
+pink pantys,?pink panties
+vagin,?pussy
+carton,?cartoon
+white thigh highs,=white thighhighs
+purple skirt yellow blouse,紫色裙子配黄色衬衫
+pink animal character,粉色动物角色
+epic realism pink fur bunny on roller skate,史诗写实 穿旱冰鞋的粉毛兔子
+background blurry home sweet home,模糊的温馨家庭背景
+beige colors,米色调
+rumi usagiyama from my hero academia,=mirko
+symmetrical heat clitoris lips,对称的发热阴唇
+oblique angle,斜角
+magical portal of vagina,阴部形状的魔法传送门
+acrylic watercolor,丙烯水彩
+from: watashi ga motenai no wa dou kangaetemo omaera ga warui!,=watashi ga motenai no wa dou kangaetemo omaera ga warui!
+short arm,手臂过短
+soviet coverart textless,苏联封面画 无文字
+vaginal porn hole with female hypersexuality,色情阴道口 女性性欲亢进
+anthropomorphic furryart,拟人兽人画
+watercolor art,=watercolor (medium)
+magical portal of vaginal raped hole,阴部形状的魔法传送门
+brown-amber eyes,棕琥珀色眼睛
+pink fur rabbit character,粉毛兔子角色
+the 1920s street,1920年代街道
+anthropomorphic furry art,拟人兽人画
+clitoris lips hole with milf sexuality,熟女的阴部
+silk yellow blouse,黄色丝绸衬衫
+tennis game on grass lawn,草地上的网球比赛
+upskirt in sauna,桑拿房里的裙底视角
+retrofuturistic mechanical,复古未来主义机械
+golden hour daylight,黄金时刻的日光
+feral,野兽形态
+warm palette,暖色调配色
+babs bunny,巴布丝兔（乐一通）
+detailed city background,细致的城市背景
+colorful spectrum portal,彩色光谱传送门
+extremely detailed beautiful sheer organza thighs,极致精美的透明欧根纱大腿
+steam sauna background,蒸汽桑拿背景
+sex by full nelson,=full nelson
+extremely detailed beautiful sheer organza lace,极致精美的透明欧根纱蕾丝
+warm skin,温暖的肤色
+hotpink fur rabbit,亮粉色毛兔子
+fresh lawn living pods,新鲜草坪上的生活舱
+book illustrations,书籍插画
+1boy arms faceless male standing,一个男孩 手臂 无脸男 站立
+solid radiobox in hands,手里拿着收音机
+on head ear handset on wire,头戴有线耳机
+orange brown curly hair,橙棕色卷发
+forest on background in realistic painting,写实绘画中的森林背景
+handcuffed,=handcuffs
+extremely detailed beautiful black garter straps,极致精美的黑色吊袜带
+close nipples,乳头特写
+background of magic,魔法背景
+background old gothic castle corridor,古老哥特城堡走廊背景
+big deformed red horns of a girl,女孩头上畸形的大红角
+clitoral hood piercing,阴蒂包皮穿环
+looney tunes in cgi,CG版乐一通
+genital piercing,生殖器穿环
+ijn shinano (azur lane),=shinano (azur lane)
+japanese yokai,=youkai
+vibrant grass city background,鲜艳草地城市背景
+ellie from mongirl expedition,怪物娘探险队的艾莉
+glimpse of cleavage amativeness,隐约露出乳沟 性欲
+vaginal piercing,阴部穿环
+big demonic super mutated and deformed dick,巨大的恶魔般严重变异畸形阴茎
+shiny wavy dark black short hair,闪亮的乌黑波浪短发
+anthro-furry female,兽人女性
+close to the bed surface,贴近床面
+a magical portal in form of vagina or vulva,阴部形状的魔法传送门
+kami monster in ghibli styled,吉卜力风格的神怪
+curly kinky orange hair,卷曲的橙发
+dark skin big penis male,深色皮肤大阴茎男性
+blonde red gradient edge hair,金红渐变发梢
+bright day,晴朗的白天
+hair grows in the wind,头发在风中飘扬
+messy red hair in ponytail,凌乱的红色马尾
+bottom-up view,仰视
+large branched massive red horns,巨大分叉的红角
+super mutated and deformed legs and arms,严重变异畸形的手脚
+the 1920s in colors,彩色的1920年代
+standing split one leg up,站立劈叉抬起一条腿
+2 pairs of red spoiled horns on her head,头上两对红色的角
+public view,公众视线下
+full body according to height,按身高比例的全身
+picked and dyed sky blue hair,挑染成天蓝色的头发
+dark blue-purple wavy short hair pigtails,深蓝紫色波浪短发双马尾
+detailed digital,精细数字画
+on a motorroller hoverboard at avenue,在大街上骑悬浮滑板
+detailed masterpiece,精细杰作
+bloody on mouth and chin,嘴和下巴沾满血
+extremely detailed beautiful black stiletto heels,极致精美的黑色细高跟鞋
+simple style,简约风格
+jackrabbit,长耳大野兔
+watercolor book illustrations,水彩书籍插画
+egyptian pyramids on the background,背景中的埃及金字塔
+purple ribbon in black twintails,黑色双马尾上的紫色缎带
+beige grey background,米灰色背景
+colorful leotard panties with spectral bomber jacket,彩色紧身衣内裤配光谱飞行夹克
+final fantasy xv drawing style,最终幻想15画风
+art nouveau style on background,背景为新艺术运动风格
+symbol-shaped,符号形状
+neonic spectrum portal,霓虹光谱传送门
+girl holding panties in one hand and underwear in the other,女孩一手拿内裤一手拿内衣
+background dark solid blurry room,昏暗模糊的纯色房间背景
+a huge weapon in her hands,=huge weapon
+be covered with essential oil,涂满精油
+heat skin,发热的皮肤
+illyasviel von einzbern (fate grand order),=illyasviel von einzbern
+veins all over the body,全身青筋
+a big city,大城市
+laced strings gothic lingerie,哥特系带内衣
+white grey suite jacket grey,白灰色西装外套
+semen all over the body,全身都是精液
+povray render,POV-Ray渲染
+public shame,公开羞辱
+dark chocolate wavy lush long hair,浓密的深巧克力色波浪长发
+the eyes are hidden behind the hair,眼睛藏在头发后面
+afro samurai,爆炸头武士
+short brown bobhair,棕色短波波头
+black-brown eyes,黑棕色眼睛
+sitting with the flying petals,坐在飞舞的花瓣中
+very small,非常小
+sexy background,性感背景
+little emotion on the face,脸上没什么表情
+the guy has hair sticking out,男人的头发翘起来
+the hair covers the eyes,头发遮住眼睛
+kinky afro-textured hair,卷曲的非洲式头发
+black beanie with cat ears,带猫耳的黑色毛线帽
+portal is biopunk creature of vagina clitoris,生物朋克风阴部传送门
+smiling face,笑脸
+10 large branched massive horns,十只巨大分叉的角
+retro-vintage glamorous glasses,复古时髦眼镜
+tentacles fit into the anal hole,触手插入肛门
+symmetrical clitoris,对称的阴蒂
+very long messy black hair,凌乱的黑色超长发
+cg artbook fine art parody digital art,CG画集 美术 戏仿 数字艺术
+hands grasping the girl's hair,抓着女孩头发的手
+hologram yellow-green details,黄绿色全息细节
+tiki,提基神像
+cozy outdoors,惬意的户外
+a furry character with a humanoid body from hips/waist up replacing the neck and head of an animal,半人半兽角色
+animal character reference,动物角色设定图
+extremely detailed beautiful hair ribbon,极致精美的发带
+revealing and deep v-neck string,暴露的深V系带
+povray,POV-Ray渲染
+pink fur character on roller skate,穿旱冰鞋的粉毛角色
+cryengine,CryEngine引擎
+lift up the skirt and finger insertion into vagina,掀起裙子手指插入阴道
+doggystyle (sexual position),=doggystyle
+black high pleated short skirt,黑色高腰百褶短裙
+male penis inserted into the vagina,阴茎插入阴道
+naked female character,裸体女性角色
+fresh lawn,新鲜草坪
+lying on an inflatable bed,躺在充气床上
+tenten naruto shippuden,=tenten
+women are tied to the grill,女人被绑在格栅上
+sunscape,阳光景观
+wallpaper with ciri from witcher,巫师中希里的壁纸
+cyan dress with pale yellow bomber jacket,青色连衣裙配淡黄色飞行夹克
+space ship room full of objects,堆满物品的飞船舱室
+with long blond disheveled hair,蓬乱的金色长发
+drug addict,瘾君子
+neonic,霓虹
+beautiful detailed face with a long red scarf,精致美丽的脸和红色长围巾
+lying on bed on back,仰躺在床上
+long white knitted wool oversized long sleeves,白色宽大针织羊毛长袖
+shape accuracy,形状准确度
+color saturation,色彩饱和度
+coloring technique,上色技法
+lighting and shadows,光影
+detail preservation,细节保留
+artistic style,艺术风格
+color harmony,色彩和谐
+painting dynamics,绘画动感
+wet tight black sport leggings,湿透的黑色紧身运动打底裤
+push the shorts aside exposing the pussy,拨开短裤露出阴部
+greengrass and leafy plants growing up,生长的绿草和枝叶
+jurassic park jungle,侏罗纪公园丛林
+naked from mirror,镜中裸体
+an elegant man,优雅的男人
+neonic red-cyan texture,霓虹红青色质感
+green bikini with white lines,白线条绿色比基尼
+the 1920s,1920年代
+the city lights are glowing as cars drive past them,车流驶过 城市灯火闪烁
+demonic supermutated and deformed member,恶魔般严重变异畸形的阴茎
+clear face,清晰的脸
+the mask is black,黑色面具
+short dark-purple hair wide pigtails,深紫色短发宽双马尾
+one x-shaped hair tie on both sides,两侧X形发绳
+against the background of the city of the future,未来城市背景
+black slightly big pants,稍大的黑色裤子
+holding the plate in her hands,双手端着盘子
+lift them above your head,举过头顶
+horizontal hair tie on both sides,两侧水平发绳
+nude breast,裸露的胸部
+miyu edelfelt (fate grand order),=miyu edelfelt
+low waist pleated short black skirt,低腰黑色百褶短裙
+curly black,黑色卷发
+kami ghibli styled,吉卜力风格的神
+background teenage cozy night bedroom,温馨的夜晚卧室背景
+long low ripped gray jeans,低腰破洞灰色长牛仔裤
+nsfw cameltoe,成人向骆驼趾
+primary colors white and turquoise,主色调白色和青绿色
+monster is biopunk demonic creature with vagina tentacles,生物朋克风恶魔触手怪
+loft bedroom under circular window,圆窗下的阁楼卧室
+glimpse of cleavage nipple breast extremely amativeness,隐约露出乳沟和乳头 性欲极强
+green hair short hair,绿色短发
+black wavy lush long hair,浓密的黑色波浪长发
+tight white stockings with red tops,红色袜口的白色紧身长筒袜
+very playful,非常俏皮
+in the foreground is the sexy egyptian girl,前景是性感的埃及女孩
+white double white braided plait hair,白色双麻花辫
+a beautiful girl in song dynasty style dress,穿宋制服装的美丽女孩
+very messy orange hair with shading,带阴影的非常凌乱的橙发
+a young man with a feminine face,长相女性化的年轻男人
+man's penis inserted in woman's vagina,阴茎插入阴道
+short very messy orange hair with shading,带阴影的非常凌乱的橙色短发
+very fat and lactating breasts,非常丰满且泌乳的胸部
+pink nipples with brown breast areola,粉色乳头和棕色乳晕
+left girl black suit jacket,左边的女孩黑色西装外套
+left girl elegant black pants,左边的女孩优雅黑裤
+right girl elegant grey pants,右边的女孩优雅灰裤
+left girl unbuttoned white shirt,左边的女孩解开扣子的白衬衫
+right girl elegant red shirt,右边的女孩优雅红衬衫
+right girl 23 years old,右边的女孩23岁
+dark gray stripe pattern short skirt,深灰色条纹短裙
+blue maid apron and headdress,蓝色女仆围裙和头饰
+long hair with loose waist and white hair,及腰松散的白色长发
+serious facial expression,严肃的表情
+the jacket is black,黑色夹克
+sunset in the window frame,窗框里的日落
+detailed big heterochromic eyes,细致的异色大眼睛
+girl grabs hem of dress,女孩抓着裙摆
+extremely detailed hd wallpaper of amiya (arknight),明日方舟阿米娅的极致精细高清壁纸
+stand close to the viewer,靠近观众站立
+floral bow hair ornament,花朵蝴蝶结发饰
+very mature and hairy hot milf in voluptuous lactation with pierced nipples in very small lingerie,穿超小内衣、乳头穿环、泌乳的成熟多毛火辣熟女
+extremely drug addicted,严重吸毒成瘾
+very detailed cg,非常精细的CG
+extremely detailed beautiful white garter straps,极致精美的白色吊袜带
+the anus under the pussy,阴部下方的肛门
+sharp details,锐利的细节
+light long dress with buttons,带纽扣的轻薄长裙
+coming out of the bathroom with a small towel covering her private parts,裹着小毛巾遮住私处走出浴室
+retro moscow outdoors,复古莫斯科户外
+sexy room background,性感房间背景
+loincloth aura,兜裆布气场
+portal of vagina,阴部形状的传送门
+a grey long hair elf girl wears torn kneehighs with lace,穿破损蕾丝及膝袜的灰色长发精灵女孩
+the face is covered in blood,满脸是血
+the light of the setting sun from the window,窗外的夕阳光
+vaginal cum hole with female hypersexuality,色情阴道口
+dark blue very long wavy lush hair,浓密的深蓝色波浪超长发
+black goth lace ending pleated skirt,黑色哥特蕾丝边百褶裙
+black goth lace ending short bra,黑色哥特蕾丝边短胸罩
+laced strings gothic lolita dress leotard,哥特洛丽塔系带连衣裙紧身衣
+black soft mini top with sleeve deep v-neck,带袖深V黑色柔软短上衣
+dark blue long twin braids hair,深蓝色长双麻花辫
+peace sign victory hand,=v
+portrait close-up female white background headshot photography studio shot,女性肖像特写 白色背景 影棚头像摄影
+the 1920s aesthetics,1920年代美学
+among the snow,在雪中
+among the trees,在树林中
+hold your legs with your hands light feeling,双手抱腿 轻盈感
+short arms,手臂过短
+wearing a lab coat over a casual outfit,便装外披着白大褂
+extremely detailed beautiful white stiletto heels,极致精美的白色细高跟鞋
+a young man,=young man
+he wears a black leather jacket with white fur,他穿着白毛边黑皮夹克
+decorations in the form of tetris cubes,俄罗斯方块形状的装饰
+he wears black glasses with multicolored lenses on his head,他头上戴着彩色镜片的黑框眼镜
+mature woman with huge breasts,巨乳熟女
+lactating breasts,=lactation
+he wears a white t-shirt with a bright inscription of the game logo,他穿着印有游戏标志的白T恤
+traditional japanese buildings,传统日式建筑
+yuri ddlc,=yuri (doki doki literature club)
+pee at wall corner,在墙角小便
+point of view on the face,脸部视角
+a lot of cum on body,身上很多精液
+head buried in folded arms,头埋在交叠的手臂里
+steam finnland sauna background,芬兰蒸汽桑拿背景
+tan skin,=tan
+sumi serina (blue archive),=serina (blue archive)
+white-grey background,白灰色背景
+glowing nixie tube numbers orange and red glow in the background,背景中发出橙红色光的辉光管数字
+anthro-furry russian blue cat on a flying hoverboard,站在悬浮滑板上的兽人俄罗斯蓝猫
+low cut to groin,低至腹股沟
+looking at you in love,深情地看着你
+wavy dark red ending hair,深红色波浪发梢
+from the anime manga: watashi ga motenai no wa dou kangaetemo omaera ga warui!,=watashi ga motenai no wa dou kangaetemo omaera ga warui!
+opening the vagina with one hand,单手掰开阴部
+with very nice and clean pubic hair,整齐干净的阴毛
+velvet purple skirt,紫色天鹅绒裙
+super extremely drug addict,极度吸毒成瘾
+a man,一个男人
+the gun is pointed forward,枪口指向前方
+casual style,休闲风格
+background dark solid blurry sunset room,昏暗模糊的日落房间背景
+black and red striped shirt with long sleeve,黑红条纹长袖衬衫
+one pink feather under left hair,左侧头发下有一根粉色羽毛
+guy wearing full black sweater,穿全黑毛衣的男人
+over sweater on the guy wearing a coat,男人毛衣外穿着外套
+sex battle official art 18+,性爱对战 官方图 18+
+dim lighted garden in the background,背景中昏暗的花园
+barefoot and barelegs and greektoe,赤脚光腿 希腊脚趾
+fluffy bird feather dress frill,蓬松鸟羽连衣裙荷叶边
+vibrant details,鲜艳的细节
+half of the clothes were undressed,衣服脱了一半
+extremely sperm addicted,极度渴求精液
+freckles on girl's face,女孩脸上的雀斑
+red wildflowers,红色野花
+legs raised and bent at the knees,双腿抬起屈膝
+light blue marine cute eyes,浅海蓝色的可爱眼睛
+veins on whole girl body,女孩全身青筋
+girl abs on the girl stomach,女孩腹肌
+japanese black and white maid outfit,日式黑白女仆装
+a cigar and tobacco smoke,雪茄和烟雾
+watercolor colour manga,水彩上色漫画
+poppy at middle,中间的罂粟花
+vivid gradient background,鲜艳的渐变背景
+have a collar on his neck,他脖子上戴着项圈
+artbook fine art parody digital art,画集 美术 戏仿 数字艺术
+sunny day in japan tokyo,日本东京的晴天
+lying on a bed with pink sheets,躺在粉色床单的床上
+wide anus,张开的肛门
+wearing a white shirt and tie and black shorts,穿白衬衫打领带配黑色短裤
+they hug each other,他们互相拥抱
+long dark brown hair with small short braid,带小短辫的深棕色长发
+beautiful detailed brown fluffy cat tail,精致美丽的棕色蓬松猫尾
+gray detailed slightly wavy hair with pins in the form of tetris cubes,别着俄罗斯方块发夹的灰色微卷发
+gangbang with dark brown skin male,和深棕色皮肤男性群交
+the girl stomach,女孩的腹部
+two color long wavy hair white pink,白粉双色波浪长发
+gray detailed eyes,细致的灰色眼睛
+hair is very intricate and extremely detailed,头发极其精细
+look through white pantyhose barefoot toe,透过白色连裤袜看到的脚趾
+emma verde (love live),=emma verde
+alice margatroid (touhou project),=alice margatroid
+monotonous white short nurse dress,单调的白色短护士服
+epic realism character on roller skate,史诗写实 穿旱冰鞋的角色
+centaur furry fox,半人马兽人狐狸
+xray rainbow glow,X光彩虹光
+and a button-up front,前排扣
+ue5,虚幻引擎5
+lifting niqab and showing panties,掀起面纱露出内裤
+extreme close up of face,脸部大特写
+step dick under feet heavily,用脚用力踩阴茎
+hold gun m4 in hands,手持M4步枪
+1924 summer,1924年夏天
+hair style two big pigtails up in different directions,两个朝不同方向翘起的大双马尾
+lifting skirt and showing pussy,掀起裙子露出阴部
+hair updo and curly hair,盘发和卷发
+twelve kizuki demon,十二鬼月（鬼灭之刃）
+chiaroscuro effect,=chiaroscuro
+soviet illustration of the 70s,70年代苏联插画
+soviet illustration of the 30s,30年代苏联插画
+pink animal character cgi,CG粉色动物角色
+rena ryugu from higurashi no naku koro ni,=ryuuguu rena
+clothes with dropping bead-works and applique,带垂坠串珠和贴花的衣服
+hierarchical textured twining legwears with staggered pattern and in uniformly dense regular prints,层次纹理缠绕袜 交错密集印花
+confident demeanor and impeccable fashion sense,自信的举止和无可挑剔的时尚感
+in resplendent multi-layered clothes with the rich fabric adorned with intricate embroidery and sparkling jewels,身穿华丽多层服饰 饰有精致刺绣和闪耀宝石
+highlights nipples through the clothing covering the chest,透过胸前衣物凸显乳头
+medium lush white kitty hair,浓密的白色中发
+a white t-shirt that covers your ass,遮住屁股的白T恤
+black-blue eyes,黑蓝色眼睛
+cyan leotard panties with yellow bomber jacket,青色紧身衣内裤配黄色飞行夹克
+monster is biopunk creature of vagina clitoris,生物朋克风阴部怪物
+red and black plaid short pleated skirt,红黑格子百褶短裙
+extremely beautiful,极其美丽
+1990s anime,90年代动画
+anastasia (fate grand order),=anastasia (fate)
+slight dirty soles of socks,袜底微脏
+house robe on naked body,裸身穿着家居袍
+pee at wall,在墙边小便
+detailed details,细节
+glowing nixie tube numbers orange and green glow in the background,背景中发出橙绿色光的辉光管数字
+hex hexagon hexagonal,六边形
