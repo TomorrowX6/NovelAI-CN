@@ -203,7 +203,7 @@ npm run build -- --refresh     # 重新下载上游词典
 - `data/zh-override.csv`：`标签,译名`，替换某个标签的显示译名（修正错误翻译），优先级最高。
 - `data/zh-curated.csv`：`标签,译名,补充检索词`，审定结果。译名留空表示只补检索词；检索词用 `/` 分隔，前面加 `-` 表示删掉一个错误的检索词（如 `fear_kubrick,,-害怕侧目`）。
 - `data/zh-extra.csv`：`标签,词1/词2`，追加检索词（俗称、简称），不改变显示内容。词表里没有的标签也会收录，比如 NovelAI 的质量词 masterpiece。
-- `data/zh-words.csv`：`英文,译名/检索词`，提示词里常写、但不是 Danbooru 标签的描述词（dramatic、cinematic lighting），让中文对照也能显示中文，检索时排在标签后面。已经是标签或 Danbooru 别名的词构建时会提示删掉；译名完全相同的写法只在检索里出一条。译名写成 `=标签` 表示是已有标签的另一种写法（`1 girl,=1girl`）。写成 `?标签` 表示常见的拼写错误（`worth quality,?worst quality`），对照里用橙色标出「拼错？」和正确写法的中文，不当成别名。
+- `data/zh-words.csv`：`英文,译名/检索词`，提示词里常写、但不是 Danbooru 标签的描述词（dramatic、cinematic lighting），让中文对照也能显示中文，检索时排在标签后面。已经是标签或 Danbooru 别名的词构建时会提示删掉；译名完全相同的写法只在检索里出一条。译名写成 `=标签` 表示是已有标签的另一种写法（`1 girl,=1girl`）。写成 `?标签` 表示常见的拼写错误（`worth quality,?worst quality`），对照里用黄色显示正确写法的中文（鼠标停留时看正确写法），不当成别名。
 - `data/novelai-rename.csv`：`Danbooru新名,NovelAI用的名字`，NovelAI 不认识新名字时输出旧名字。
 - `data/zh-new.csv`：`tag,category,aliases,zh,count`，列与来源数据相同，收录 Danbooru 上有、来源数据里没有的标签（检索词用 `|` 分隔）。来源数据以后有了同一个标签时以来源数据为准。
 
@@ -273,7 +273,7 @@ main 分支就是用户脚本自动更新的来源：脚本或词典有改动时
 - 单复数写错的（cat ear、freckle、high heel）查对应的标签：构建时给图片数 1000 以上的通用、元标签生成另一种单复数写法，约 8,800 个；人物、作品名不生成，shorts → short 这类会变成别的意思的也不生成。
 - 中文对照查中文前，会先整理别处抄来的写法：Stable Diffusion 的括号和权重（`(tag:1.2)`、`((tag))`）、中文输入法的全角括号逗号、零宽空格、粘在第一个负面标签前的 `Negative prompt:`、Danbooru 网页侧栏的 `? blue eyes 1.3m`、标注工具的 `long hair 0.845`、用句号或括号连写的几个标签、名和姓写反的角色名、「角色 from 作品」。
 - 不是标签的写法按规则说明：`artist:xxx` 显示「画师」，`year 2025` 显示「2025年画风」，采样器、种子等显示「生成参数（不是标签）」，`BREAK` 显示「分段（SD 语法）」。没有通用中文名的标签（3d、Love Live!）也算认得出来，不再暗着显示。
-- 拿 [NovelAI 语料](https://huggingface.co/datasets/la-ji/novelai-prompt-in-the-wild) 约 10 万条提示词按中文对照的实际切分统计：查得到中文的标签从 51.0% 升到 91.0%，另有 1.3% 提示可能拼错。剩下的多是不带 `artist:` 的画师名、拼写错误、长句和少数人反复用的句子。
+- 拿 [NovelAI 语料](https://huggingface.co/datasets/la-ji/novelai-prompt-in-the-wild) 约 10 万条提示词按中文对照的实际切分统计：查得到中文的标签从 51.0% 升到 91.0%，另有 1.3% 用黄色提示可能拼错。剩下的多是不带 `artist:` 的画师名、拼写错误、长句和少数人反复用的句子。
 
 </details>
 

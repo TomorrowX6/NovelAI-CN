@@ -1,6 +1,6 @@
 // ---- 标签中文对照 ----
 // 每个提示词框（基础提示词、负面提示词、角色提示词）的标题栏多一个「中」按钮。打开后在框下面列出框里的每个标签和它的中文，
-// 没有中文的标签暗着显示，常见的拼写错误（worth quality）用橙色标出「拼错？」和正确写法的中文；点一项就在提示词里选中这个标签。开关对所有提示词框生效，记在 localStorage 里，
+// 没有中文的标签暗着显示，常见的拼写错误（worth quality）用黄色显示正确写法的中文；点一项就在提示词里选中这个标签。开关对所有提示词框生效，记在 localStorage 里，
 // 扩展面板的「中文对照」开关改的是同一个值（extension/bridge.js），改了当场生效、不刷新页面。
 // 只在框外面加元素，不改编辑器（ProseMirror）里的内容。
 
@@ -21,7 +21,7 @@ const CMP_CSS = `
 .${CMP_PANEL} .nzh-cmp-zh{font-size:.85rem;line-height:1.25}
 .${CMP_PANEL} .nzh-cmp-en{max-width:100%;overflow:hidden;font-size:.7rem;line-height:1.2;white-space:nowrap;text-overflow:ellipsis;opacity:.6}
 .${CMP_PANEL} .nzh-cmp-none{opacity:.55}
-.${CMP_PANEL} .nzh-cmp-typo .nzh-cmp-zh{color:#e0913a}
+.${CMP_PANEL} .nzh-cmp-typo .nzh-cmp-zh{color:#f5c518}
 `;
 
 function readComparePref() {
@@ -132,10 +132,10 @@ function renderComparePanel(panel, editor) {
         if (HAN_RE.test(zh) || plainName(zh) !== plainName(t.tag)) item.append(label, en);
         else item.append(label);
       } else if ((typo = getDict().typo(t.tag))) {
-        // 常见的拼写错误：显示正确写法的中文，标出可能拼错
+        // 常见的拼写错误：用黄色显示正确写法的中文，鼠标停留时看正确写法
         const label = document.createElement('span');
         label.className = 'nzh-cmp-zh';
-        label.textContent = `拼错？${typo.zh}`;
+        label.textContent = typo.zh;
         item.className = 'nzh-cmp-typo';
         item.title = `${t.text}\n可能拼错了，应为 ${typo.tag}`;
         item.append(label, en);

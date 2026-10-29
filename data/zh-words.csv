@@ -1,7 +1,7 @@
 # 提示词里常写、但不是 Danbooru 标签的英文描述词：英文,译名/检索词
 # 只为了让「中」对照也显示中文；检索时排在所有标签后面。已经是标签或 Danbooru 别名的词不要写进来（构建时会提示）
 # 译名写成「=标签」表示是那个标签的另一种写法（1 girl,=1girl），只查中文、不单独出现在检索里
-# 拼错的词（worth quality、absurdes）不收：对照里显示成没有中文，正好提醒写错了
+# 译名写成「?标签」表示常见的拼写错误（worth quality,?worst quality）：不当成别名，对照里用黄色显示正确写法的中文，提醒写错了
 # 词表参考 Stable Diffusion 和 NovelAI 提示词语料里的高频词，由 Claude 翻译，没有经过人工校对
 
 # 氛围、情绪
@@ -3467,7 +3467,7 @@ huge penis insert into pussy,巨大阴茎插入阴道
 messy orange hair with shading,带阴影的凌乱橙发
 bad anatomy disfigured malformed mutated,人体结构错误、毁容、畸形、变异
 
-# 常见的拼写错误：?正确的标签。中文对照里用橙色标出「拼错？」，不当成别名
+# 常见的拼写错误：?正确的标签。中文对照里用黄色显示正确写法的中文，不当成别名
 worth quality,?worst quality
 worstquality,?worst quality
 wort quality,?worst quality
