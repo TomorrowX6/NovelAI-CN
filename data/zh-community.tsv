@@ -1,4 +1,4 @@
-# 社区标签译名。在 https://novelai.000.moe 用 GitHub 登录后编辑，每次修改都会提交到这里；脚本和扩展默认每天从 GitHub 拉取一次。
+# 社区标签译名。在 https://novelai.000.moe 用 GitHub 登录后编辑，修改经审核通过后提交到这里；脚本和扩展默认每天从 GitHub 拉取一次。
 # 每行用 Tab 分隔：英文标签、译名、检索词（/ 分隔）、Danbooru 图片数（只有词典里没有的新标签才填）。译名留空表示只加检索词。
 abby (kpop demon hunters)	阿比（K-Pop 猎魔女团）
 adaman (pokemon)	刚石（宝可梦）
@@ -278,6 +278,7 @@ lieza (arc the lad)	莉莎（妖精战士）
 linhardt von hevring	林哈尔特·冯·海弗林格
 linhardt von hevring (timeskip)	林哈尔特·冯·海弗林格（长大后）
 litchi faye ling	莉琪·菲·琳
+location	场景	场景/地点
 lorenz hellman gloucester	洛廉兹·海尔曼·古罗斯塔尔
 lorenz hellman gloucester (timeskip)	洛廉兹·海尔曼·古罗斯塔尔（长大后）
 lucy maria misora	露西·玛莉亚·美空
