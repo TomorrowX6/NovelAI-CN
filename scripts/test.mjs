@@ -56,6 +56,19 @@ const LOOKUPS = [
   // NovelAI 英文联想里会出现的 Danbooru 旧标签名
   ['black footwear', '鞋'],
   ['otoko no ko', '伪娘'],
+  // 提示词里常直接写的 Danbooru 别名
+  ['peace sign', 'V字'],
+  ['sparkles', '闪光'],
+  ['watercolor', '水彩'],
+  ['stockings', '过膝袜'],
+  ['miku', '初音'],
+  ['kiss mark', '口红印'],
+  ['wuwa', '鸣潮'],
+  // Danbooru 改了名、词典里还是旧名的标签，新名字也能查到
+  ['grid watermark', '水印'],
+  // NovelAI 自己的质量词
+  ['amazing quality', '质量'],
+  ['very displeasing', '不美观'],
   ['^_^', null],
 ];
 for (const [tag, expect] of LOOKUPS) {
@@ -63,6 +76,13 @@ for (const [tag, expect] of LOOKUPS) {
   if (expect && !(zh || '').includes(expect)) {
     failed++;
     console.log(`✗ lookup(${tag}) = ${zh}，期望包含 ${expect}`);
+  }
+}
+// 名字带 | 的别名（||_||）写进以 | 分隔的旧名列，会拆出 _ 和空串这样的碎片别名
+for (const tag of ['_', '']) {
+  if (dict.lookup(tag) !== null) {
+    failed++;
+    console.log(`✗ lookup(${JSON.stringify(tag)}) = ${dict.lookup(tag)}，期望查不到`);
   }
 }
 

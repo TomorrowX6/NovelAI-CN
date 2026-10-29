@@ -49,8 +49,8 @@ function promptTags(s) {
   return out;
 }
 
-// raw: 每行 `英文标签\t使用次数\t显示译名(多个用/分隔)\t额外检索词(用|分隔)\t旧标签名(用|分隔)`
-// 旧标签名只用于给 NovelAI 英文联想里出现的旧名配上中文，不参与检索
+// raw: 每行 `英文标签\t使用次数\t显示译名(多个用/分隔)\t额外检索词(用|分隔)\t旧标签名和英文别名(用|分隔)`
+// 旧标签名和别名只用于查中文（NovelAI 英文联想里的旧名、提示词里写的 peace sign 这类别名），不参与检索
 // t2s: 繁简对照（见 createT2S），用来转换查询；译名里有繁体字的，构建时已把转换后的写法加进额外检索词
 function createZhDict(raw, t2s = '') {
   const toSimp = createT2S(t2s);
