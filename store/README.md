@@ -9,7 +9,7 @@ npm run build
 npm run crx
 ```
 
-上传 `build/novelai-zh-tags-版本.zip`（不含公钥的商店版）。商店会给扩展分配新的 ID，和本地「加载已解压的扩展程序」时的 ID 不同。
+上传 `build/novelai-zh-tags-版本-chrome.zip`（不含公钥的商店版）。商店会给扩展分配新的 ID，和本地「加载已解压的扩展程序」时的 ID 不同。
 
 ## 1. 商品详情（Store listing）
 
@@ -148,7 +148,7 @@ The package is built from this source without minification or third-party bundle
   npm run build
   npm run crx
 
-The Firefox package is build/novelai-zh-tags-<version>-firefox.zip. novelai-zh-tags.js is dist/novelai-zh-tags.user.js without its userscript header: scripts/build.mjs concatenates src/core.js, src/main.js, src/compare.js, src/ui.js and src/community.js and embeds the tag dictionary and UI translations from data/ as string constants. bridge.js and popup.* are copied from extension/ (popup.js gets the version and entry counts filled in).
+The Firefox package is build/novelai-zh-tags-<version>-firefox.zip. novelai-zh-tags.js is dist/novelai-zh-tags.user.js without its userscript header: scripts/build.mjs concatenates src/core.js, src/main.js, src/compare.js, src/ui.js and src/community.js and embeds the tag dictionary and UI translations from data/ as string constants. scripts/crx.mjs then moves the tag dictionary string out into tag-data-1.js, tag-data-2.js, ... (each well under 5 MB so the AMO linter can parse every file); they load before novelai-zh-tags.js, which joins the pieces back. bridge.js and popup.* are copied from extension/ (popup.js gets the version and entry counts filled in).
 ```
 
 3. **商品信息**：

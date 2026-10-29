@@ -2,10 +2,12 @@
 // 用法: node scripts/crx.mjs
 // 输出到 build/：
 //   extension/                          解压的 Chrome 扩展，可在 chrome://extensions 「加载已解压的扩展程序」，manifest 带公钥，扩展 ID 固定
-//   novelai-zh-tags-版本.zip            上架 Chrome 应用商店用的压缩包（不含公钥）
-//   novelai-zh-tags-版本.crx            用私钥签名的 CRX3 安装包
+//   novelai-zh-tags-版本-chrome.zip     上架 Chrome 应用商店用的压缩包（不含公钥）
+//   novelai-zh-tags-版本-chrome.crx     用私钥签名的 CRX3 安装包
+//   novelai-zh-tags-版本-edge.zip/.crx  Edge 版，和 Chrome 版是同一个包：zip 上架 Edge 加载项商店
 //   firefox/                            解压的 Firefox 扩展，可在 about:debugging 「临时载入附加组件」
 //   novelai-zh-tags-版本-firefox.zip    上架 Firefox 附加组件站（AMO）用的压缩包
+//   novelai-zh-tags-版本-firefox.xpi    同一个包换成 xpi 扩展名，未经 AMO 签名
 // 私钥默认在 .keys/novelai-zh-tags.pem（不进 git），可用环境变量 CRX_KEY 指定。没有私钥时会生成一个：
 // 扩展 ID 由私钥决定，换私钥就是另一个扩展，请备份好。
 import fs from 'node:fs';
@@ -23,6 +25,11 @@ const FIREFOX_DIR = path.join(BUILD_DIR, 'firefox');
 const GECKO_ID = 'novelai-zh-tags@azusamoe';
 const KEY_FILE = process.env.CRX_KEY ? path.resolve(process.env.CRX_KEY) : path.join(ROOT, '.keys', 'novelai-zh-tags.pem');
 const SCRIPT_NAME = 'novelai-zh-tags.js';
+// AMO 的自动检查不解析超过 5 MB 的 JS 文件（File is too large to parse），整个上传会被拒。内容脚本的大头是词典，
+// 拆成几个数据文件，在主脚本前面按顺序加载（同一个页面环境），主脚本再拼回来
+const MAX_JS_BYTES = 5 * 1024 * 1024;
+const TAG_DATA_CHUNK_CHARS = 1_200_000;
+const TAG_DATA_KEY = "Symbol.for('nzh-tag-data')";
 const ICON_SIZES = [16, 32, 48, 128];
 // 扩展和商店里显示的名称、简介（简介即商店摘要，最多 132 个字符）。用户脚本的 @name 不跟着改：
 // 脚本管理器按名称识别脚本，改名会让已安装的用户更新时装出第二份
@@ -184,6 +191,25 @@ function loadOrCreateKey() {
   return privateKey;
 }
 
+// 把脚本里的 const ZH_TAG_DATA = "…" 拆出去：返回改过的主脚本和数据文件 [[文件名, 内容]]。
+// 每个数据文件把自己那一段放进 globalThis[Symbol.for('nzh-tag-data')]，主脚本按顺序拼起来后删掉这个全局变量
+function splitTagData(script) {
+  const head = 'const ZH_TAG_DATA = ';
+  const start = script.indexOf(head);
+  const end = script.indexOf('const ZH_T2S_DATA');
+  if (start < 0 || end < start) throw new Error('dist 里的脚本找不到 ZH_TAG_DATA，先运行 npm run build');
+  const data = JSON.parse(script.slice(start + head.length, end).trim().replace(/;$/, ''));
+  const dataFiles = [];
+  for (let i = 0; i < data.length; i += TAG_DATA_CHUNK_CHARS) {
+    const chunk = JSON.stringify(data.slice(i, i + TAG_DATA_CHUNK_CHARS));
+    dataFiles.push([`tag-data-${dataFiles.length + 1}.js`, Buffer.from(`(globalThis[${TAG_DATA_KEY}] ??= []).push(${chunk});`)]);
+  }
+  const join = `const ZH_TAG_DATA = globalThis[${TAG_DATA_KEY}].join('');
+delete globalThis[${TAG_DATA_KEY}];
+`;
+  return { main: script.slice(0, start) + join + script.slice(end), dataFiles };
+}
+
 function main() {
   const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
   const userScript = fs.readFileSync(path.join(ROOT, 'dist', 'novelai-zh-tags.user.js'), 'utf8');
@@ -192,6 +218,7 @@ function main() {
   }
   // 用户脚本头对扩展没用，许可说明之类的注释保留
   const script = userScript.replace(/^\/\/ ==UserScript==[\s\S]*?\/\/ ==\/UserScript==\n+/, '');
+  const { main: mainScript, dataFiles } = splitTagData(script);
 
   const manifest = {
     manifest_version: 3,
@@ -206,7 +233,7 @@ function main() {
     // 与用户脚本的 @run-at document-start、@inject-into page、@noframes 对应：
     // 要在 NovelAI 的脚本运行前接管 fetch 和 Turbopack 的模块注册，所以注入页面自身的环境
     content_scripts: [
-      { matches: ['https://novelai.net/*'], js: [SCRIPT_NAME], run_at: 'document_start', world: 'MAIN', all_frames: false },
+      { matches: ['https://novelai.net/*'], js: [...dataFiles.map(([f]) => f), SCRIPT_NAME], run_at: 'document_start', world: 'MAIN', all_frames: false },
       // 面板读写设置用的桥，在隔离环境里运行（extension/bridge.js）
       { matches: ['https://novelai.net/*'], js: ['bridge.js'], run_at: 'document_start', all_frames: false },
     ],
@@ -229,7 +256,8 @@ function main() {
   const popupJs = ext('popup.js').toString('utf8').replace(/^const BUILD = .*;$/m, `const BUILD = ${JSON.stringify(build)};`);
   if (!popupJs.includes(JSON.stringify(build))) throw new Error('extension/popup.js 里找不到 const BUILD 那一行');
   const files = [
-    [SCRIPT_NAME, Buffer.from(script)],
+    ...dataFiles,
+    [SCRIPT_NAME, Buffer.from(mainScript)],
     ['bridge.js', ext('bridge.js')],
     ['popup.html', ext('popup.html')],
     ['popup.css', ext('popup.css')],
@@ -237,6 +265,9 @@ function main() {
     ...ICON_SIZES.map((s) => [`icons/${s}.png`, iconPng(s)]),
   ];
   const json = (m) => Buffer.from(JSON.stringify(m, null, 2) + '\n');
+  for (const [file, data] of files) {
+    if (file.endsWith('.js') && data.length > MAX_JS_BYTES) throw new Error(`${file} 有 ${data.length} 字节，超过 AMO 能检查的 5 MB`);
+  }
 
   const key = loadOrCreateKey();
   const spki = crypto.createPublicKey(key).export({ type: 'spki', format: 'der' });
@@ -252,9 +283,15 @@ function main() {
     fs.writeFileSync(path.join(EXT_DIR, file), data);
   }
   const zipBuf = zip([['manifest.json', json(manifest)], ...files]);
+  const crxBuf = crx3(zipBuf, key);
   const base = path.join(BUILD_DIR, `novelai-zh-tags-${pkg.version}`);
-  fs.writeFileSync(`${base}.zip`, zipBuf);
-  fs.writeFileSync(`${base}.crx`, crx3(zipBuf, key));
+  // 旧版本的产物（不带浏览器名的 .zip/.crx）先删掉，免得 build/ 里新旧混在一起
+  for (const f of fs.readdirSync(BUILD_DIR)) if (/^novelai-zh-tags-.*\.(zip|crx|xpi)$/.test(f)) fs.rmSync(path.join(BUILD_DIR, f));
+  // Edge 是 Chromium 内核，和 Chrome 用同一个包：Edge 加载项商店收 zip，crx 用来在开发者模式下手动安装
+  const outputs = [];
+  for (const browser of ['chrome', 'edge']) {
+    outputs.push([`${base}-${browser}.zip`, zipBuf], [`${base}-${browser}.crx`, crxBuf]);
+  }
 
   // Firefox 用同一套文件。新上架的扩展必须在 manifest 里声明收集哪些数据，这里什么都不收集；
   // 140 起 Firefox 内置这个声明的同意流程，content_scripts 的 world: 'MAIN' 也已支持，安卓版要 142
@@ -271,11 +308,14 @@ function main() {
     fs.mkdirSync(path.dirname(path.join(FIREFOX_DIR, file)), { recursive: true });
     fs.writeFileSync(path.join(FIREFOX_DIR, file), data);
   }
-  fs.writeFileSync(`${base}-firefox.zip`, zip([['manifest.json', json(firefoxManifest)], ...files]));
+  // Firefox 不认 crx：zip 上传 AMO，xpi 是同一个包换了扩展名（没经 AMO 签名，正式版 Firefox 装不上，只能在开发者版里试）
+  const firefoxZip = zip([['manifest.json', json(firefoxManifest)], ...files]);
+  outputs.push([`${base}-firefox.zip`, firefoxZip], [`${base}-firefox.xpi`, firefoxZip]);
+  for (const [file, data] of outputs) fs.writeFileSync(file, data);
 
   const rel = (p) => path.relative(ROOT, p).replace(/\\/g, '/');
-  console.log(`扩展 ${pkg.version}（构建 ${build.hash}），Chrome ID ${extensionId(spki)}，Firefox ID ${GECKO_ID}`);
-  for (const p of [EXT_DIR, `${base}.zip`, `${base}.crx`, FIREFOX_DIR, `${base}-firefox.zip`]) console.log(`  ${rel(p)}`);
+  console.log(`扩展 ${pkg.version}（构建 ${build.hash}），Chrome/Edge ID ${extensionId(spki)}，Firefox ID ${GECKO_ID}`);
+  for (const p of [EXT_DIR, FIREFOX_DIR, ...outputs.map(([f]) => f)]) console.log(`  ${rel(p)}`);
 }
 
 main();

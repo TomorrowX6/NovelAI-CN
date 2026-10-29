@@ -2,9 +2,9 @@ name: Release
 
 # 推送版本号标签（如 1.7.1，要和 package.json 的 version 一致）时构建并发布 GitHub Release，附上：
 #   novelai-zh-tags.user.js      用户脚本
-#   novelai-zh-tags-版本.crx     用私钥签名的 Chrome 扩展安装包
-#   novelai-zh-tags-版本.zip     上架 Chrome 应用商店用的压缩包
-#   novelai-zh-tags-版本-firefox.zip   上架 Firefox 附加组件站（AMO）用的压缩包
+#   novelai-zh-tags-版本-chrome.crx / .zip    Chrome：用私钥签名的安装包 / 上架 Chrome 应用商店用的压缩包
+#   novelai-zh-tags-版本-edge.crx / .zip      Edge：和 Chrome 同一个包，zip 上架 Edge 加载项商店
+#   novelai-zh-tags-版本-firefox.zip / .xpi   Firefox：上架附加组件站（AMO）用的压缩包 / 同一个包换成 xpi 扩展名（未签名）
 # 也可以在 Actions 页手动运行：只构建、不发布，产物在运行页的 Artifacts 里下载。
 # 签名私钥放在仓库 Settings → Secrets 的 CRX_PRIVATE_KEY（.keys/novelai-zh-tags.pem 的全文）。
 # 扩展 ID 由私钥决定，scripts/crx.mjs 会核对它和 package.json 的 nzh.extensionId 是否一致。
@@ -70,9 +70,9 @@ jobs:
           name: novelai-zh-tags-${{ steps.version.outputs.version }}
           path: |
             dist/novelai-zh-tags.user.js
-            build/novelai-zh-tags-${{ steps.version.outputs.version }}.crx
-            build/novelai-zh-tags-${{ steps.version.outputs.version }}.zip
-            build/novelai-zh-tags-${{ steps.version.outputs.version }}-firefox.zip
+            build/novelai-zh-tags-${{ steps.version.outputs.version }}-*.crx
+            build/novelai-zh-tags-${{ steps.version.outputs.version }}-*.zip
+            build/novelai-zh-tags-${{ steps.version.outputs.version }}-*.xpi
           if-no-files-found: error
       - name: Publish release
         if: github.ref_type == 'tag'
@@ -80,7 +80,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ steps.version.outputs.version }}
         run: |
-          files=(dist/novelai-zh-tags.user.js "build/novelai-zh-tags-$VERSION.crx" "build/novelai-zh-tags-$VERSION.zip" "build/novelai-zh-tags-$VERSION-firefox.zip")
+          files=(dist/novelai-zh-tags.user.js)
+          for f in chrome.crx chrome.zip edge.crx edge.zip firefox.zip firefox.xpi; do
+            files+=("build/novelai-zh-tags-$VERSION-$f")
+          done
           # 已经手动建好同名 Release 时只补上附件
           if gh release view "$VERSION" > /dev/null 2>&1; then
             gh release upload "$VERSION" "${files[@]}" --clobber

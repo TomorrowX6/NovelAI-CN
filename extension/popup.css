@@ -79,6 +79,7 @@ code { font: 12px ui-monospace, Consolas, monospace; }
 .secondary-button { background: var(--card); border-color: var(--line); color: var(--text); }
 .secondary-button:hover { background: var(--soft); }
 .sync-hint { margin-top: 8px; text-align: center; color: var(--muted); font-size: 11px; }
+/* 没有提示时不占位，免得更新按钮和下面的提示隔得太开 */
 .sync-hint:empty { display: none; }
 .notice { margin-top: 12px; padding: 10px 12px; background: var(--soft); color: var(--muted); border-radius: 8px; font-size: 12px; line-height: 1.65; overflow-wrap: anywhere; }
 .notice.ok { color: var(--ok); background: var(--ok-bg); }
@@ -88,7 +89,8 @@ a { color: var(--accent); text-decoration: none; border-radius: 3px; }
 a:hover { text-decoration: underline; text-underline-offset: 3px; }
 footer a span { margin-left: 3px; color: var(--muted); }
 .switches { margin-top: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
-.switch { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 18px 15px; cursor: pointer; }
+/* 设置页不能比首页高：两页叠在同一格里，高的那页决定面板高度，矮的那页底下会空出一截 */
+.switch { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 12px 15px; cursor: pointer; }
 .switch + .switch { border-top: 1px solid var(--line); }
 .switch:has(input:disabled) { cursor: default; }
 /* The auto-update row holds a <select>, so only its title is a label. */
@@ -108,7 +110,7 @@ div.switch:has(input:disabled) label { cursor: default; }
 .switch input:disabled { opacity: .45; cursor: default; }
 .switch select { margin: 0 2px; padding: 0 2px; border: 1px solid var(--line); border-radius: 6px; background: var(--soft); color: var(--text); font: inherit; cursor: pointer; }
 .switch select:disabled { opacity: .6; cursor: default; }
-.settings-bottom { margin-top: auto; padding-top: 24px; }
+.settings-bottom { margin-top: auto; padding-top: 16px; }
 :is(button, a, input, select):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) {

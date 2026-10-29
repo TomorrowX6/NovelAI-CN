@@ -72,13 +72,13 @@
 <details>
 <summary>打不开 Chrome 应用商店时：手动安装</summary>
 
-1. 在 [Releases](https://github.com/TomorrowX6/NovelAI-CN/releases) 下载最新的 `novelai-zh-tags-版本.zip` 并解压。
-2. 打开 `chrome://extensions`，打开右上角的「开发者模式」，点「加载已解压的扩展程序」，选解压出来的文件夹。
+1. 在 [Releases](https://github.com/TomorrowX6/NovelAI-CN/releases) 下载最新的 `novelai-zh-tags-版本-chrome.zip`（Edge 用 `-edge.zip`，内容相同）并解压。
+2. 打开 `chrome://extensions`（Edge 是 `edge://extensions`），打开「开发者模式」，点「加载已解压的扩展程序」，选解压出来的文件夹。
 3. 刷新 NovelAI 页面。
 
 这样装的扩展不会自动更新。出新版时，下载新的 zip 覆盖到同一个文件夹，再在扩展页点刷新按钮。
 
-Releases 里的 `.crx` 是自签名的安装包：Windows 和 macOS 上的 Chrome 只接受应用商店签名的 .crx，拖进去会报 `CRX_REQUIRED_PROOF_MISSING`，它只适合通过企业策略部署，或在允许这类安装包的浏览器里使用。
+Releases 里的 `-chrome.crx`、`-edge.crx` 是自签名的安装包：Windows 和 macOS 上的 Chrome 只接受应用商店签名的 .crx，拖进去会报 `CRX_REQUIRED_PROOF_MISSING`，它只适合通过企业策略部署，或在允许这类安装包的浏览器里使用。
 
 </details>
 
@@ -91,7 +91,7 @@ Releases 里的 `.crx` 是自签名的安装包：Windows 和 macOS 上的 Chrom
 <details>
 <summary>临时载入 Releases 里的版本</summary>
 
-在 [Releases](https://github.com/TomorrowX6/NovelAI-CN/releases) 下载 `novelai-zh-tags-版本-firefox.zip`，打开 `about:debugging#/runtime/this-firefox`，点「临时载入附加组件」，选这个 zip。临时载入的附加组件在关闭 Firefox 后会被移除；正式版 Firefox 只能长期安装经过 Mozilla 签名的附加组件。
+在 [Releases](https://github.com/TomorrowX6/NovelAI-CN/releases) 下载 `novelai-zh-tags-版本-firefox.zip`（`-firefox.xpi` 是同一个包，没经 Mozilla 签名，正式版 Firefox 装不上），打开 `about:debugging#/runtime/this-firefox`，点「临时载入附加组件」，选这个 zip。临时载入的附加组件在关闭 Firefox 后会被移除；正式版 Firefox 只能长期安装经过 Mozilla 签名的附加组件。
 
 </details>
 
@@ -190,9 +190,9 @@ npm run build -- --refresh     # 重新下载上游词典
 `npm run crx` 输出：
 
 - `build/extension/`：解压的扩展，manifest 带公钥，「加载已解压的扩展程序」时扩展 ID 固定。
-- `build/novelai-zh-tags-版本.zip`：上架应用商店用的压缩包（不含公钥）。
-- `build/novelai-zh-tags-版本.crx`：用私钥签名的安装包。
-- `build/firefox/` 和 `build/novelai-zh-tags-版本-firefox.zip`：Firefox 版，内容和 Chrome 版相同，manifest 里多了附加组件 ID（`novelai-zh-tags@azusamoe`）、最低版本和「不收集数据」的声明。
+- `build/novelai-zh-tags-版本-chrome.zip`：上架 Chrome 应用商店用的压缩包（不含公钥）。`-edge.zip` 内容相同，上架 Edge 加载项商店。
+- `build/novelai-zh-tags-版本-chrome.crx`、`-edge.crx`：用私钥签名的安装包。
+- `build/firefox/` 和 `build/novelai-zh-tags-版本-firefox.zip`（`.xpi` 同内容）：Firefox 版，内容和 Chrome 版相同，manifest 里多了附加组件 ID（`novelai-zh-tags@azusamoe`）、最低版本和「不收集数据」的声明。
 
 签名私钥第一次打包时生成在 `.keys/novelai-zh-tags.pem`（已在 `.gitignore` 里），也可以用环境变量 `CRX_KEY` 指定。扩展 ID 由私钥决定，换了私钥就成了另一个扩展，请备份好。
 
