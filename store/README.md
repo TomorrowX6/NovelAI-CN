@@ -41,7 +41,7 @@ NovelAI中文化助手，让中文用户用起 NovelAI 更顺手。
 
 说明
 · 不收集个人信息。约 7.5 万条标签词典随扩展打包，联想和翻译都在本地完成。
-· 社区译名：人人都能在 https://novelai.000.moe 用 GitHub 登录后修改标签译名，修改直接提交到 GitHub 仓库，扩展默认每天从 GitHub 更新一次（只下载译名数据，不上传任何内容）。
+· 社区译名：人人都能在 https://novelai.000.moe 用 GitHub 登录后修改标签译名，修改经审核后提交到 GitHub 仓库，扩展默认每天从 GitHub 更新一次（只下载译名数据，不上传任何内容）。
 · 点工具栏图标打开面板，查看版本和词条数，开关中文界面、中文标签和社区译名的自动更新（可选检查间隔）。
 · 词典以 ame-la/danbooru-tags-data-zh（MIT）为基础并经过审定，补充检索词含 EhTagTranslation 的人工译名（CC BY-NC-SA 3.0），因此词典部分同样按 CC BY-NC-SA 3.0 提供，不得用于商业用途。
 · 源代码和问题反馈：https://github.com/TomorrowX6/NovelAI-CN
@@ -70,7 +70,7 @@ Full-width commas and colons typed by Chinese input methods are converted to hal
 
 Notes
 · Collects no personal data. The ~75,000-entry dictionary is bundled and suggestions and translation run locally.
-· Community translations: anyone can edit tag translations at https://novelai.000.moe after signing in with GitHub; edits are committed to the GitHub repository and the extension picks them up once a day by default (it only downloads the translation list and uploads nothing).
+· Community translations: anyone can edit tag translations at https://novelai.000.moe after signing in with GitHub; reviewed edits are committed to the GitHub repository and the extension picks them up once a day by default (it only downloads the translation list and uploads nothing).
 · Click the toolbar icon for a popup with the version and entry counts and settings for the Chinese UI, Chinese tags and automatic updates of community translations.
 · The dictionary is based on ame-la/danbooru-tags-data-zh (MIT) and includes search terms from EhTagTranslation (CC BY-NC-SA 3.0), so the dictionary is provided under CC BY-NC-SA 3.0 and may not be used commercially.
 · Source and issues: https://github.com/TomorrowX6/NovelAI-CN

@@ -1,5 +1,6 @@
 // 编辑器页面：仿照 EhTagTranslation 的 ehtt.vercel.app（Angular Material 风格），这里是不依赖框架的单页应用。
-// 列表页 /list/:类别 按搜索（普通文字或 /正则/）、类别、范围筛选，分页显示；编辑页 /edit/:标签 左边表单、右边预览和编辑日志。
+// 列表页 /list/:类别 按搜索（普通文字或 /正则/）、类别、范围筛选，分页显示；编辑页 /edit/:标签 左边表单、右边预览和编辑日志；
+// 审核页 /review 列出提交的修改，审核员在这里（或编辑页的「待审核的修改」里）通过或驳回。
 // 页面脚本放在 String.raw 里（不用反引号和 ${}），反斜杠原样保留；提交的内容一律用 textContent 渲染，配合带 nonce 的 CSP。
 
 const escapeHtml = (s) => String(s).replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
@@ -46,8 +47,9 @@ svg.icon { width: 24px; height: 24px; fill: currentColor; flex: none; }
 .toolbar .icon-btn:hover { background: rgba(255,255,255,.12); }
 .icon-btn:disabled { color: var(--faint); cursor: default; background: none; }
 .icon-btn.accent { color: var(--accent-dark); }
-.user { position: relative; margin-right: 64px; }
-.user-btn { display: inline-flex; align-items: center; gap: 10px; height: 40px; padding: 0 12px; border: 0; border-radius: 20px; background: rgba(255,255,255,.08); color: inherit; font: inherit; font-weight: 500; cursor: pointer; text-decoration: none; }
+.user { position: relative; margin-right: 64px; display: flex; align-items: center; gap: 8px; }
+.review-link .count { min-width: 20px; padding: 0 6px; border-radius: 10px; background: var(--on-accent); color: var(--accent); font-size: 12px; line-height: 20px; text-align: center; }
+.user-btn { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; height: 40px; padding: 0 12px; border: 0; border-radius: 20px; background: rgba(255,255,255,.08); color: inherit; font: inherit; font-weight: 500; cursor: pointer; text-decoration: none; }
 .user-btn:hover { background: rgba(255,255,255,.14); }
 .user-btn img { width: 28px; height: 28px; border-radius: 50%; }
 .menu { position: absolute; right: 0; top: calc(100% + 12px); width: 224px; max-width: calc(100vw - 32px); padding: 8px; background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,.14), 0 2px 6px rgba(0,0,0,.06); z-index: 20; }
@@ -113,7 +115,10 @@ td.count { text-align: right; color: var(--muted); font-variant-numeric: tabular
 th.count { text-align: right; }
 mark { background: var(--mark); color: inherit; padding: 0; }
 .badge { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 10px; font-size: 11px; line-height: 18px; background: var(--accent-soft); color: var(--accent-dark); white-space: nowrap; vertical-align: 1px; }
-.badge.new { background: #e8f5e9; color: var(--ok); }
+.badge.new, .badge.approved { background: #e8f5e9; color: var(--ok); }
+.badge.pending { background: #fff8e1; color: var(--warn); }
+.badge.rejected { background: #ffebee; color: #c62828; }
+.badge.withdrawn { background: #eeeeee; color: var(--muted); }
 .none { color: var(--faint); }
 .empty, .spinner-box { padding: 48px 24px; text-align: center; color: var(--muted); }
 .spinner { width: 48px; height: 48px; margin: 0 auto; border: 4px solid var(--accent-soft); border-top-color: var(--accent-dark); border-radius: 50%; animation: spin 1s linear infinite; }
@@ -147,6 +152,22 @@ mark { background: var(--mark); color: inherit; padding: 0; }
 .history img { width: 32px; height: 32px; border-radius: 50%; flex: none; }
 .history .what { font-size: 13px; }
 .history .meta { font-size: 12px; color: var(--muted); }
+.pending-list li { display: block; }
+.pending-list li > * + * { margin-top: 6px; }
+
+/* 审核页 */
+td.change { min-width: 220px; overflow-wrap: anywhere; }
+td.state { min-width: 180px; }
+.who { display: flex; gap: 10px; align-items: center; white-space: nowrap; }
+.who img { width: 32px; height: 32px; border-radius: 50%; flex: none; }
+.who .meta, .state-box .meta { font-size: 12px; color: var(--muted); }
+.state-box .badge { margin-left: 0; }
+.warn-text { color: var(--warn); }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 6px; }
+.btn.small { height: 30px; padding: 0 12px; font-size: 13px; }
+.reason { flex: 1 1 160px; min-width: 0; border: 0; border-bottom: 1px solid rgba(0,0,0,.42); padding: 4px 0; font: inherit; color: inherit; background: none; outline: none; }
+.reason:focus { border-bottom: 2px solid var(--accent-dark); padding-bottom: 3px; }
+
 .suggest { position: absolute; left: 0; right: 0; top: 100%; z-index: 5; background: var(--card); box-shadow: var(--shadow); border-radius: 4px; padding: 8px 0; max-height: 320px; overflow-y: auto; }
 .suggest a { display: flex; justify-content: space-between; gap: 12px; padding: 0 16px; line-height: 40px; color: var(--text); text-decoration: none; }
 .suggest a:hover { background: var(--hover); }
@@ -167,6 +188,10 @@ mark { background: var(--mark); color: inherit; padding: 0; }
   .toolbar .title { padding: 0 4px; font-size: 18px; }
   .user { margin-right: 48px; }
   .user-btn .name { display: none; }
+  /* 审核页每条修改排成一张卡片，按钮不用横向滚动才看得到 */
+  #view-review thead { display: none; }
+  #view-review tr { display: block; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+  #view-review td { display: block; min-width: 0; padding: 4px 0; border: 0; }
   .github-corner svg { width: 48px; height: 48px; }
 }
 `;
@@ -182,6 +207,7 @@ const ICONS = {
   chevron_left: 'M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z',
   chevron_right: 'M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z',
   cancel: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z',
+  fact_check: 'M20 3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM10 17H5v-2h5v2zm0-4H5v-2h5v2zm0-4H5V7h5v2zm4.82 6L12 12.16l1.41-1.41 1.41 1.42L17.99 9l1.42 1.42L14.82 15z',
   github:
     'M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.58v-2.02c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.31-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.62-5.48 5.92.42.36.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .3',
 };
@@ -203,7 +229,11 @@ const UNSAFE = /[<>\x00-\x1f\x7f]|[a-z][\w+.-]*:\/\/|javascript:|www\./i;
 const CATS = { 0: ['general', '通用'], 3: ['copyright', '作品'], 4: ['character', '角色'], 5: ['meta', '元标签'] };
 const CAT_BY_SLUG = { general: 0, copyright: 3, character: 4, meta: 5 };
 const SCOPES = { all: '全部标签', todo: '未翻译', community: '社区修订' };
+const STATUS_NAMES = { pending: '待审核', approved: '已通过', rejected: '已驳回', withdrawn: '已撤回' };
+const ACTION_NAMES = { add: '新增', update: '修改', delete: '删除' };
 const ICONS = cfg.icons;
+// 审核员的修改直接提交，其他人的修改要审核员通过
+const isReviewer = () => !!(cfg.user && cfg.user.reviewer);
 
 function icon(name) {
   const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -237,6 +267,7 @@ const fmt = (n) => (n || 0).toLocaleString('zh-CN');
 const editHref = (tag) => '/edit/' + encodeURIComponent(tag);
 const ghUrl = (p) => 'https://github.com/' + cfg.repo + p;
 const fileHistoryUrl = () => ghUrl('/commits/' + cfg.branch + '/' + cfg.path);
+const avatarUrl = (u, size) => u + (u.includes('?') ? '&' : '?') + 's=' + size;
 
 // ---- 提示条 ----
 let snackTimer = 0;
@@ -252,8 +283,8 @@ function snack(text, opts) {
   snackTimer = setTimeout(() => (s.hidden = true), opts.error ? 8000 : 5000);
 }
 
-// ---- 数据：词典（带类别）、Danbooru 新标签、社区修订 ----
-const db = { rows: [], byTag: new Map(), alias: new Map(), community: new Map(), ready: null };
+// ---- 数据：词典（带类别）、Danbooru 新标签、社区修订、待审核的修改 ----
+const db = { rows: [], byTag: new Map(), alias: new Map(), community: new Map(), pending: new Map(), ready: null };
 function addRow(r) {
   db.rows.push(r);
   db.byTag.set(r.tag, r);
@@ -266,6 +297,18 @@ function setCommunity(entries) {
   // 社区里有、词典和新标签里都没有的标签也列出来
   for (const e of db.community.values()) if (!db.byTag.has(e.tag)) addRow({ tag: e.tag, count: e.count || 0, label: '', extra: [], category: null, isNew: false, outside: true });
 }
+// 一个标签的社区修订有了变化（提交、审核通过），entry 为空表示删除
+function setEntry(tag, entry) {
+  const rest = [...db.community.values()].filter((e) => e.tag !== tag);
+  setCommunity(entry ? rest.concat([entry]) : rest);
+}
+// 待审核的修改按标签分组：列表页标出来，编辑页列出来
+function setPending(items) {
+  db.pending = new Map();
+  for (const it of items || []) db.pending.set(it.tag, (db.pending.get(it.tag) || []).concat([it]));
+}
+const pendingItems = () => [].concat(...db.pending.values());
+const updatePending = (fn) => setPending(fn(pendingItems()));
 function loadData() {
   if (db.ready) return db.ready;
   const dict = fetch(cfg.dictUrl).then((r) => {
@@ -273,7 +316,7 @@ function loadData() {
     return r.text();
   });
   const getJson = (u) => fetch(u, { cache: 'no-store' }).then((r) => (r.ok ? r.json() : {})).catch(() => ({}));
-  db.ready = Promise.all([dict, getJson('/api/tags'), getJson('/api/community')]).then(([text, nt, cm]) => {
+  db.ready = Promise.all([dict, getJson('/api/tags'), getJson('/api/community'), getJson('/api/submissions')]).then(([text, nt, cm, sub]) => {
     for (const line of text.split('\n')) {
       if (!line) continue;
       const f = line.split('\t');
@@ -284,6 +327,7 @@ function loadData() {
     db.dictSize = db.rows.length;
     for (const t of nt.tags || []) if (!db.byTag.has(t.tag)) addRow({ tag: t.tag, count: t.count, label: '', extra: [], category: t.category, isNew: true });
     setCommunity(cm.entries);
+    setPending(sub.items);
   });
   db.ready.catch(() => (db.ready = null));
   return db.ready;
@@ -383,16 +427,26 @@ function renderUser() {
     box.append(el('a', { class: 'user-btn login', href: loginHref() }, [icon('github'), el('span', { class: 'name', text: '登录' })]));
     return;
   }
+  if (isReviewer()) {
+    const n = pendingItems().length;
+    box.append(
+      el('a', { class: 'user-btn review-link', href: '/review', 'data-link': true, title: '审核社区提交的修改', 'aria-label': '待审核 ' + n }, [
+        icon('fact_check'),
+        el('span', { class: 'name', text: '待审核' }),
+        el('span', { class: 'count', text: n >= 200 ? '200+' : String(n) }),
+      ]),
+    );
+  }
   const menu = el('div', { class: 'menu', hidden: true }, [
     el('a', { class: 'menu-account', href: 'https://github.com/' + cfg.user.login, target: '_blank', rel: 'noopener' }, [icon('github'), el('span', { text: '@' + cfg.user.login })]),
-    el('a', { href: fileHistoryUrl() + '?author=' + encodeURIComponent(cfg.user.login), target: '_blank', rel: 'noopener' }, [icon('edit'), el('span', { text: '我的修改' })]),
+    el('a', { href: '/review?status=all&user=' + encodeURIComponent(cfg.user.login), 'data-link': true }, [icon('edit'), el('span', { text: '我的提交' })]),
     el('button', {
       type: 'button',
       onclick: () => fetch('/auth/logout', { method: 'POST' }).then(() => location.reload()),
     }, [icon('logout'), el('span', { text: '退出' })]),
   ]);
   const btn = el('button', { class: 'user-btn', type: 'button', 'aria-haspopup': 'menu', onclick: () => (menu.hidden = !menu.hidden) }, [
-    cfg.user.avatar ? el('img', { src: cfg.user.avatar + (cfg.user.avatar.includes('?') ? '&' : '?') + 's=56', alt: '' }) : icon('github'),
+    cfg.user.avatar ? el('img', { src: avatarUrl(cfg.user.avatar, 56), alt: '' }) : icon('github'),
     el('span', { class: 'name', text: cfg.user.login }),
   ]);
   box.append(btn, menu);
@@ -473,6 +527,7 @@ function renderList() {
   const s = listState();
   $('view-list').hidden = false;
   $('view-edit').hidden = true;
+  $('view-review').hidden = true;
   document.title = (s.cat != null ? CATS[s.cat][1] + ' - ' : '') + 'NovelAI Tag Editor';
   if (document.activeElement !== $('search')) $('search').value = s.search;
   $('scope').value = s.scope;
@@ -510,6 +565,7 @@ function renderList() {
     if (name) nameCell.append(highlight(name, res.m));
     else nameCell.append(el('span', { class: 'none', text: '（还没有中文）' }));
     if (c) nameCell.append(el('span', { class: 'badge', text: '社区' }));
+    if (db.pending.has(r.tag)) nameCell.append(el('span', { class: 'badge pending', text: '待审核' }));
     const raw = el('td', { class: 'raw' }, [highlight(r.tag, res.m)]);
     if (r.isNew) raw.append(el('span', { class: 'badge new', title: 'Danbooru 新标签，词典里还没有', text: '新' }));
     body.append(
@@ -637,11 +693,11 @@ async function loadHistory() {
   try {
     const d = await fetch('/api/history?tag=' + encodeURIComponent(tag), { cache: 'no-store' }).then((r) => r.json());
     for (const it of d.items || []) {
-      const what = { add: '新增', update: '修改', delete: '删除' }[it.action] || it.action;
+      const what = ACTION_NAMES[it.action] || it.action;
       const detail = it.action === 'delete' ? '' : [it.label ? '名称「' + it.label + '」' : '', it.aliases ? '检索词「' + it.aliases + '」' : ''].filter(Boolean).join('，');
       list.append(
         el('li', null, [
-          it.avatar ? el('img', { src: it.avatar + (it.avatar.includes('?') ? '&' : '?') + 's=64', alt: '' }) : null,
+          it.avatar ? el('img', { src: avatarUrl(it.avatar, 64), alt: '' }) : null,
           el('div', null, [
             el('div', { class: 'what' }, [el('a', { href: 'https://github.com/' + it.login, target: '_blank', rel: 'noopener', text: it.login }), ' ' + what + (detail ? '：' + detail : '')]),
             it.note ? el('div', { class: 'meta', text: it.note }) : null,
@@ -673,9 +729,19 @@ function fillForm(entry, row) {
   return value;
 }
 
+// 这个标签还没审核的修改
+function renderPendingCard() {
+  const items = db.pending.get(currentTag()) || [];
+  $('pending-card').hidden = !items.length;
+  const list = $('pending');
+  list.textContent = '';
+  for (const it of items) list.append(el('li', null, [whoView(it), changeView(it), stateView(it)]));
+}
+
 function renderEdit(param) {
   $('view-list').hidden = true;
   $('view-edit').hidden = false;
+  $('view-review').hidden = true;
   const create = param === '*new';
   const tag = create ? null : normTag(param);
   // 同一个标签的编辑页重复渲染（比如登录状态变化）时保留正在填的内容
@@ -694,7 +760,9 @@ function renderEdit(param) {
   const r = tag ? rowFor(tag) : null;
   $('f-category').textContent = r && r.category != null && CATS[r.category] ? CATS[r.category][1] + '（' + CATS[r.category][0] + '）' : '—';
   $('gh-history').href = fileHistoryUrl();
+  $('submit').textContent = isReviewer() ? '提交' : '提交审核';
   renderPreview();
+  renderPendingCard();
   validate();
 }
 
@@ -718,13 +786,18 @@ async function submit() {
       return snack('登录已过期，请重新登录', { error: true });
     }
     if (!res.ok) return snack(d.error || '提交失败（HTTP ' + res.status + '）', { error: true });
-    if (d.action === 'delete') db.community.delete(tag);
-    else if (d.entry) setCommunity([...db.community.values()].filter((e) => e.tag !== tag).concat([d.entry]));
-    edit.base = d.entry && d.action !== 'delete' ? { label: d.entry.label, aliases: d.entry.aliases } : null;
+    // 自己对这个标签只有最新的一份待审核修改
+    if (d.action === 'pending' || d.withdrawn) updatePending((list) => list.filter((x) => !(x.tag === tag && x.user_id === cfg.user.id)).concat(d.submission ? [d.submission] : []));
+    if (d.action !== 'pending') {
+      setEntry(tag, d.action === 'delete' ? null : d.entry);
+      edit.base = d.entry && d.action !== 'delete' ? { label: d.entry.label, aliases: d.entry.aliases } : null;
+    }
     edit.original = { label: v.label, aliases: v.aliases };
     $('f-note').value = '';
-    if (d.action === 'none') snack('内容没有变化');
+    if (d.action === 'pending') snack('已提交审核：审核员通过后扩展几小时内用上');
+    else if (d.action === 'none') snack(d.withdrawn ? '和现在的内容一样，已撤回你待审核的修改' : '内容没有变化');
     else snack({ add: '已新增', update: '已修改', delete: '已删除' }[d.action] + ' ' + tag + '，扩展几小时内用上', d.commit && d.commit.url ? { link: { href: d.commit.url, text: '查看提交' } } : null);
+    renderPendingCard();
     if (edit.create) {
       edit.create = false;
       edit.tag = tag;
@@ -753,17 +826,178 @@ $('submit').addEventListener('click', submit);
 $('load-history').addEventListener('click', loadHistory);
 $('form').addEventListener('submit', (e) => e.preventDefault());
 
+// ---- 审核：待审核的修改，审核员可以通过或驳回 ----
+const sameEntry = (a, b) => ((a && a.label) || '') === ((b && b.label) || '') && ((a && a.aliases) || []).join('/') === ((b && b.aliases) || []).join('/');
+// 一份社区修订显示成文字；没有社区修订或名称留空时用词典译名
+function entryText(e, tag) {
+  const r = rowFor(tag);
+  const dict = r && r.label ? r.label + '（词典）' : '（还没有中文）';
+  if (!e) return dict;
+  return (e.label || dict) + (e.aliases.length ? '；检索词：' + e.aliases.join('/') : '');
+}
+function changeView(it) {
+  return el('div', null, [
+    el('div', { text: it.action === 'delete' ? '删除社区修订，恢复为 ' + entryText(null, it.tag) : entryText(it, it.tag) }),
+    el('div', { class: 'caption', text: '原来：' + entryText(it.base, it.tag) }),
+    it.note ? el('div', { class: 'caption', text: '说明：' + it.note }) : null,
+  ]);
+}
+function whoView(it) {
+  return el('div', { class: 'who' }, [
+    it.avatar ? el('img', { src: avatarUrl(it.avatar, 64), alt: '' }) : null,
+    el('div', null, [
+      el('a', { href: 'https://github.com/' + it.login, target: '_blank', rel: 'noopener', text: it.login }),
+      el('div', { class: 'meta', text: new Date(it.created_at).toLocaleString('zh-CN') }),
+    ]),
+  ]);
+}
+function stateView(it) {
+  const box = el('div', { class: 'state-box' });
+  if (it.status !== 'pending') {
+    box.append(el('span', { class: 'badge ' + it.status, text: STATUS_NAMES[it.status] || it.status }));
+    if (it.reviewer) box.append(el('span', { class: 'meta', text: ' ' + it.reviewer }));
+    if (it.sha) box.append(' · ', el('a', { href: ghUrl('/commit/' + it.sha), target: '_blank', rel: 'noopener', text: it.sha.slice(0, 7) }));
+    if (it.reason) box.append(el('div', { class: 'caption', text: '原因：' + it.reason }));
+    return box;
+  }
+  // 提交以后这个标签又被改过（比如通过了别人的修改），这份修改是按旧内容改的
+  const stale = !sameEntry(it.base, db.community.get(it.tag) || null);
+  if (stale) box.append(el('div', { class: 'caption warn-text', text: '提交以后这个标签又被改过，不能直接通过：请驳回，让提交的人按现在的内容重新修改' }));
+  if (!isReviewer()) {
+    box.append(el('span', { class: 'badge pending', text: '待审核' }));
+    return box;
+  }
+  const actions = el('div', { class: 'actions' });
+  const askReason = () => {
+    const reason = el('input', { class: 'reason', maxlength: '200', placeholder: '驳回原因（选填）', 'aria-label': '驳回原因' });
+    actions.textContent = '';
+    actions.append(
+      reason,
+      el('button', { class: 'btn small', type: 'button', text: '确认驳回', onclick: () => decide(it, 'reject', reason.value, actions) }),
+      el('button', { class: 'btn text small', type: 'button', text: '取消', onclick: () => box.replaceWith(stateView(it)) }),
+    );
+    reason.focus();
+  };
+  actions.append(
+    el('button', { class: 'btn primary small', type: 'button', text: '通过', disabled: stale, onclick: () => decide(it, 'approve', '', actions) }),
+    el('button', { class: 'btn small', type: 'button', text: '驳回', onclick: askReason }),
+  );
+  box.append(actions);
+  return box;
+}
+
+async function decide(it, verdict, reason, actions) {
+  const buttons = actions.querySelectorAll('button');
+  for (const b of buttons) b.disabled = true;
+  try {
+    const res = await fetch('/api/submissions/' + it.id + '/' + verdict, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ reason: reason }),
+    });
+    const d = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      snack(d.error || '操作失败（HTTP ' + res.status + '）', { error: true });
+      if (res.status !== 409) return;
+      // 别人先处理了，或者这个标签又被改过：按服务器的状态刷新
+      if ('entry' in d) setEntry(it.tag, d.entry);
+      if (d.item) updatePending((list) => list.filter((x) => x.id !== it.id));
+    } else {
+      if (verdict === 'approve' && d.action !== 'none') setEntry(it.tag, d.action === 'delete' ? null : d.entry);
+      updatePending((list) => list.filter((x) => x.id !== it.id));
+      snack((verdict === 'approve' ? '已通过 ' : '已驳回 ') + it.tag, d.commit && d.commit.url ? { link: { href: d.commit.url, text: '查看提交' } } : null);
+    }
+    // 编辑页上通过时，表单换成新的内容
+    if (verdict === 'approve' && edit.tag === it.tag) edit.original = null;
+    renderUser();
+    render();
+  } catch (e) {
+    snack('网络出错了，请重试', { error: true });
+  } finally {
+    for (const b of buttons) b.disabled = false;
+  }
+}
+
+function reviewState() {
+  const p = new URLSearchParams(location.search);
+  const status = p.get('status');
+  return { status: status === 'all' || status in STATUS_NAMES ? status : 'pending', user: p.get('user') || '' };
+}
+function reviewHref(s) {
+  const p = new URLSearchParams();
+  if (s.status !== 'pending') p.set('status', s.status);
+  if (s.user) p.set('user', s.user);
+  const q = p.toString();
+  return '/review' + (q ? '?' + q : '');
+}
+$('review-status').addEventListener('change', (e) => navigate(reviewHref(Object.assign(reviewState(), { status: e.target.value }))));
+
+let reviewSeq = 0;
+async function renderReview() {
+  const s = reviewState();
+  $('view-list').hidden = true;
+  $('view-edit').hidden = true;
+  $('view-review').hidden = false;
+  document.title = '修改审核 - NovelAI Tag Editor';
+  $('review-status').value = s.status;
+  const chips = $('review-chips');
+  chips.textContent = '';
+  if (s.user) chips.append(el('span', { class: 'chip' }, ['提交者：' + s.user, el('button', { type: 'button', 'aria-label': '取消提交者筛选', onclick: () => navigate(reviewHref(Object.assign(s, { user: '' }))) }, [icon('cancel')])]));
+  $('review-hint').textContent = isReviewer()
+    ? '通过后修改以提交者的名义提交到仓库，扩展几小时内用上；驳回时可以写上原因，提交的人在「我的提交」里能看到。'
+    : '社区提交的修改要审核员通过后才会提交到仓库，扩展随后用上。';
+  const body = $('review-rows');
+  body.textContent = '';
+  const msg = $('review-msg');
+  msg.textContent = '';
+  msg.append(el('div', { class: 'spinner' }));
+  msg.hidden = false;
+  const seq = ++reviewSeq;
+  const q = new URLSearchParams({ status: s.status });
+  if (s.user) q.set('user', s.user);
+  let d = null;
+  try {
+    const res = await fetch('/api/submissions?' + q, { cache: 'no-store' });
+    d = res.ok ? await res.json() : null;
+  } catch (e) {}
+  // 加载期间换了筛选条件
+  if (seq !== reviewSeq) return;
+  if (!d) {
+    msg.textContent = '加载失败，请刷新重试';
+    return;
+  }
+  msg.hidden = true;
+  if (s.status === 'pending' && !s.user) {
+    setPending(d.items);
+    renderUser();
+  }
+  for (const it of d.items) {
+    body.append(
+      el('tr', null, [
+        el('td', { class: 'raw' }, [el('a', { href: editHref(it.tag), 'data-link': true, text: it.tag })]),
+        el('td', { class: 'change' }, [changeView(it)]),
+        el('td', null, [whoView(it)]),
+        el('td', { class: 'state' }, [stateView(it)]),
+      ]),
+    );
+  }
+  if (!d.items.length) body.append(el('tr', null, [el('td', { colspan: 4, class: 'empty', text: s.status === 'pending' ? '没有待审核的修改' : '没有记录' })]));
+}
+
 // ---- 渲染 ----
 function render() {
   const path = location.pathname;
-  $('back').hidden = !path.startsWith('/edit/');
+  $('back').hidden = !(path.startsWith('/edit/') || path === '/review');
+  for (const m of document.querySelectorAll('.menu')) m.hidden = true;
   // 数据没到之前先显示列表页的加载圈
   if (!db.rows.length) {
     $('view-list').hidden = false;
     $('view-edit').hidden = true;
+    $('view-review').hidden = true;
     return;
   }
   if (path.startsWith('/edit/')) renderEdit(decodeURIComponent(path.slice(6)));
+  else if (path === '/review') renderReview();
   else renderList();
 }
 
@@ -776,7 +1010,7 @@ if (startParams.get('login_error')) {
 }
 renderUser();
 render();
-loadData().then(render, () => {
+loadData().then(() => (renderUser(), render()), () => {
   $('table-msg').textContent = '词典载入失败，请刷新重试';
   $('table-msg').hidden = false;
   $('view-list').hidden = false;
@@ -857,7 +1091,7 @@ export function editorPage(env, nonce, user) {
       <button id="reset" class="btn" type="button">重置</button>
       <button id="submit" class="btn primary" type="button" disabled>提交</button>
     </header>
-    <p id="login-banner" class="banner" hidden>用 GitHub 登录后才能提交修改，提交会以你的名义记进仓库的历史。<a class="btn text login" href="/auth/login" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none">${svg('github')} 登录</a></p>
+    <p id="login-banner" class="banner" hidden>用 GitHub 登录后才能提交修改，审核员通过后以你的名义记进仓库的历史。<a class="btn text login" href="/auth/login" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none">${svg('github')} 登录</a></p>
     <p id="delete-hint" class="banner warn" hidden>名称和检索词都清空了：提交后会删除这个标签的社区修订，恢复词典原来的译名。</p>
     <section class="edit-body">
       <form id="form" class="form-col" autocomplete="off">
@@ -872,6 +1106,7 @@ export function editorPage(env, nonce, user) {
             <li>名称是联想里显示的中文，写最常用的叫法；有官方中文名的用官方译名。多个叫法用 / 分隔，第一个用来显示。</li>
             <li>检索词是用来搜到这个标签的其他说法（俗称、简称、旧译名），不显示。</li>
             <li>名称留空表示沿用词典译名，只追加检索词；名称和检索词都清空会删除这条社区修订。</li>
+            <li>提交后要等审核员通过才会生效，进度在右上角菜单的「我的提交」里。改回现在的内容再提交，就撤回了还没审核的修改。</li>
           </ul>
         </div>
         <label class="field">
@@ -896,7 +1131,7 @@ export function editorPage(env, nonce, user) {
         <label class="field">
           <span class="field-label">修改说明</span>
           <textarea id="f-note" maxlength="200" rows="2"></textarea>
-          <span class="field-hint">选填，写进提交记录</span>
+          <span class="field-hint">选填，审核员会看到，也写进提交记录</span>
           <span class="field-error"></span>
         </label>
       </form>
@@ -907,12 +1142,36 @@ export function editorPage(env, nonce, user) {
         </div>
         <div class="card"><div class="card-label">检索词</div><div id="p-aliases"></div></div>
         <div class="card"><div class="card-label">Danbooru</div><div id="p-danbooru"></div></div>
+        <div id="pending-card" class="card" hidden>
+          <div class="card-label">待审核的修改</div>
+          <ol id="pending" class="history pending-list"></ol>
+        </div>
         <div class="card">
           <div class="card-row"><span class="card-label">编辑日志</span><button id="load-history" class="btn text" type="button">加载</button></div>
           <ol id="history" class="history"></ol>
           <div class="caption"><a id="gh-history" target="_blank" rel="noopener">在 GitHub 查看全部提交</a></div>
         </div>
       </div>
+    </section>
+  </div>
+
+  <div id="view-review" class="page-box" hidden>
+    <header>
+      <span class="headline">修改审核</span>
+      <div id="review-chips" class="chips"></div>
+      <span class="spacer"></span>
+      <label class="field select-field">
+        <span class="field-label">显示</span>
+        <select id="review-status"><option value="pending">待审核</option><option value="rejected">已驳回</option><option value="approved">已通过</option><option value="withdrawn">已撤回</option><option value="all">全部</option></select>
+      </label>
+    </header>
+    <p id="review-hint" class="banner"></p>
+    <section class="table-wrapper">
+      <table>
+        <thead><tr><th>原始标签</th><th>修改</th><th>提交者</th><th>状态</th></tr></thead>
+        <tbody id="review-rows"></tbody>
+      </table>
+      <div id="review-msg" class="spinner-box" hidden></div>
     </section>
   </div>
 </article>

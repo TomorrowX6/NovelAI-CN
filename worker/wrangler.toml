@@ -24,7 +24,10 @@ database_id = "39cf83df-e481-41e9-a277-f0d93609ec31"
 GH_REPO = "TomorrowX6/NovelAI-CN"
 GH_BRANCH = "main"
 DATA_PATH = "data/zh-community.tsv"
-# 注册满多少天的 GitHub 账号才能编辑、每人每小时最多改几次、禁止编辑的账号（逗号分隔）
+# 审核员（逗号分隔的 GitHub 数字 id 或用户名）：其他人的修改要审核员通过才提交，审核员自己的修改直接提交。
+# 用户名改掉后可能被别人注册走，填 id 更稳妥（gh api users/用户名 --jq .id）。61819285 是 TomorrowX6
+REVIEWERS = "61819285"
+# 注册满多少天的 GitHub 账号才能编辑、每人每小时最多提交几次、禁止编辑的账号（逗号分隔）
 MIN_ACCOUNT_DAYS = "30"
 EDITS_PER_HOUR = "30"
 BLOCKED_USERS = ""
