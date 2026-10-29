@@ -52,7 +52,7 @@ code { font: 11.5px ui-monospace, "Cascadia Code", Consolas, monospace; }
 :is(button, a, input, select):focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* 面板大小固定：首页和设置叠在同一个框里，切换时一个缩小淡出、一个放大淡入，框的大小不变 */
-.app-shell { height: 464px; display: flex; flex-direction: column; padding: 12px 18px 0; overflow: hidden; }
+.app-shell { height: 478px; display: flex; flex-direction: column; padding: 12px 18px 0; overflow: hidden; }
 .panels { position: relative; flex: 1; min-height: 0; }
 .panel { position: absolute; inset: 0; display: flex; flex-direction: column; transition: opacity .28s var(--ease), transform .28s var(--ease), visibility 0s linear 0s; }
 .panel[hidden] { display: flex; visibility: hidden; opacity: 0; pointer-events: none; transition: opacity .28s var(--ease), transform .28s var(--ease), visibility 0s linear .28s; }
@@ -91,7 +91,8 @@ h1 span { margin-left: 5px; font-weight: 500; }
 .stat span { color: var(--muted); font-size: 11px; }
 
 /* 社区译名：版本、上次检查和更新按钮，按钮贴着底部 */
-.sync { margin-top: auto; padding-top: 12px; }
+/* 按钮和底栏的分隔线之间留出和左右边距差不多的空隙 */
+.sync { margin-top: auto; padding: 12px 0 16px; }
 .meta { display: flex; justify-content: space-between; gap: 12px; padding: 0 2px; font-size: 12px; }
 .meta div { display: flex; align-items: baseline; gap: 6px; min-width: 0; }
 .meta dt { color: var(--muted); }
@@ -134,7 +135,6 @@ div.switch:has(input:disabled) label { cursor: default; }
 .switch input:disabled { opacity: .45; cursor: default; }
 .switch select { margin: 0 2px; padding: 0 2px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface-2); color: var(--text); font: inherit; cursor: pointer; }
 .switch select:disabled { opacity: .6; cursor: default; }
-.settings-note { margin-top: auto; padding-bottom: 12px; color: var(--muted); font-size: 11px; text-align: center; }
 
 /* 底栏：平时是链接；有提示时链接让开，提示在同一行淡入，不额外占位 */
 .footer { position: relative; display: flex; align-items: center; flex: none; height: 46px; margin: 0 -18px; padding: 0 18px; border-top: 1px solid var(--line); }
