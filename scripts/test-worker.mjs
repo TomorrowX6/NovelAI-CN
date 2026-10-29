@@ -226,9 +226,10 @@ globalThis.fetch = async (input, init = {}) => {
     }
     if (method === 'PUT') {
       if (gh.conflictOnce) {
-        // 读和写之间别人提交了一次
-        gh.conflictOnce();
+        // 读和写之间插进来的事：别人提交了一次，或者同时发来别的请求
+        const during = gh.conflictOnce;
         gh.conflictOnce = null;
+        await during();
       }
       if ((body.sha || null) !== gh.sha) return res({ message: 'sha does not match' }, 409);
       gh.puts.push(body);
@@ -511,6 +512,60 @@ const submissions = async (q = '') => (await call('GET', `/api/submissions${q}`)
   const rej = await post(`/api/submissions/${b.data.submission.id}/reject`, { reason: '已经有人改过了\n请重新修改' });
   check(rej.status === 200 && rej.data.item.status === 'rejected' && rej.data.item.reason === '已经有人改过了 请重新修改' && rej.data.item.reviewer === 'Alice', `驳回：${JSON.stringify(rej.data)}`);
   check((await submissions('?user=Carol&status=rejected')).length === 1, '提交的人能看到被驳回的修改和原因');
+}
+// 通过时先占住这条修改：提交到 GitHub 期间，提交的人撤回、替换不了，别的审核员也处理不了
+{
+  const base = { label: '脸红了', aliases: [] };
+  const a = await bobPut('blush', { label: '红脸', base });
+  const id = a.data.submission.id;
+  const during = {};
+  gh.conflictOnce = async () => {
+    during.list = await submissions('?tag=blush');
+    during.replace = await bobPut('blush', { label: '小脸红', base });
+    during.withdraw = await post(`/api/submissions/${id}/withdraw`, {}, bob);
+    during.reject = await post(`/api/submissions/${id}/reject`, {});
+    during.approve = await post(`/api/submissions/${id}/approve`, {});
+  };
+  const ok = await post(`/api/submissions/${id}/approve`, {});
+  check(ok.status === 200 && ok.data.item.status === 'approved' && gh.file.includes('blush\t红脸\n'), `通过：${JSON.stringify(ok.data)}`);
+  check(during.list.length === 1 && during.list[0].status === 'pending', `正在通过的修改仍列在待审核里：${JSON.stringify(during.list)}`);
+  check(during.replace.status === 409 && during.withdraw.status === 409, `正在通过时提交的人撤回、替换不了：${during.replace.status} ${during.withdraw.status}`);
+  check(during.reject.status === 409 && during.approve.status === 409, `正在通过时别的审核员处理不了：${during.reject.status} ${during.approve.status}`);
+  const all = await submissions('?status=all&tag=blush');
+  check(all.find((x) => x.id === id)?.status === 'approved' && !all.some((x) => x.status === 'pending'), `通过后只有这一份，状态是已通过：${JSON.stringify(all)}`);
+
+  // 提交到 GitHub 出错时放回待审核
+  const c = await put('blush', { label: '脸红红', base: { label: '红脸', aliases: [] } }, { cookie: carol });
+  gh.conflictOnce = () => {
+    throw new Error('网络断了');
+  };
+  const error = console.error;
+  console.error = () => {};
+  const fail = await post(`/api/submissions/${c.data.submission.id}/approve`, {});
+  console.error = error;
+  check(fail.status === 500 && (await submissions('?tag=blush'))[0]?.id === c.data.submission.id, `提交出错后仍是待审核：${fail.status}`);
+  // Worker 中途被停掉、一直占着的修改，过一会儿可以重新处理
+  db.prepare("UPDATE submissions SET status = 'approving', reviewer = 'Alice', reviewed_at = ? WHERE id = ?").run(Date.now() - 10 * 60e3, c.data.submission.id);
+  check((await submissions('?tag=blush'))[0]?.status === 'pending', '一直占着的修改仍列在待审核里');
+  check((await post(`/api/submissions/${c.data.submission.id}/approve`, {})).status === 200 && gh.file.includes('blush\t脸红红\n'), '一直占着的修改过一会儿可以重新通过');
+}
+// 提交的人随时可以撤回自己待审核的修改
+{
+  const c = await put('shy', { label: '害羞' }, { cookie: carol });
+  const id = c.data.submission.id;
+  check((await post(`/api/submissions/${id}/withdraw`, {}, null)).status === 401, '没登录不能撤回');
+  check((await post(`/api/submissions/${id}/withdraw`, {}, carol, { origin: 'https://evil.example' })).status === 403, '别的网站发来的撤回被拒绝');
+  check((await post(`/api/submissions/${id}/withdraw`, {}, bob)).status === 403 && (await post(`/api/submissions/${id}/withdraw`, {})).status === 403, '不能撤回别人的修改，审核员也不行');
+  const w = await post(`/api/submissions/${id}/withdraw`, {}, carol);
+  check(w.status === 200 && w.data.item.status === 'withdrawn' && !(await submissions('?tag=shy')).length, `撤回：${JSON.stringify(w.data)}`);
+  check((await post(`/api/submissions/${id}/withdraw`, {}, carol)).status === 409 && (await post(`/api/submissions/${id}/approve`, {})).status === 409, '撤回的修改不能再撤回或通过');
+  check((await post('/api/submissions/9999/withdraw', {}, carol)).status === 404, '撤回找不到的修改返回 404');
+}
+// 「我的提交」按用户 id 找：改过用户名也找得到以前的修改
+{
+  const mine = await submissions('?status=all&user_id=1004');
+  check(mine.length > 0 && mine.length === (await submissions('?status=all&user=bob')).length && mine.every((x) => x.user_id === 1004), `按用户 id 筛选：${mine.length}`);
+  check((await call('GET', '/api/submissions?user_id=bob')).status === 400, '用户 id 不对时返回 400');
 }
 // 改回现在的内容就撤回；Danbooru 新标签通过后也带图片数
 {

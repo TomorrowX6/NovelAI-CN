@@ -14,12 +14,12 @@ CREATE TABLE IF NOT EXISTS submissions (
   aliases TEXT NOT NULL DEFAULT '',        -- / 分隔
   note TEXT NOT NULL DEFAULT '',
   base TEXT NOT NULL DEFAULT 'null',       -- 提交时这个标签的社区修订 { label, aliases }（JSON），通过时据此判断后来有没有被改过
-  status TEXT NOT NULL DEFAULT 'pending',  -- pending 待审核 / approved 已通过 / rejected 已驳回 / withdrawn 已撤回（或被同一个人的新修改替换）
+  status TEXT NOT NULL DEFAULT 'pending',  -- pending 待审核 / approving 审核员正在通过（提交到 GitHub 期间）/ approved 已通过 / rejected 已驳回 / withdrawn 已撤回（或被同一个人的新修改替换）
   reviewer TEXT NOT NULL DEFAULT '',       -- 审核员的 GitHub 用户名
   reason TEXT NOT NULL DEFAULT '',         -- 驳回原因
   sha TEXT NOT NULL DEFAULT '',            -- 通过后提交的 sha
   created_at INTEGER NOT NULL,
-  reviewed_at INTEGER
+  reviewed_at INTEGER                      -- 审核或撤回的时间；approving 时是开始通过的时间
 );
 CREATE INDEX IF NOT EXISTS submissions_status ON submissions (status, created_at);
 CREATE INDEX IF NOT EXISTS submissions_tag ON submissions (tag, status);

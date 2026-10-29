@@ -5,7 +5,7 @@
 - 列表页按类别（通用、角色、作品、元标签）筛选，用普通文字或 `/正则/` 搜索，分页、排序；「显示」里可以只看未翻译或社区修订过的标签。
 - 编辑页左边是表单（名称、检索词、修改说明），右边是预览、Danbooru 信息和这个标签的编辑日志。
 - 用 GitHub 登录后才能提交。修改先存为待审核，审核员（`wrangler.toml` 的 `REVIEWERS`）在 `/review` 或编辑页上通过后，才由 GitHub App 以提交的人为作者提交到仓库的 [`data/zh-community.tsv`](../data/zh-community.tsv)，提交说明最后用 `Reviewed-by` 注明审核员；驳回时可以写原因。审核员自己的修改直接提交。历史就是 git 历史，改错了再改或回滚提交。
-- 待审核的修改公开列在 `/review`，列表页和编辑页也会标出来；每人在右上角菜单的「我的提交」里看自己的修改是否通过。同一个人对同一个标签只留最新的一份待审核修改，改回现在的内容再提交就是撤回。通过前这个标签又被改过（比如先通过了别人的修改）时，这份修改不能直接通过，只能驳回让提交的人重新改。
+- 待审核的修改公开列在 `/review`，列表页和编辑页也会标出来；每人在右上角菜单的「我的提交」里看自己的修改是否通过。同一个人对同一个标签只留最新的一份待审核修改；还没审核的修改可以在编辑页的「待审核的修改」或「我的提交」里撤回，改回现在的内容再提交也是撤回。通过前这个标签又被改过（比如先通过了别人的修改）时，这份修改不能直接通过，只能驳回让提交的人重新改。
 - 脚本和扩展从 GitHub 拉这个文件（`package.json` 的 `nzh.communityData`），不经过编辑器。
 
 只开放标签译名：名称和检索词必须含汉字、长度有限，不能有 `<` `>`、控制字符和网址，编辑器和扩展两边都会检查。界面文案仍随版本打包。扩展只给词典里已有的标签换译名、加检索词；词典里没有的标签，只有编辑器从 Danbooru 拉来的新标签（数据文件里带图片数）才会新增。新标签点选后原样插入提示词，所以标签名不能含逗号、`|`、括号、`#`、`::` 这类 NovelAI 的分隔符和权重语法。
@@ -31,9 +31,10 @@
 | `/auth/login`、`/auth/callback`、`/auth/logout` | GitHub 登录。登录状态是签名的 Cookie，只存用户名、id 和头像，不存 GitHub 令牌 |
 | `GET /api/community` | 数据文件的当前内容（从 GitHub 读，缓存 30 秒） |
 | `PUT /api/tags/标签` | 修改 `{ label, aliases, note, base }`，需要登录；不是审核员时存为待审核，返回 202 |
-| `GET /api/submissions?status=&tag=&user=` | 提交的修改，`status` 默认 `pending`，可选 `approved`、`rejected`、`withdrawn`、`all` |
+| `GET /api/submissions?status=&tag=&user=&user_id=` | 提交的修改，`status` 默认 `pending`，可选 `approved`、`rejected`、`withdrawn`、`all`；`user` 按用户名、`user_id` 按 GitHub 用户 id 筛选 |
 | `POST /api/submissions/编号/approve` | 通过并提交到 GitHub，只有审核员能用 |
 | `POST /api/submissions/编号/reject` | 驳回 `{ reason }`，只有审核员能用 |
+| `POST /api/submissions/编号/withdraw` | 提交的人撤回自己待审核的修改 |
 | `GET /api/history?tag=` | 编辑日志（已提交到 GitHub 的修改） |
 | `GET /api/tags` | 从 Danbooru 拉来的新标签 |
 | `POST /api/admin/tags` | 存入 Danbooru 新标签，凭 `ADMIN_TOKEN` |

@@ -439,7 +439,7 @@ function renderUser() {
   }
   const menu = el('div', { class: 'menu', hidden: true }, [
     el('a', { class: 'menu-account', href: 'https://github.com/' + cfg.user.login, target: '_blank', rel: 'noopener' }, [icon('github'), el('span', { text: '@' + cfg.user.login })]),
-    el('a', { href: '/review?status=all&user=' + encodeURIComponent(cfg.user.login), 'data-link': true }, [icon('edit'), el('span', { text: '我的提交' })]),
+    el('a', { href: '/review?status=all&user_id=' + cfg.user.id, 'data-link': true }, [icon('edit'), el('span', { text: '我的提交' })]),
     el('button', {
       type: 'button',
       onclick: () => fetch('/auth/logout', { method: 'POST' }).then(() => location.reload()),
@@ -863,11 +863,17 @@ function stateView(it) {
   // 提交以后这个标签又被改过（比如通过了别人的修改），这份修改是按旧内容改的
   const stale = !sameEntry(it.base, db.community.get(it.tag) || null);
   if (stale) box.append(el('div', { class: 'caption warn-text', text: '提交以后这个标签又被改过，不能直接通过：请驳回，让提交的人按现在的内容重新修改' }));
+  const actions = el('div', { class: 'actions' });
+  // 自己的修改随时可以撤回
+  const withdrawBtn = cfg.user && it.user_id === cfg.user.id ? el('button', { class: 'btn small', type: 'button', text: '撤回', onclick: () => decide(it, 'withdraw', '', actions) }) : null;
   if (!isReviewer()) {
     box.append(el('span', { class: 'badge pending', text: '待审核' }));
+    if (withdrawBtn) {
+      actions.append(withdrawBtn);
+      box.append(actions);
+    }
     return box;
   }
-  const actions = el('div', { class: 'actions' });
   const askReason = () => {
     const reason = el('input', { class: 'reason', maxlength: '200', placeholder: '驳回原因（选填）', 'aria-label': '驳回原因' });
     actions.textContent = '';
@@ -881,6 +887,7 @@ function stateView(it) {
   actions.append(
     el('button', { class: 'btn primary small', type: 'button', text: '通过', disabled: stale, onclick: () => decide(it, 'approve', '', actions) }),
     el('button', { class: 'btn small', type: 'button', text: '驳回', onclick: askReason }),
+    withdrawBtn,
   );
   box.append(actions);
   return box;
@@ -901,14 +908,14 @@ async function decide(it, verdict, reason, actions) {
       if (res.status !== 409) return;
       // 别人先处理了，或者这个标签又被改过：按服务器的状态刷新
       if ('entry' in d) setEntry(it.tag, d.entry);
-      if (d.item) updatePending((list) => list.filter((x) => x.id !== it.id));
+      if (d.item && d.item.status !== 'pending') updatePending((list) => list.filter((x) => x.id !== it.id));
     } else {
       if (verdict === 'approve' && d.action !== 'none') setEntry(it.tag, d.action === 'delete' ? null : d.entry);
       updatePending((list) => list.filter((x) => x.id !== it.id));
-      snack((verdict === 'approve' ? '已通过 ' : '已驳回 ') + it.tag, d.commit && d.commit.url ? { link: { href: d.commit.url, text: '查看提交' } } : null);
+      snack({ approve: '已通过 ', reject: '已驳回 ', withdraw: '已撤回 ' }[verdict] + it.tag, d.commit && d.commit.url ? { link: { href: d.commit.url, text: '查看提交' } } : null);
     }
-    // 编辑页上通过时，表单换成新的内容
-    if (verdict === 'approve' && edit.tag === it.tag) edit.original = null;
+    // 编辑页上通过或撤回时，表单换成现在的内容
+    if (verdict !== 'reject' && edit.tag === it.tag) edit.original = null;
     renderUser();
     render();
   } catch (e) {
@@ -921,12 +928,13 @@ async function decide(it, verdict, reason, actions) {
 function reviewState() {
   const p = new URLSearchParams(location.search);
   const status = p.get('status');
-  return { status: status === 'all' || status in STATUS_NAMES ? status : 'pending', user: p.get('user') || '' };
+  return { status: status === 'all' || status in STATUS_NAMES ? status : 'pending', user: p.get('user') || '', userId: p.get('user_id') || '' };
 }
 function reviewHref(s) {
   const p = new URLSearchParams();
   if (s.status !== 'pending') p.set('status', s.status);
   if (s.user) p.set('user', s.user);
+  if (s.userId) p.set('user_id', s.userId);
   const q = p.toString();
   return '/review' + (q ? '?' + q : '');
 }
@@ -942,7 +950,9 @@ async function renderReview() {
   $('review-status').value = s.status;
   const chips = $('review-chips');
   chips.textContent = '';
-  if (s.user) chips.append(el('span', { class: 'chip' }, ['提交者：' + s.user, el('button', { type: 'button', 'aria-label': '取消提交者筛选', onclick: () => navigate(reviewHref(Object.assign(s, { user: '' }))) }, [icon('cancel')])]));
+  const chip = (text, clear) => chips.append(el('span', { class: 'chip' }, [text, el('button', { type: 'button', 'aria-label': '取消提交者筛选', onclick: () => navigate(reviewHref(Object.assign(s, clear))) }, [icon('cancel')])]));
+  if (s.user) chip('提交者：' + s.user, { user: '' });
+  if (s.userId) chip(cfg.user && String(cfg.user.id) === s.userId ? '我的提交' : '提交者 id：' + s.userId, { userId: '' });
   $('review-hint').textContent = isReviewer()
     ? '通过后修改以提交者的名义提交到仓库，扩展几小时内用上；驳回时可以写上原因，提交的人在「我的提交」里能看到。'
     : '社区提交的修改要审核员通过后才会提交到仓库，扩展随后用上。';
@@ -955,6 +965,7 @@ async function renderReview() {
   const seq = ++reviewSeq;
   const q = new URLSearchParams({ status: s.status });
   if (s.user) q.set('user', s.user);
+  if (s.userId) q.set('user_id', s.userId);
   let d = null;
   try {
     const res = await fetch('/api/submissions?' + q, { cache: 'no-store' });
@@ -967,7 +978,7 @@ async function renderReview() {
     return;
   }
   msg.hidden = true;
-  if (s.status === 'pending' && !s.user) {
+  if (s.status === 'pending' && !s.user && !s.userId) {
     setPending(d.items);
     renderUser();
   }
@@ -1106,7 +1117,7 @@ export function editorPage(env, nonce, user) {
             <li>名称是联想里显示的中文，写最常用的叫法；有官方中文名的用官方译名。多个叫法用 / 分隔，第一个用来显示。</li>
             <li>检索词是用来搜到这个标签的其他说法（俗称、简称、旧译名），不显示。</li>
             <li>名称留空表示沿用词典译名，只追加检索词；名称和检索词都清空会删除这条社区修订。</li>
-            <li>提交后要等审核员通过才会生效，进度在右上角菜单的「我的提交」里。改回现在的内容再提交，就撤回了还没审核的修改。</li>
+            <li>提交后要等审核员通过才会生效，进度在右上角菜单的「我的提交」里；还没审核的修改可以在右边的「待审核的修改」或「我的提交」里撤回。</li>
           </ul>
         </div>
         <label class="field">

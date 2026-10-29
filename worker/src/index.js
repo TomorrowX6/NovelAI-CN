@@ -8,8 +8,9 @@
 //   GET  /api/me                         当前登录的用户
 //   GET  /api/community                  社区数据的当前版本（从 GitHub 读，缓存 30 秒）
 //   PUT  /api/tags/:标签                 修改 { label, aliases, note, base }，需要登录；不是审核员时存为待审核
-//   GET  /api/submissions?status=&tag=&user=   提交的修改（默认待审核的）
+//   GET  /api/submissions?status=&tag=&user=&user_id=   提交的修改（默认待审核的）
 //   POST /api/submissions/:id/approve    通过，提交到 GitHub；POST /api/submissions/:id/reject 驳回 { reason }，只有审核员能用
+//   POST /api/submissions/:id/withdraw   提交的人撤回自己待审核的修改
 //   GET  /api/history?tag=               这个标签的编辑日志（已提交到 GitHub 的修改）
 //   GET  /api/tags                       从 Danbooru 拉来的新标签（缓存 1 小时）
 //   POST /api/admin/tags                 存入从 Danbooru 拉来的标签（凭 ADMIN_TOKEN，见 scripts/sync-tags.mjs）
@@ -302,7 +303,12 @@ async function publish(request, env, ctx, { tag, value, base, author, reviewer }
   return { busy: true };
 }
 
-// D1 里的一行待审核修改，转成接口返回的样子
+// 审核员通过一条修改时，先把它从 pending 改成 approving 占住，再提交到 GitHub：这期间提交的人撤回、替换不了它，
+// 别的审核员也处理不了；提交没成功就放回 pending。Worker 中途被停掉时会一直是 approving，过了 CLAIM_MS 可以重新处理
+const CLAIM_MS = 120000;
+const OPEN = "(status = 'pending' OR (status = 'approving' AND reviewed_at < ?))";
+
+// D1 里的一行待审核修改，转成接口返回的样子；approving 对外仍是待审核
 const submissionItem = (s) => ({
   id: s.id,
   tag: s.tag,
@@ -314,7 +320,7 @@ const submissionItem = (s) => ({
   login: s.login,
   user_id: s.user_id,
   avatar: s.avatar,
-  status: s.status,
+  status: s.status === 'approving' ? 'pending' : s.status,
   reviewer: s.reviewer,
   reason: s.reason,
   sha: s.sha,
@@ -354,6 +360,10 @@ async function editTag(request, env, ctx, rawTag) {
   const withdrawn = await env.DB.prepare("UPDATE submissions SET status = 'withdrawn', reviewed_at = ? WHERE tag = ? AND user_id = ? AND status = 'pending'")
     .bind(Date.now(), tag, user.id)
     .run();
+  // 审核员正在通过上一份时撤回不了（先撤回再查：撤回和占住只会有一个成功）
+  if (await env.DB.prepare("SELECT 1 FROM submissions WHERE tag = ? AND user_id = ? AND status = 'approving'").bind(tag, user.id).first()) {
+    return json({ error: '你上一份修改正在被审核员通过，请稍后重新加载再改' }, 409);
+  }
   if (r.action === 'none') return json({ action: 'none', entry: r.after, withdrawn: withdrawn.meta.changes > 0 });
   const row = await env.DB.prepare(
     'INSERT INTO submissions (tag, user_id, login, avatar, action, label, aliases, note, base, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING *',
@@ -375,7 +385,7 @@ async function editTag(request, env, ctx, rawTag) {
 }
 
 const STATUSES = ['pending', 'approved', 'rejected', 'withdrawn'];
-const DONE = { approved: '已经通过了', rejected: '已经驳回了', withdrawn: '已经撤回了' };
+const DONE = { approving: '正在提交到仓库，请稍后刷新', approved: '已经通过了', rejected: '已经驳回了', withdrawn: '已经撤回了' };
 const SUBMISSIONS_LIMIT = 200;
 
 async function listSubmissions(url, env) {
@@ -383,7 +393,9 @@ async function listSubmissions(url, env) {
   const status = p.get('status') || 'pending';
   const where = [];
   const args = [];
-  if (status !== 'all') {
+  if (status === 'pending') {
+    where.push("status IN ('pending', 'approving')");
+  } else if (status !== 'all') {
     if (!STATUSES.includes(status)) return json({ error: '状态不对' }, 400);
     where.push('status = ?');
     args.push(status);
@@ -398,12 +410,26 @@ async function listSubmissions(url, env) {
     where.push('login = ? COLLATE NOCASE');
     args.push(p.get('user'));
   }
+  // 「我的提交」按 GitHub 用户 id 找，改过用户名也找得到以前的修改
+  const uid = p.get('user_id');
+  if (uid) {
+    if (!/^\d{1,15}$/.test(uid)) return json({ error: '用户 id 不对' }, 400);
+    where.push('user_id = ?');
+    args.push(+uid);
+  }
   const { results } = await env.DB.prepare(
     `SELECT * FROM submissions${where.length ? ` WHERE ${where.join(' AND ')}` : ''} ORDER BY created_at DESC, id DESC LIMIT ${SUBMISSIONS_LIMIT}`,
   )
     .bind(...args)
     .all();
   return json({ items: results.map(submissionItem) }, 200, { 'Cache-Control': 'no-store' });
+}
+
+// 这条修改已经不是待审核的了（或者找不到）
+async function notOpen(env, id) {
+  const s = await env.DB.prepare('SELECT * FROM submissions WHERE id = ?').bind(id).first();
+  if (!s) return json({ error: '找不到这条修改' }, 404);
+  return json({ error: `这条修改${DONE[s.status]}`, item: submissionItem(s) }, 409);
 }
 
 async function review(request, env, ctx, id, verdict) {
@@ -413,28 +439,50 @@ async function review(request, env, ctx, id, verdict) {
   const bad = crossSite(request);
   if (bad) return bad;
   const body = await request.json().catch(() => null);
-  const s = await env.DB.prepare('SELECT * FROM submissions WHERE id = ?').bind(id).first();
-  if (!s) return json({ error: '找不到这条修改' }, 404);
-  if (s.status !== 'pending') return json({ error: `这条修改${DONE[s.status]}`, item: submissionItem(s) }, 409);
-  if (verdict === 'reject') {
-    const row = await env.DB.prepare("UPDATE submissions SET status = 'rejected', reviewer = ?, reason = ?, reviewed_at = ? WHERE id = ? AND status = 'pending' RETURNING *")
-      .bind(user.login, cleanNote(body?.reason), Date.now(), id)
-      .first();
-    return row ? json({ item: submissionItem(row) }) : json({ error: '这条修改刚被处理过了' }, 409);
+  const now = Date.now();
+  // 驳回直接改状态；通过先占住，见 CLAIM_MS
+  const s = await env.DB.prepare(`UPDATE submissions SET status = ?, reviewer = ?, reason = ?, reviewed_at = ? WHERE id = ? AND ${OPEN} RETURNING *`)
+    .bind(verdict === 'reject' ? 'rejected' : 'approving', user.login, verdict === 'reject' ? cleanNote(body?.reason) : '', now, id, now - CLAIM_MS)
+    .first();
+  if (!s) return notOpen(env, id);
+  if (verdict === 'reject') return json({ item: submissionItem(s) });
+  let r;
+  try {
+    r = await publish(request, env, ctx, {
+      tag: s.tag,
+      value: { label: s.label, aliases: s.aliases ? s.aliases.split('/') : [], note: s.note },
+      base: JSON.parse(s.base),
+      author: { id: s.user_id, login: s.login, avatar: s.avatar },
+      reviewer: user,
+    });
+  } finally {
+    if (!r || r.busy || 'conflict' in r) {
+      await env.DB.prepare("UPDATE submissions SET status = 'pending', reviewer = '', reviewed_at = NULL WHERE id = ? AND status = 'approving' AND reviewed_at = ?")
+        .bind(id, now)
+        .run();
+    }
   }
-  const r = await publish(request, env, ctx, {
-    tag: s.tag,
-    value: { label: s.label, aliases: s.aliases ? s.aliases.split('/') : [], note: s.note },
-    base: JSON.parse(s.base),
-    author: { id: s.user_id, login: s.login, avatar: s.avatar },
-    reviewer: user,
-  });
   if (r.busy) return json({ error: BUSY }, 409);
   if ('conflict' in r) return json({ error: '提交以后这个标签又被改过了：请驳回，让提交的人按现在的内容重新修改', entry: r.conflict }, 409);
-  const row = await env.DB.prepare("UPDATE submissions SET status = 'approved', reviewer = ?, sha = ?, reviewed_at = ? WHERE id = ? RETURNING *")
-    .bind(user.login, r.commit?.sha || '', Date.now(), id)
+  const row = await env.DB.prepare("UPDATE submissions SET status = 'approved', sha = ?, reviewed_at = ? WHERE id = ? RETURNING *")
+    .bind(r.commit?.sha || '', Date.now(), id)
     .first();
   return json({ ...r, item: submissionItem(row) });
+}
+
+// 提交的人撤回自己待审核的修改
+async function withdraw(request, env, id) {
+  const user = await sessionUser(request, env);
+  if (!user) return json({ error: '请先用 GitHub 登录' }, 401);
+  const bad = crossSite(request);
+  if (bad) return bad;
+  const row = await env.DB.prepare("UPDATE submissions SET status = 'withdrawn', reviewed_at = ? WHERE id = ? AND user_id = ? AND status = 'pending' RETURNING *")
+    .bind(Date.now(), id, user.id)
+    .first();
+  if (row) return json({ item: submissionItem(row) });
+  const s = await env.DB.prepare('SELECT user_id FROM submissions WHERE id = ?').bind(id).first();
+  if (s && s.user_id !== user.id) return json({ error: '只能撤回自己的修改' }, 403);
+  return notOpen(env, id);
 }
 
 async function history(url, env) {
@@ -503,8 +551,8 @@ async function route(request, env, ctx) {
   const m = pathname.match(/^\/api\/tags\/(.+)$/);
   if (method === 'PUT' && m) return editTag(request, env, ctx, m[1]);
   if (method === 'GET' && pathname === '/api/submissions') return listSubmissions(url, env);
-  const s = pathname.match(/^\/api\/submissions\/(\d+)\/(approve|reject)$/);
-  if (method === 'POST' && s) return review(request, env, ctx, +s[1], s[2]);
+  const s = pathname.match(/^\/api\/submissions\/(\d+)\/(approve|reject|withdraw)$/);
+  if (method === 'POST' && s) return s[2] === 'withdraw' ? withdraw(request, env, +s[1]) : review(request, env, ctx, +s[1], s[2]);
   if (method === 'GET' && pathname === '/api/history') return history(url, env);
   if (method === 'GET' && pathname === '/api/tags') {
     return cached(request, ctx, '/api/tags', 3600, async () => {
