@@ -5,6 +5,7 @@ const KANA_RE = /[぀-ヿㇰ-ㇿｦ-ﾟ]/;
 const SEP = '\u0001';
 // 精确 / 前缀 / 包含 / 宽松匹配，相对 log10(使用次数) 的扣分
 const MATCH_PENALTY = [0, 1, 1.5, 2.5];
+const YEAR_TAG_RE = /^year[ _](\d{4})$/;
 
 function normZh(s) {
   return s
@@ -110,6 +111,9 @@ function createZhDict(raw, t2s = '') {
   }
 
   function lookup(tag) {
+    // NovelAI 的年份标签（year 2025）：按那一年的画风出图。来源数据把一些年份记成 Danbooru 年份标签（2014）的别名，以这里为准
+    const year = tag.trim().toLowerCase().match(YEAR_TAG_RE);
+    if (year) return `${year[1]}年画风`;
     const i = indexOf(tag);
     return i === undefined ? null : labels[i];
   }

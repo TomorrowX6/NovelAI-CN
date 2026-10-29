@@ -204,6 +204,7 @@ async function main() {
   const extraCsv = await readOptional(path.join(ROOT, 'data', 'zh-extra.csv'));
   const overrideCsv = await readOptional(path.join(ROOT, 'data', 'zh-override.csv'));
   const renameCsv = await readOptional(path.join(ROOT, 'data', 'novelai-rename.csv'));
+  const wordsCsv = await readOptional(path.join(ROOT, 'data', 'zh-words.csv'));
 
   const entries = new Map(); // 标签 -> { category, count, label, names: Set, oldNames: Set }
   const aliasOf = new Map(); // 英文别名（含旧标签名）-> 标签
@@ -241,7 +242,7 @@ async function main() {
     if (target) entries.get(target).oldNames.add(tag);
   }
 
-  const stats = { manual: 0, legacy: 0, ehtag: 0, curated: 0, extra: 0, override: 0 };
+  const stats = { manual: 0, legacy: 0, ehtag: 0, curated: 0, extra: 0, override: 0, words: 0 };
   for (const [t, zh] of parseTranslations(raw['zh-manual.csv'])) {
     const names = zh.split(/[/|]/).map(cleanText).filter(searchable);
     if (!names.length) continue;
@@ -324,6 +325,31 @@ async function main() {
   }
   if (customOnly.size) console.log(`新数据里没有的自定义标签（请确认拼写）: ${[...customOnly].join(', ')}`);
 
+  // 常用英文词（data/zh-words.csv）：提示词里常写、但不是 Danbooru 标签的描述词（dramatic、cinematic lighting），
+  // 让中文对照也能显示中文。没有使用次数，检索时排在标签后面。已经是标签或 Danbooru 别名的不收；
+  // 来源数据把它当成别名的（crusader → 仙境传说的十字军）以这里为准
+  const danbooruAliases = parseAliases(raw['danbooru-aliases.tsv']);
+  const danbooruAliasNames = new Set(danbooruAliases.map(([alias]) => alias));
+  const wordConflicts = [];
+  // 译名完全相同的写法（hyperrealistic、hyper realistic）记为第一个的别名，检索时只出一条
+  const wordByZh = new Map();
+  for (const [w, zh] of parseTranslations(wordsCsv)) {
+    const tag = normTag(w);
+    const names = zh.split('/').map(cleanText).filter(Boolean);
+    if (entries.has(tag) || danbooruAliasNames.has(tag) || !names.length) {
+      wordConflicts.push(w);
+      continue;
+    }
+    const same = wordByZh.get(zh);
+    if (same) entries.get(same).oldNames.add(tag);
+    else {
+      entries.set(tag, { category: 0, count: 0, label: names.shift(), names: new Set(names), oldNames: new Set() });
+      wordByZh.set(zh, tag);
+    }
+    stats.words++;
+  }
+  if (wordConflicts.length) console.log(`zh-words.csv 里已经是标签、Danbooru 别名或没写译名的词（请删掉）: ${wordConflicts.join(', ')}`);
+
   // 别名、旧译名、被审定替换下来的原译名常常正好是另一个标签的正式译名（chinese_clothes 的别名「汉服」、
   // choker 换下来的「项圈」），留着会让它精确命中两个标签、热门的那个反而排前面，所以丢掉
   const labelOwner = new Map();
@@ -348,7 +374,6 @@ async function main() {
     aliasTarget.set(alias, tag);
     aliasCount++;
   };
-  const danbooruAliases = parseAliases(raw['danbooru-aliases.tsv']);
   // Danbooru 改了名、词典里还是旧名的标签（watermark_grid → grid_watermark）：新名字和指向新名字的别名都算旧名的
   const renamedOnDanbooru = new Map();
   for (const [alias, tag] of danbooruAliases) if (!resolve(tag) && entries.has(alias)) renamedOnDanbooru.set(tag, alias);
@@ -417,7 +442,7 @@ async function main() {
   for (const e of entries.values()) byCat[e.category] = (byCat[e.category] || 0) + 1;
   console.log(
     `通用 ${byCat[0] || 0}，作品 ${byCat[3] || 0}，角色 ${byCat[4] || 0}，元标签 ${byCat[5] || 0}；` +
-      `机翻新标签 ${newTags}，补充人工译名 ${stats.manual}，旧标签 ${stats.legacy}，EhTag ${stats.ehtag}，审定 ${stats.curated}，自定义检索词 ${stats.extra}，覆盖 ${stats.override}，改名 ${renamed.size}，英文别名 ${aliasCount}；共 ${rows.length} 条`,
+      `机翻新标签 ${newTags}，补充人工译名 ${stats.manual}，旧标签 ${stats.legacy}，EhTag ${stats.ehtag}，审定 ${stats.curated}，自定义检索词 ${stats.extra}，覆盖 ${stats.override}，常用英文词 ${stats.words}，改名 ${renamed.size}，英文别名 ${aliasCount}；共 ${rows.length} 条`,
   );
   const ui = uiDataStats(uiData);
   console.log(`界面文案 ${ui.total} 条，已翻译 ${ui.translated}，待翻译 ${ui.untranslated}；写死的文字 ${hardData.length} 段，打包 ${hardZh.length} 段`);

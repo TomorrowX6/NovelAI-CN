@@ -1602,7 +1602,7 @@ split-color hair	30831	左右分色发	阴阳头|分色头发	split hair colors	
 bespectacled	30779	戴眼镜	戴眼镜的		0
 gagged	30726	被堵嘴	被塞住嘴(堵嘴)|被塞住嘴|堵嘴|被塞口的		0
 door	30720	门		doors	0
-painting (medium)	30714	颜料绘画	绘画|传统绘图工具	canvas (medium)|paint (medium)	5
+painting (medium)	30714	颜料绘画	传统绘图工具	canvas (medium)|paint (medium)	5
 pov crotch	30692	第一人称胯部视角	看向裤裆的视角		0
 frilled bow	30655	荷叶边蝴蝶结	花边蝴蝶结		0
 goatee	30621	山羊胡	山羊须		0
@@ -1873,7 +1873,7 @@ striped necktie	24514	条纹领带		striped tie	0
 bad tumblr id	24507	错误Tumblr ID			5
 pink shoes	24502	粉色鞋子			0
 futa with female	24445	扶她与女性	扶她和女性	futa on female	0
-retro artstyle	24406	复古画风	复古|怀旧|守旧派画风|赛璐璐|复古艺术	oldschool|retro	0
+retro artstyle	24406	复古画风	守旧派画风|赛璐璐|复古艺术	oldschool|retro	0
 voiceroid	24401	VOICEROID			3
 white bowtie	24387	白色领结			0
 squiggle	24367	烦躁符号	波浪线|波线|表不满和发牢骚的符号		0
@@ -1913,7 +1913,7 @@ bikini armor	23611	比基尼铠甲	比基尼盔甲	chainmail bikini	0
 mega man (series)	23586	洛克人		rockman	3
 layered dress	23574	层叠连衣裙	多层连衣裙|分层连衣裙		0
 holding plate	23547	持盘子	端着盘子|端着碟子		0
-wide shot	23546	远景镜头	全景镜头|大全景镜头|广角镜头		0
+wide shot	23546	远景镜头	全景镜头|大全景镜头		0
 reading	23540	阅读	読书		0
 purple bowtie	23418	紫色领结			0
 frilled hairband	23380	荷叶边发箍	花边发带		0
@@ -2840,7 +2840,7 @@ copyright logo	13677	版权标志			0
 pink skin	13677	粉色皮肤			0
 pink choker	13672	粉色颈圈			0
 vertical-striped shirt	13665	竖条纹衬衫		vertical-striped blouse	0
-flat color	13659	平涂上色	平涂|平涂风格	flat colors	0
+flat color	13659	平涂上色	平涂风格	flat colors	0
 checkered background	13655	棋盘格背景	方格背景	/checkbg|/checkeredbg|/ckbg	0
 robot joints	13655	机器人关节	机械关节		0
 resident evil	13643	生化危机	恶灵古堡(港台)	biohazard|residentevil	3
@@ -2873,7 +2873,7 @@ single wing	13484	单翼	片翼	one wing	0
 foreskin	13483	包皮	仮性包茎	uncircumcised	0
 floral print kimono	13479	花卉印花和服			0
 inkling girl	13476	乌贼女孩	乌贼少女|墨鱼娘|墨鱼少女		4
-graphite (medium)	13466	铅笔	铅笔画|铅笔画(中号)	graphite|pencil (medium)|pencil sketch	5
+graphite (medium)	13466	铅笔	铅笔画(中号)	graphite|pencil (medium)|pencil sketch	5
 trait connection	13444	属性关联	性格相仿|特征相仿|经历相仿|角色特征有关联		0
 coffee	13429	咖啡	珈琲		0
 see-through cleavage	13423	透视乳沟		transparent cleavage	0
@@ -3448,7 +3448,7 @@ purple bra	10270	紫色胸罩			0
 faulds	10268	腰甲			0
 cow print thighhighs	10267	奶牛纹过膝袜			0
 bun with braided base	10265	编发发髻			0
-painterly	10257	绘画质感	仿传统绘画风格|厚涂(画风)	digital painting|digitalpainting	0
+painterly	10257	绘画质感	仿传统绘画风格|厚涂(画风)	digitalpainting	0
 four-finger heart hands	10249	四指比心		4-finger heart hands|4-fingers heart hands	0
 plaid scarf	10249	格子围巾	格子呢围巾		0
 holding pom poms	10240	手持啦啦队彩球	持有绒球|手持啦啦队绒球|拿着啦啦队彩球		0
@@ -3634,7 +3634,7 @@ multiple earrings	9504	多个耳环			0
 scathach (fate)	9483	斯卡哈（Fate系列）	斯卡哈|师匠	scathach (fate/grand order)|scathach (fate) (all)	4
 chess piece	9473	棋子	棋子(国际象棋)		0
 single hair streak	9467	单缕挑染			0
-painting (object)	9463	画作	绘画|绘中绘		0
+painting (object)	9463	画作	绘中绘		0
 yandere	9454	病娇	养得累		0
 holding strap	9452	抓着肩带	手拉着吊带|手持物品固定带		0
 smile precure!	9452	Smile光之美少女	smile光之美少女!(官方写法)|微笑光之美少女(民间)|smile 光之美少女！	glitter force|smile precure|smile pretty cure|smile pretty cure!	3
@@ -3733,7 +3733,7 @@ wine bottle	9118	葡萄酒瓶	酒瓶		0
 nintendo switch	9116	任天堂Switch		nintendoswitch	0
 arm rest	9113	手臂休息	手臂靠着某物休息		0
 open door	9110	开着的门	开门		0
-muted colors	9108	暗淡色彩	哑光	muted color	0
+muted colors	9108	暗淡色彩		muted color	0
 suggestive fluid	9101	暗示性液体	暗示性的白色液体|可疑的白色液体	ambiguous white liquid	0
 boat	9094	小船	船		0
 chun-li	9087	春丽	春丽(街头霸王)	chunli|chun li	4
@@ -4349,7 +4349,7 @@ thick eyelashes	7213	浓密睫毛			0
 animal ear headwear	7212	动物耳朵头饰			0
 white mask	7212	白色面具			0
 >:(	7210	生气皱眉	皱眉生气		0
-gloom (expression)	7210	消沉(表情)	消沉|忧郁	gloomy	0
+gloom (expression)	7210	消沉(表情)	消沉	gloomy	0
 sideless outfit	7210	侧镂空装扮	无侧服装|侧面没有布料的服饰		0
 otomune kozue	7208	乙宗梢	梢		4
 purple streaks	7204	紫色挑染	挑染紫发		0
@@ -4645,7 +4645,7 @@ black hanfu	6578	黑色汉服			0
 nude cover	6578	裸体遮挡	裸体封面		0
 flame-tipped tail	6577	尾尖火焰	火焰条纹的尾巴	fire-tipped tail|flaming tip tail|tail-tip fire|flame tipped tail	0
 frying pan	6577	平底锅		cooking pan|skillet	0
-surreal	6575	超现实主义	超现实|怪诞的		0
+surreal	6575	超现实主义	怪诞的		0
 scope	6573	瞄准镜		sniper scope	0
 soccer uniform	6570	足球服			0
 fullmetal alchemist	6569	钢之炼金术师	钢之炼金术士	fma|full metal alchemist|hagane no renkinjutsushi|/fma	3
@@ -5014,7 +5014,7 @@ dokidoki! precure	5865	心跳！光之美少女	dokidoki!光之美少女|心跳�
 uraraka ochaco	5858	丽日御茶子	御茶子	uraraka ochako|uravity (boku no hero academia)|ochako uraraka	4
 shovel	5857	铲子			0
 hands on own head	5856	双手放在自己头上	双手放在自己的头上		0
-confused	5855	困惑	混乱|疑惑		0
+confused	5855	困惑	疑惑		0
 mobile suit gundam	5852	机动战士高达	哀·戦士编	kidou senshi gundam|mobilesuitgundam	3
 anchovy (girls und panzer)	5851	安丘比（少女与战车）	安丘比|安斋千代美	anchovy|anzai chiyomi	4
 holding condom	5850	手持避孕套	拿着避孕套		0
@@ -5356,7 +5356,7 @@ shiranui flare	5271	不知火芙蕾雅			4
 locker room	5270	更衣室	储物柜更衣室		0
 sticker on face	5265	脸上贴纸	贴在脸上	sticker on cheek|cheek ornament|cheek sticker	0
 fish hair ornament	5263	鱼形发饰			0
-come hither	5259	勾人的目光	勾引|色诱|诱惑|诱受		0
+come hither	5259	勾人的目光	勾引|色诱|诱受		0
 purple umbrella	5258	紫色伞	紫色雨伞		0
 flight deck	5257	飞行甲板			0
 ibuki (blue archive)	5257	丹花伊吹（蔚蓝档案）	丹花伊吹|伊吹	tanga ibuki|ibuki	4
@@ -7468,7 +7468,7 @@ half mask	3068	半脸面具	半个面具|半面罩		0
 sideless kimono	3068	侧镂空和服			0
 oversized wings	3067	超大翅膀	大翅膀	large wings	0
 two-tone horns	3066	双色角			0
-painting (action)	3065	作画	绘画(动作)|绘画|画画	painting	0
+painting (action)	3065	作画	绘画(动作)|画画	painting	0
 tissue	3065	纸巾	手纸巾	tissues	0
 honkai gakuen	3064	崩坏学园		benghuai xueyuan|guns girl z|guns girlz|houkai gakuen	3
 shiratsuyu (kancolle)	3064	白露（舰队Collection）	白露	shiratsuyu (kantai collection)	4
@@ -8856,7 +8856,7 @@ just the tip	2313	只插入龟头	龟头插入		0
 perversion of canon	2313	原作情节色情化			0
 anby demara	2310	安比·德玛拉	安比	anby|anbydemara	4
 clitoral piercing	2310	阴蒂穿孔	阴核环	clitoris piercing|clit piercing	0
-adventurer (ff11)	2309	冒险者（最终幻想11）	冒险者	avatar (ff11)	4
+adventurer (ff11)	2309	冒险者（最终幻想11）		avatar (ff11)	4
 covering another's mouth	2309	捂住他人的嘴	掩盖他人的嘴		0
 white bonnet	2309	白色软帽			0
 hino rei	2308	火野丽			4
@@ -10410,7 +10410,7 @@ cissia (zenless zone zero)	1793	希希芙（绝区零）	希希芙	cissia	4
 natsume rin	1793	枣铃	夏目凛		4
 double horizontal stripe	1792	双水平条纹			0
 sukoya kana	1792	健屋花那			4
-mew (pokemon)	1791	梦幻（宝可梦）	梦幻	mew	4
+mew (pokemon)	1791	梦幻（宝可梦）		mew	4
 on innertube	1791	坐在游泳圈上			0
 storefront	1791	店面	店先|店前		0
 striped coat	1791	条纹大衣			0
@@ -14334,7 +14334,7 @@ hidden eyes	1035	隐藏的眼睛			0
 kohinata miku	1035	小日向未来（战姬绝唱）	小日向未来|未来		4
 serperior	1035	君主蛇		jalorda	4
 zabaniyya (housamo)	1035	扎巴尼雅（东京放课后召唤师）	扎巴尼雅|扎巴尼亚	zabaniya (housamo)|zabaniya (tokyo houkago summoners)|zabaniya	4
-adventurer (ff14)	1034	冒险者（最终幻想14）	冒险者|光之战士	meteor (ff14)	4
+adventurer (ff14)	1034	冒险者（最终幻想14）	光之战士	meteor (ff14)	4
 beretta 1301	1034	伯莱塔1301霰弹枪			0
 leona kingscholar	1034	雷欧娜（扭曲仙境）	雷欧娜|雷欧娜·金斯卡尔		4
 mortarboard	1034	学士方帽	四方帽|学士帽	graduate cap|graduation cap	0
@@ -15927,7 +15927,7 @@ fingering from behind	860	从后方指交			0
 gate - jieitai ka no chi nite kaku tatakaeri	860	GATE奇幻自卫队	gate 自卫队于彼地战斗，斯世如斯		3
 hayakawa tazuna	860	骏川手纲			4
 luvdisc	860	爱心鱼		lovecus	4
-luxury (idolmaster)	860	奢华（偶像大师）	奢华		0
+luxury (idolmaster)	860	奢华（偶像大师）			0
 machamp	860	怪力（宝可梦）	怪力		4
 paw print soles	860	爪印鞋底	爪印足案		0
 pointing melee weapon	860	持近战武器指向		pointing weapon	0
@@ -16316,7 +16316,7 @@ yamada elf	828	山田埃尔芙（埃罗芒阿老师）	山田埃尔芙|山田妖
 yao guang (honkai: star rail)	828	爻光（崩坏：星穹铁道）	爻光		4
 can't be this cute	827	俺妹元素			0
 chi.: chikyuu no undou ni tsuite	827	地。关于地球的运动	关于地球的运动|地。-关于地球的运动-	orb: on the movements of the earth	3
-frustrated	827	沮丧	沮丧的|不満|挫败		0
+frustrated	827	沮丧	沮丧的|不満		0
 garland (decoration)	827	花环（装饰）			0
 jacket over shoulder	827	夹克甩在肩上	夹克在肩膀上		0
 russia	827	俄罗斯			0
@@ -22613,7 +22613,7 @@ chunithm	463	中二节奏		chunithm art	3
 crystal exarch	463	水晶公	古·拉哈·提亚		4
 falulu	463	法露璐			4
 famicom	463	红白机			0
-grim (azur lane)	463	格里姆（碧蓝航线）	格里姆	grim|grimmy	4
+grim (azur lane)	463	格里姆（碧蓝航线）	格里姆	grimmy	4
 hatchet (axe)	463	短柄斧	手斧	western hatchet	0
 holding kettle	463	手持水壶	握住水壶		0
 ice cream hair ornament	463	冰淇淋发饰			0
@@ -22866,7 +22866,7 @@ silhouette demon	455	剪影恶魔			0
 supply depot princess	455	集积地栖姬（舰队Collection）	集积地栖姬|集积地栖姫	supply depot hime	4
 teaspoon	455	茶匙			0
 tying another's hair	455	给他人扎头发			0
-victorious (azur lane)	455	胜利（碧蓝航线）		victorious	4
+victorious (azur lane)	455	胜利（碧蓝航线）			4
 yahagi kai ni (kancolle)	455	矢矧改二（舰队Collection）	矢矧改二|矢矧改二乙	yahagi kai ni	4
 yuuhi riri	455	夕阳莉莉		yuhi riri	4
 2002	454	2002年	平成14年		0
@@ -25574,7 +25574,7 @@ asutora-chan	371	Asutora酱			4
 backward-facing horns	371	向后弯的角		backward facing horns|back-facing horns	0
 barok van zieks	371	巴洛克·班吉克斯			4
 belmond banderas	371	贝尔蒙德·班德拉斯			4
-bird's eye view	371	鸟瞰视角	鸟瞰		0
+bird's eye view	371	鸟瞰视角			0
 blade runner (series)	371	银翼杀手系列		blade runner	3
 buying condoms	371	购买避孕套			0
 chevrolet	371	雪佛兰			0
@@ -29579,7 +29579,7 @@ ant girl	286	蚂蚁娘	蚂蚁女孩|蚁娘		0
 athena glory	286	雅典娜·格洛丽			4
 black horse	286	黑马			0
 blanc (fortune express) (nikke)	286	布兰儿（幸运特快）（胜利女神：妮姬）	布兰儿		4
-bloodstained: ritual of the night	286	赤痕 夜之仪式	血污 夜之仪式|血污	bloodstained	3
+bloodstained: ritual of the night	286	赤痕 夜之仪式	血污 夜之仪式|血污		3
 charles-henri sanson (fate)	286	夏尔-亨利·桑松（Fate系列）	夏尔-亨利·桑松	charles henri sanson (fate/grand order)	4
 chishima mako	286	千岛真子			4
 chypre (precure)	286	希普蕾（光之美少女）	希普蕾	chypre (heartcatch precure!)	4
@@ -32271,7 +32271,7 @@ centaureissi (girls' frontline 2)	245	桑朵莱希（少女前线2：追放）	�
 chitose yuma	245	千岁由麻			4
 chopstick rest	245	筷架	筷托|筷枕|箸枕		0
 classic revenant	245	经典亡魂			4
-crusader (ragnarok online)	245	十字军（仙境传说）	十字军	crusader	4
+crusader (ragnarok online)	245	十字军（仙境传说）			4
 crushed can	245	压碎的罐			0
 cult of the lamb	245	咩咩启示录			3
 dashing	245	冲刺			0
@@ -37928,7 +37928,7 @@ kiznaiver	182	羁绊者			3
 kurageu roa	182	海月云Roa			4
 kusunoki yukimura	182	楠幸村			4
 laevatein (fire emblem)	182	蕾瓦汀（火焰纹章）	蕾瓦汀(火焰之纹章)|蕾瓦汀	laevateinn (fire emblem heroes)	4
-le triomphant (azur lane)	182	凯旋（碧蓝航线）	凯旋|le_triomphant(碧蓝航线)		4
+le triomphant (azur lane)	182	凯旋（碧蓝航线）	le_triomphant(碧蓝航线)		4
 leysritt (fate)	182	莉洁莉特（Fate系列）	莉洁莉特	leysritt	4
 lineage 2	182	天堂2	天堂ii	lineage2	3
 long torso	182	长躯干			0
@@ -38382,7 +38382,7 @@ cioccolata	178	乔可拉特			4
 cleo everlastin	178	克蕾奥·埃弗拉斯汀			4
 cow girl (goblin slayer!)	178	牧牛妹（哥布林杀手）	牧牛妹		4
 creature on lap	178	腿上的生物			0
-crusader (tank)	178	十字军（坦克）	十字军		0
+crusader (tank)	178	十字军（坦克）			0
 ear focus	178	耳朵特写	耳朵重点	ears focus|ear	0
 esmeralda sinza	178	埃斯梅拉达·辛扎		esmeralda (fire emblem)	4
 extended upskirt	178	深度裙底走光			0
@@ -41476,7 +41476,7 @@ bemelle	154	贝梅尔			4
 brown bonnet	154	棕色软帽			0
 burger malfunction	154	汉堡散架	汉堡故障		0
 cha hae-in	154	车海仁	向坂雫|车慧仁		4
-clutter	154	杂乱	混乱		0
+clutter	154	杂乱			0
 company of heroes	154	英雄连	英雄连队		3
 coral island	154	珊瑚岛			3
 cornea (asteroid ill)	154	科妮亚（Asteroid Ill）	科妮亚	cornea (asuteroid)	4
@@ -42653,7 +42653,7 @@ todo erena	147	统堂英玲奈		toudou erena	4
 tokime (fuuto tantei)	147	时芽（风都侦探）	时芽		4
 ursula (takunomi)	147	乌尔斯拉（宅饮）	乌尔斯拉		4
 uzuki kou (4th costume)	147	卯月光（第四套服饰）			4
-valiant (kancolle)	147	英勇（舰队Collection）	英勇		4
+valiant (kancolle)	147	英勇（舰队Collection）			4
 venom (guilty gear)	147	维诺姆（罪恶装备）	维诺姆		4
 vigna (casual vacation) (arknights)	147	红豆（休闲假日）（明日方舟）			4
 wa2000 (ballroom interlude) (girls' frontline)	147	WA2000（舞会间奏）（少女前线）			4
@@ -46737,7 +46737,7 @@ maliketh the black blade	124	黑剑玛利喀斯			4
 marnie (omoide no marnie)	124	玛妮（记忆中的玛妮）	玛妮		4
 mazepynka	124	马泽宾卡帽		ukrainian military hat|mazepinka	0
 mercedes von martritz (summer)	124	梅尔塞德斯·冯·马尔特里茨（夏日）			4
-mercenary (zero kara hajimeru mahou no sho)	124	佣兵（从零开始的魔法书）	佣兵		4
+mercenary (zero kara hajimeru mahou no sho)	124	佣兵（从零开始的魔法书）			4
 metabee	124	麦塔比			4
 metal band text	124	金属乐队文字			0
 metal gear (robot)	124	合金装备（机器人）			0
@@ -55359,7 +55359,7 @@ nigou (hundred line)	91	二号（百日战纪 最终防卫学园）	二号		4
 nikaidou miki	91	二阶堂美树			4
 nike (mahoujin guruguru)	91	尼克（咕噜咕噜魔法阵）	尼克		4
 nissan silvia s14	91	日产Silvia S14		s14	0
-noir (noworld)	91	诺亚尔（NoWorld）	诺亚尔	noir	4
+noir (noworld)	91	诺亚尔（NoWorld）	诺亚尔		4
 ogerpon (hearthflame mask)	91	厄鬼椪（灶之假面）			4
 ookouchi akira	91	大河内晶		okouchi akira	4
 ooya kunimitsu	91	大宅都光	都光		4
@@ -56211,7 +56211,7 @@ conquest (invincible)	88	征服（无敌少侠）	征服		4
 cow print leotard	88	奶牛纹紧身衣			0
 crescent pendant	88	新月吊坠			0
 crucifix	88	耶稣受难像			0
-crusader (darkest dungeon)	88	十字军（暗黑地牢）	十字军	reynauld (darkest dungeon)	4
+crusader (darkest dungeon)	88	十字军（暗黑地牢）		reynauld (darkest dungeon)	4
 cu chulainn (fate/extra)	88	库·丘林（Fate/EXTRA）	库·丘林		4
 dib (invader zim)	88	迪布（Invader Zim）	迪布		4
 dino buckler	88	恐龙战队变身腰带		power morpher	0
@@ -56559,7 +56559,7 @@ five pebbles	87	五块卵石			4
 flame toys	87	Flame Toys		flametoys	3
 floating staff	87	漂浮的法杖			0
 fragarach (fate)	87	佛拉格拉克（Fate）	佛拉格拉克	fragarach	0
-fragile: sayonara tsuki no haikyo	87	无尽隐秘		fragile: farewell ruins of the moon|fragile|fragile dreams	3
+fragile: sayonara tsuki no haikyo	87	无尽隐秘		fragile: farewell ruins of the moon|fragile dreams	3
 fu hua (blood voivode)	87	符华（血之领主）			4
 fukouko (keisuke309)	87	不幸子			4
 futanari-sama (mdf an)	87	扶她大人		lily (unveiling the unknown)	4
@@ -67587,7 +67587,7 @@ unreal engine (medium)	63	Unreal Engine		unreal (medium)	5
 unworn veil	63	未戴的头纱	未戴的面纱		0
 usas-12 (girls' frontline)	63	USAS-12（少女前线）		usas-12|usas-12 (girls frontline)	4
 vajra (summer) (granblue fantasy)	63	瓦吉拉（泳装）（碧蓝幻想）	瓦吉拉		4
-valiant (azur lane)	63	英勇（碧蓝航线）	英勇		4
+valiant (azur lane)	63	英勇（碧蓝航线）			4
 vegetable juice	63	蔬菜汁			0
 versen	63	VERSEⁿ		verse n	3
 viewtiful joe (character)	63	乔（变身超人Joe）	乔		4
@@ -77776,70 +77776,392 @@ flyer (medium)	7	传单			5
 artificial eye	5	义眼			0
 deal with it (meme)	2	Deal With It（梗）			0
 hitodama print	1	人魂印花			0
+16k	0	16K分辨率			0
+35mm	0	35毫米镜头			0
+4k	0	4K分辨率			0
+50mm	0	50毫米镜头			0
+8k	0	8K分辨率			0
 abyss orange mix	0	AbyssOrangeMix			5
+adventurer	0	冒险者			0
+aftermath	0	余波			0
+alluring	0	诱人			0
 alternate ass size	0	换臀部大小	臀部异设		0
+ambient lighting	0	环境光		ambient light	0
+ambient occlusion	0	环境光遮蔽			0
+ancient	0	古老			0
 animaginexl	0	Animagine XL			5
+anime style	0	动漫风格			0
+anxious	0	焦虑			0
 anything (model)	0	Anything			5
 anythingelse	0	AnythingElse			5
 arm around leg	0	手臂环抱腿			0
+artistic	0	艺术感			0
+artstation	0	ArtStation（作品网站）			0
 asian	0	亚洲人			5
+asymmetrical	0	不对称			0
+atmospheric	0	氛围感			0
 autismmix	0	AutismMix			5
+award winning	0	获奖作品		award-winning	0
+backlight	0	逆光			0
 bad quality	0	质量差			5
+baroque	0	巴洛克			0
 based mix	0	BasedMix			5
 basin	0	盆			0
+battle-worn	0	战损	久经沙场	battle worn	0
+beam of light	0	光束		beams of light|light beam|light beams	0
+beautiful	0	美丽			0
+beautiful lighting	0	唯美光效			0
+behance	0	Behance（作品网站）			0
 belly grab	0	抓肚子	捏着肚子	tummy grab	0
 best quality	0	最佳质量	高质量|质量最好|顶级质量		5
+bioluminescent	0	生物荧光			0
+birds eye view	0	鸟瞰			0
 biting finger	0	咬手指		finger biting	0
+bittersweet	0	苦乐参半			0
 black wetsuit	0	黑色潜水服			0
+bleak	0	萧瑟	凄凉		0
+blood-stained	0	血迹斑斑		bloodstained	0
+bloodied	0	染血			0
 blowing smoke	0	吐烟			0
+blue hour	0	蓝调时刻			0
+bold colors	0	大胆用色			0
+breathtaking	0	震撼			0
+bright colors	0	明亮色彩			0
+bustling	0	熙熙攘攘			0
+calm	0	平静			0
+candlelit	0	烛光			0
+cel shaded	0	赛璐璐上色		cel shading	0
+centered	0	居中		centred	0
+cgi	0	CG			0
+cgsociety	0	CGSociety（作品网站）			0
+chaotic	0	混乱			0
+character concept	0	角色概念设计			0
+character design	0	角色设计			0
+charcoal drawing	0	炭笔画			0
+cheerful	0	开朗	欢快		0
+cinematic	0	电影感		filmic	0
+cinematic composition	0	电影构图			0
+cinematic lighting	0	电影光效			0
+cinematic shot	0	电影镜头			0
+cluttered	0	杂乱			0
 collaboration request	0	请求合作			5
+color grading	0	调色			0
+concept design	0	概念设计			0
+contemplative	0	沉思			0
+cool lighting	0	冷光		cold lighting	0
+cool tones	0	冷色调		cold colors	0
+cosmic horror	0	宇宙恐怖			0
 counterfeit	0	Counterfeit		counterfeit (model)	5
+cozy	0	温馨			0
+crisp	0	清晰锐利			0
+crusader	0	十字军			0
+cute	0	可爱		adorable	0
+cybernetic	0	机械改造			0
+dappled light	0	斑驳光影			0
+dark fantasy	0	黑暗奇幻			0
+decaying	0	腐朽			0
+deep focus	0	深焦			0
+defeated	0	挫败			0
+delicate	0	纤细	精致		0
+dented	0	凹痕			0
+depth	0	纵深			0
+derelict	0	荒废			0
+desaturated	0	低饱和			0
+desolate	0	荒凉			0
+detailed	0	细节丰富			0
+deviantart	0	DeviantArt（作品网站）			0
+digital art	0	数字艺术			0
+digital illustration	0	数字插画			0
+digital painting	0	数字绘画			0
+dim	0	昏暗			0
+divine	0	神圣	神性		0
 doujinshi	0	同人志			5
+dramatic	0	戏剧性	戏剧感		0
+dramatic lighting	0	戏剧性光影		dramatic light	0
+drawing	0	绘画			0
+dreamlike	0	如梦似幻			0
+dreamy	0	梦幻			0
+dusty	0	尘土飞扬			0
+dynamic	0	动感			0
+dynamic angle	0	动感角度			0
+dynamic composition	0	动感构图			0
+dynamic lighting	0	动态光影			0
+dystopian	0	反乌托邦			0
+earth tones	0	大地色系			0
+eerie	0	诡异			0
+elegant	0	优雅			0
+emotional	0	情感充沛			0
+enchanted	0	魔法笼罩			0
+enchanting	0	迷人		attractive	0
+energetic	0	充满活力			0
+epic	0	史诗感			0
+epic composition	0	史诗构图			0
+epic fantasy	0	史诗奇幻			0
+epic lighting	0	史诗级光效			0
+establishing shot	0	定场镜头			0
+ethereal	0	空灵			0
 explicit	0	露骨		rating explicit	5
+expressionism	0	表现主义			0
+expressive	0	富有表现力			0
 extraction	0	提取			5
+extreme close-up	0	大特写			0
+extremely detailed	0	极致细节			0
+eye level	0	平视			0
+fan art	0	同人画		fanart	0
+fantasy art	0	奇幻艺术			0
+fierce	0	凶猛	凌厉		0
+film noir	0	黑色电影			0
+film still	0	电影剧照		movie still|cinematic still	0
+fine details	0	细节精致			0
 finger gun to head	0	手指枪对准头部			0
+flat shading	0	平涂			0
+foreboding	0	不祥预感			0
+fragile	0	易碎			0
+frantic	0	狂乱			0
+full body shot	0	全身镜头			0
+full shot	0	全景			0
 general	0	全年龄		rating general	5
+global illumination	0	全局光照			0
+glorious	0	辉煌			0
+glossy	0	光泽			0
+glowing light	0	发光			0
+godrays	0	耶稣光	丁达尔光		0
 gold buttons	0	金色纽扣			0
+gorgeous	0	华丽	绝美		0
+graceful	0	优美			0
+grand	0	宏大			0
+grandiose	0	宏伟			0
+grieving	0	悲恸			0
+grim	0	冷峻	严酷		0
+grimdark	0	黑暗残酷风			0
+gritty	0	粗粝	粗犷		0
 gun to head	0	枪口对准头部			0
 gyozanmix	0	GyozanMix			5
+half body	0	半身		half-body	0
 hand around neck	0	手环绕脖子			0
+hand-drawn	0	手绘		hand drawn	0
+handsome	0	英俊			0
+hard lighting	0	硬光		hard light	0
+harsh lighting	0	强光			0
 hassaku xl (pony)	0	Hassaku XL			5
+haunting	0	萦绕不散			0
+hd	0	高清			0
+hdr	0	高动态范围			0
+heavenly	0	天国般			0
+heavy armor	0	重甲			0
+hellish	0	地狱般			0
+heroic	0	英勇			0
+high angle	0	高角度			0
+high angle shot	0	高角度镜头			0
+high detail	0	高细节		high details	0
+high fantasy	0	高奇幻			0
+high key lighting	0	高调光			0
+high quality	0	高质量			0
+high saturation	0	高饱和度			0
+highly detailed	0	高度细节			0
 holding own legs	0	抱自己的腿			0
 holding rod	0	手持长杆			0
 holding shell	0	手持贝壳			0
+holographic	0	全息			0
+hopeful	0	充满希望			0
 huge filesize	0	超大文件	超级高分辨率|大文件		5
+hyperrealism	0	超写实主义			0
+hyperrealistic	0	超写实		hyper realistic|ultra realistic|ultrarealistic	0
+idyllic	0	田园诗般			0
+illustration	0	插画			0
 illustrious xl	0	Illustrious XL		illustrious-xl	5
+impressionist	0	印象派			0
+ink drawing	0	墨水画			0
+innocent	0	天真			0
+insanely detailed	0	极其精细			0
+intense	0	强烈			0
+intimate	0	亲密			0
+intricate	0	精细繁复			0
+intricate details	0	精细细节		intricate detail	0
+introspective	0	内省			0
 japanese (nationality)	0	日本国籍			5
 japanese commentary	0	日文注释			5
+joyful	0	欢乐			0
+key art	0	主视觉			0
 killer bee cammy	0	嘉米（杀手蜂装）	嘉米		4
+lifelike	0	栩栩如生			0
+light armor	0	轻甲			0
+limited color palette	0	有限配色			0
+line drawing	0	线描			0
+lively	0	活泼			0
+long exposure	0	长曝光			0
+long shot	0	远景			0
+lovecraftian	0	克苏鲁风			0
+low angle shot	0	低角度镜头			0
+low contrast	0	低对比度			0
+low key lighting	0	低调光			0
+low light	0	弱光			0
+low saturation	0	低饱和度			0
+luminous	0	明亮发光			0
+luxurious	0	奢华			0
+macro lens	0	微距镜头			0
+magical	0	魔幻	魔法感		0
+majestic	0	雄伟	庄严		0
+manga style	0	漫画风格		comic style	0
+masterwork	0	杰作			0
+matte	0	哑光			0
+matte painting	0	绘景			0
+maximalism	0	极繁主义			0
+maximalist	0	极繁			0
+medium close-up	0	近景		close shot	0
+medium shot	0	中景			0
+melancholic	0	忧郁			0
+melancholy	0	忧郁	惆怅		0
+mellow	0	柔和		soft	0
+mercenary	0	佣兵			0
 metadata request	0	元数据请求			5
+metal armor	0	金属盔甲		metal armour	0
+metallic	0	金属质感			0
+minimalist	0	极简		minimalistic	0
+mischievous	0	调皮			0
 model request	0	请求模型			5
+moody	0	阴郁氛围	情绪化		0
+moody lighting	0	氛围光		atmospheric lighting	0
+moonlit	0	月光照耀			0
+mournful	0	哀伤			0
+muddy	0	沾满泥			0
+muted	0	低饱和			0
+muted tones	0	柔和色调			0
+mysterious	0	神秘		mystical	0
+natural lighting	0	自然光		natural light	0
+neoclassical	0	新古典主义			0
+neon lighting	0	霓虹灯光			0
 nijijourney	0	Niji Journey			5
+noble	0	高贵			0
+noir	0	黑色电影风格			0
 non-asian	0	非亚洲人			5
 noobai-xl	0	NoobAI XL			5
 normal quality	0	质量一般	一般质量		5
+nostalgic	0	怀旧			0
 novelai	0	NovelAI			5
 number-only commentary	0	纯数字评论			5
+octane render	0	Octane渲染			0
 official alternate design	0	官方异设			0
+oil on canvas	0	布面油画			0
+ominous	0	不祥	阴森		0
+opulent	0	富丽堂皇			0
+painted	0	手绘上色			0
+painting style	0	绘画风格			0
+pastoral	0	田园风光			0
+peaceful	0	安详	平和		0
+pen and ink	0	钢笔墨水画			0
+pencil drawing	0	铅笔画			0
 phone screenshot	0	手机截图			5
+photorealism	0	照片写实主义			0
 plaid	0	格纹	格子花纹|格子呢图案	tartan	0
+playful	0	俏皮			0
+polished	0	精致打磨			0
 pony diffusion xl	0	Pony Diffusion XL			5
+portrait shot	0	肖像镜头			0
+post-battle	0	战斗之后			0
+powerful	0	力量感			0
+pretty	0	漂亮			0
 promotional menu	0	宣传菜单			5
 questionable	0	擦边		rating questionable	5
+quiet	0	静谧			0
+radiant	0	光芒四射			0
+ray tracing	0	光线追踪		raytracing	0
+realism	0	写实主义			0
+regal	0	高贵	王者风范		0
+render	0	渲染		rendered	0
+resolute	0	坚毅			0
+reverent	0	虔敬			0
+rich colors	0	浓郁色彩			0
+rim light	0	轮廓光		rim lighting	0
+romantic	0	浪漫			0
+romanticism	0	浪漫主义			0
+ruined	0	残破			0
+rule of thirds	0	三分法构图			0
+rustic	0	质朴	乡村风		0
+rusty	0	生锈		rusted	0
+sacred	0	神圣		holy	0
+seductive	0	诱惑			0
+semi-realistic	0	半写实			0
 sensitive	0	敏感		rs lewd|rating sensitive	5
+sensual	0	性感		sexy	0
+serene	0	宁静			0
+shallow depth of field	0	浅景深			0
+sharp	0	锐利			0
+sharp focus	0	锐利对焦	焦点清晰		0
+side lighting	0	侧光			0
 single sleeve past fingers	0	单只袖子盖过手指			0
 single sleeve past wrist	0	单只袖子盖过手腕			0
+sinister	0	阴险			0
+sketchy	0	草图感			0
 small pupils	0	小瞳孔			0
+smooth	0	光滑	顺滑		0
+soft lighting	0	柔光		soft light	0
+solemn	0	庄严肃穆			0
+solitary	0	孤独	独自		0
+somber	0	阴郁	沉郁		0
+sombre	0	阴郁			0
+sorrowful	0	悲伤			0
 soul gem	0	灵魂宝石	灵魂之石		0
+splash art	0	立绘			0
+spooky	0	阴森恐怖			0
 stable diffusion xl	0	Stable Diffusion XL			5
+stoic	0	坚忍			0
+studio lighting	0	影棚灯光			0
+stunning	0	惊艳			0
+stylized	0	风格化			0
+subtle	0	含蓄	微妙		0
+sunlit	0	阳光照耀			0
+surrealism	0	超现实主义			0
+surrealistic	0	超现实			0
 t-ponynaiv3	0	T-ponynai3			5
+tattered	0	破烂			0
+telephoto	0	长焦			0
+telephoto lens	0	长焦镜头			0
+templar	0	圣殿骑士			0
+tense	0	紧张			0
+textured	0	纹理质感			0
+theatrical	0	戏剧化	舞台感		0
+threatening	0	威胁感			0
 three quarter view	0	四分之三视角	斜侧视	three-quarter view|3/4 view	0
 tied sleeves	0	束起的袖子			0
+tilt shift	0	移轴		tilt-shift	0
+tragic	0	悲剧性			0
+tranquil	0	安宁			0
+trending on artstation	0	ArtStation热门			0
 trinart	0	TrinArt			5
+triumphant	0	凯旋			0
+uhd	0	超高清			0
+ultra detailed	0	超精细		hyper detailed|hyperdetailed	0
+ultra wide angle	0	超广角			0
+unreal engine	0	虚幻引擎			0
+unreal engine 5	0	虚幻引擎5			0
+unsettling	0	令人不安			0
 untied bikini	0	解开的比基尼			0
 unworn legwear	0	未穿着的袜类		legwear removed	0
+utopian	0	乌托邦			0
+very detailed	0	非常细致			0
+vibrant	0	鲜活	鲜艳		0
+victorious	0	得胜			0
+vintage	0	复古	年代感		0
+vivid	0	鲜明			0
+vivid colors	0	鲜艳色彩		vibrant colors	0
+volumetric lighting	0	体积光		volumetric light|volumetric	0
+vray	0	V-Ray渲染			0
+vulnerable	0	脆弱			0
 wai-nsfw-illustrious-sdxl	0	WAI NSFW Illustrious SDXL			5
 waifudiffusion	0	Waifu Diffusion		waifu diffusion	5
+war-torn	0	饱受战火			0
+warm	0	温暖			0
+warm lighting	0	暖光		warm light	0
+warm tones	0	暖色调			0
+weary	0	疲惫			0
+whimsical	0	奇趣	异想天开		0
+wide angle	0	广角		wide-angle	0
+wide angle lens	0	广角镜头			0
+wistful	0	怅然			0
+worn	0	磨损			0
+worn-out	0	破旧			0
 worst quality	0	最差质量	质量最差|糟糕质量		5
 wrapped up	0	被包裹			0
+youthful	0	青春			0
 zuki cute ill	0	ZUKI cute ILL			5

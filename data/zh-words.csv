@@ -1,0 +1,384 @@
+# 提示词里常写、但不是 Danbooru 标签的英文描述词：英文,译名/检索词
+# 只为了让「中」对照也显示中文；检索时排在所有标签后面。已经是标签或 Danbooru 别名的词不要写进来（构建时会提示）
+# 词表参考 Stable Diffusion 提示词语料里的高频词，由 Claude 翻译，没有经过人工校对
+
+# 氛围、情绪
+dramatic,戏剧性/戏剧感
+melancholy,忧郁/惆怅
+melancholic,忧郁
+somber,阴郁/沉郁
+sombre,阴郁
+contemplative,沉思
+introspective,内省
+moody,阴郁氛围/情绪化
+gritty,粗粝/粗犷
+atmospheric,氛围感
+ominous,不祥/阴森
+eerie,诡异
+spooky,阴森恐怖
+unsettling,令人不安
+haunting,萦绕不散
+foreboding,不祥预感
+sinister,阴险
+threatening,威胁感
+serene,宁静
+tranquil,安宁
+peaceful,安详/平和
+calm,平静
+quiet,静谧
+cozy,温馨
+warm,温暖
+ethereal,空灵
+dreamy,梦幻
+dreamlike,如梦似幻
+whimsical,奇趣/异想天开
+nostalgic,怀旧
+mysterious,神秘
+mystical,神秘
+magical,魔幻/魔法感
+enchanting,迷人
+enchanted,魔法笼罩
+majestic,雄伟/庄严
+epic,史诗感
+grand,宏大
+grandiose,宏伟
+heroic,英勇
+triumphant,凯旋
+glorious,辉煌
+tragic,悲剧性
+romantic,浪漫
+intimate,亲密
+solitary,孤独/独自
+desolate,荒凉
+bleak,萧瑟/凄凉
+grim,冷峻/严酷
+dim,昏暗
+tense,紧张
+intense,强烈
+chaotic,混乱
+frantic,狂乱
+hopeful,充满希望
+joyful,欢乐
+cheerful,开朗/欢快
+playful,俏皮
+lively,活泼
+energetic,充满活力
+vibrant,鲜活/鲜艳
+powerful,力量感
+fierce,凶猛/凌厉
+bittersweet,苦乐参半
+wistful,怅然
+stoic,坚忍
+resolute,坚毅
+weary,疲惫
+defeated,挫败
+victorious,得胜
+sorrowful,悲伤
+mournful,哀伤
+grieving,悲恸
+solemn,庄严肃穆
+reverent,虔敬
+sacred,神圣
+holy,神圣
+divine,神圣/神性
+heavenly,天国般
+hellish,地狱般
+dystopian,反乌托邦
+utopian,乌托邦
+vintage,复古/年代感
+elegant,优雅
+graceful,优美
+regal,高贵/王者风范
+noble,高贵
+luxurious,奢华
+opulent,富丽堂皇
+gorgeous,华丽/绝美
+beautiful,美丽
+stunning,惊艳
+breathtaking,震撼
+pretty,漂亮
+cute,可爱
+adorable,可爱
+handsome,英俊
+attractive,迷人
+alluring,诱人
+seductive,诱惑
+sensual,性感
+sexy,性感
+innocent,天真
+youthful,青春
+dynamic,动感
+expressive,富有表现力
+emotional,情感充沛
+subtle,含蓄/微妙
+vulnerable,脆弱
+fragile,易碎/脆弱
+delicate,纤细/精致
+mischievous,调皮
+anxious,焦虑
+mellow,柔和
+
+# 画风、质感、色彩
+artistic,艺术感
+textured,纹理质感
+detailed,细节丰富
+highly detailed,高度细节
+extremely detailed,极致细节
+very detailed,非常细致
+ultra detailed,超精细
+hyper detailed,超精细
+hyperdetailed,超精细
+insanely detailed,极其精细
+intricate,精细繁复
+intricate details,精细细节
+intricate detail,精细细节
+fine details,细节精致
+high detail,高细节
+high details,高细节
+sharp,锐利
+sharp focus,锐利对焦/焦点清晰
+crisp,清晰锐利
+polished,精致打磨
+smooth,光滑/顺滑
+soft,柔和
+matte,哑光
+glossy,光泽
+metallic,金属质感
+holographic,全息
+painted,手绘上色
+hand-drawn,手绘
+hand drawn,手绘
+stylized,风格化
+semi-realistic,半写实
+photorealism,照片写实主义
+hyperrealistic,超写实
+hyper realistic,超写实
+hyperrealism,超写实主义
+ultra realistic,超写实
+ultrarealistic,超写实
+lifelike,栩栩如生
+realism,写实主义
+surrealism,超现实主义
+surrealistic,超现实
+impressionist,印象派
+expressionism,表现主义
+baroque,巴洛克
+neoclassical,新古典主义
+romanticism,浪漫主义
+minimalist,极简
+minimalistic,极简
+maximalist,极繁
+maximalism,极繁主义
+cinematic,电影感
+filmic,电影感
+theatrical,戏剧化/舞台感
+vivid,鲜明
+vivid colors,鲜艳色彩
+vibrant colors,鲜艳色彩
+bright colors,明亮色彩
+rich colors,浓郁色彩
+bold colors,大胆用色
+muted,低饱和/柔和
+muted tones,柔和色调
+desaturated,低饱和
+low contrast,低对比度
+high saturation,高饱和度
+low saturation,低饱和度
+earth tones,大地色系
+warm tones,暖色调
+cool tones,冷色调
+cold colors,冷色调
+color grading,调色
+limited color palette,有限配色
+digital art,数字艺术
+digital painting,数字绘画
+digital illustration,数字插画
+illustration,插画
+character design,角色设计
+character concept,角色概念设计
+concept design,概念设计
+key art,主视觉
+splash art,立绘
+fan art,同人画
+fanart,同人画
+matte painting,绘景
+oil on canvas,布面油画
+pen and ink,钢笔墨水画
+ink drawing,墨水画
+pencil drawing,铅笔画
+charcoal drawing,炭笔画
+line drawing,线描
+drawing,绘画
+sketchy,草图感
+painting style,绘画风格
+fantasy art,奇幻艺术
+dark fantasy,黑暗奇幻
+high fantasy,高奇幻
+epic fantasy,史诗奇幻
+cosmic horror,宇宙恐怖
+lovecraftian,克苏鲁风
+grimdark,黑暗残酷风
+noir,黑色电影风格
+film noir,黑色电影
+anime style,动漫风格
+manga style,漫画风格
+comic style,漫画风格
+cel shaded,赛璐璐上色
+cel shading,赛璐璐上色
+flat shading,平涂
+render,渲染
+rendered,渲染
+octane render,Octane渲染
+unreal engine,虚幻引擎
+unreal engine 5,虚幻引擎5
+cgi,CG
+vray,V-Ray渲染
+4k,4K分辨率
+8k,8K分辨率
+16k,16K分辨率
+hd,高清
+uhd,超高清
+hdr,高动态范围
+high quality,高质量
+masterwork,杰作
+award winning,获奖作品
+award-winning,获奖作品
+trending on artstation,ArtStation热门
+artstation,ArtStation（作品网站）
+deviantart,DeviantArt（作品网站）
+cgsociety,CGSociety（作品网站）
+behance,Behance（作品网站）
+
+# 光影
+cinematic lighting,电影光效
+dramatic lighting,戏剧性光影
+dramatic light,戏剧性光影
+volumetric lighting,体积光
+volumetric light,体积光
+volumetric,体积光
+soft lighting,柔光
+soft light,柔光
+hard lighting,硬光
+hard light,硬光
+rim light,轮廓光
+rim lighting,轮廓光
+backlight,逆光
+godrays,耶稣光/丁达尔光
+ambient lighting,环境光
+ambient light,环境光
+ambient occlusion,环境光遮蔽
+natural lighting,自然光
+natural light,自然光
+studio lighting,影棚灯光
+warm lighting,暖光
+warm light,暖光
+cool lighting,冷光
+cold lighting,冷光
+moody lighting,氛围光
+low light,弱光
+low key lighting,低调光
+high key lighting,高调光
+epic lighting,史诗级光效
+beautiful lighting,唯美光效
+dynamic lighting,动态光影
+atmospheric lighting,氛围光
+blue hour,蓝调时刻
+global illumination,全局光照
+ray tracing,光线追踪
+raytracing,光线追踪
+beam of light,光束
+beams of light,光束
+light beam,光束
+light beams,光束
+luminous,明亮发光
+radiant,光芒四射
+glowing light,发光
+bioluminescent,生物荧光
+neon lighting,霓虹灯光
+candlelit,烛光
+moonlit,月光照耀
+sunlit,阳光照耀
+dappled light,斑驳光影
+harsh lighting,强光
+side lighting,侧光
+
+# 构图、镜头
+medium shot,中景
+medium close-up,近景
+close shot,近景
+full body shot,全身镜头
+full shot,全景
+establishing shot,定场镜头
+long shot,远景
+extreme close-up,大特写
+wide angle,广角
+wide-angle,广角
+ultra wide angle,超广角
+wide angle lens,广角镜头
+telephoto,长焦
+telephoto lens,长焦镜头
+high angle,高角度
+low angle shot,低角度镜头
+high angle shot,高角度镜头
+eye level,平视
+birds eye view,鸟瞰
+centered,居中
+centred,居中
+asymmetrical,不对称
+rule of thirds,三分法构图
+cinematic composition,电影构图
+epic composition,史诗构图
+dynamic composition,动感构图
+dynamic angle,动感角度
+depth,纵深
+shallow depth of field,浅景深
+deep focus,深焦
+tilt shift,移轴
+tilt-shift,移轴
+long exposure,长曝光
+macro lens,微距镜头
+35mm,35毫米镜头
+50mm,50毫米镜头
+film still,电影剧照
+movie still,电影剧照
+cinematic shot,电影镜头
+cinematic still,电影剧照
+portrait shot,肖像镜头
+half body,半身
+half-body,半身
+
+# 状态、场景、人物
+battle-worn,战损/久经沙场
+battle worn,战损/久经沙场
+war-torn,饱受战火
+post-battle,战斗之后/战后
+aftermath,余波
+worn,磨损
+worn-out,破旧
+dented,凹痕
+rusty,生锈
+rusted,生锈
+tattered,破烂
+bloodied,染血
+blood-stained,血迹斑斑
+bloodstained,血迹斑斑
+muddy,沾满泥
+dusty,尘土飞扬
+ruined,残破
+ancient,古老
+decaying,腐朽
+derelict,荒废
+cluttered,杂乱
+bustling,熙熙攘攘
+idyllic,田园诗般
+pastoral,田园风光
+rustic,质朴/乡村风
+cybernetic,机械改造
+metal armor,金属盔甲
+metal armour,金属盔甲
+heavy armor,重甲
+light armor,轻甲
+templar,圣殿骑士
+crusader,十字军
+mercenary,佣兵
+adventurer,冒险者

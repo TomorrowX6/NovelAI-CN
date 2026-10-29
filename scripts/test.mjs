@@ -66,9 +66,16 @@ const LOOKUPS = [
   ['wuwa', '鸣潮'],
   // Danbooru 改了名、词典里还是旧名的标签，新名字也能查到
   ['grid watermark', '水印'],
-  // NovelAI 自己的质量词
+  // NovelAI 自己的质量词和年份标签
   ['amazing quality', '质量'],
   ['very displeasing', '不美观'],
+  ['year 2025', '2025年画风'],
+  ['year_2014', '2014年画风'],
+  // 不是标签的常用英文词（data/zh-words.csv），也盖过来源数据里把普通词当成角色名的别名（grim → 碧蓝航线的格里姆）
+  ['dramatic', '戏剧'],
+  ['beam of light', '光束'],
+  ['battle-worn', '战损'],
+  ['grim', '冷峻'],
   ['^_^', null],
 ];
 for (const [tag, expect] of LOOKUPS) {
