@@ -203,6 +203,7 @@ npm run build -- --refresh     # 重新下载上游词典
 - `data/zh-override.csv`：`标签,译名`，替换某个标签的显示译名（修正错误翻译），优先级最高。
 - `data/zh-curated.csv`：`标签,译名,补充检索词`，审定结果。译名留空表示只补检索词；检索词用 `/` 分隔，前面加 `-` 表示删掉一个错误的检索词（如 `fear_kubrick,,-害怕侧目`）。
 - `data/zh-extra.csv`：`标签,词1/词2`，追加检索词（俗称、简称），不改变显示内容。词表里没有的标签也会收录，比如 NovelAI 的质量词 masterpiece。
+- `data/zh-words.csv`：`英文,译名/检索词`，提示词里常写、但不是 Danbooru 标签的描述词（dramatic、cinematic lighting），让中文对照也能显示中文，检索时排在标签后面。已经是标签或 Danbooru 别名的词构建时会提示删掉；译名完全相同的写法只在检索里出一条。
 - `data/novelai-rename.csv`：`Danbooru新名,NovelAI用的名字`，NovelAI 不认识新名字时输出旧名字。
 - `data/zh-new.csv`：`tag,category,aliases,zh,count`，列与来源数据相同，收录 Danbooru 上有、来源数据里没有的标签（检索词用 `|` 分隔）。来源数据以后有了同一个标签时以来源数据为准。
 
@@ -268,6 +269,7 @@ main 分支就是用户脚本自动更新的来源：脚本或词典有改动时
 - `data/zh-ehtag.csv`：EhTagTranslation 的人工译名，对齐到 Danbooru 标签后作为补充检索词，共 2,032 条，如 dark skin「黑皮」、school swimsuit「死库水」。
 - 标签名以 2026 年的 Danbooru 为准，用 NovelAI 自己的联想接口抽样核实过；唯一不认的 `qipao` 已在 `data/novelai-rename.csv` 里换回 `china_dress`。
 - Danbooru 已删除或改名、但 NovelAI 还认识的旧标签（black footwear、otoko no ko 等），用旧人工词典的译名补上，英文联想里出现时也能显示中文。
+- `data/zh-words.csv`：不是 Danbooru 标签、但提示词里常写的 371 个英文描述词（氛围、画风、光影、构图等），从 [Stable Diffusion 提示词语料](https://huggingface.co/datasets/Gustavosta/Stable-Diffusion-Prompts)的高频词里挑选，由 Claude 翻译，没有经过人工校对。`year 2025` 这类 NovelAI 年份标签按规则显示为「2025年画风」。
 
 </details>
 
