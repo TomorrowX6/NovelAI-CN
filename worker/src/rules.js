@@ -89,7 +89,7 @@ export function parseAliases(input) {
 // 一个标签一行，按标签排序，方便看 diff 和逐行追溯：英文标签 \t 译名 \t 检索词（/ 分隔）\t Danbooru 图片数（只有词典里没有的新标签才有）
 // # 开头的是说明。译名留空表示不改词典译名，只加检索词
 export const COMMUNITY_HEADER = [
-  '# 社区标签译名。在 https://novelai.000.moe 用 GitHub 登录后编辑，每次修改都会提交到这里；脚本和扩展默认每天从 GitHub 拉取一次。',
+  '# 社区标签译名。在 https://novelai.000.moe 用 GitHub 登录后编辑，修改经审核通过后提交到这里；脚本和扩展默认每天从 GitHub 拉取一次。',
   '# 每行用 Tab 分隔：英文标签、译名、检索词（/ 分隔）、Danbooru 图片数（只有词典里没有的新标签才填）。译名留空表示只加检索词。',
 ];
 
@@ -112,6 +112,9 @@ export function serializeCommunity({ header, entries }) {
   return [...header, ...rows].join('\n') + '\n';
 }
 
+// 修改说明、驳回原因：去掉控制字符，限制长度
+export const cleanNote = (s) => (typeof s === 'string' ? s.replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, LIMITS.note) : '');
+
 // 编辑页提交的内容：{ label, aliases, note }，返回 { value } 或 { error }
 export function validateEdit(body) {
   if (!body || typeof body !== 'object') return { error: '提交的内容格式不对' };
@@ -122,8 +125,7 @@ export function validateEdit(body) {
   }
   const aliases = parseAliases(body.aliases ?? []);
   if (!aliases) return { error: `检索词最多 ${LIMITS.aliases} 个，每个必须含汉字、最多 ${LIMITS.alias} 个字，不能有 < > 或网址` };
-  const note = typeof body.note === 'string' ? body.note.replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, LIMITS.note) : '';
-  return { value: { label, aliases, note } };
+  return { value: { label, aliases, note: cleanNote(body.note) } };
 }
 
 // 把一次编辑应用到数据上。译名和检索词都为空表示删除这一条
@@ -145,14 +147,15 @@ export function applyEdit(data, tag, { label, aliases }, count = 0) {
 
 const ACTION_NAMES = { add: '新增', update: '修改', delete: '删除' };
 
-// 提交说明第一行固定为「动作 标签」，编辑日志和 git log 都靠它找某个标签的修改
-export function commitMessage(action, tag, after, note, user) {
+// 提交说明第一行固定为「动作 标签」，编辑日志和 git log 都靠它找某个标签的修改。
+// 审核员通过别人的修改时，最后一行用 Reviewed-by 注明审核员
+export function commitMessage(action, tag, after, note, reviewer) {
   const lines = [`${ACTION_NAMES[action]} ${tag}`, ''];
   if (after) {
     if (after.label) lines.push(`名称：${after.label}`);
     if (after.aliases.length) lines.push(`检索词：${after.aliases.join('/')}`);
   }
   if (note) lines.push(`说明：${note}`);
-  if (user) lines.push('', `Co-authored-by: ${user.login} <${user.id}+${user.login}@users.noreply.github.com>`);
+  if (reviewer) lines.push('', `Reviewed-by: ${reviewer.login} <${reviewer.id}+${reviewer.login}@users.noreply.github.com>`);
   return lines.join('\n').replace(/\n+$/, '');
 }

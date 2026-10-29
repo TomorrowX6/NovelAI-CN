@@ -1,13 +1,16 @@
 // NovelAI Tag Editor：社区标签译名的编辑器（Cloudflare Worker + D1 + GitHub App），仿照 EhTagTranslation 的 ehtt.vercel.app。
-// 用 GitHub 登录后修改标签的名称和检索词，Worker 用 GitHub App 以登录用户为作者把修改提交到仓库的 data/zh-community.tsv，
-// 立即生效；脚本和扩展从 GitHub 拉这个文件。历史就是 git 历史，D1 另记一份编辑日志给编辑页看、并限制频率。
-//   GET  /  /list/:类别  /edit/:标签     编辑器页面（同一个单页应用）
+// 用 GitHub 登录后修改标签的名称和检索词。修改先存进 D1 等待审核，审核员（REVIEWERS）通过后，Worker 用 GitHub App
+// 以提交修改的人为作者把它提交到仓库的 data/zh-community.tsv；审核员自己的修改直接提交。脚本和扩展从 GitHub 拉这个文件。
+// 历史就是 git 历史，D1 另记一份编辑日志给编辑页看。
+//   GET  /  /list/:类别  /edit/:标签  /review   编辑器页面（同一个单页应用）
 //   GET  /zh-tags.tsv                    词典（wrangler.toml 的 [assets] 把 dist/ 一起部署）
 //   GET  /auth/login  /auth/callback     GitHub 登录；POST /auth/logout 退出
 //   GET  /api/me                         当前登录的用户
 //   GET  /api/community                  社区数据的当前版本（从 GitHub 读，缓存 30 秒）
-//   PUT  /api/tags/:标签                 修改 { label, aliases, note, base }，需要登录
-//   GET  /api/history?tag=               这个标签的编辑日志
+//   PUT  /api/tags/:标签                 修改 { label, aliases, note, base }，需要登录；不是审核员时存为待审核
+//   GET  /api/submissions?status=&tag=&user=   提交的修改（默认待审核的）
+//   POST /api/submissions/:id/approve    通过，提交到 GitHub；POST /api/submissions/:id/reject 驳回 { reason }，只有审核员能用
+//   GET  /api/history?tag=               这个标签的编辑日志（已提交到 GitHub 的修改）
 //   GET  /api/tags                       从 Danbooru 拉来的新标签（缓存 1 小时）
 //   POST /api/admin/tags                 存入从 Danbooru 拉来的标签（凭 ADMIN_TOKEN，见 scripts/sync-tags.mjs）
 import {
@@ -19,6 +22,7 @@ import {
   validateEdit,
   applyEdit,
   commitMessage,
+  cleanNote,
 } from './rules.js';
 import { editorPage, pageCsp } from './pages.js';
 
@@ -28,19 +32,29 @@ const GH_API = 'https://api.github.com';
 const UA = 'NovelAI-CN Tag Editor (+https://github.com/TomorrowX6/NovelAI-CN)';
 const CORS = { 'Access-Control-Allow-Origin': '*' };
 
+const loginSet = (s) =>
+  new Set(
+    String(s || '')
+      .split(',')
+      .map((x) => x.trim().toLowerCase())
+      .filter(Boolean),
+  );
+
 const conf = (env) => ({
   repo: env.GH_REPO || 'TomorrowX6/NovelAI-CN',
   branch: env.GH_BRANCH || 'main',
   path: env.DATA_PATH || 'data/zh-community.tsv',
   minAccountDays: +(env.MIN_ACCOUNT_DAYS ?? 30),
   editsPerHour: +(env.EDITS_PER_HOUR ?? 30),
-  blocked: new Set(
-    String(env.BLOCKED_USERS || '')
-      .split(',')
-      .map((s) => s.trim().toLowerCase())
-      .filter(Boolean),
-  ),
+  blocked: loginSet(env.BLOCKED_USERS),
+  // GitHub 用户名或数字 id；用户名可能被改掉后让别人注册走，填 id 更稳妥
+  reviewers: loginSet(env.REVIEWERS),
 });
+
+const isReviewer = (env, user) => {
+  const r = conf(env).reviewers;
+  return r.has(String(user.login).toLowerCase()) || r.has(String(user.id));
+};
 
 const json = (data, status = 200, headers = {}) =>
   new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json; charset=utf-8', ...headers } });
@@ -101,7 +115,8 @@ async function sessionUser(request, env) {
     if (!ok) return null;
     const user = JSON.parse(new TextDecoder().decode(b64urlToBytes(payload)));
     if (!(user.exp > Date.now()) || conf(env).blocked.has(String(user.login).toLowerCase())) return null;
-    return { id: user.id, login: user.login, avatar: user.avatar };
+    // 审核员每次按当前的 REVIEWERS 判断，不存在 Cookie 里
+    return { id: user.id, login: user.login, avatar: user.avatar, reviewer: isReviewer(env, user) };
   } catch {
     return null;
   }
@@ -237,46 +252,39 @@ function purge(request, ctx, p) {
   if (cache) ctx.waitUntil(cache.delete(cacheKey(request, p)));
 }
 
-// ---- 编辑 ----
+// ---- 编辑和审核 ----
 const sameEntry = (a, b) => (a?.label || '') === (b?.label || '') && (a?.aliases || []).join('/') === (b?.aliases || []).join('/');
+const BUSY = '同时有其他修改在提交，请稍后再试';
 
-async function editTag(request, env, ctx, rawTag) {
-  const user = await sessionUser(request, env);
-  if (!user) return json({ error: '请先用 GitHub 登录' }, 401);
-  // Cookie 是 SameSite=Lax，再核对来源，别的网站发不来修改
+// 修改要从编辑器页面发来：Cookie 是 SameSite=Lax，再核对来源和 JSON 格式，别的网站发不来
+function crossSite(request) {
   const origin = request.headers.get('Origin');
   if (origin && origin !== new URL(request.url).origin) return json({ error: '来源不对' }, 403);
   if ((request.headers.get('Content-Type') || '').split(';')[0].trim() !== 'application/json') return json({ error: '请求格式不对' }, 415);
-  const tag = normalizeTag(decodeURIComponent(rawTag));
-  if (!tag) return json({ error: '英文标签格式不对：只能用英文字母、数字和符号，最多 100 个字符' }, 400);
-  const body = await request.json().catch(() => null);
-  const v = validateEdit(body);
-  if (v.error) return json({ error: v.error }, 400);
+  return null;
+}
 
+// 把一次修改以 author 为作者提交到 GitHub，记进编辑日志。base 是修改时看到的社区修订：这个标签在那之后
+// 被改过就不提交，返回 { conflict }。审核员通过别人的修改时传 reviewer，写进提交说明
+async function publish(request, env, ctx, { tag, value, base, author, reviewer }) {
   const c = conf(env);
-  const recent = await env.DB.prepare('SELECT COUNT(*) AS n FROM edits WHERE user_id = ? AND created_at > ?').bind(user.id, Date.now() - 36e5).first();
-  if (recent && recent.n >= c.editsPerHour) return json({ error: `每小时最多修改 ${c.editsPerHour} 次，请稍后再试` }, 429);
   // 平台拉来的 Danbooru 标签记下图片数，词典里没有时扩展据此新增
   const known = await env.DB.prepare('SELECT count FROM tags WHERE tag = ?').bind(tag).first();
-
   for (let attempt = 0; attempt < 3; attempt++) {
     const { sha, data } = await readCommunity(env);
     const current = data.entries.get(tag) || null;
-    // 编辑页打开以后别人改过这个标签，不覆盖
-    if (body.base !== undefined && !sameEntry(body.base, current)) {
-      return json({ error: '这个标签刚被别人修改过，请重新加载后再改', entry: current }, 409);
-    }
-    const r = applyEdit(data, tag, v.value, known ? known.count : 0);
-    if (r.action === 'none') return json({ action: 'none', entry: r.after });
+    if (base !== undefined && !sameEntry(base, current)) return { conflict: current };
+    const r = applyEdit(data, tag, value, known ? known.count : 0);
+    if (r.action === 'none') return { action: 'none', entry: r.after };
     const res = await gh(`/repos/${c.repo}/contents/${c.path}`, {
       token: await installationToken(env),
       method: 'PUT',
       body: {
-        message: commitMessage(r.action, tag, r.after, v.value.note),
+        message: commitMessage(r.action, tag, r.after, value.note, reviewer),
         content: bytesToB64(enc.encode(serializeCommunity(data))),
         branch: c.branch,
         ...(sha ? { sha } : {}),
-        author: { name: user.login, email: `${user.id}+${user.login}@users.noreply.github.com` },
+        author: { name: author.login, email: `${author.id}+${author.login}@users.noreply.github.com` },
       },
     });
     // 文件在读和写之间被别的提交改了，重读再来
@@ -286,12 +294,147 @@ async function editTag(request, env, ctx, rawTag) {
     await env.DB.prepare(
       'INSERT INTO edits (tag, user_id, login, avatar, action, label, aliases, note, sha, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
     )
-      .bind(tag, user.id, user.login, user.avatar || '', r.action, r.after?.label || '', (r.after?.aliases || []).join('/'), v.value.note, commit.sha || '', Date.now())
+      .bind(tag, author.id, author.login, author.avatar || '', r.action, r.after?.label || '', (r.after?.aliases || []).join('/'), value.note, commit.sha || '', Date.now())
       .run();
     purge(request, ctx, '/api/community');
-    return json({ action: r.action, entry: r.after, commit: { sha: commit.sha, url: commit.html_url } });
+    return { action: r.action, entry: r.after, commit: { sha: commit.sha, url: commit.html_url } };
   }
-  return json({ error: '同时有其他修改在提交，请稍后再试' }, 409);
+  return { busy: true };
+}
+
+// D1 里的一行待审核修改，转成接口返回的样子
+const submissionItem = (s) => ({
+  id: s.id,
+  tag: s.tag,
+  action: s.action,
+  label: s.label,
+  aliases: s.aliases ? s.aliases.split('/') : [],
+  note: s.note,
+  base: JSON.parse(s.base),
+  login: s.login,
+  user_id: s.user_id,
+  avatar: s.avatar,
+  status: s.status,
+  reviewer: s.reviewer,
+  reason: s.reason,
+  sha: s.sha,
+  created_at: s.created_at,
+  reviewed_at: s.reviewed_at,
+});
+
+async function editTag(request, env, ctx, rawTag) {
+  const user = await sessionUser(request, env);
+  if (!user) return json({ error: '请先用 GitHub 登录' }, 401);
+  const bad = crossSite(request);
+  if (bad) return bad;
+  const tag = normalizeTag(decodeURIComponent(rawTag));
+  if (!tag) return json({ error: '英文标签格式不对：只能用英文字母、数字和符号，最多 100 个字符' }, 400);
+  const body = await request.json().catch(() => null);
+  const v = validateEdit(body);
+  if (v.error) return json({ error: v.error }, 400);
+  // 编辑页打开以后别人改过这个标签，不覆盖
+  const conflict = (entry) => json({ error: '这个标签刚被别人修改过，请重新加载后再改', entry }, 409);
+
+  if (user.reviewer) {
+    const r = await publish(request, env, ctx, { tag, value: v.value, base: body.base, author: user });
+    if (r.busy) return json({ error: BUSY }, 409);
+    if ('conflict' in r) return conflict(r.conflict);
+    return json(r);
+  }
+
+  // 其他人的修改先存起来，审核员通过后才提交到 GitHub
+  const c = conf(env);
+  const recent = await env.DB.prepare('SELECT COUNT(*) AS n FROM submissions WHERE user_id = ? AND created_at > ?').bind(user.id, Date.now() - 36e5).first();
+  if (recent && recent.n >= c.editsPerHour) return json({ error: `每小时最多提交 ${c.editsPerHour} 次，请稍后再试` }, 429);
+  const { data } = await readCommunity(env);
+  const current = data.entries.get(tag) || null;
+  if (body.base !== undefined && !sameEntry(body.base, current)) return conflict(current);
+  const r = applyEdit(data, tag, v.value);
+  // 同一个人对同一个标签只留最新的一份待审核修改；改回现在的内容就是撤回
+  const withdrawn = await env.DB.prepare("UPDATE submissions SET status = 'withdrawn', reviewed_at = ? WHERE tag = ? AND user_id = ? AND status = 'pending'")
+    .bind(Date.now(), tag, user.id)
+    .run();
+  if (r.action === 'none') return json({ action: 'none', entry: r.after, withdrawn: withdrawn.meta.changes > 0 });
+  const row = await env.DB.prepare(
+    'INSERT INTO submissions (tag, user_id, login, avatar, action, label, aliases, note, base, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING *',
+  )
+    .bind(
+      tag,
+      user.id,
+      user.login,
+      user.avatar || '',
+      r.action,
+      v.value.label,
+      v.value.aliases.join('/'),
+      v.value.note,
+      JSON.stringify(current && { label: current.label, aliases: current.aliases }),
+      Date.now(),
+    )
+    .first();
+  return json({ action: 'pending', submission: submissionItem(row) }, 202);
+}
+
+const STATUSES = ['pending', 'approved', 'rejected', 'withdrawn'];
+const DONE = { approved: '已经通过了', rejected: '已经驳回了', withdrawn: '已经撤回了' };
+const SUBMISSIONS_LIMIT = 200;
+
+async function listSubmissions(url, env) {
+  const p = url.searchParams;
+  const status = p.get('status') || 'pending';
+  const where = [];
+  const args = [];
+  if (status !== 'all') {
+    if (!STATUSES.includes(status)) return json({ error: '状态不对' }, 400);
+    where.push('status = ?');
+    args.push(status);
+  }
+  if (p.get('tag')) {
+    const tag = normalizeTag(p.get('tag'));
+    if (!tag) return json({ error: '标签格式不对' }, 400);
+    where.push('tag = ?');
+    args.push(tag);
+  }
+  if (p.get('user')) {
+    where.push('login = ? COLLATE NOCASE');
+    args.push(p.get('user'));
+  }
+  const { results } = await env.DB.prepare(
+    `SELECT * FROM submissions${where.length ? ` WHERE ${where.join(' AND ')}` : ''} ORDER BY created_at DESC, id DESC LIMIT ${SUBMISSIONS_LIMIT}`,
+  )
+    .bind(...args)
+    .all();
+  return json({ items: results.map(submissionItem) }, 200, { 'Cache-Control': 'no-store' });
+}
+
+async function review(request, env, ctx, id, verdict) {
+  const user = await sessionUser(request, env);
+  if (!user) return json({ error: '请先用 GitHub 登录' }, 401);
+  if (!user.reviewer) return json({ error: '只有审核员能审核' }, 403);
+  const bad = crossSite(request);
+  if (bad) return bad;
+  const body = await request.json().catch(() => null);
+  const s = await env.DB.prepare('SELECT * FROM submissions WHERE id = ?').bind(id).first();
+  if (!s) return json({ error: '找不到这条修改' }, 404);
+  if (s.status !== 'pending') return json({ error: `这条修改${DONE[s.status]}`, item: submissionItem(s) }, 409);
+  if (verdict === 'reject') {
+    const row = await env.DB.prepare("UPDATE submissions SET status = 'rejected', reviewer = ?, reason = ?, reviewed_at = ? WHERE id = ? AND status = 'pending' RETURNING *")
+      .bind(user.login, cleanNote(body?.reason), Date.now(), id)
+      .first();
+    return row ? json({ item: submissionItem(row) }) : json({ error: '这条修改刚被处理过了' }, 409);
+  }
+  const r = await publish(request, env, ctx, {
+    tag: s.tag,
+    value: { label: s.label, aliases: s.aliases ? s.aliases.split('/') : [], note: s.note },
+    base: JSON.parse(s.base),
+    author: { id: s.user_id, login: s.login, avatar: s.avatar },
+    reviewer: user,
+  });
+  if (r.busy) return json({ error: BUSY }, 409);
+  if ('conflict' in r) return json({ error: '提交以后这个标签又被改过了：请驳回，让提交的人按现在的内容重新修改', entry: r.conflict }, 409);
+  const row = await env.DB.prepare("UPDATE submissions SET status = 'approved', reviewer = ?, sha = ?, reviewed_at = ? WHERE id = ? RETURNING *")
+    .bind(user.login, r.commit?.sha || '', Date.now(), id)
+    .first();
+  return json({ ...r, item: submissionItem(row) });
 }
 
 async function history(url, env) {
@@ -346,7 +489,7 @@ async function route(request, env, ctx) {
   const url = new URL(request.url);
   const { pathname } = url;
   const method = request.method;
-  if (method === 'GET' && (pathname === '/' || /^\/(list|edit)(\/|$)/.test(pathname))) return page(env, await sessionUser(request, env));
+  if (method === 'GET' && (pathname === '/' || /^\/(list|edit|review)(\/|$)/.test(pathname))) return page(env, await sessionUser(request, env));
   if (method === 'GET' && pathname === '/auth/login') return login(request, env, url);
   if (method === 'GET' && pathname === '/auth/callback') return callback(request, env, url);
   if (method === 'POST' && pathname === '/auth/logout') return new Response(null, { status: 204, headers: { 'Set-Cookie': cookie(SESSION_COOKIE, '', 0) } });
@@ -359,6 +502,9 @@ async function route(request, env, ctx) {
   }
   const m = pathname.match(/^\/api\/tags\/(.+)$/);
   if (method === 'PUT' && m) return editTag(request, env, ctx, m[1]);
+  if (method === 'GET' && pathname === '/api/submissions') return listSubmissions(url, env);
+  const s = pathname.match(/^\/api\/submissions\/(\d+)\/(approve|reject)$/);
+  if (method === 'POST' && s) return review(request, env, ctx, +s[1], s[2]);
   if (method === 'GET' && pathname === '/api/history') return history(url, env);
   if (method === 'GET' && pathname === '/api/tags') {
     return cached(request, ctx, '/api/tags', 3600, async () => {

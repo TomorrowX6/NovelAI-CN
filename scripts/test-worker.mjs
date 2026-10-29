@@ -137,6 +137,10 @@ check(
     `commitMessage：${JSON.stringify(commitMessage('add', 'blush', { label: '脸红', aliases: ['害羞'] }, '常见'))}`,
   );
   check(commitMessage('delete', 'smile', null, '') === '删除 smile', '删除的提交说明');
+  check(
+    commitMessage('update', 'smile', { label: '笑', aliases: [] }, '', { id: 7, login: 'Rev' }) === '修改 smile\n\n名称：笑\n\nReviewed-by: Rev <7+Rev@users.noreply.github.com>',
+    '审核员通过的提交说明注明审核员',
+  );
 }
 
 // ---- 假的 D1 和 GitHub ----
@@ -177,6 +181,8 @@ const env = {
   MIN_ACCOUNT_DAYS: '30',
   EDITS_PER_HOUR: '8',
   BLOCKED_USERS: 'spammer',
+  // Alice 的 id：她的修改直接提交，其他人的修改要她审核
+  REVIEWERS: '1001',
 };
 const ctx = { waitUntil() {} };
 const BASE = 'https://editor.example';
@@ -338,8 +344,9 @@ async function login(code, returnTo = '/edit/cat%20ears') {
   check(/HttpOnly/.test(start.headers.get('Set-Cookie')) && /SameSite=Lax/.test(start.headers.get('Set-Cookie')), '登录状态 Cookie 是 HttpOnly、SameSite=Lax');
   check(cb.status === 302 && cb.headers.get('Location') === '/edit/cat%20ears' && !!session, `回调后带着登录状态回到原页面：${cb.headers.get('Location')}`);
   const me = await call('GET', '/api/me', { cookie: session });
-  check(eq(me.data.user, { id: 1001, login: 'Alice', avatar: 'https://avatars.githubusercontent.com/u/1001?v=4' }), `登录后 /api/me：${JSON.stringify(me.data)}`);
+  check(eq(me.data.user, { id: 1001, login: 'Alice', avatar: 'https://avatars.githubusercontent.com/u/1001?v=4', reviewer: true }), `登录后 /api/me：${JSON.stringify(me.data)}`);
   check((await call('GET', '/', { cookie: session })).data.includes('"login":"Alice"'), '登录后页面配置里有用户');
+  check((await call('GET', '/review', { cookie: session })).data.includes('"reviewer":true'), '审核页的页面配置里标明审核员');
   const [payload, sig] = session.slice('nzh_session='.length).split('.');
   const forged = Buffer.from(JSON.stringify({ id: 1, login: 'admin', exp: Date.now() + 1e9 })).toString('base64url');
   check((await call('GET', '/api/me', { cookie: `nzh_session=${forged}.${sig}` })).data.user === null, '伪造的登录状态无效');
@@ -440,10 +447,86 @@ check(gh.puts.length === 1, '内容没变时没有新提交');
   );
   check((await call('GET', '/api/history?tag=')).status === 400, '编辑日志要指定标签');
 }
-// 每小时最多 EDITS_PER_HOUR 次
+// ---- 审核 ----
+gh.users.bobcode = { id: 1004, login: 'Bob', avatar_url: 'https://avatars.githubusercontent.com/u/1004?v=4', created_at: '2021-01-01T00:00:00Z' };
+gh.users.carolcode = { id: 1005, login: 'Carol', avatar_url: '', created_at: '2021-01-01T00:00:00Z' };
+const bob = (await login('bobcode')).session;
+const carol = (await login('carolcode')).session;
+const bobPut = (tag, body) => put(tag, body, { cookie: bob });
+const post = (p, body, cookie = session, opts = {}) => call('POST', p, { body, cookie, origin: BASE, ...opts });
+const submissions = async (q = '') => (await call('GET', `/api/submissions${q}`)).data.items;
+{
+  check((await call('GET', '/api/me', { cookie: bob })).data.user.reviewer === false, '不在 REVIEWERS 里的不是审核员');
+  env.REVIEWERS = 'bob';
+  check((await call('GET', '/api/me', { cookie: bob })).data.user.reviewer === true, 'REVIEWERS 也可以填用户名，不分大小写');
+  env.REVIEWERS = '1001';
+
+  const puts = gh.puts.length;
+  const file = gh.file;
+  const r = await bobPut('cat ears', { label: '猫耳', aliases: '喵耳', note: '改回来', base: { label: '猫耳朵', aliases: ['喵耳'] } });
+  check(r.status === 202 && r.data.action === 'pending' && r.data.submission.status === 'pending' && r.data.submission.action === 'update', `不是审核员的修改存为待审核：${JSON.stringify(r.data)}`);
+  check(gh.puts.length === puts && gh.file === file, '待审核的修改不提交到 GitHub');
+  check(eq(r.data.submission.base, { label: '猫耳朵', aliases: ['喵耳'] }) && r.data.submission.note === '改回来', '记下提交时的社区修订和修改说明');
+  check((await bobPut('cat ears', { label: '猫', base: null })).status === 409, '按旧内容提交的修改直接被拒绝');
+  const list = await submissions();
+  check(list.length === 1 && list[0].tag === 'cat ears' && list[0].login === 'Bob' && eq(list[0].aliases, ['喵耳']), `待审核列表：${JSON.stringify(list)}`);
+  check((await submissions('?tag=Cat_Ears')).length === 1 && (await submissions('?status=all&user=bob')).length === 1, '按标签、提交者筛选');
+  check((await call('GET', '/api/submissions?status=nope')).status === 400, '状态不对时返回 400');
+  check((await call('GET', '/api/history?tag=cat_ears')).data.items.length === 2, '待审核的修改不进编辑日志');
+
+  // 同一个人再改同一个标签：只留最新的一份
+  const again = await bobPut('cat ears', { label: '猫咪耳朵', aliases: '喵耳', base: { label: '猫耳朵', aliases: ['喵耳'] } });
+  const pending = await submissions();
+  check(again.status === 202 && pending.length === 1 && pending[0].label === '猫咪耳朵', '同一个人对同一个标签只留最新的一份待审核修改');
+  check((await submissions('?status=withdrawn'))[0]?.id === r.data.submission.id, '旧的那份标为已撤回');
+
+  const id = again.data.submission.id;
+  check((await post(`/api/submissions/${id}/approve`, {}, bob)).status === 403, '不是审核员不能审核');
+  check((await post(`/api/submissions/${id}/approve`, {}, null)).status === 401, '没登录不能审核');
+  check((await post(`/api/submissions/${id}/approve`, {}, session, { origin: 'https://evil.example' })).status === 403, '别的网站发来的审核被拒绝');
+  check((await post(`/api/submissions/${id}/approve`, '{}', session, { type: 'text/plain' })).status === 415, '非 JSON 的审核被拒绝');
+  check((await post('/api/submissions/9999/approve', {})).status === 404, '找不到的修改返回 404');
+  check(gh.puts.length === puts, '被拒绝的审核不会提交');
+
+  // 通过：以提交的人为作者提交，注明审核员
+  const ok = await post(`/api/submissions/${id}/approve`, {});
+  const last = gh.puts.at(-1);
+  check(ok.status === 200 && ok.data.action === 'update' && ok.data.item.status === 'approved' && ok.data.item.reviewer === 'Alice' && ok.data.item.sha === ok.data.commit.sha, `通过：${JSON.stringify(ok.data)}`);
+  check(eq(last.author, { name: 'Bob', email: '1004+Bob@users.noreply.github.com' }), '通过后以提交的人为作者提交');
+  check(last.message === '修改 cat ears\n\n名称：猫咪耳朵\n检索词：喵耳\n\nReviewed-by: Alice <1001+Alice@users.noreply.github.com>', `提交说明注明审核员：${JSON.stringify(last.message)}`);
+  check(gh.file.includes('cat ears\t猫咪耳朵\t喵耳') && !(await submissions()).length, '通过后文件里是新内容，待审核列表清空');
+  const h = (await call('GET', '/api/history?tag=cat_ears')).data.items[0];
+  check(h.login === 'Bob' && h.label === '猫咪耳朵' && h.sha === ok.data.commit.sha, '编辑日志记下提交的人');
+  check((await post(`/api/submissions/${id}/approve`, {})).status === 409 && (await post(`/api/submissions/${id}/reject`, {})).status === 409, '处理过的修改不能再审核');
+}
+// 两个人改同一个标签：通过一份以后，另一份是按旧内容改的，不能通过，只能驳回
+{
+  const base = { label: '脸红', aliases: [] };
+  const a = await bobPut('blush', { label: '脸红了', base });
+  const b = await put('blush', { label: '害羞脸红', base }, { cookie: carol });
+  check(a.status === 202 && b.status === 202 && (await submissions('?tag=blush')).length === 2, '不同的人可以同时提交同一个标签的修改');
+  check((await post(`/api/submissions/${a.data.submission.id}/approve`, {})).status === 200, '通过第一份');
+  const stale = await post(`/api/submissions/${b.data.submission.id}/approve`, {});
+  check(stale.status === 409 && stale.data.entry?.label === '脸红了' && gh.file.includes('blush\t脸红了'), `按旧内容改的修改不能通过：${JSON.stringify(stale.data)}`);
+  const rej = await post(`/api/submissions/${b.data.submission.id}/reject`, { reason: '已经有人改过了\n请重新修改' });
+  check(rej.status === 200 && rej.data.item.status === 'rejected' && rej.data.item.reason === '已经有人改过了 请重新修改' && rej.data.item.reviewer === 'Alice', `驳回：${JSON.stringify(rej.data)}`);
+  check((await submissions('?user=Carol&status=rejected')).length === 1, '提交的人能看到被驳回的修改和原因');
+}
+// 改回现在的内容就撤回；Danbooru 新标签通过后也带图片数
+{
+  check((await bobPut('mary sue (black souls)', { label: '玛丽苏' })).status === 202, '提交新标签的修改');
+  const w = await bobPut('mary sue (black souls)', { label: '玛丽苏（黑魂）' });
+  check(w.data.action === 'none' && w.data.withdrawn === true && !(await submissions('?tag=mary_sue_(black_souls)')).length, `改回现在的内容就撤回待审核的修改：${JSON.stringify(w.data)}`);
+  await call('POST', '/api/admin/tags', { body: { tags: [{ name: 'new_hero_(game)', category: 4, post_count: 99, created_at: '2026-10-01T00:00:00Z' }] }, headers: { Authorization: 'Bearer admin-token' } });
+  const n = await bobPut('new hero (game)', { label: '新英雄' });
+  check(n.data.submission.action === 'add', '新增的修改');
+  check((await post(`/api/submissions/${n.data.submission.id}/approve`, {})).data.action === 'add' && gh.file.includes('new hero (game)\t新英雄\t\t99'), '通过的 Danbooru 新标签记下图片数');
+}
+
+// 每小时最多提交 EDITS_PER_HOUR 次（审核员不限）
 {
   let last;
-  for (let i = 0; i < 8; i++) last = await put(`tag ${i}`, { label: `标签${i}` });
+  for (let i = 0; i < 8; i++) last = await bobPut(`tag ${i}`, { label: `标签${i}` });
   check(last.status === 429, `超过每小时的次数后被限制：${last.status}`);
 }
 
@@ -454,7 +537,7 @@ check(gh.puts.length === 1, '内容没变时没有新提交');
   const bulk = await call('POST', '/api/admin/tags', { body: { tags: many }, headers: { Authorization: 'Bearer admin-token' } });
   check(bulk.data.stored === 3000 && queries <= 5, `存 3000 个标签用了 ${queries} 条查询`);
   const tags = await call('GET', '/api/tags');
-  check(tags.data.tags.length === 3001 && tags.data.tags[0].tag === 'mary sue (black souls)' && tags.headers.get('Access-Control-Allow-Origin') === '*', `/api/tags：${tags.data.tags.length}`);
+  check(tags.data.tags.length === 3002 && tags.data.tags[0].tag === 'mary sue (black souls)' && tags.headers.get('Access-Control-Allow-Origin') === '*', `/api/tags：${tags.data.tags.length}`);
   check((await call('POST', '/api/admin/tags', { body: { tags: 'x' }, headers: { Authorization: 'Bearer admin-token' } })).status === 400, 'tags 不是数组时返回 400');
 }
 
