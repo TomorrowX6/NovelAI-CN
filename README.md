@@ -280,7 +280,7 @@ main 分支就是用户脚本自动更新的来源：脚本或词典有改动时
 - 单复数写错的（cat ear、freckle、high heel）查对应的标签：构建时给图片数 1000 以上的通用、元标签生成另一种单复数写法，约 8,800 个；人物、作品名不生成，shorts → short 这类会变成别的意思的也不生成。
 - 中文对照查中文前，会先整理别处抄来的写法：Stable Diffusion 的括号和权重（`(tag:1.2)`、`((tag))`）、中文输入法的全角括号逗号、零宽空格、粘在第一个负面标签前的 `Negative prompt:`、Danbooru 网页侧栏的 `? blue eyes 1.3m`、标注工具的 `long hair 0.845`、用句号或括号连写的几个标签、名和姓写反的角色名、「角色 from 作品」。
 - 不是标签的写法按规则说明：`artist:xxx` 显示「画师」，`year 2025` 显示「2025年画风」，采样器、种子等显示「生成参数（不是标签）」，`BREAK` 显示「分段（SD 语法）」。没有通用中文名的标签（3d、Love Live!）也算认得出来，不再暗着显示。
-- 拿 [NovelAI 语料](https://huggingface.co/datasets/la-ji/novelai-prompt-in-the-wild) 约 10 万条提示词按中文对照的实际切分统计：查得到中文的标签从 51.0% 升到 91.0%，另有 1.3% 用黄色提示可能拼错、1.9% 按词拼出意思。剩下的多是不带 `artist:` 的画师名、拼写错误、长句和少数人反复用的句子。
+- 拿 [NovelAI 语料](https://huggingface.co/datasets/la-ji/novelai-prompt-in-the-wild) 约 10 万条提示词按中文对照的实际切分统计：查得到中文的标签从 51.0% 升到 93.5%，另有 1.4% 用黄色提示可能拼错、1.2% 按词拼出意思。剩下的多是不带 `artist:` 的画师名、拼写错误、长句和少数人反复用的句子。
 
 </details>
 

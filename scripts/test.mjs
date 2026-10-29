@@ -108,7 +108,7 @@ for (const [tag, expect] of [['artist:wlop', '画师'], ['negative prompt', '负
     console.log(`✗ lookup(${tag}) = ${dict.lookup(tag)}，期望包含 ${expect}`);
   }
 }
-for (const [phrase, same] of [['ryuuguu rena from higurashi no naku koro ni', 'ryuuguu rena'], ['yuri from doki doki literature club', 'yuri (doki doki literature club)']]) {
+for (const [phrase, same] of [['ryuuguu rena from higurashi no naku koro ni', 'ryuuguu rena'], ['yuri from doki doki literature club', 'yuri (doki doki literature club)'], ['plaid skirt 103945', 'plaid skirt']]) {
   if (!dict.lookup(same) || dict.lookup(phrase) !== dict.lookup(same)) {
     failed++;
     console.log(`✗ lookup(${phrase}) = ${dict.lookup(phrase)}，期望和 ${same}（${dict.lookup(same)}）相同`);
