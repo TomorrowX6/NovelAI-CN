@@ -216,7 +216,9 @@ function createZhDict(raw, t2s = '') {
       if (k !== undefined) return labels[k];
     }
     for (const [re, label] of SPECIAL_TAGS) if (re.test(t)) return label;
-    return null;
+    // 从 Danbooru 标签列表连着图片数一起复制来的（plaid skirt 103945）
+    const counted = t.match(/^(.+?) \d{4,}$/);
+    return counted ? lookup(counted[1]) : null;
   }
 
   // 社区修订（src/community.js）：换掉显示译名、追加检索词，原来的译名仍可检索。
