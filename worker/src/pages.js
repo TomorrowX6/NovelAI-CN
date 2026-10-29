@@ -39,7 +39,7 @@ svg.icon { width: 24px; height: 24px; fill: currentColor; flex: none; }
 
 /* 顶栏 */
 .toolbar { position: sticky; top: 0; z-index: 10; height: 64px; display: flex; align-items: center; gap: 8px; padding: 0 16px; background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow); }
-.toolbar .title { color: inherit; text-decoration: none; font-size: 20px; font-weight: 500; letter-spacing: .0125em; padding: 0 16px; line-height: 36px; border-radius: 4px; white-space: nowrap; }
+.toolbar .title { min-width: 0; overflow: hidden; text-overflow: ellipsis; color: inherit; text-decoration: none; font-size: 20px; font-weight: 500; letter-spacing: .0125em; padding: 0 16px; line-height: 36px; border-radius: 4px; white-space: nowrap; }
 .toolbar .title:hover { background: rgba(255,255,255,.08); }
 .spacer { flex: 1 1 auto; }
 .icon-btn { width: 40px; height: 40px; border: 0; border-radius: 50%; padding: 8px; display: inline-flex; align-items: center; justify-content: center; background: none; color: inherit; cursor: pointer; text-decoration: none; }
@@ -58,6 +58,8 @@ svg.icon { width: 24px; height: 24px; fill: currentColor; flex: none; }
 .menu svg.icon { width: 20px; height: 20px; color: var(--accent-dark); }
 .menu span { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .menu .menu-account { margin-bottom: 6px; padding-bottom: 14px; border-bottom: 1px solid var(--line); border-radius: 8px 8px 0 0; font-weight: 500; }
+/* 手机上没有右上角的 GitHub 角标，仓库链接放进菜单 */
+.menu .repo-link { display: none; }
 .github-corner { position: absolute; top: 0; right: 0; color: var(--on-accent); }
 .github-corner svg { display: block; width: 64px; height: 64px; fill: #151513; }
 .github-corner:hover .octo-arm { animation: octocat-wave 560ms ease-in-out; }
@@ -185,14 +187,20 @@ td.state { min-width: 180px; }
   .paginator .range { margin: 0 4px; }
   .edit-body { grid-template-columns: 1fr; padding: 8px 16px 16px; }
   .banner { margin: 0 16px 8px; }
+  .toolbar { padding: 0 12px 0 8px; }
   .toolbar .title { padding: 0 4px; font-size: 18px; }
-  .user { margin-right: 48px; }
-  .user-btn .name { display: none; }
+  .user { margin-right: 0; }
+  .github-corner { display: none; }
+  .menu .repo-link { display: flex; }
+  /* 待审核和头像只留图标，待审核的数目标在图标右上角 */
+  .review-link .name, .account .name { display: none; }
+  .review-link, .account { position: relative; width: 40px; padding: 0; justify-content: center; }
+  .review-link .count { position: absolute; top: -2px; right: -4px; min-width: 18px; padding: 0 4px; font-size: 11px; line-height: 18px; box-shadow: 0 0 0 2px var(--accent); }
+  .account img { width: 32px; height: 32px; }
   /* 审核页每条修改排成一张卡片，按钮不用横向滚动才看得到 */
   #view-review thead { display: none; }
   #view-review tr { display: block; padding: 12px 16px; border-bottom: 1px solid var(--line); }
   #view-review td { display: block; min-width: 0; padding: 4px 0; border: 0; }
-  .github-corner svg { width: 48px; height: 48px; }
 }
 `;
 
@@ -202,6 +210,7 @@ const ICONS = {
   search: 'M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z',
   add_circle: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z',
   edit: 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z',
+  code: 'M9.4 16.6 4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0 4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z',
   logout: 'M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.59L17 17l5-5-5-5zM4 5h8V3H4C2.9 3 2 3.9 2 5v14c0 1.1.9 2 2 2h8v-2H4V5z',
   help: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z',
   chevron_left: 'M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z',
@@ -433,19 +442,20 @@ function renderUser() {
       el('a', { class: 'user-btn review-link', href: '/review', 'data-link': true, title: '审核社区提交的修改', 'aria-label': '待审核 ' + n }, [
         icon('fact_check'),
         el('span', { class: 'name', text: '待审核' }),
-        el('span', { class: 'count', text: n >= 200 ? '200+' : String(n) }),
+        n ? el('span', { class: 'count', text: n >= 200 ? '200+' : String(n) }) : null,
       ]),
     );
   }
   const menu = el('div', { class: 'menu', hidden: true }, [
     el('a', { class: 'menu-account', href: 'https://github.com/' + cfg.user.login, target: '_blank', rel: 'noopener' }, [icon('github'), el('span', { text: '@' + cfg.user.login })]),
     el('a', { href: '/review?status=all&user_id=' + cfg.user.id, 'data-link': true }, [icon('edit'), el('span', { text: '我的提交' })]),
+    el('a', { class: 'repo-link', href: ghUrl(''), target: '_blank', rel: 'noopener' }, [icon('code'), el('span', { text: 'GitHub 仓库' })]),
     el('button', {
       type: 'button',
       onclick: () => fetch('/auth/logout', { method: 'POST' }).then(() => location.reload()),
     }, [icon('logout'), el('span', { text: '退出' })]),
   ]);
-  const btn = el('button', { class: 'user-btn', type: 'button', 'aria-haspopup': 'menu', onclick: () => (menu.hidden = !menu.hidden) }, [
+  const btn = el('button', { class: 'user-btn account', type: 'button', 'aria-haspopup': 'menu', 'aria-label': cfg.user.login, onclick: () => (menu.hidden = !menu.hidden) }, [
     cfg.user.avatar ? el('img', { src: avatarUrl(cfg.user.avatar, 56), alt: '' }) : icon('github'),
     el('span', { class: 'name', text: cfg.user.login }),
   ]);
@@ -953,9 +963,6 @@ async function renderReview() {
   const chip = (text, clear) => chips.append(el('span', { class: 'chip' }, [text, el('button', { type: 'button', 'aria-label': '取消提交者筛选', onclick: () => navigate(reviewHref(Object.assign(s, clear))) }, [icon('cancel')])]));
   if (s.user) chip('提交者：' + s.user, { user: '' });
   if (s.userId) chip(cfg.user && String(cfg.user.id) === s.userId ? '我的提交' : '提交者 id：' + s.userId, { userId: '' });
-  $('review-hint').textContent = isReviewer()
-    ? '通过后修改以提交者的名义提交到仓库，扩展几小时内用上；驳回时可以写上原因，提交的人在「我的提交」里能看到。'
-    : '社区提交的修改要审核员通过后才会提交到仓库，扩展随后用上。';
   const body = $('review-rows');
   body.textContent = '';
   const msg = $('review-msg');
@@ -1176,7 +1183,6 @@ export function editorPage(env, nonce, user) {
         <select id="review-status"><option value="pending">待审核</option><option value="rejected">已驳回</option><option value="approved">已通过</option><option value="withdrawn">已撤回</option><option value="all">全部</option></select>
       </label>
     </header>
-    <p id="review-hint" class="banner"></p>
     <section class="table-wrapper">
       <table>
         <thead><tr><th>原始标签</th><th>修改</th><th>提交者</th><th>状态</th></tr></thead>
