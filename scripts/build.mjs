@@ -446,7 +446,14 @@ async function main() {
 
   // 每行: 标签 \t 使用次数 \t 显示译名 \t 检索词(|分隔) \t 旧标签名和英文别名(|分隔，只用于按英文查中文)
   const columns = (r) => [displayTag(r.tag), r.count, r.label, r.names.join('|'), r.oldNames.map(displayTag).join('|')];
-  const tsv = rows.map((r) => columns(r).join('\t').replace(/\t+$/, '')).join('\n');
+  // 运行时的词典不带类别，只在人物、作品名的使用次数前加个 x（x143963）：中文对照按词拼译名时跳过它们（neon 是人物「尼恩」）
+  const tsv = rows
+    .map((r) => {
+      const c = columns(r);
+      if (r.category === 3 || r.category === 4) c[1] = 'x' + c[1];
+      return c.join('\t').replace(/\t+$/, '');
+    })
+    .join('\n');
   // dist/zh-tags.tsv 给编辑器（worker/）用，多一列 Danbooru 类别（0 通用 / 3 作品 / 4 角色 / 5 元标签）；打进脚本的那份不带
   const webTsv = rows.map((r) => [...columns(r), r.category].join('\t')).join('\n');
 

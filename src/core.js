@@ -132,11 +132,15 @@ function createZhDict(raw, t2s = '') {
   const byTag = new Map();
   const aliases = new Map();
   const typos = new Map();
+  // 人物、作品名（打包进脚本的词典在使用次数前加 x；dist/zh-tags.tsv 里是第 6 列的类别 3、4）：按词拼译名时不用
+  const proper = [];
 
   for (const line of raw.split('\n')) {
     if (!line) continue;
-    const [tag, count, label, extra, old] = line.split('\t');
+    const [tag, rawCount, label, extra, old, kind] = line.split('\t');
+    const count = rawCount[0] === 'x' ? rawCount.slice(1) : rawCount;
     byTag.set(tag, tags.length);
+    proper.push(count !== rawCount || kind === '3' || kind === '4');
     // 「~」开头的是常见的拼写错误（data/zh-words.csv 的 ?标签），不当别名
     if (old) {
       for (const o of old.split('|')) {
@@ -224,6 +228,8 @@ function createZhDict(raw, t2s = '') {
       i = tags.length;
       byTag.set(tag, i);
       tags.push(tag);
+      // 社区新加的标签不知道类别，多半是人物，不拿来拼译名
+      proper.push(true);
       counts.push(count);
       labels.push(label);
       keys.push(SEP);
@@ -244,10 +250,49 @@ function createZhDict(raw, t2s = '') {
     return i === undefined ? null : { tag: tags[i], zh: labels[i] };
   }
 
+  // 词典里没有的词组按词拼一个译名：panda plushie → 熊猫·毛绒动物玩具，edge of bed → 床的边缘。
+  // 只用通用标签和常用词，人物、作品名不拼；每一段都要查得到、译名里有汉字，最多拼三段
+  const GLOSS_PREP = {
+    of: (a, b) => `${b}的${a}`,
+    with: (a, b) => `带${b}的${a}`,
+    on: (a, b) => `${b}上的${a}`,
+    in: (a, b) => `${b}里的${a}`,
+  };
+  function glossPart(words) {
+    const i = indexOf(words.join(' '));
+    if (i === undefined || proper[i]) return null;
+    const zh = labels[i].split('/')[0].replace(/[（(][^（）()]*[）)]$/, '').replace(/^一个/, '');
+    return HAN_RE.test(zh) ? zh : null;
+  }
+  // 从右往左切：先试最长的结尾，前面剩下的也要都切得开
+  function glossWords(words) {
+    if (!words.length) return [];
+    for (let i = 0; i < words.length; i++) {
+      const head = glossPart(words.slice(i));
+      if (!head) continue;
+      const rest = glossWords(words.slice(0, i));
+      if (rest) return [...rest, head];
+    }
+    return null;
+  }
+  function gloss(tag) {
+    const words = tag.trim().toLowerCase().replace(/_/g, ' ').split(/\s+/).filter(Boolean);
+    if (words.length < 2 || words.length > 4) return null;
+    const p = words.findIndex((w, i) => i > 0 && i < words.length - 1 && GLOSS_PREP[w]);
+    if (p > 0) {
+      const a = glossWords(words.slice(0, p));
+      const b = glossWords(words.slice(p + 1));
+      return a && b && a.length + b.length <= 3 ? GLOSS_PREP[words[p]](a.join(''), b.join('')) : null;
+    }
+    const parts = glossWords(words);
+    return parts && parts.length > 1 && parts.length <= 3 ? parts.join('·') : null;
+  }
+
   return {
     search,
     lookup,
     typo,
+    gloss,
     amend,
     get size() {
       return tags.length;

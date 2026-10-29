@@ -1,6 +1,7 @@
 // ---- 标签中文对照 ----
 // 每个提示词框（基础提示词、负面提示词、角色提示词）的标题栏多一个「中」按钮。打开后在框下面列出框里的每个标签和它的中文，
-// 没有中文的标签暗着显示，常见的拼写错误（worth quality）用黄色显示正确写法的中文；点一项就在提示词里选中这个标签。开关对所有提示词框生效，记在 localStorage 里，
+// 没有中文的标签暗着显示，常见的拼写错误（worth quality）用黄色显示正确写法的中文，
+// 词典里没有的词组（panda plushie）按词拼出意思、用「·」隔开；点一项就在提示词里选中这个标签。开关对所有提示词框生效，记在 localStorage 里，
 // 扩展面板的「中文对照」开关改的是同一个值（extension/bridge.js），改了当场生效、不刷新页面。
 // 只在框外面加元素，不改编辑器（ProseMirror）里的内容。
 
@@ -22,6 +23,7 @@ const CMP_CSS = `
 .${CMP_PANEL} .nzh-cmp-en{max-width:100%;overflow:hidden;font-size:.7rem;line-height:1.2;white-space:nowrap;text-overflow:ellipsis;opacity:.6}
 .${CMP_PANEL} .nzh-cmp-none{opacity:.55}
 .${CMP_PANEL} .nzh-cmp-typo .nzh-cmp-zh{color:#f5c518}
+.${CMP_PANEL} .nzh-cmp-gloss .nzh-cmp-zh{opacity:.8}
 `;
 
 function readComparePref() {
@@ -116,6 +118,7 @@ function renderComparePanel(panel, editor) {
       seen.add(id);
       const zh = getDict().lookup(t.tag);
       let typo;
+      let gloss;
       const item = document.createElement('button');
       item.type = 'button';
       item.tabIndex = -1;
@@ -138,6 +141,14 @@ function renderComparePanel(panel, editor) {
         label.textContent = typo.zh;
         item.className = 'nzh-cmp-typo';
         item.title = `${t.text}\n可能拼错了，应为 ${typo.tag}`;
+        item.append(label, en);
+      } else if ((gloss = getDict().gloss(t.tag))) {
+        // 词典里没有的词组按词拼出来的意思，用「·」隔开
+        const label = document.createElement('span');
+        label.className = 'nzh-cmp-zh';
+        label.textContent = gloss;
+        item.className = 'nzh-cmp-gloss';
+        item.title = `${t.text}\n按词拼出来的意思，仅供参考`;
         item.append(label, en);
       } else {
         item.className = 'nzh-cmp-none';
