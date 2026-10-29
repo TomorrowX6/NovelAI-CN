@@ -423,3 +423,7 @@ Q版	chibi	1
 米奇	mickey mouse	3
 赤红	red (pokemon)	1
 小红帽	little red riding hood (fairy tale)	1
+# 常用英文词（data/zh-words.csv）排在标签后面，不能抢走标签原有的检索词
+怀旧	retro artstyle	1
+广角镜头	wide shot	1
+诱惑	come hither	1

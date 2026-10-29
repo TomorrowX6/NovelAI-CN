@@ -1602,7 +1602,7 @@ split-color hair	30831	左右分色发	阴阳头|分色头发	split hair colors	
 bespectacled	30779	戴眼镜	戴眼镜的		0
 gagged	30726	被堵嘴	被塞住嘴(堵嘴)|被塞住嘴|堵嘴|被塞口的		0
 door	30720	门		doors	0
-painting (medium)	30714	颜料绘画	传统绘图工具	canvas (medium)|paint (medium)	5
+painting (medium)	30714	颜料绘画	绘画|传统绘图工具	canvas (medium)|paint (medium)	5
 pov crotch	30692	第一人称胯部视角	看向裤裆的视角		0
 frilled bow	30655	荷叶边蝴蝶结	花边蝴蝶结		0
 goatee	30621	山羊胡	山羊须		0
@@ -1873,7 +1873,7 @@ striped necktie	24514	条纹领带		striped tie	0
 bad tumblr id	24507	错误Tumblr ID			5
 pink shoes	24502	粉色鞋子			0
 futa with female	24445	扶她与女性	扶她和女性	futa on female	0
-retro artstyle	24406	复古画风	守旧派画风|赛璐璐|复古艺术	oldschool|retro	0
+retro artstyle	24406	复古画风	复古|怀旧|守旧派画风|赛璐璐|复古艺术	oldschool|retro	0
 voiceroid	24401	VOICEROID			3
 white bowtie	24387	白色领结			0
 squiggle	24367	烦躁符号	波浪线|波线|表不满和发牢骚的符号		0
@@ -1913,7 +1913,7 @@ bikini armor	23611	比基尼铠甲	比基尼盔甲	chainmail bikini	0
 mega man (series)	23586	洛克人		rockman	3
 layered dress	23574	层叠连衣裙	多层连衣裙|分层连衣裙		0
 holding plate	23547	持盘子	端着盘子|端着碟子		0
-wide shot	23546	远景镜头	全景镜头|大全景镜头		0
+wide shot	23546	远景镜头	全景镜头|大全景镜头|广角镜头		0
 reading	23540	阅读	読书		0
 purple bowtie	23418	紫色领结			0
 frilled hairband	23380	荷叶边发箍	花边发带		0
@@ -2840,7 +2840,7 @@ copyright logo	13677	版权标志			0
 pink skin	13677	粉色皮肤			0
 pink choker	13672	粉色颈圈			0
 vertical-striped shirt	13665	竖条纹衬衫		vertical-striped blouse	0
-flat color	13659	平涂上色	平涂风格	flat colors	0
+flat color	13659	平涂上色	平涂|平涂风格	flat colors	0
 checkered background	13655	棋盘格背景	方格背景	/checkbg|/checkeredbg|/ckbg	0
 robot joints	13655	机器人关节	机械关节		0
 resident evil	13643	生化危机	恶灵古堡(港台)	biohazard|residentevil	3
@@ -2873,7 +2873,7 @@ single wing	13484	单翼	片翼	one wing	0
 foreskin	13483	包皮	仮性包茎	uncircumcised	0
 floral print kimono	13479	花卉印花和服			0
 inkling girl	13476	乌贼女孩	乌贼少女|墨鱼娘|墨鱼少女		4
-graphite (medium)	13466	铅笔	铅笔画(中号)	graphite|pencil (medium)|pencil sketch	5
+graphite (medium)	13466	铅笔	铅笔画|铅笔画(中号)	graphite|pencil (medium)|pencil sketch	5
 trait connection	13444	属性关联	性格相仿|特征相仿|经历相仿|角色特征有关联		0
 coffee	13429	咖啡	珈琲		0
 see-through cleavage	13423	透视乳沟		transparent cleavage	0
@@ -3634,7 +3634,7 @@ multiple earrings	9504	多个耳环			0
 scathach (fate)	9483	斯卡哈（Fate系列）	斯卡哈|师匠	scathach (fate/grand order)|scathach (fate) (all)	4
 chess piece	9473	棋子	棋子(国际象棋)		0
 single hair streak	9467	单缕挑染			0
-painting (object)	9463	画作	绘中绘		0
+painting (object)	9463	画作	绘画|绘中绘		0
 yandere	9454	病娇	养得累		0
 holding strap	9452	抓着肩带	手拉着吊带|手持物品固定带		0
 smile precure!	9452	Smile光之美少女	smile光之美少女!(官方写法)|微笑光之美少女(民间)|smile 光之美少女！	glitter force|smile precure|smile pretty cure|smile pretty cure!	3
@@ -3733,7 +3733,7 @@ wine bottle	9118	葡萄酒瓶	酒瓶		0
 nintendo switch	9116	任天堂Switch		nintendoswitch	0
 arm rest	9113	手臂休息	手臂靠着某物休息		0
 open door	9110	开着的门	开门		0
-muted colors	9108	暗淡色彩		muted color	0
+muted colors	9108	暗淡色彩	哑光	muted color	0
 suggestive fluid	9101	暗示性液体	暗示性的白色液体|可疑的白色液体	ambiguous white liquid	0
 boat	9094	小船	船		0
 chun-li	9087	春丽	春丽(街头霸王)	chunli|chun li	4
@@ -4349,7 +4349,7 @@ thick eyelashes	7213	浓密睫毛			0
 animal ear headwear	7212	动物耳朵头饰			0
 white mask	7212	白色面具			0
 >:(	7210	生气皱眉	皱眉生气		0
-gloom (expression)	7210	消沉(表情)	消沉	gloomy	0
+gloom (expression)	7210	消沉(表情)	消沉|忧郁	gloomy	0
 sideless outfit	7210	侧镂空装扮	无侧服装|侧面没有布料的服饰		0
 otomune kozue	7208	乙宗梢	梢		4
 purple streaks	7204	紫色挑染	挑染紫发		0
@@ -4645,7 +4645,7 @@ black hanfu	6578	黑色汉服			0
 nude cover	6578	裸体遮挡	裸体封面		0
 flame-tipped tail	6577	尾尖火焰	火焰条纹的尾巴	fire-tipped tail|flaming tip tail|tail-tip fire|flame tipped tail	0
 frying pan	6577	平底锅		cooking pan|skillet	0
-surreal	6575	超现实主义	怪诞的		0
+surreal	6575	超现实主义	超现实|怪诞的		0
 scope	6573	瞄准镜		sniper scope	0
 soccer uniform	6570	足球服			0
 fullmetal alchemist	6569	钢之炼金术师	钢之炼金术士	fma|full metal alchemist|hagane no renkinjutsushi|/fma	3
@@ -5014,7 +5014,7 @@ dokidoki! precure	5865	心跳！光之美少女	dokidoki!光之美少女|心跳�
 uraraka ochaco	5858	丽日御茶子	御茶子	uraraka ochako|uravity (boku no hero academia)|ochako uraraka	4
 shovel	5857	铲子			0
 hands on own head	5856	双手放在自己头上	双手放在自己的头上		0
-confused	5855	困惑	疑惑		0
+confused	5855	困惑	混乱|疑惑		0
 mobile suit gundam	5852	机动战士高达	哀·戦士编	kidou senshi gundam|mobilesuitgundam	3
 anchovy (girls und panzer)	5851	安丘比（少女与战车）	安丘比|安斋千代美	anchovy|anzai chiyomi	4
 holding condom	5850	手持避孕套	拿着避孕套		0
@@ -5356,7 +5356,7 @@ shiranui flare	5271	不知火芙蕾雅			4
 locker room	5270	更衣室	储物柜更衣室		0
 sticker on face	5265	脸上贴纸	贴在脸上	sticker on cheek|cheek ornament|cheek sticker	0
 fish hair ornament	5263	鱼形发饰			0
-come hither	5259	勾人的目光	勾引|色诱|诱受		0
+come hither	5259	勾人的目光	勾引|色诱|诱惑|诱受		0
 purple umbrella	5258	紫色伞	紫色雨伞		0
 flight deck	5257	飞行甲板			0
 ibuki (blue archive)	5257	丹花伊吹（蔚蓝档案）	丹花伊吹|伊吹	tanga ibuki|ibuki	4
@@ -7468,7 +7468,7 @@ half mask	3068	半脸面具	半个面具|半面罩		0
 sideless kimono	3068	侧镂空和服			0
 oversized wings	3067	超大翅膀	大翅膀	large wings	0
 two-tone horns	3066	双色角			0
-painting (action)	3065	作画	绘画(动作)|画画	painting	0
+painting (action)	3065	作画	绘画(动作)|绘画|画画	painting	0
 tissue	3065	纸巾	手纸巾	tissues	0
 honkai gakuen	3064	崩坏学园		benghuai xueyuan|guns girl z|guns girlz|houkai gakuen	3
 shiratsuyu (kancolle)	3064	白露（舰队Collection）	白露	shiratsuyu (kantai collection)	4
@@ -8856,7 +8856,7 @@ just the tip	2313	只插入龟头	龟头插入		0
 perversion of canon	2313	原作情节色情化			0
 anby demara	2310	安比·德玛拉	安比	anby|anbydemara	4
 clitoral piercing	2310	阴蒂穿孔	阴核环	clitoris piercing|clit piercing	0
-adventurer (ff11)	2309	冒险者（最终幻想11）		avatar (ff11)	4
+adventurer (ff11)	2309	冒险者（最终幻想11）	冒险者	avatar (ff11)	4
 covering another's mouth	2309	捂住他人的嘴	掩盖他人的嘴		0
 white bonnet	2309	白色软帽			0
 hino rei	2308	火野丽			4
@@ -10410,7 +10410,7 @@ cissia (zenless zone zero)	1793	希希芙（绝区零）	希希芙	cissia	4
 natsume rin	1793	枣铃	夏目凛		4
 double horizontal stripe	1792	双水平条纹			0
 sukoya kana	1792	健屋花那			4
-mew (pokemon)	1791	梦幻（宝可梦）		mew	4
+mew (pokemon)	1791	梦幻（宝可梦）	梦幻	mew	4
 on innertube	1791	坐在游泳圈上			0
 storefront	1791	店面	店先|店前		0
 striped coat	1791	条纹大衣			0
@@ -14334,7 +14334,7 @@ hidden eyes	1035	隐藏的眼睛			0
 kohinata miku	1035	小日向未来（战姬绝唱）	小日向未来|未来		4
 serperior	1035	君主蛇		jalorda	4
 zabaniyya (housamo)	1035	扎巴尼雅（东京放课后召唤师）	扎巴尼雅|扎巴尼亚	zabaniya (housamo)|zabaniya (tokyo houkago summoners)|zabaniya	4
-adventurer (ff14)	1034	冒险者（最终幻想14）	光之战士	meteor (ff14)	4
+adventurer (ff14)	1034	冒险者（最终幻想14）	冒险者|光之战士	meteor (ff14)	4
 beretta 1301	1034	伯莱塔1301霰弹枪			0
 leona kingscholar	1034	雷欧娜（扭曲仙境）	雷欧娜|雷欧娜·金斯卡尔		4
 mortarboard	1034	学士方帽	四方帽|学士帽	graduate cap|graduation cap	0
@@ -15927,7 +15927,7 @@ fingering from behind	860	从后方指交			0
 gate - jieitai ka no chi nite kaku tatakaeri	860	GATE奇幻自卫队	gate 自卫队于彼地战斗，斯世如斯		3
 hayakawa tazuna	860	骏川手纲			4
 luvdisc	860	爱心鱼		lovecus	4
-luxury (idolmaster)	860	奢华（偶像大师）			0
+luxury (idolmaster)	860	奢华（偶像大师）	奢华		0
 machamp	860	怪力（宝可梦）	怪力		4
 paw print soles	860	爪印鞋底	爪印足案		0
 pointing melee weapon	860	持近战武器指向		pointing weapon	0
@@ -16316,7 +16316,7 @@ yamada elf	828	山田埃尔芙（埃罗芒阿老师）	山田埃尔芙|山田妖
 yao guang (honkai: star rail)	828	爻光（崩坏：星穹铁道）	爻光		4
 can't be this cute	827	俺妹元素			0
 chi.: chikyuu no undou ni tsuite	827	地。关于地球的运动	关于地球的运动|地。-关于地球的运动-	orb: on the movements of the earth	3
-frustrated	827	沮丧	沮丧的|不満		0
+frustrated	827	沮丧	沮丧的|不満|挫败		0
 garland (decoration)	827	花环（装饰）			0
 jacket over shoulder	827	夹克甩在肩上	夹克在肩膀上		0
 russia	827	俄罗斯			0
@@ -25574,7 +25574,7 @@ asutora-chan	371	Asutora酱			4
 backward-facing horns	371	向后弯的角		backward facing horns|back-facing horns	0
 barok van zieks	371	巴洛克·班吉克斯			4
 belmond banderas	371	贝尔蒙德·班德拉斯			4
-bird's eye view	371	鸟瞰视角			0
+bird's eye view	371	鸟瞰视角	鸟瞰		0
 blade runner (series)	371	银翼杀手系列		blade runner	3
 buying condoms	371	购买避孕套			0
 chevrolet	371	雪佛兰			0
@@ -32271,7 +32271,7 @@ centaureissi (girls' frontline 2)	245	桑朵莱希（少女前线2：追放）	�
 chitose yuma	245	千岁由麻			4
 chopstick rest	245	筷架	筷托|筷枕|箸枕		0
 classic revenant	245	经典亡魂			4
-crusader (ragnarok online)	245	十字军（仙境传说）			4
+crusader (ragnarok online)	245	十字军（仙境传说）	十字军		4
 crushed can	245	压碎的罐			0
 cult of the lamb	245	咩咩启示录			3
 dashing	245	冲刺			0
@@ -37928,7 +37928,7 @@ kiznaiver	182	羁绊者			3
 kurageu roa	182	海月云Roa			4
 kusunoki yukimura	182	楠幸村			4
 laevatein (fire emblem)	182	蕾瓦汀（火焰纹章）	蕾瓦汀(火焰之纹章)|蕾瓦汀	laevateinn (fire emblem heroes)	4
-le triomphant (azur lane)	182	凯旋（碧蓝航线）	le_triomphant(碧蓝航线)		4
+le triomphant (azur lane)	182	凯旋（碧蓝航线）	凯旋|le_triomphant(碧蓝航线)		4
 leysritt (fate)	182	莉洁莉特（Fate系列）	莉洁莉特	leysritt	4
 lineage 2	182	天堂2	天堂ii	lineage2	3
 long torso	182	长躯干			0
@@ -38382,7 +38382,7 @@ cioccolata	178	乔可拉特			4
 cleo everlastin	178	克蕾奥·埃弗拉斯汀			4
 cow girl (goblin slayer!)	178	牧牛妹（哥布林杀手）	牧牛妹		4
 creature on lap	178	腿上的生物			0
-crusader (tank)	178	十字军（坦克）			0
+crusader (tank)	178	十字军（坦克）	十字军		0
 ear focus	178	耳朵特写	耳朵重点	ears focus|ear	0
 esmeralda sinza	178	埃斯梅拉达·辛扎		esmeralda (fire emblem)	4
 extended upskirt	178	深度裙底走光			0
@@ -41476,7 +41476,7 @@ bemelle	154	贝梅尔			4
 brown bonnet	154	棕色软帽			0
 burger malfunction	154	汉堡散架	汉堡故障		0
 cha hae-in	154	车海仁	向坂雫|车慧仁		4
-clutter	154	杂乱			0
+clutter	154	杂乱	混乱		0
 company of heroes	154	英雄连	英雄连队		3
 coral island	154	珊瑚岛			3
 cornea (asteroid ill)	154	科妮亚（Asteroid Ill）	科妮亚	cornea (asuteroid)	4
@@ -42653,7 +42653,7 @@ todo erena	147	统堂英玲奈		toudou erena	4
 tokime (fuuto tantei)	147	时芽（风都侦探）	时芽		4
 ursula (takunomi)	147	乌尔斯拉（宅饮）	乌尔斯拉		4
 uzuki kou (4th costume)	147	卯月光（第四套服饰）			4
-valiant (kancolle)	147	英勇（舰队Collection）			4
+valiant (kancolle)	147	英勇（舰队Collection）	英勇		4
 venom (guilty gear)	147	维诺姆（罪恶装备）	维诺姆		4
 vigna (casual vacation) (arknights)	147	红豆（休闲假日）（明日方舟）			4
 wa2000 (ballroom interlude) (girls' frontline)	147	WA2000（舞会间奏）（少女前线）			4
@@ -46737,7 +46737,7 @@ maliketh the black blade	124	黑剑玛利喀斯			4
 marnie (omoide no marnie)	124	玛妮（记忆中的玛妮）	玛妮		4
 mazepynka	124	马泽宾卡帽		ukrainian military hat|mazepinka	0
 mercedes von martritz (summer)	124	梅尔塞德斯·冯·马尔特里茨（夏日）			4
-mercenary (zero kara hajimeru mahou no sho)	124	佣兵（从零开始的魔法书）			4
+mercenary (zero kara hajimeru mahou no sho)	124	佣兵（从零开始的魔法书）	佣兵		4
 metabee	124	麦塔比			4
 metal band text	124	金属乐队文字			0
 metal gear (robot)	124	合金装备（机器人）			0
@@ -56211,7 +56211,7 @@ conquest (invincible)	88	征服（无敌少侠）	征服		4
 cow print leotard	88	奶牛纹紧身衣			0
 crescent pendant	88	新月吊坠			0
 crucifix	88	耶稣受难像			0
-crusader (darkest dungeon)	88	十字军（暗黑地牢）		reynauld (darkest dungeon)	4
+crusader (darkest dungeon)	88	十字军（暗黑地牢）	十字军	reynauld (darkest dungeon)	4
 cu chulainn (fate/extra)	88	库·丘林（Fate/EXTRA）	库·丘林		4
 dib (invader zim)	88	迪布（Invader Zim）	迪布		4
 dino buckler	88	恐龙战队变身腰带		power morpher	0
@@ -67587,7 +67587,7 @@ unreal engine (medium)	63	Unreal Engine		unreal (medium)	5
 unworn veil	63	未戴的头纱	未戴的面纱		0
 usas-12 (girls' frontline)	63	USAS-12（少女前线）		usas-12|usas-12 (girls frontline)	4
 vajra (summer) (granblue fantasy)	63	瓦吉拉（泳装）（碧蓝幻想）	瓦吉拉		4
-valiant (azur lane)	63	英勇（碧蓝航线）			4
+valiant (azur lane)	63	英勇（碧蓝航线）	英勇		4
 vegetable juice	63	蔬菜汁			0
 versen	63	VERSEⁿ		verse n	3
 viewtiful joe (character)	63	乔（变身超人Joe）	乔		4
@@ -77916,7 +77916,7 @@ fine details	0	细节精致			0
 finger gun to head	0	手指枪对准头部			0
 flat shading	0	平涂			0
 foreboding	0	不祥预感			0
-fragile	0	易碎			0
+fragile	0	易碎	脆弱		0
 frantic	0	狂乱			0
 full body shot	0	全身镜头			0
 full shot	0	全景			0
@@ -78025,7 +78025,7 @@ moody lighting	0	氛围光		atmospheric lighting	0
 moonlit	0	月光照耀			0
 mournful	0	哀伤			0
 muddy	0	沾满泥			0
-muted	0	低饱和			0
+muted	0	低饱和	柔和		0
 muted tones	0	柔和色调			0
 mysterious	0	神秘		mystical	0
 natural lighting	0	自然光		natural light	0

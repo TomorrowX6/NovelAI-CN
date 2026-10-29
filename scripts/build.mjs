@@ -343,7 +343,7 @@ async function main() {
     const same = wordByZh.get(zh);
     if (same) entries.get(same).oldNames.add(tag);
     else {
-      entries.set(tag, { category: 0, count: 0, label: names.shift(), names: new Set(names), oldNames: new Set() });
+      entries.set(tag, { category: 0, count: 0, label: names.shift(), names: new Set(names), oldNames: new Set(), word: true });
       wordByZh.set(zh, tag);
     }
     stats.words++;
@@ -351,9 +351,10 @@ async function main() {
   if (wordConflicts.length) console.log(`zh-words.csv 里已经是标签、Danbooru 别名或没写译名的词（请删掉）: ${wordConflicts.join(', ')}`);
 
   // 别名、旧译名、被审定替换下来的原译名常常正好是另一个标签的正式译名（chinese_clothes 的别名「汉服」、
-  // choker 换下来的「项圈」），留着会让它精确命中两个标签、热门的那个反而排前面，所以丢掉
+  // choker 换下来的「项圈」），留着会让它精确命中两个标签、热门的那个反而排前面，所以丢掉。
+  // 常用英文词本来就排在标签后面，它的译名不算数，不然 nostalgic 的「怀旧」会删掉 retro artstyle 的检索词「怀旧」
   const labelOwner = new Map();
-  for (const [tag, e] of entries) for (const l of e.label.split('/')) labelOwner.set(normZh(l), tag);
+  for (const [tag, e] of entries) if (!e.word) for (const l of e.label.split('/')) labelOwner.set(normZh(l), tag);
   for (const [tag, e] of entries) {
     for (const n of e.names) {
       const key = normZh(n);
