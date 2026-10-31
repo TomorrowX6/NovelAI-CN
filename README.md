@@ -8,10 +8,10 @@
 
 在提示词框里打中文就能联想英文标签，英文标签附上中文释义，界面和教程也能切换成中文。
 
-<a href="https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah"><img src="store/badges/chrome-web-store.png" height="58" alt="在 Chrome 应用商店获取"></a>&nbsp;&nbsp;<a href="#edge-扩展"><img src="https://raw.githubusercontent.com/MicrosoftDocs/edge-developer/main/microsoft-edge/extensions/publish/add-ons-badge-images/microsoft-edge-add-ons-badge.png" height="58" alt="Microsoft Edge 加载项商店（待发布）"></a>&nbsp;&nbsp;<a href="https://addons.mozilla.org/addon/novelai%E4%B8%AD%E6%96%87%E5%8C%96%E5%8A%A9%E6%89%8B/"><img src="store/badges/firefox-get-the-addon.svg" height="58" alt="在 Firefox 附加组件站获取"></a>
+<a href="https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah"><img src="store/badges/chrome-web-store.png" height="58" alt="在 Chrome 应用商店获取"></a>&nbsp;&nbsp;<a href="https://microsoftedge.microsoft.com/addons/detail/novelai%E4%B8%AD%E6%96%87%E5%8C%96%E5%8A%A9%E6%89%8B/blfcpgmfjcilceheakbkfgaaihbfobmh"><img src="https://raw.githubusercontent.com/MicrosoftDocs/edge-developer/main/microsoft-edge/extensions/publish/add-ons-badge-images/microsoft-edge-add-ons-badge.png" height="58" alt="在 Microsoft Edge 加载项商店获取"></a>&nbsp;&nbsp;<a href="https://addons.mozilla.org/addon/novelai%E4%B8%AD%E6%96%87%E5%8C%96%E5%8A%A9%E6%89%8B/"><img src="store/badges/firefox-get-the-addon.svg" height="58" alt="在 Firefox 附加组件站获取"></a>
 
 [![Chrome 应用商店](https://img.shields.io/chrome-web-store/v/mbkdadfailijiglghflchpbmoofmohah?logo=googlechrome&logoColor=white&label=Chrome&color=4285F4)](https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah)
-[![Edge 加载项商店](https://img.shields.io/badge/Edge-%E5%BE%85%E5%8F%91%E5%B8%83-0078D7?logo=microsoftedge&logoColor=white)](#edge-扩展)
+[![Edge 加载项商店](https://img.shields.io/badge/Edge-%E5%AE%89%E8%A3%85-0078D7?logo=microsoftedge&logoColor=white)](https://microsoftedge.microsoft.com/addons/detail/novelai%E4%B8%AD%E6%96%87%E5%8C%96%E5%8A%A9%E6%89%8B/blfcpgmfjcilceheakbkfgaaihbfobmh)
 [![Firefox 附加组件](https://img.shields.io/amo/v/novelai-zh-tags@azusamoe?logo=firefoxbrowser&logoColor=white&label=Firefox&color=FF7139)](https://addons.mozilla.org/addon/novelai%E4%B8%AD%E6%96%87%E5%8C%96%E5%8A%A9%E6%89%8B/)
 [![用户脚本](https://img.shields.io/badge/%E7%94%A8%E6%88%B7%E8%84%9A%E6%9C%AC-%E5%AE%89%E8%A3%85-00485B?logo=tampermonkey&logoColor=white)](https://raw.githubusercontent.com/TomorrowX6/NovelAI-CN/main/dist/novelai-zh-tags.user.js)
 [![Release](https://img.shields.io/github/v/release/TomorrowX6/NovelAI-CN?label=Release)](https://github.com/TomorrowX6/NovelAI-CN/releases)
@@ -58,7 +58,7 @@
 | 方式 | 从哪里装 | 要求 |
 | --- | --- | --- |
 | [Chrome 扩展](#chrome-扩展) | [Chrome 应用商店](https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah) | Chrome 111 或更新 |
-| [Edge 扩展](#edge-扩展) | [Edge 加载项商店](#edge-扩展) | Edge 111 或更新 |
+| [Edge 扩展](#edge-扩展) | [Edge 加载项商店](https://microsoftedge.microsoft.com/addons/detail/novelai%E4%B8%AD%E6%96%87%E5%8C%96%E5%8A%A9%E6%89%8B/blfcpgmfjcilceheakbkfgaaihbfobmh) | Edge 111 或更新 |
 | [Firefox 附加组件](#firefox-附加组件) | [Firefox 附加组件站](https://addons.mozilla.org/addon/novelai%E4%B8%AD%E6%96%87%E5%8C%96%E5%8A%A9%E6%89%8B/) | Firefox 140 或更新（安卓版 142） |
 | [用户脚本](#用户脚本) | [novelai-zh-tags.user.js](https://raw.githubusercontent.com/TomorrowX6/NovelAI-CN/main/dist/novelai-zh-tags.user.js) | Tampermonkey 或 Violentmonkey |
 
@@ -88,7 +88,7 @@ Releases 里的 `-chrome.crx`、`-edge.crx` 是自签名的安装包：Windows �
 
 需要 Edge 111 或更新的版本。
 
-扩展发布后从 [Edge 加载项商店](#edge-扩展) 安装，装好后刷新 NovelAI 页面。之后扩展会随应用商店自动更新。商店链接将在发布后更新。
+从 [Edge 加载项商店](https://microsoftedge.microsoft.com/addons/detail/novelai%E4%B8%AD%E6%96%87%E5%8C%96%E5%8A%A9%E6%89%8B/blfcpgmfjcilceheakbkfgaaihbfobmh) 安装，装好后刷新 NovelAI 页面。之后扩展会随应用商店自动更新。
 
 ### Firefox 附加组件
 
