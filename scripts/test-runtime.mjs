@@ -255,3 +255,83 @@ test('same-clock tabs reserve distinct request ordering and preserve the newer r
   assert.equal(a.cache().entries[0].label, '较新响应');
   assert.equal(a.ctx.lookup('cat ears'), '较新响应');
 });
+
+test('an earlier successful response replaces the stale cache left by a later failed request', async () => {
+  const store = new Map([['nzh-community', JSON.stringify({ time: 1, entries: [entry('旧缓存')] })]]);
+  let tail = Promise.resolve();
+  const locks = { request: (_, fn) => { const result = tail.then(fn); tail = result.catch(() => {}); return result; } };
+  let resolveFirst;
+  let rejectSecond;
+  const a = page({ sharedStore: store, locks, fetch: () => new Promise((resolve) => { resolveFirst = resolve; }) });
+  const b = page({ sharedStore: store, locks, fetch: () => new Promise((_, reject) => { rejectSecond = reject; }) });
+  const first = a.ctx.refresh();
+  const second = b.ctx.refresh();
+  await flush();
+  b.clock(300);
+  rejectSecond(new Error('offline'));
+  await second;
+  assert.equal(b.cache().failed, true);
+  assert.equal(b.cache().entries[0].label, '旧缓存');
+  const failedTime = b.cache().time;
+
+  a.clock(400);
+  resolveFirst({ ok: true, status: 200, text: async () => 'cat ears\t下载成功的新译名\n' });
+  await first;
+  assert.equal(a.cache().entries[0].label, '下载成功的新译名');
+  assert.equal(a.cache().failed, false);
+  assert.equal(a.cache().successRequestTime, a.cache().requestTime);
+  assert.equal(a.ctx.lookup('cat ears'), '下载成功的新译名');
+  assert.ok(a.cache().time > failedTime);
+  assert.ok(a.cache().requestCounter > a.cache().requestTime, 'the failed request still reserves its ordering');
+});
+
+test('a failed attempt does not hide the identity of the newer successful snapshot it retained', async () => {
+  const store = new Map([['nzh-community', JSON.stringify({ time: 1, entries: [entry('旧缓存')] })]]);
+  let tail = Promise.resolve();
+  const locks = { request: (_, fn) => { const result = tail.then(fn); tail = result.catch(() => {}); return result; } };
+  let resolveOld;
+  const a = page({ sharedStore: store, locks, fetch: () => new Promise((resolve) => { resolveOld = resolve; }) });
+  const old = a.ctx.refresh();
+  const b = page({ sharedStore: store, locks, fetch: async () => ({ ok: true, status: 200, text: async () => 'cat ears\t较新成功快照\n' }) });
+  b.clock(200);
+  await b.ctx.refresh();
+  const successfulRequestTime = b.cache().requestTime;
+  const c = page({ sharedStore: store, locks, fetch: async () => { throw new Error('offline'); } });
+  c.clock(300);
+  await c.ctx.refresh();
+  assert.equal(c.cache().failed, true);
+  assert.equal(c.cache().entries[0].label, '较新成功快照');
+  assert.equal(c.cache().successRequestTime, successfulRequestTime);
+
+  a.clock(400);
+  resolveOld({ ok: true, status: 200, text: async () => 'cat ears\t较旧成功响应\n' });
+  await old;
+  assert.equal(a.cache().entries[0].label, '较新成功快照');
+  assert.equal(a.ctx.lookup('cat ears'), '较新成功快照');
+});
+
+test('an earlier successful response can replace a legacy failed snapshot without success request metadata', async () => {
+  let resolve;
+  const p = page({ fetch: () => new Promise((r) => { resolve = r; }) });
+  const pending = p.ctx.refresh();
+  p.store.set('nzh-community', JSON.stringify({ time: 300, requestTime: 200, requestCounter: 200, successTime: 1, entries: [entry('旧译名')], failed: true }));
+  p.clock(400);
+  resolve({ ok: true, status: 200, text: async () => 'cat ears\t成功恢复\n' });
+  await pending;
+  assert.equal(p.cache().entries[0].label, '成功恢复');
+  assert.equal(p.cache().failed, false);
+});
+
+test('a legacy successful snapshot is ordered by its request, not its completion time', async () => {
+  let resolve;
+  const p = page({ fetch: () => new Promise((r) => { resolve = r; }) });
+  p.clock(200);
+  const pending = p.ctx.refresh();
+  // A 1.9.4 tab's older request completed after this request started.
+  p.store.set('nzh-community', JSON.stringify({ time: 300, requestTime: 100, requestCounter: 200, successTime: 300, entries: [entry('旧版较早请求的结果')], failed: false }));
+  p.clock(400);
+  resolve({ ok: true, status: 200, text: async () => 'cat ears\t较新请求的结果\n' });
+  await pending;
+  assert.equal(p.cache().entries[0].label, '较新请求的结果');
+  assert.equal(p.cache().successRequestTime, 200);
+});

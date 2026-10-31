@@ -67,6 +67,10 @@ function readCommunityCache() {
   }
 }
 
+// 失败尝试的序号不代表 entries 的版本。旧失败缓存缺少成功请求序号时才回退到成功时间。
+const communitySuccessRequestTime = (data) => data?.successRequestTime
+  ?? (data?.failed ? (data.successTime || 0) : (data?.requestTime || data?.time || 0));
+
 let communityRefresh = null;
 // 只锁住请求编号和缓存提交，网络下载在锁外进行，其他页面不会被慢网阻塞。
 const communityLock = (fn) => typeof navigator !== 'undefined' && navigator.locks
@@ -111,8 +115,9 @@ async function downloadCommunity() {
   }
   return communityLock(() => {
     const latest = readCommunityCache();
-    // 另一个标签页已经拿到较新快照时，旧请求（包括失败）只同步它，不能回写旧数据。
-    if ((latest?.requestTime || latest?.time || 0) > requestTime || (failed && latest && latest.time > (before?.time || 0) && !latest.failed)) {
+    // 成功响应只让位给较新的成功快照；较新的失败尝试仍可以被成功响应补救。
+    const latestRequestTime = failed ? (latest?.requestTime || latest?.time || 0) : communitySuccessRequestTime(latest);
+    if (latestRequestTime > requestTime || (failed && latest && latest.time > (before?.time || 0) && !latest.failed)) {
       applyCommunity(latest);
       return;
     }
@@ -121,6 +126,7 @@ async function downloadCommunity() {
       time: Math.max(Date.now(), (latest?.time || 0) + 1),
       requestTime,
       requestCounter: Math.max(latest?.requestCounter || 0, requestTime),
+      successRequestTime: failed ? communitySuccessRequestTime(latest) : requestTime,
       successTime: failed ? (latest?.successTime || (!latest?.failed && latest?.time) || 0) : Date.now(),
       entries: failed ? sanitizeCommunity(latest || { entries: communityEntries }) : entries,
       failed,
