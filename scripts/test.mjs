@@ -150,7 +150,7 @@ for (const [tag, wrong] of [['short', '短裤'], ['sweet', '甜食'], ['flat', '
   }
 }
 
-// 社区修订：换显示译名、追加检索词，原译名仍能搜到；词典里没有的标签不收
+// 社区修订：换显示译名、追加检索词；经过审核的新标签也收录，图片数可选。
 {
   const d = ctx.createZhDict(data, t2s);
   const before = d.lookup('cat ears');
@@ -169,12 +169,16 @@ for (const [tag, wrong] of [['short', '短裤'], ['sweet', '甜食'], ['flat', '
       console.log(`✗ amend 后搜 ${q} 前 3 没有 cat ears：${top(q)}`);
     }
   }
-  if (d.amend('no such tag zzz', '不存在', []) || d.lookup('no such tag zzz') !== null || d.size !== dict.size) {
+  if (!d.amend('location', '场景', ['场景', '地点']) || d.lookup('location') !== '场景' || d.size !== dict.size + 1) {
     failed++;
-    console.log('✗ 没有图片数的新标签不应收录');
+    console.log('✗ 没有 Danbooru 图片数的社区新标签应当显示译名');
+  }
+  if (d.search('场景', 15)[0]?.tag !== 'location') {
+    failed++;
+    console.log('✗ 图片数未知的新社区标签精确命中时应排在前面');
   }
   // 平台从 Danbooru 拉来的新标签带图片数，词典里没有时新增（用虚构的标签，免得哪天词典收录了它）
-  if (!d.amend('nzh test tag (zzz)', '测试新标签（虚构）', ['虚构测试标签'], 160) || d.size !== dict.size + 1) {
+  if (!d.amend('nzh test tag (zzz)', '测试新标签（虚构）', ['虚构测试标签'], 160) || d.size !== dict.size + 2) {
     failed++;
     console.log('✗ 带图片数的新标签应当收录');
   }

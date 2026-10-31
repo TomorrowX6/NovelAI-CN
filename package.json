@@ -1,6 +1,6 @@
 {
   "name": "novelai-zh-tags",
-  "version": "1.9.2",
+  "version": "1.9.4",
   "description": "NovelAI 生图中文标签联想用户脚本",
   "private": true,
   "type": "module",
@@ -9,7 +9,8 @@
     "test": "node scripts/test.mjs",
     "crx": "node scripts/crx.mjs",
     "test:worker": "node scripts/test-worker.mjs",
-    "test:popup": "node scripts/test-popup.mjs"
+    "test:popup": "node scripts/test-popup.mjs",
+    "test:runtime": "node scripts/test-runtime.mjs"
   },
   "nzh": {
     "extensionId": "cngcbealnjdakcjnelbjdeldelhgepeb",

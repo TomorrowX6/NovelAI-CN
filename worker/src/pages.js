@@ -863,6 +863,16 @@ function whoView(it) {
 }
 function stateView(it) {
   const box = el('div', { class: 'state-box' });
+  if (it.status === 'publishing') {
+    box.append(el('span', { class: 'badge pending', text: '正在提交' }));
+    box.append(el('div', { class: 'caption', text: '正在确认仓库提交结果。审核员可以继续提交；确认完成前请稍候。' }));
+    if (isReviewer()) {
+      const actions = el('div', { class: 'actions' });
+      actions.append(el('button', { class: 'btn primary small', type: 'button', text: '继续提交', onclick: () => decide(it, 'approve', '', actions) }));
+      box.append(actions);
+    }
+    return box;
+  }
   if (it.status !== 'pending') {
     box.append(el('span', { class: 'badge ' + it.status, text: STATUS_NAMES[it.status] || it.status }));
     if (it.reviewer) box.append(el('span', { class: 'meta', text: ' ' + it.reviewer }));
@@ -906,6 +916,12 @@ function stateView(it) {
 async function decide(it, verdict, reason, actions) {
   const buttons = actions.querySelectorAll('button');
   for (const b of buttons) b.disabled = true;
+  const refreshState = async () => {
+    const response = await fetch('/api/submissions?status=all&tag=' + encodeURIComponent(it.tag));
+    if (!response.ok) return;
+    const state = await response.json();
+    updatePending((list) => list.filter((item) => item.tag !== it.tag).concat((state.items || []).filter((item) => item.status === 'pending' || item.status === 'publishing')));
+  };
   try {
     const res = await fetch('/api/submissions/' + it.id + '/' + verdict, {
       method: 'POST',
@@ -915,10 +931,17 @@ async function decide(it, verdict, reason, actions) {
     const d = await res.json().catch(() => ({}));
     if (!res.ok) {
       snack(d.error || '操作失败（HTTP ' + res.status + '）', { error: true });
-      if (res.status !== 409) return;
+      if (res.status !== 409) {
+        // The request may have published before losing its response. Reload the
+        // durable state so a reviewer can resume even when base now looks stale.
+        await refreshState().catch(() => {});
+        render();
+        return;
+      }
       // 别人先处理了，或者这个标签又被改过：按服务器的状态刷新
       if ('entry' in d) setEntry(it.tag, d.entry);
-      if (d.item && d.item.status !== 'pending') updatePending((list) => list.filter((x) => x.id !== it.id));
+      if (d.item && d.item.status !== 'pending' && d.item.status !== 'publishing') updatePending((list) => list.filter((x) => x.id !== it.id));
+      await refreshState().catch(() => {});
     } else {
       if (verdict === 'approve' && d.action !== 'none') setEntry(it.tag, d.action === 'delete' ? null : d.entry);
       updatePending((list) => list.filter((x) => x.id !== it.id));
@@ -930,6 +953,8 @@ async function decide(it, verdict, reason, actions) {
     render();
   } catch (e) {
     snack('网络出错了，请重试', { error: true });
+    await refreshState().catch(() => {});
+    render();
   } finally {
     for (const b of buttons) b.disabled = false;
   }

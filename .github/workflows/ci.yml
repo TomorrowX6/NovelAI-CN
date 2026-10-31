@@ -25,6 +25,8 @@ jobs:
         run: node scripts/test-worker.mjs
       - name: Extension popup tests
         run: node scripts/test-popup.mjs
+      - name: Browser runtime tests
+        run: node scripts/test-runtime.mjs
       - name: Check dist is up to date
         run: |
           if ! git diff --quiet -- dist; then

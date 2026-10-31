@@ -92,6 +92,7 @@ function render(s) {
 
 async function queue(key, value) {
   pending = key;
+  controls();
   let ok = true;
   try {
     const { queued } = await chrome.storage.local.get('queued');
@@ -103,6 +104,23 @@ async function queue(key, value) {
   pending = null;
   render(null);
   notice(ok ? '已保存，刷新或打开 NovelAI 页面后生效。' : '设置未保存，请重试。', ok ? 'ok' : 'err');
+}
+
+async function reconnect(key, value) {
+  let next = null;
+  for (let i = 0; i < 20; i++) {
+    await sleep(i === 0 ? 2000 : 1000);
+    next = await query();
+    if (next && !next.stale && next[key] === value) break;
+  }
+  if (!next) {
+    await loadOffline();
+    offline = { ...offline, [key]: value };
+  }
+  pending = null;
+  render(next);
+  if (!next) notice('设置已保存，暂未恢复与页面的连接。请稍后重新打开面板。', 'err');
+  else if (next.stale || next[key] !== value) notice('设置已保存，页面尚未完成刷新，请稍后重试。', 'err');
 }
 
 // The page script downloads community translations in place and stamps a new time when done, whether or not it succeeded.
@@ -148,16 +166,7 @@ async function set(key, value) {
     $('connection').dataset.state = 'loading';
     $('connection-text').textContent = '正在刷新 NovelAI 页面';
     notice('设置已保存，正在刷新页面…');
-    setTimeout(async () => {
-      const next = await query();
-      if (!next) {
-        // The page may still be reloading; its saved copy predates the change it already confirmed.
-        await loadOffline();
-        offline = { ...offline, [key]: value };
-      }
-      pending = null;
-      render(next);
-    }, 2000);
+    reconnect(key, value);
   } catch {
     pending = null;
     render(current);

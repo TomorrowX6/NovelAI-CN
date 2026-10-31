@@ -123,7 +123,7 @@ const SPECIAL_TAGS = [
 // raw: 每行 `英文标签\t使用次数\t显示译名(多个用/分隔)\t额外检索词(用|分隔)\t旧标签名和英文别名(用|分隔)`
 // 旧标签名和别名只用于查中文（NovelAI 英文联想里的旧名、提示词里写的 peace sign 这类别名），不参与检索
 // t2s: 繁简对照（见 createT2S），用来转换查询；译名里有繁体字的，构建时已把转换后的写法加进额外检索词
-function createZhDict(raw, t2s = '') {
+function* buildZhDict(raw, t2s = '') {
   const toSimp = createT2S(t2s);
   const tags = [];
   const counts = [];
@@ -135,7 +135,12 @@ function createZhDict(raw, t2s = '') {
   // 人物、作品名（打包进脚本的词典在使用次数前加 x；dist/zh-tags.tsv 里是第 6 列的类别 3、4）：按词拼译名时不用
   const proper = [];
 
-  for (const line of raw.split('\n')) {
+  let parsed = 0;
+  for (let start = 0; start < raw.length; ) {
+    const newline = raw.indexOf('\n', start);
+    const end = newline < 0 ? raw.length : newline;
+    const line = raw.slice(start, end);
+    start = end + 1;
     if (!line) continue;
     const [tag, rawCount, label, extra, old, kind] = line.split('\t');
     const count = rawCount[0] === 'x' ? rawCount.slice(1) : rawCount;
@@ -156,7 +161,12 @@ function createZhDict(raw, t2s = '') {
     let key = SEP + normZh(label).split(/\s*\/\s*/).join(SEP) + SEP;
     if (extra) key += extra.split('|').join(SEP) + SEP;
     keys.push(key);
+    if (++parsed % 256 === 0) yield;
   }
+
+  const baseSize = tags.length;
+  const originals = new Map();
+  let revision = 0;
 
   function search(query, limit) {
     const q = toSimp(normZh(query));
@@ -180,8 +190,12 @@ function createZhDict(raw, t2s = '') {
       }
     }
     // 匹配程度和热度一起排：冷门的前缀匹配不应压过热门的包含匹配
-    for (const h of hits) h[0] = Math.log10(counts[h[1]] + 1) - MATCH_PENALTY[h[0]];
-    hits.sort((a, b) => b[0] - a[0]);
+    for (const h of hits) {
+      // 社区自定义标签没有 Danbooru 频次：精确命中译名或检索词时优先，不把“未知”当成冷门。
+      h[2] = h[0] === 0 && h[1] >= baseSize && counts[h[1]] === 0 ? 1 : 0;
+      h[0] = Math.log10(counts[h[1]] + 1) - MATCH_PENALTY[h[0]];
+    }
+    hits.sort((a, b) => b[2] - a[2] || b[0] - a[0]);
     return hits.slice(0, limit).map(([, i]) => ({ tag: tags[i], zh: labels[i], count: counts[i] }));
   }
 
@@ -222,27 +236,43 @@ function createZhDict(raw, t2s = '') {
   }
 
   // 社区修订（src/community.js）：换掉显示译名、追加检索词，原来的译名仍可检索。
-  // 词典里没有的标签，只有平台从 Danbooru 拉来的新标签（带图片数 count）才新增，标签名由 community.js 检查过
+  // 词典里没有的社区标签也收录；图片数可选，原样插入提示词的名称须避开分隔符和权重语法。
   function amend(tag, label, terms = [], count = 0) {
     let i = indexOf(tag);
     if (i === undefined) {
-      if (!count || !label) return false;
+      if (!label || !/^[\x20-\x7e]{1,100}$/.test(tag) || /[,|{}[\]#<>\\]|::/.test(tag)) return false;
       i = tags.length;
       byTag.set(tag, i);
       tags.push(tag);
-      // 社区新加的标签不知道类别，多半是人物，不拿来拼译名
+      // 社区新加的标签类别未知，不拿来拼译名。
       proper.push(true);
-      counts.push(count);
+      counts.push(Number.isInteger(count) && count > 0 ? count : 0);
       labels.push(label);
       keys.push(SEP);
     } else if (label) {
+      if (i < baseSize && !originals.has(i)) originals.set(i, [labels[i], keys[i]]);
       labels[i] = label;
     }
+    if (i < baseSize && !originals.has(i)) originals.set(i, [labels[i], keys[i]]);
     const add = [...(label ? normZh(label).split(/\s*\/\s*/) : []), ...terms.map(normZh)]
       .map(toSimp)
       .filter((k) => k && !keys[i].includes(SEP + k + SEP));
     if (add.length) keys[i] += add.join(SEP) + SEP;
+    revision++;
     return true;
+  }
+
+  // 社区数据是完整快照：恢复基础记录后应用新覆盖，撤销和删除也立即生效。
+  function replaceCommunity(entries) {
+    for (const [i, [label, key]] of originals) {
+      labels[i] = label;
+      keys[i] = key;
+    }
+    originals.clear();
+    for (let i = baseSize; i < tags.length; i++) byTag.delete(tags[i]);
+    tags.length = counts.length = labels.length = keys.length = proper.length = baseSize;
+    for (const e of entries) amend(e.tag, e.label, e.aliases, e.count);
+    revision++;
   }
 
   // 常见的拼写错误（worth quality）对应的正确标签：{ tag, zh }，中文对照用它提示可能拼错
@@ -296,8 +326,44 @@ function createZhDict(raw, t2s = '') {
     typo,
     gloss,
     amend,
+    replaceCommunity,
+    get revision() {
+      return revision;
+    },
     get size() {
       return tags.length;
     },
   };
+}
+
+function createZhDict(raw, t2s = '') {
+  const build = buildZhDict(raw, t2s);
+  let next;
+  do { next = build.next(); } while (!next.done);
+  return next.value;
+}
+
+// 每批最多解析 256 条，再把主线程交还给浏览器。MessageChannel 不受连续定时器的最小间隔限制。
+async function createZhDictAsync(raw, t2s = '', yieldTask) {
+  let channel;
+  if (!yieldTask) {
+    if (typeof MessageChannel === 'function') {
+      channel = new MessageChannel();
+      yieldTask = () => new Promise((resolve) => {
+        channel.port1.onmessage = resolve;
+        channel.port2.postMessage(null);
+      });
+    } else yieldTask = () => new Promise((resolve) => setTimeout(resolve, 0));
+  }
+  try {
+    const build = buildZhDict(raw, t2s);
+    for (;;) {
+      const next = build.next();
+      if (next.done) return next.value;
+      await yieldTask();
+    }
+  } finally {
+    channel?.port1.close();
+    channel?.port2.close();
+  }
 }

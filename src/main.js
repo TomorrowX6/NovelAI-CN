@@ -40,7 +40,8 @@ const nativeFetch = window.fetch;
 async function suggestZh(query, jpMode, url, init) {
   let list = [];
   try {
-    list = getDict().search(query, MAX_RESULTS);
+    const ready = dict || await preloadDict();
+    list = ready.search(query, MAX_RESULTS);
   } catch (e) {
     console.warn('[novelai-zh-tags]', e);
   }
@@ -125,6 +126,10 @@ window.fetch = function (...args) {
 const panels = document.getElementsByClassName('image-prompt-suggestions');
 
 function annotatePanel(panel) {
+  if (!dict) {
+    preloadDict();
+    return;
+  }
   // 原生英文标签 span 没有 style；原生副标题和本脚本的副标题都有 style
   for (const enSpan of panel.querySelectorAll('span:not([style])')) {
     const item = enSpan.parentElement && enSpan.parentElement.parentElement;
@@ -155,6 +160,9 @@ function annotatePanel(panel) {
 }
 
 if (tagsEnabled) {
+  document.addEventListener('nzh-dictionary', () => {
+    for (const panel of panels) annotatePanel(panel);
+  });
   new MutationObserver(() => {
     for (const panel of panels) annotatePanel(panel);
   }).observe(document, { childList: true, subtree: true });
@@ -224,7 +232,25 @@ document.addEventListener(
 
 // 空闲时预先解析词典，避免第一次联想卡顿。只在生图页做，写小说等页面用不到；
 // NovelAI 是单页应用，从其他页面切到生图页时，在提示词框获得焦点时再解析
-const preloadDict = () => (window.requestIdleCallback || setTimeout)(getDict);
+let dictPreload = null;
+function preloadDict() {
+  if (dict) return Promise.resolve(dict);
+  if (dictPreload) return dictPreload;
+  dictPreload = new Promise((resolve) => (window.requestIdleCallback || setTimeout)(resolve))
+    .then(() => dict || createZhDictAsync(ZH_TAG_DATA, ZH_T2S_DATA))
+    .then((loaded) => {
+      // 用户先触发了同步查词时，保留已经使用、可能已更新的那份词典。
+      if (!dict) {
+        dict = loaded;
+        amendDict(dict);
+      }
+      document.dispatchEvent(new Event('nzh-dictionary'));
+      return dict;
+    })
+    .catch((e) => { console.warn('[novelai-zh-tags] 预载词典失败', e); })
+    .finally(() => { dictPreload = null; });
+  return dictPreload;
+}
 if (tagsEnabled) {
   window.addEventListener('load', () => {
     if (location.pathname.startsWith('/image')) preloadDict();

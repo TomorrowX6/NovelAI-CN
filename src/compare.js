@@ -105,10 +105,16 @@ const editorParagraphs = (editor) => [...editor.children].map((p) => p.textConte
 const plainName = (s) => s.toLowerCase().replace(/[\s_\-!.:'’]+/g, '');
 
 function renderComparePanel(panel, editor) {
+  if (!dict) {
+    preloadDict();
+    return;
+  }
   const paras = editorParagraphs(editor);
   const key = paras.join('\n');
-  if (panel.nzhKey === key) return;
+  const revision = getDict().revision;
+  if (panel.nzhKey === key && panel.nzhRevision === revision) return;
   panel.nzhKey = key;
+  panel.nzhRevision = revision;
   const seen = new Set();
   const items = [];
   paras.forEach((text, para) => {
@@ -241,4 +247,5 @@ if (tagsEnabled) {
   });
   // 扩展面板在这个页面上改了开关：同一个页面里改 localStorage 不触发 storage 事件，由 bridge.js 发这个事件
   document.addEventListener('nzh-compare', reloadComparePref);
+  document.addEventListener('nzh-dictionary', scheduleCompare);
 }

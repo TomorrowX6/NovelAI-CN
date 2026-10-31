@@ -146,26 +146,60 @@ check(
 // ---- 假的 D1 和 GitHub ----
 // D1 的 prepare().bind().first()/all()/run() 用 node:sqlite 实现；queries 记下执行了几条查询，免费版 D1 每次调用最多 50 条
 let queries = 0;
+let dbFault = null;
+let pauseInsertOnce = false;
 function d1(db) {
   return {
     prepare(sql) {
       const stmt = (args) => ({
         bind: (...a) => stmt(a),
-        first: async () => (queries++, db.prepare(sql).get(...args) ?? null),
-        all: async () => (queries++, { success: true, results: db.prepare(sql).all(...args) }),
-        run: async () => {
+        execute() {
           queries++;
-          const r = db.prepare(sql).run(...args);
-          return { success: true, meta: { last_row_id: Number(r.lastInsertRowid), changes: r.changes } };
+          dbFault?.(sql);
+          const prepared = db.prepare(sql);
+          const results = prepared.all(...args);
+          const meta = db.prepare('SELECT changes() AS changes, last_insert_rowid() AS last_row_id').get();
+          return { success: true, results, meta };
         },
+        first: async function () {
+          if (pauseInsertOnce && /^INSERT INTO submissions/.test(sql)) { pauseInsertOnce = false; await new Promise((resolve) => setTimeout(resolve, 30)); }
+          return this.execute().results[0] ?? null;
+        },
+        all: async function () { return this.execute(); },
+        run: async function () { return this.execute(); },
       });
       return stmt([]);
+    },
+    async batch(statements) {
+      db.exec('BEGIN IMMEDIATE');
+      try {
+        const results = statements.map((statement) => statement.execute());
+        db.exec('COMMIT');
+        return results;
+      } catch (error) { db.exec('ROLLBACK'); throw error; }
     },
   };
 }
 
 const db = new DatabaseSync(':memory:');
 db.exec(fs.readFileSync(path.join(ROOT, 'worker', 'schema.sql'), 'utf8'));
+{
+  const legacy = new DatabaseSync(':memory:');
+  const schema = fs.readFileSync(path.join(ROOT, 'worker', 'schema.sql'), 'utf8');
+  legacy.exec(schema.split('-- Idempotent upgrade:')[0]);
+  for (const [status, created] of [['pending', 1], ['pending', 2], ['approved', 3]]) {
+    legacy.prepare("INSERT INTO submissions (tag, user_id, login, action, status, created_at) VALUES (?, ?, ?, 'add', ?, ?)").run('legacy', 7, 'Old', status, created);
+  }
+  const upgrade = fs.readFileSync(path.join(ROOT, 'worker', 'migrations', '0001-publication-operations.sql'), 'utf8');
+  legacy.exec(upgrade);
+  legacy.exec(upgrade);
+  legacy.exec(schema);
+  check(eq(legacy.prepare('SELECT status FROM submissions ORDER BY id').all().map((r) => r.status), ['withdrawn', 'pending', 'approved']), 'legacy upgrade is repeatable and preserves approved and superseded history');
+  let duplicateRejected = false;
+  try { legacy.prepare("INSERT INTO submissions (tag, user_id, login, action, created_at) VALUES ('legacy', 7, 'Old', 'add', 4)").run(); } catch { duplicateRejected = true; }
+  check(duplicateRejected, 'database uniqueness prevents a second active submission after upgrade');
+  legacy.close();
+}
 const { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', { modulusLength: 2048 });
 const env = {
   DB: d1(db),
@@ -188,7 +222,14 @@ const ctx = { waitUntil() {} };
 const BASE = 'https://editor.example';
 
 // 仓库里的 data/zh-community.tsv
-const gh = { file: null, sha: null, puts: [], log: [], users: {}, conflictOnce: null, installationLookups: 0 };
+const gh = { commits: new Map([['root', { sha: 'root', tree: { sha: 'root-tree' }, parents: [], file: null }]]), trees: new Map(), head: 'root', lostResponse: false, file: null, sha: null, puts: [], log: [], users: {}, conflictOnce: null, installationLookups: 0 };
+function externalCommit(file) {
+  const sha = `external-${gh.commits.size}`;
+  gh.commits.set(sha, { sha, parents: [gh.head], tree: { sha: `tree-${sha}` }, file });
+  gh.head = sha;
+  gh.file = file;
+  gh.sha = crypto.createHash('sha1').update(file).digest('hex');
+}
 const b64 = (s) => Buffer.from(s, 'utf8').toString('base64');
 const verifyJwt = (jwt) => {
   const [h, p, s] = jwt.split('.');
@@ -218,11 +259,69 @@ globalThis.fetch = async (input, init = {}) => {
   if (url.pathname === '/app/installations/777/access_tokens' && method === 'POST') {
     return verifyJwt(auth) ? res({ token: 'inst-token', expires_at: new Date(Date.now() + 36e5).toISOString() }) : res({}, 401);
   }
+  const prefix = '/repos/owner/repo';
+  const isAncestor = (ancestor, descendant) => {
+    while (descendant) {
+      if (descendant === ancestor) return true;
+      descendant = gh.commits.get(descendant)?.parents[0];
+    }
+    return false;
+  };
+  if (url.pathname === prefix + '/git/ref/heads/main') return res({ object: { sha: gh.head } });
+  if (url.pathname.startsWith(prefix + '/git/commits/') && method === 'GET') {
+    if (gh.prepareOnce) { const during = gh.prepareOnce; gh.prepareOnce = null; await during(); }
+    return res(gh.commits.get(url.pathname.split('/').at(-1)));
+  }
+  if (url.pathname === prefix + '/git/trees' && method === 'POST') {
+    const sha = crypto.createHash('sha1').update(JSON.stringify(body)).digest('hex');
+    gh.trees.set(sha, body.tree[0].content);
+    if (gh.failTreeOnce) { gh.failTreeOnce = false; throw new Error('lost tree response'); }
+    return res({ sha }, 201);
+  }
+  if (url.pathname === prefix + '/git/commits' && method === 'POST') {
+    let commit = [...gh.commits.values()].find((item) => item.input === JSON.stringify(body));
+    if (!commit) {
+      const sha = `c${gh.commits.size}`;
+      commit = { sha, tree: { sha: body.tree }, parents: body.parents, file: gh.trees.get(body.tree), input: JSON.stringify(body), ...body, tree: { sha: body.tree } };
+      gh.commits.set(sha, commit);
+    }
+    if (gh.failCommitOnce) { gh.failCommitOnce = false; throw new Error('lost commit response'); }
+    return res(commit, 201);
+  }
+  if (url.pathname.startsWith(prefix + '/compare/')) {
+    const [base, head] = url.pathname.split('/').at(-1).split('...');
+    return res({ status: base === head ? 'identical' : isAncestor(base, head) ? 'ahead' : isAncestor(head, base) ? 'behind' : 'diverged' });
+  }
+  if (url.pathname === prefix + '/git/refs/heads/main' && method === 'PATCH') {
+    check(body.force === false, 'publication only fast-forwards the branch');
+    if (gh.conflictOnce) {
+      const during = gh.conflictOnce;
+      gh.conflictOnce = null;
+      await during();
+      if (gh.file !== gh.commits.get(gh.head).file) {
+        const sha = `external-${gh.commits.size}`;
+        gh.commits.set(sha, { sha, parents: [gh.head], tree: { sha: `tree-${sha}` }, file: gh.file });
+        gh.head = sha;
+      }
+    }
+    if (!isAncestor(gh.head, body.sha)) return res({ message: 'not a fast forward' }, 422);
+    if (gh.head !== body.sha) {
+      const commit = gh.commits.get(body.sha);
+      const oldFile = gh.file;
+      gh.head = body.sha;
+      gh.file = commit.file;
+      gh.sha = crypto.createHash('sha1').update(gh.file).digest('hex');
+      gh.puts.push({ message: commit.message, content: b64(commit.file), author: { name: commit.author.name, email: commit.author.email }, branch: 'main', ...(oldFile === null ? {} : { sha: 'prior-blob' }), commitSha: commit.sha });
+    }
+    if (gh.lostResponse) { gh.lostResponse = false; throw new Error('response lost after commit'); }
+    return res({ object: { sha: gh.head } });
+  }
   if (url.pathname === '/repos/owner/repo/contents/data/zh-community.tsv') {
     if (auth !== 'inst-token') return res({}, 401);
     if (method === 'GET') {
-      if (gh.file === null) return res({ message: 'Not Found' }, 404);
-      return res({ sha: gh.sha, encoding: 'base64', content: b64(gh.file).replace(/(.{60})/g, '$1\n') });
+      const file = url.searchParams.get('ref') === 'main' ? gh.file : gh.commits.get(url.searchParams.get('ref'))?.file;
+      if (file == null) return res({ message: 'Not Found' }, 404);
+      return res({ sha: gh.sha, encoding: 'base64', content: b64(file).replace(/(.{60})/g, '$1\n') });
     }
     if (method === 'PUT') {
       if (gh.conflictOnce) {
@@ -235,6 +334,7 @@ globalThis.fetch = async (input, init = {}) => {
       gh.puts.push(body);
       gh.file = Buffer.from(body.content, 'base64').toString('utf8');
       gh.sha = crypto.createHash('sha1').update(gh.file).digest('hex');
+      if (gh.lostResponse) { gh.lostResponse = false; throw new Error('response lost after commit'); }
       return res({ commit: { sha: `c${gh.puts.length}`, html_url: `https://github.com/owner/repo/commit/c${gh.puts.length}` } }, gh.puts.length === 1 ? 201 : 200);
     }
   }
@@ -324,6 +424,22 @@ check(eq((await call('GET', '/api/me')).data, { user: null }), '没登录时 /ap
   check(node('f-name').value === '看向观众' && node('f-aliases').value === '看向我/看着观众/看镜头', '仅有检索词的社区修订沿用内置名称');
   vm.runInContext("renderEdit('unknown tag')", browser);
   check(node('f-name').value === '' && node('f-aliases').value === '' && node('submit').disabled, '没有已有译名的新标签保持空白和未修改状态');
+  const publishingUi = plain(vm.runInContext(`
+    el = (tag, props, children = []) => ({ tag, props, children, append(...items) { this.children.push(...items); } });
+    cfg.user.reviewer = true;
+    stateView({ status: 'publishing', id: 7, tag: 'test', user_id: 1001 });
+  `, browser));
+  const uiText = JSON.stringify(publishingUi);
+  check(uiText.includes('继续提交') && !uiText.includes('撤回') && !uiText.includes('驳回'), 'publishing UI exposes safe resume without rejection or withdrawal');
+  browser.fetch = async (_url, options) => options?.method === 'POST'
+    ? { ok: false, status: 500, json: async () => ({ error: 'lost outcome' }) }
+    : { ok: true, json: async () => ({ items: [{ id: 7, tag: 'test', status: 'publishing' }] }) };
+  await vm.runInContext(`
+    render = () => {}; snack = () => {};
+    setPending([{ id: 7, tag: 'test', status: 'pending' }]);
+    decide({ id: 7, tag: 'test' }, 'approve', '', { querySelectorAll: () => [] });
+  `, browser);
+  check(vm.runInContext("pendingItems()[0].status", browser) === 'publishing', 'failed approval refreshes the cached editor state so it can resume safely');
 }
 
 // ---- 登录 ----
@@ -395,7 +511,7 @@ check(gh.puts.length === 0, '被拒绝的修改不会提交');
   const r = await put('Cat_Ears', { label: '猫耳', aliases: '喵耳/兽耳', note: '更常用', base: null });
   check(r.status === 200 && r.data.action === 'add' && r.data.commit.sha === 'c1', `新增：${JSON.stringify(r.data)}`);
   const p = gh.puts[0];
-  check(p.message === '新增 cat ears\n\n名称：猫耳\n检索词：喵耳/兽耳\n说明：更常用', `提交说明：${JSON.stringify(p.message)}`);
+  check(p.message.replace(/\n\nNovelAI-Operation: [^\n]+$/, '') === '新增 cat ears\n\n名称：猫耳\n检索词：喵耳/兽耳\n说明：更常用', `提交说明：${JSON.stringify(p.message)}`);
   check(eq(p.author, { name: 'Alice', email: '1001+Alice@users.noreply.github.com' }) && p.branch === 'main' && !('sha' in p), '以登录用户为作者提交，文件不存在时新建');
   check(gh.file === [...COMMUNITY_HEADER, 'cat ears\t猫耳\t喵耳/兽耳'].join('\n') + '\n', `文件内容：${JSON.stringify(gh.file)}`);
   check(gh.installationLookups === 1, '没配置安装 id 时自动查找');
@@ -432,7 +548,7 @@ check(gh.puts.length === 1, '内容没变时没有新提交');
 }
 {
   const r = await put('smile', { label: '', aliases: [], base: { label: '微笑', aliases: [] } });
-  check(r.data.action === 'delete' && !gh.file.includes('smile') && gh.puts.at(-1).message === '删除 smile', '名称和检索词都清空就删除');
+  check(r.data.action === 'delete' && !gh.file.includes('smile') && gh.puts.at(-1).message.replace(/\n\nNovelAI-Operation: [^\n]+$/, '') === '删除 smile', '名称和检索词都清空就删除');
 }
 {
   const h = await call('GET', '/api/history?tag=cat_ears');
@@ -494,7 +610,7 @@ const submissions = async (q = '') => (await call('GET', `/api/submissions${q}`)
   const last = gh.puts.at(-1);
   check(ok.status === 200 && ok.data.action === 'update' && ok.data.item.status === 'approved' && ok.data.item.reviewer === 'Alice' && ok.data.item.sha === ok.data.commit.sha, `通过：${JSON.stringify(ok.data)}`);
   check(eq(last.author, { name: 'Bob', email: '1004+Bob@users.noreply.github.com' }), '通过后以提交的人为作者提交');
-  check(last.message === '修改 cat ears\n\n名称：猫咪耳朵\n检索词：喵耳\n\nReviewed-by: Alice <1001+Alice@users.noreply.github.com>', `提交说明注明审核员：${JSON.stringify(last.message)}`);
+  check(last.message.replace(/\n\nNovelAI-Operation: [^\n]+$/, '') === '修改 cat ears\n\n名称：猫咪耳朵\n检索词：喵耳\n\nReviewed-by: Alice <1001+Alice@users.noreply.github.com>', `提交说明注明审核员：${JSON.stringify(last.message)}`);
   check(gh.file.includes('cat ears\t猫咪耳朵\t喵耳') && !(await submissions()).length, '通过后文件里是新内容，待审核列表清空');
   const h = (await call('GET', '/api/history?tag=cat_ears')).data.items[0];
   check(h.login === 'Bob' && h.label === '猫咪耳朵' && h.sha === ok.data.commit.sha, '编辑日志记下提交的人');
@@ -528,9 +644,9 @@ const submissions = async (q = '') => (await call('GET', `/api/submissions${q}`)
   };
   const ok = await post(`/api/submissions/${id}/approve`, {});
   check(ok.status === 200 && ok.data.item.status === 'approved' && gh.file.includes('blush\t红脸\n'), `通过：${JSON.stringify(ok.data)}`);
-  check(during.list.length === 1 && during.list[0].status === 'pending', `正在通过的修改仍列在待审核里：${JSON.stringify(during.list)}`);
+  check(during.list.length === 1 && during.list[0].status === 'publishing', `正在通过的修改仍列在待审核里：${JSON.stringify(during.list)}`);
   check(during.replace.status === 409 && during.withdraw.status === 409, `正在通过时提交的人撤回、替换不了：${during.replace.status} ${during.withdraw.status}`);
-  check(during.reject.status === 409 && during.approve.status === 409, `正在通过时别的审核员处理不了：${during.reject.status} ${during.approve.status}`);
+  check(during.reject.status === 409 && during.approve.status === 200 && during.approve.data.item.status === 'approved', `正在通过时别的审核员处理不了：${during.reject.status} ${during.approve.status}`);
   const all = await submissions('?status=all&tag=blush');
   check(all.find((x) => x.id === id)?.status === 'approved' && !all.some((x) => x.status === 'pending'), `通过后只有这一份，状态是已通过：${JSON.stringify(all)}`);
 
@@ -546,7 +662,7 @@ const submissions = async (q = '') => (await call('GET', `/api/submissions${q}`)
   check(fail.status === 500 && (await submissions('?tag=blush'))[0]?.id === c.data.submission.id, `提交出错后仍是待审核：${fail.status}`);
   // Worker 中途被停掉、一直占着的修改，过一会儿可以重新处理
   db.prepare("UPDATE submissions SET status = 'approving', reviewer = 'Alice', reviewed_at = ? WHERE id = ?").run(Date.now() - 10 * 60e3, c.data.submission.id);
-  check((await submissions('?tag=blush'))[0]?.status === 'pending', '一直占着的修改仍列在待审核里');
+  check((await submissions('?tag=blush'))[0]?.status === 'publishing', '一直占着的修改仍列在待审核里');
   check((await post(`/api/submissions/${c.data.submission.id}/approve`, {})).status === 200 && gh.file.includes('blush\t脸红红\n'), '一直占着的修改过一会儿可以重新通过');
 }
 // 提交的人随时可以撤回自己待审核的修改
@@ -579,6 +695,95 @@ const submissions = async (q = '') => (await call('GET', `/api/submissions${q}`)
 }
 
 // 每小时最多提交 EDITS_PER_HOUR 次（审核员不限）
+// Durable publication regressions.
+{
+  const oldLimit = env.EDITS_PER_HOUR;
+  env.EDITS_PER_HOUR = '1000';
+  const quiet = console.error;
+  console.error = () => {};
+  for (const kind of ['bookkeeping', 'atomic-finalization', 'lost-response', 'tree-response', 'commit-response']) {
+    const tag = `recover ${kind}`;
+    const submission = await bobPut(tag, { label: '\u6062\u590d' });
+    const id = submission.data.submission.id;
+    const before = gh.puts.length;
+    if (kind === 'bookkeeping') dbFault = (sql) => { if (/INSERT INTO edits/.test(sql)) { dbFault = null; throw new Error('D1 finalization failed'); } };
+    if (kind === 'atomic-finalization') dbFault = (sql) => { if (/UPDATE submissions SET status = 'approved'/.test(sql)) { dbFault = null; throw new Error('D1 second statement failed'); } };
+    if (kind === 'lost-response') gh.lostResponse = true;
+    if (kind === 'tree-response') gh.failTreeOnce = true;
+    if (kind === 'commit-response') gh.failCommitOnce = true;
+    const first = await post(`/api/submissions/${id}/approve`, {});
+    if (kind === 'atomic-finalization') check(db.prepare('SELECT COUNT(*) AS n FROM edits WHERE tag = ?').get(tag).n === 0, 'D1 batch rolls back an inserted history row when approval bookkeeping fails');
+    const retry = await post(`/api/submissions/${id}/approve`, {});
+    check(first.status === 500 && retry.status === 200 && retry.data.item?.status === 'approved', `${kind}: GitHub success followed by retry recovers approval (first=${first.status}, retry=${retry.status})`);
+    check(gh.puts.length === before + 1 && db.prepare('SELECT COUNT(*) AS n FROM edits WHERE tag = ?').get(tag).n === 1, `${kind}: recovery creates exactly one commit and history row`);
+  }
+  console.error = quiet;
+  dbFault = null;
+  const a = await bobPut('expired in flight', { label: '\u5ba1\u6838\u4e2d' });
+  const id = a.data.submission.id;
+  let rejection;
+  gh.conflictOnce = async () => {
+    db.prepare('UPDATE submissions SET reviewed_at = ? WHERE id = ?').run(Date.now() - 600e3, id);
+    rejection = await post(`/api/submissions/${id}/reject`, { reason: 'too late' });
+  };
+  const approved = await post(`/api/submissions/${id}/approve`, {});
+  check(rejection.status === 409 && approved.status === 200 && approved.data.item.status === 'approved', `expired in-flight publication cannot be rejected (${rejection.status}, ${approved.status})`);
+  pauseInsertOnce = true;
+  const pair = await Promise.all([bobPut('concurrent pending', { label: '\u4e00' }), bobPut('concurrent pending', { label: '\u4e8c' })]);
+  pauseInsertOnce = false;
+  const active = db.prepare("SELECT * FROM submissions WHERE tag = 'concurrent pending' AND status IN ('pending', 'approving')").all();
+  check(pair.every((r) => r.status === 202) && active.length === 1, `concurrent replacement leaves one active submission (${pair.map((r) => r.status)}, count=${active.length})`);
+  const existing = active[0];
+  console.error = () => {};
+  dbFault = (sql) => { if (/INSERT INTO submissions/.test(sql)) { dbFault = null; throw new Error('replacement failed'); } };
+  const replacement = await bobPut('concurrent pending', { label: '\u4e09' });
+  console.error = quiet;
+  check(replacement.status === 500 && db.prepare('SELECT status FROM submissions WHERE id = ?').get(existing.id).status === 'pending', 'failed replacement rolls back withdrawal of the previous submission');
+  const directBefore = gh.puts.length;
+  gh.lostResponse = true;
+  console.error = () => {};
+  const directFail = await put('direct recovery', { label: '\u76f4\u63a5' });
+  console.error = quiet;
+  const directRetry = await put('direct recovery', { label: '\u76f4\u63a5' });
+  check(directFail.status === 500 && directRetry.status === 200 && gh.puts.length === directBefore + 1 && (await call('GET', '/api/history?tag=direct_recovery')).data.items.length === 1, 'direct reviewer edit recovers without a duplicate commit or missing history');
+  const preparing = await bobPut('expired preparation', { label: '\u51c6\u5907' });
+  const prepareId = preparing.data.submission.id;
+  const prepareBefore = gh.puts.length;
+  let prepareReject;
+  gh.prepareOnce = async () => {
+    db.prepare("UPDATE publication_operations SET updated_at = ? WHERE submission_id = ?").run(Date.now() - 600e3, prepareId);
+    prepareReject = await post(`/api/submissions/${prepareId}/reject`, {});
+  };
+  const stalePreparation = await post(`/api/submissions/${prepareId}/approve`, {});
+  check(prepareReject.status === 200 && stalePreparation.status === 409 && gh.puts.length === prepareBefore && db.prepare('SELECT status FROM submissions WHERE id = ?').get(prepareId).status === 'rejected', 'rejected expired preparation fences the stale worker before any ref update');
+  const reclaimed = await bobPut('reclaimed preparation', { label: '\u91cd\u8bd5' });
+  let reclaimedResult;
+  gh.prepareOnce = async () => {
+    db.prepare('UPDATE publication_operations SET updated_at = ? WHERE submission_id = ?').run(Date.now() - 600e3, reclaimed.data.submission.id);
+    reclaimedResult = await post(`/api/submissions/${reclaimed.data.submission.id}/approve`, {});
+  };
+  const staleOwner = await post(`/api/submissions/${reclaimed.data.submission.id}/approve`, {});
+  check(reclaimedResult.status === 200 && staleOwner.status === 409 && db.prepare('SELECT status FROM submissions WHERE id = ?').get(reclaimed.data.submission.id).status === 'approved', 'reclaimed preparation preserves the winning owner and rejects the stale worker');
+  const later = await bobPut('later commit recovery', { label: '\u540e\u7eed' });
+  gh.lostResponse = true;
+  console.error = () => {};
+  await post(`/api/submissions/${later.data.submission.id}/approve`, {});
+  console.error = quiet;
+  const publishedSha = gh.head;
+  externalCommit(gh.file + 'unrelated later\t\u5176\u4ed6\n');
+  const recoveredLater = await post(`/api/submissions/${later.data.submission.id}/approve`, {});
+  check(recoveredLater.status === 200 && recoveredLater.data.commit.sha === publishedSha && gh.head !== publishedSha, 'ancestry recovers the original operation even after a later unrelated commit');
+  const sameValue = await bobPut('unrelated same value', { label: '\u540c\u503c' });
+  gh.failCommitOnce = true;
+  console.error = () => {};
+  await post(`/api/submissions/${sameValue.data.submission.id}/approve`, {});
+  console.error = quiet;
+  externalCommit(gh.file + 'unrelated same value\t\u540c\u503c\n');
+  const sameValueRetry = await post(`/api/submissions/${sameValue.data.submission.id}/approve`, {});
+  check(sameValueRetry.status === 409 && db.prepare('SELECT COUNT(*) AS n FROM edits WHERE tag = ?').get('unrelated same value').n === 0 && db.prepare('SELECT status FROM submissions WHERE id = ?').get(sameValue.data.submission.id).status === 'pending', 'an unrelated same-value edit does not count as this operation publishing');
+  env.EDITS_PER_HOUR = oldLimit;
+}
+
 {
   let last;
   for (let i = 0; i < 8; i++) last = await bobPut(`tag ${i}`, { label: `标签${i}` });
@@ -605,6 +810,11 @@ vm.runInContext(`const NZH_COMMUNITY_DATA = '';\n${core}\n${community}\nthis.par
   const got = plain(ext.sanitizeCommunity(ext.parseCommunityTsv(gh.file)));
   const want = [...parseCommunity(gh.file).entries.values()].map((e) => (e.count ? e : { tag: e.tag, label: e.label, aliases: e.aliases }));
   check(eq(got, want), `编辑器写出的数据原样通过扩展端检查：${JSON.stringify(got)}`);
+  const custom = parseCommunity('');
+  applyEdit(custom, 'location', { label: '场景', aliases: ['场景', '地点'] });
+  const customDict = ext.createZhDict('cat ears\t100\t猫耳\t\t\t0\n');
+  customDict.replaceCommunity(ext.sanitizeCommunity(ext.parseCommunityTsv(serializeCommunity(custom))));
+  check(customDict.lookup('location') === '场景' && customDict.search('地点', 15)[0]?.tag === 'location', '没有 Danbooru 图片数的社区译名从编辑器到扩展完整生效');
   const bad = plain(
     ext.sanitizeCommunity(
       ext.parseCommunityTsv('# 说明\ncat ears\t<script>\t喵/http://x/abc\nx\t한국어\nsmile\tneko\na, nsfw\t甲\t\t100\nd\t丁\t\t100\n'),
