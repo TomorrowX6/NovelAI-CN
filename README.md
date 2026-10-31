@@ -57,7 +57,7 @@
 | 方式 | 从哪里装 | 要求 |
 | --- | --- | --- |
 | [Chrome 扩展](#chrome-扩展) | [Chrome 应用商店](https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah) | Chrome 111 或更新 |
-| [Edge 扩展](#chrome-扩展) | 同上（Chrome 应用商店） | Edge 111 或更新 |
+| [Edge 扩展](#edge-扩展microsoft-edge-add-ons) | Edge 加载项商店（待发布；目前从 [Chrome 应用商店](https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah) 安装） | Edge 111 或更新 |
 | [Firefox 附加组件](#firefox-附加组件) | [Firefox 附加组件站](https://addons.mozilla.org/addon/novelai%E4%B8%AD%E6%96%87%E5%8C%96%E5%8A%A9%E6%89%8B/) | Firefox 140 或更新（安卓版 142） |
 | [用户脚本](#用户脚本) | [novelai-zh-tags.user.js](https://raw.githubusercontent.com/TomorrowX6/NovelAI-CN/main/dist/novelai-zh-tags.user.js) | Tampermonkey 或 Violentmonkey |
 
@@ -70,7 +70,7 @@
 
 从 [Chrome 应用商店](https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah) 安装，装好后刷新 NovelAI 页面。之后扩展会随应用商店自动更新。
 
-Edge 也从 Chrome 应用商店安装：打开上面的链接，按页面顶部的提示「允许来自其他应用商店的扩展」，再点「获取」。
+Edge 用户请参阅下方的 [Edge 扩展安装与身份信息](#edge-扩展microsoft-edge-add-ons)。
 
 <details>
 <summary>打不开 Chrome 应用商店时：手动安装</summary>
@@ -84,6 +84,28 @@ Edge 也从 Chrome 应用商店安装：打开上面的链接，按页面顶部�
 Releases 里的 `-chrome.crx`、`-edge.crx` 是自签名的安装包：Windows 和 macOS 上的 Chrome 只接受应用商店签名的 .crx，拖进去会报 `CRX_REQUIRED_PROOF_MISSING`，它只适合通过企业策略部署，或在允许这类安装包的浏览器里使用。
 
 </details>
+
+### Edge 扩展（Microsoft Edge Add-ons）
+
+Microsoft Edge 加载项商店尚未发布此扩展，商店直达 URL 将在正式发布后提供。目前可先从 [Chrome 应用商店](https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah) 安装：在 Edge 中打开链接，按页面顶部提示「允许来自其他应用商店的扩展」，然后点「获取」。
+
+#### EDGE Extension identity
+
+| 字段 | 值 |
+| --- | --- |
+| Store URL | 待扩展发布后提供 |
+| Store ID | `0RDCKD8CWJQ0` |
+| CRX ID | `blfcpgmfjcilceheakbkfgaaihbfobmh` |
+| Product ID | `2156040e-4d22-4964-bd8a-266b2a1092f1` |
+
+**Public key（公钥）**
+
+```text
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiygwS8LhbcB0thXrKVgk /alq7hnLz2fs/DF0DSuu3djB8R3LQslGq0jcHCKYEZmM2RipiMXpkle0lg/byDUU nJ+KBdlY6DwWJ606UprTevYxRXAvUoCXcUv7R96Dicbs/sKnCMMPRyuyN5y+N/+H N28HK8WlOb6oSbEoSNcjkCodKr3zP6TQzhBYcqlmM2C/pZSHDhhMmasdza4OqJK5 MAppda4LfE4PWCADbgl0rmmw8CFvAdNJ8zPEdIk70nZj6fn6XgbmgAOWubeWEuYN nvU7ArIgx/PLf1KQrxKKzBBkgQ1einXVqFgC457C9xCNzmGxhVJHyr38C8YJaZsm cQIDAQAB
+```
+
+> [!NOTE]
+> 以上为 Edge 加载项商店的扩展身份信息。商店版 CRX ID `blfcpgmfjcilceheakbkfgaaihbfobmh` 与仓库 `package.json` 中 `nzh.extensionId` 的自签名扩展 ID `cngcbealnjdakcjnelbjdeldelhgepeb` 不同。
 
 ### Firefox 附加组件
 
