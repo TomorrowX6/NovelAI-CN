@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         NovelAI 中文标签联想
 // @namespace    novelai-zh-tags
-// @version      1.9.2
+// @version      1.9.4
 // @description  NovelAI 生图提示词框：输入中文联想英文标签，英文联想结果附中文释义，全角逗号、冒号自动转半角；界面语言可选中文
 // @match        https://novelai.net/*
 // @updateURL    https://raw.githubusercontent.com/TomorrowX6/NovelAI-Tag/main/dist/novelai-zh-tags.meta.js
@@ -152,7 +152,7 @@ const SPECIAL_TAGS = [
 // raw: 每行 `英文标签\t使用次数\t显示译名(多个用/分隔)\t额外检索词(用|分隔)\t旧标签名和英文别名(用|分隔)`
 // 旧标签名和别名只用于查中文（NovelAI 英文联想里的旧名、提示词里写的 peace sign 这类别名），不参与检索
 // t2s: 繁简对照（见 createT2S），用来转换查询；译名里有繁体字的，构建时已把转换后的写法加进额外检索词
-function createZhDict(raw, t2s = '') {
+function* buildZhDict(raw, t2s = '') {
   const toSimp = createT2S(t2s);
   const tags = [];
   const counts = [];
@@ -164,7 +164,12 @@ function createZhDict(raw, t2s = '') {
   // 人物、作品名（打包进脚本的词典在使用次数前加 x；dist/zh-tags.tsv 里是第 6 列的类别 3、4）：按词拼译名时不用
   const proper = [];
 
-  for (const line of raw.split('\n')) {
+  let parsed = 0;
+  for (let start = 0; start < raw.length; ) {
+    const newline = raw.indexOf('\n', start);
+    const end = newline < 0 ? raw.length : newline;
+    const line = raw.slice(start, end);
+    start = end + 1;
     if (!line) continue;
     const [tag, rawCount, label, extra, old, kind] = line.split('\t');
     const count = rawCount[0] === 'x' ? rawCount.slice(1) : rawCount;
@@ -185,7 +190,12 @@ function createZhDict(raw, t2s = '') {
     let key = SEP + normZh(label).split(/\s*\/\s*/).join(SEP) + SEP;
     if (extra) key += extra.split('|').join(SEP) + SEP;
     keys.push(key);
+    if (++parsed % 256 === 0) yield;
   }
+
+  const baseSize = tags.length;
+  const originals = new Map();
+  let revision = 0;
 
   function search(query, limit) {
     const q = toSimp(normZh(query));
@@ -209,8 +219,12 @@ function createZhDict(raw, t2s = '') {
       }
     }
     // 匹配程度和热度一起排：冷门的前缀匹配不应压过热门的包含匹配
-    for (const h of hits) h[0] = Math.log10(counts[h[1]] + 1) - MATCH_PENALTY[h[0]];
-    hits.sort((a, b) => b[0] - a[0]);
+    for (const h of hits) {
+      // 社区自定义标签没有 Danbooru 频次：精确命中译名或检索词时优先，不把“未知”当成冷门。
+      h[2] = h[0] === 0 && h[1] >= baseSize && counts[h[1]] === 0 ? 1 : 0;
+      h[0] = Math.log10(counts[h[1]] + 1) - MATCH_PENALTY[h[0]];
+    }
+    hits.sort((a, b) => b[2] - a[2] || b[0] - a[0]);
     return hits.slice(0, limit).map(([, i]) => ({ tag: tags[i], zh: labels[i], count: counts[i] }));
   }
 
@@ -251,27 +265,43 @@ function createZhDict(raw, t2s = '') {
   }
 
   // 社区修订（src/community.js）：换掉显示译名、追加检索词，原来的译名仍可检索。
-  // 词典里没有的标签，只有平台从 Danbooru 拉来的新标签（带图片数 count）才新增，标签名由 community.js 检查过
+  // 词典里没有的社区标签也收录；图片数可选，原样插入提示词的名称须避开分隔符和权重语法。
   function amend(tag, label, terms = [], count = 0) {
     let i = indexOf(tag);
     if (i === undefined) {
-      if (!count || !label) return false;
+      if (!label || !/^[\x20-\x7e]{1,100}$/.test(tag) || /[,|{}[\]#<>\\]|::/.test(tag)) return false;
       i = tags.length;
       byTag.set(tag, i);
       tags.push(tag);
-      // 社区新加的标签不知道类别，多半是人物，不拿来拼译名
+      // 社区新加的标签类别未知，不拿来拼译名。
       proper.push(true);
-      counts.push(count);
+      counts.push(Number.isInteger(count) && count > 0 ? count : 0);
       labels.push(label);
       keys.push(SEP);
     } else if (label) {
+      if (i < baseSize && !originals.has(i)) originals.set(i, [labels[i], keys[i]]);
       labels[i] = label;
     }
+    if (i < baseSize && !originals.has(i)) originals.set(i, [labels[i], keys[i]]);
     const add = [...(label ? normZh(label).split(/\s*\/\s*/) : []), ...terms.map(normZh)]
       .map(toSimp)
       .filter((k) => k && !keys[i].includes(SEP + k + SEP));
     if (add.length) keys[i] += add.join(SEP) + SEP;
+    revision++;
     return true;
+  }
+
+  // 社区数据是完整快照：恢复基础记录后应用新覆盖，撤销和删除也立即生效。
+  function replaceCommunity(entries) {
+    for (const [i, [label, key]] of originals) {
+      labels[i] = label;
+      keys[i] = key;
+    }
+    originals.clear();
+    for (let i = baseSize; i < tags.length; i++) byTag.delete(tags[i]);
+    tags.length = counts.length = labels.length = keys.length = proper.length = baseSize;
+    for (const e of entries) amend(e.tag, e.label, e.aliases, e.count);
+    revision++;
   }
 
   // 常见的拼写错误（worth quality）对应的正确标签：{ tag, zh }，中文对照用它提示可能拼错
@@ -325,10 +355,46 @@ function createZhDict(raw, t2s = '') {
     typo,
     gloss,
     amend,
+    replaceCommunity,
+    get revision() {
+      return revision;
+    },
     get size() {
       return tags.length;
     },
   };
+}
+
+function createZhDict(raw, t2s = '') {
+  const build = buildZhDict(raw, t2s);
+  let next;
+  do { next = build.next(); } while (!next.done);
+  return next.value;
+}
+
+// 每批最多解析 256 条，再把主线程交还给浏览器。MessageChannel 不受连续定时器的最小间隔限制。
+async function createZhDictAsync(raw, t2s = '', yieldTask) {
+  let channel;
+  if (!yieldTask) {
+    if (typeof MessageChannel === 'function') {
+      channel = new MessageChannel();
+      yieldTask = () => new Promise((resolve) => {
+        channel.port1.onmessage = resolve;
+        channel.port2.postMessage(null);
+      });
+    } else yieldTask = () => new Promise((resolve) => setTimeout(resolve, 0));
+  }
+  try {
+    const build = buildZhDict(raw, t2s);
+    for (;;) {
+      const next = build.next();
+      if (next.done) return next.value;
+      await yieldTask();
+    }
+  } finally {
+    channel?.port1.close();
+    channel?.port2.close();
+  }
 }
 
 // ---- 页面集成 ----
@@ -373,7 +439,8 @@ const nativeFetch = window.fetch;
 async function suggestZh(query, jpMode, url, init) {
   let list = [];
   try {
-    list = getDict().search(query, MAX_RESULTS);
+    const ready = dict || await preloadDict();
+    list = ready.search(query, MAX_RESULTS);
   } catch (e) {
     console.warn('[novelai-zh-tags]', e);
   }
@@ -458,6 +525,10 @@ window.fetch = function (...args) {
 const panels = document.getElementsByClassName('image-prompt-suggestions');
 
 function annotatePanel(panel) {
+  if (!dict) {
+    preloadDict();
+    return;
+  }
   // 原生英文标签 span 没有 style；原生副标题和本脚本的副标题都有 style
   for (const enSpan of panel.querySelectorAll('span:not([style])')) {
     const item = enSpan.parentElement && enSpan.parentElement.parentElement;
@@ -488,6 +559,9 @@ function annotatePanel(panel) {
 }
 
 if (tagsEnabled) {
+  document.addEventListener('nzh-dictionary', () => {
+    for (const panel of panels) annotatePanel(panel);
+  });
   new MutationObserver(() => {
     for (const panel of panels) annotatePanel(panel);
   }).observe(document, { childList: true, subtree: true });
@@ -557,7 +631,25 @@ document.addEventListener(
 
 // 空闲时预先解析词典，避免第一次联想卡顿。只在生图页做，写小说等页面用不到；
 // NovelAI 是单页应用，从其他页面切到生图页时，在提示词框获得焦点时再解析
-const preloadDict = () => (window.requestIdleCallback || setTimeout)(getDict);
+let dictPreload = null;
+function preloadDict() {
+  if (dict) return Promise.resolve(dict);
+  if (dictPreload) return dictPreload;
+  dictPreload = new Promise((resolve) => (window.requestIdleCallback || setTimeout)(resolve))
+    .then(() => dict || createZhDictAsync(ZH_TAG_DATA, ZH_T2S_DATA))
+    .then((loaded) => {
+      // 用户先触发了同步查词时，保留已经使用、可能已更新的那份词典。
+      if (!dict) {
+        dict = loaded;
+        amendDict(dict);
+      }
+      document.dispatchEvent(new Event('nzh-dictionary'));
+      return dict;
+    })
+    .catch((e) => { console.warn('[novelai-zh-tags] 预载词典失败', e); })
+    .finally(() => { dictPreload = null; });
+  return dictPreload;
+}
 if (tagsEnabled) {
   window.addEventListener('load', () => {
     if (location.pathname.startsWith('/image')) preloadDict();
@@ -678,10 +770,16 @@ const editorParagraphs = (editor) => [...editor.children].map((p) => p.textConte
 const plainName = (s) => s.toLowerCase().replace(/[\s_\-!.:'’]+/g, '');
 
 function renderComparePanel(panel, editor) {
+  if (!dict) {
+    preloadDict();
+    return;
+  }
   const paras = editorParagraphs(editor);
   const key = paras.join('\n');
-  if (panel.nzhKey === key) return;
+  const revision = getDict().revision;
+  if (panel.nzhKey === key && panel.nzhRevision === revision) return;
   panel.nzhKey = key;
+  panel.nzhRevision = revision;
   const seen = new Set();
   const items = [];
   paras.forEach((text, para) => {
@@ -814,6 +912,7 @@ if (tagsEnabled) {
   });
   // 扩展面板在这个页面上改了开关：同一个页面里改 localStorage 不触发 storage 事件，由 bridge.js 发这个事件
   document.addEventListener('nzh-compare', reloadComparePref);
+  document.addEventListener('nzh-dictionary', scheduleCompare);
 }
 
 // ---- 界面汉化 ----
@@ -1176,7 +1275,7 @@ function uiSettingsFetch(url, init, nativeRequest) {
 // data/zh-community.tsv。脚本每隔几小时从 GitHub 拉一次这个文件，存进 localStorage，覆盖内置词典里对应标签的显示译名、追加检索词。
 // 只开放标签译名：它们在页面上只当纯文字显示（联想副标题、英文联想下的中文）；界面文案仍随版本内置。
 // 拉来的内容照样检查：译名和检索词须含汉字、长度有限，不含 < >、控制字符和网址。
-// 编辑器从 Danbooru 拉的新标签带图片数 count，词典里没有时会新增；
+// 审核通过的新标签不要求来自 Danbooru；从 Danbooru 拉来的标签可附图片数 count。
 // 新标签点选后原样插入提示词，所以标签名不能含 NovelAI 的分隔符和权重语法。
 
 const COMMUNITY_CACHE_KEY = 'nzh-community';
@@ -1221,7 +1320,15 @@ let communityEntries = [];
 
 // main.js 的 getDict 建好词典后调用；数据晚到时也会对已有词典再调用一次
 function amendDict(d) {
-  for (const e of communityEntries) d.amend(e.tag, e.label, e.aliases, e.count);
+  d.replaceCommunity(communityEntries);
+}
+
+function applyCommunity(data) {
+  communityEntries = sanitizeCommunity(data);
+  if (dict) {
+    amendDict(dict);
+    document.dispatchEvent(new Event('nzh-dictionary'));
+  }
 }
 
 function readCommunityCache() {
@@ -1232,23 +1339,69 @@ function readCommunityCache() {
   }
 }
 
-async function refreshCommunity() {
+let communityRefresh = null;
+// 只锁住请求编号和缓存提交，网络下载在锁外进行，其他页面不会被慢网阻塞。
+const communityLock = (fn) => typeof navigator !== 'undefined' && navigator.locks
+  ? navigator.locks.request('nzh-community-cache', fn)
+  : fn();
+
+function refreshCommunity() {
+  if (communityRefresh) return communityRefresh;
+  communityRefresh = downloadCommunity().finally(() => { communityRefresh = null; });
+  return communityRefresh;
+}
+
+async function downloadCommunity() {
+  let reservation = communityLock(() => {
+    const before = readCommunityCache();
+    const requestTime = Math.max(Date.now(), (before?.requestCounter || before?.requestTime || before?.time || 0) + 1);
+    try {
+      localStorage.setItem(COMMUNITY_CACHE_KEY, JSON.stringify({ ...before, time: before?.time || 0, entries: before?.entries || [], requestCounter: requestTime }));
+    } catch {}
+    return { before, requestTime };
+  });
+  if (reservation?.then) reservation = await reservation;
+  const { before, requestTime } = reservation;
+  let entries;
   let failed = false;
+  const controller = typeof AbortController === 'function' ? new AbortController() : null;
+  const timeout = controller ? setTimeout(() => controller.abort(), 15000) : null;
   try {
-    const res = await nativeFetch.call(window, NZH_COMMUNITY_DATA, { credentials: 'omit', referrerPolicy: 'no-referrer', cache: 'no-cache' });
+    const res = await nativeFetch.call(window, NZH_COMMUNITY_DATA, {
+      credentials: 'omit', referrerPolicy: 'no-referrer', cache: 'no-cache',
+      ...(controller ? { signal: controller.signal } : {}),
+    });
     // 还没有人修改过时文件不存在
-    if (res.status === 404) communityEntries = [];
+    if (res.status === 404) entries = [];
     else if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    else communityEntries = sanitizeCommunity(parseCommunityTsv(await res.text()));
-    if (dict) amendDict(dict);
+    else entries = sanitizeCommunity(parseCommunityTsv(await res.text()));
   } catch (e) {
     failed = true;
     console.warn('[novelai-zh-tags] 获取社区译名失败', e);
+  } finally {
+    if (timeout !== null) clearTimeout(timeout);
   }
-  // 失败也记下时间，离线时不会每次打开页面都重试
-  try {
-    localStorage.setItem(COMMUNITY_CACHE_KEY, JSON.stringify({ time: Date.now(), entries: communityEntries, failed }));
-  } catch {}
+  return communityLock(() => {
+    const latest = readCommunityCache();
+    // 另一个标签页已经拿到较新快照时，旧请求（包括失败）只同步它，不能回写旧数据。
+    if ((latest?.requestTime || latest?.time || 0) > requestTime || (failed && latest && latest.time > (before?.time || 0) && !latest.failed)) {
+      applyCommunity(latest);
+      return;
+    }
+    // 失败也记下尝试时间，保留持久缓存的最新内容；成功时间独立保存，便于诊断。
+    const data = {
+      time: Math.max(Date.now(), (latest?.time || 0) + 1),
+      requestTime,
+      requestCounter: Math.max(latest?.requestCounter || 0, requestTime),
+      successTime: failed ? (latest?.successTime || (!latest?.failed && latest?.time) || 0) : Date.now(),
+      entries: failed ? sanitizeCommunity(latest || { entries: communityEntries }) : entries,
+      failed,
+    };
+    applyCommunity(data);
+    try {
+      localStorage.setItem(COMMUNITY_CACHE_KEY, JSON.stringify(data));
+    } catch {}
+  });
 }
 
 const communityAuto = (() => {
@@ -1281,5 +1434,8 @@ if (NZH_COMMUNITY_DATA && tagsEnabled) {
   // 扩展面板点了「更新社区译名」：当场拉取，不刷新页面（extension/bridge.js 发这个事件）。
   // 安卓版 Firefox 打开面板时 NovelAI 在后台，后台刷新页面很慢，还可能被系统杀掉
   document.addEventListener('nzh-community-refresh', () => refreshCommunity());
+  window.addEventListener('storage', (e) => {
+    if (e.key === COMMUNITY_CACHE_KEY) applyCommunity(readCommunityCache());
+  });
 }
 })();

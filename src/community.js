@@ -3,7 +3,7 @@
 // data/zh-community.tsv。脚本每隔几小时从 GitHub 拉一次这个文件，存进 localStorage，覆盖内置词典里对应标签的显示译名、追加检索词。
 // 只开放标签译名：它们在页面上只当纯文字显示（联想副标题、英文联想下的中文）；界面文案仍随版本内置。
 // 拉来的内容照样检查：译名和检索词须含汉字、长度有限，不含 < >、控制字符和网址。
-// 编辑器从 Danbooru 拉的新标签带图片数 count，词典里没有时会新增；
+// 审核通过的新标签不要求来自 Danbooru；从 Danbooru 拉来的标签可附图片数 count。
 // 新标签点选后原样插入提示词，所以标签名不能含 NovelAI 的分隔符和权重语法。
 
 const COMMUNITY_CACHE_KEY = 'nzh-community';
@@ -48,7 +48,15 @@ let communityEntries = [];
 
 // main.js 的 getDict 建好词典后调用；数据晚到时也会对已有词典再调用一次
 function amendDict(d) {
-  for (const e of communityEntries) d.amend(e.tag, e.label, e.aliases, e.count);
+  d.replaceCommunity(communityEntries);
+}
+
+function applyCommunity(data) {
+  communityEntries = sanitizeCommunity(data);
+  if (dict) {
+    amendDict(dict);
+    document.dispatchEvent(new Event('nzh-dictionary'));
+  }
 }
 
 function readCommunityCache() {
@@ -59,23 +67,69 @@ function readCommunityCache() {
   }
 }
 
-async function refreshCommunity() {
+let communityRefresh = null;
+// 只锁住请求编号和缓存提交，网络下载在锁外进行，其他页面不会被慢网阻塞。
+const communityLock = (fn) => typeof navigator !== 'undefined' && navigator.locks
+  ? navigator.locks.request('nzh-community-cache', fn)
+  : fn();
+
+function refreshCommunity() {
+  if (communityRefresh) return communityRefresh;
+  communityRefresh = downloadCommunity().finally(() => { communityRefresh = null; });
+  return communityRefresh;
+}
+
+async function downloadCommunity() {
+  let reservation = communityLock(() => {
+    const before = readCommunityCache();
+    const requestTime = Math.max(Date.now(), (before?.requestCounter || before?.requestTime || before?.time || 0) + 1);
+    try {
+      localStorage.setItem(COMMUNITY_CACHE_KEY, JSON.stringify({ ...before, time: before?.time || 0, entries: before?.entries || [], requestCounter: requestTime }));
+    } catch {}
+    return { before, requestTime };
+  });
+  if (reservation?.then) reservation = await reservation;
+  const { before, requestTime } = reservation;
+  let entries;
   let failed = false;
+  const controller = typeof AbortController === 'function' ? new AbortController() : null;
+  const timeout = controller ? setTimeout(() => controller.abort(), 15000) : null;
   try {
-    const res = await nativeFetch.call(window, NZH_COMMUNITY_DATA, { credentials: 'omit', referrerPolicy: 'no-referrer', cache: 'no-cache' });
+    const res = await nativeFetch.call(window, NZH_COMMUNITY_DATA, {
+      credentials: 'omit', referrerPolicy: 'no-referrer', cache: 'no-cache',
+      ...(controller ? { signal: controller.signal } : {}),
+    });
     // 还没有人修改过时文件不存在
-    if (res.status === 404) communityEntries = [];
+    if (res.status === 404) entries = [];
     else if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    else communityEntries = sanitizeCommunity(parseCommunityTsv(await res.text()));
-    if (dict) amendDict(dict);
+    else entries = sanitizeCommunity(parseCommunityTsv(await res.text()));
   } catch (e) {
     failed = true;
     console.warn('[novelai-zh-tags] 获取社区译名失败', e);
+  } finally {
+    if (timeout !== null) clearTimeout(timeout);
   }
-  // 失败也记下时间，离线时不会每次打开页面都重试
-  try {
-    localStorage.setItem(COMMUNITY_CACHE_KEY, JSON.stringify({ time: Date.now(), entries: communityEntries, failed }));
-  } catch {}
+  return communityLock(() => {
+    const latest = readCommunityCache();
+    // 另一个标签页已经拿到较新快照时，旧请求（包括失败）只同步它，不能回写旧数据。
+    if ((latest?.requestTime || latest?.time || 0) > requestTime || (failed && latest && latest.time > (before?.time || 0) && !latest.failed)) {
+      applyCommunity(latest);
+      return;
+    }
+    // 失败也记下尝试时间，保留持久缓存的最新内容；成功时间独立保存，便于诊断。
+    const data = {
+      time: Math.max(Date.now(), (latest?.time || 0) + 1),
+      requestTime,
+      requestCounter: Math.max(latest?.requestCounter || 0, requestTime),
+      successTime: failed ? (latest?.successTime || (!latest?.failed && latest?.time) || 0) : Date.now(),
+      entries: failed ? sanitizeCommunity(latest || { entries: communityEntries }) : entries,
+      failed,
+    };
+    applyCommunity(data);
+    try {
+      localStorage.setItem(COMMUNITY_CACHE_KEY, JSON.stringify(data));
+    } catch {}
+  });
 }
 
 const communityAuto = (() => {
@@ -108,4 +162,7 @@ if (NZH_COMMUNITY_DATA && tagsEnabled) {
   // 扩展面板点了「更新社区译名」：当场拉取，不刷新页面（extension/bridge.js 发这个事件）。
   // 安卓版 Firefox 打开面板时 NovelAI 在后台，后台刷新页面很慢，还可能被系统杀掉
   document.addEventListener('nzh-community-refresh', () => refreshCommunity());
+  window.addEventListener('storage', (e) => {
+    if (e.key === COMMUNITY_CACHE_KEY) applyCommunity(readCommunityCache());
+  });
 }

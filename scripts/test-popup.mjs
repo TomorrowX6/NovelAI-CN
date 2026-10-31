@@ -249,6 +249,69 @@ test('failed toggle restores the confirmed value and allows another attempt', as
   assert.match(p.node('notice').className, /err/);
 });
 
+test('settings reconnect after a slow background reload without reopening the popup', async () => {
+  const p = await popup();
+  p.node('ui').checked = false;
+  await p.node('ui').fire('change');
+  p.io.state = null;
+  await p.settle();
+  assert.equal(p.node('connection').dataset.state, 'loading');
+  assert.equal(p.node('ui').disabled, true);
+  assert.ok(p.timers() > 0);
+  await p.settle();
+  p.io.state = { ...connected, ui: false };
+  await p.settle();
+  assert.equal(p.node('connection').dataset.state, 'connected');
+  assert.equal(p.node('ui').checked, false);
+  assert.equal(p.node('ui').disabled, false);
+  assert.equal(p.timers(), 0);
+});
+
+test('settings reconnect eventually times out and retains the confirmed offline change', async () => {
+  const p = await popup();
+  p.node('ui').checked = false;
+  await p.node('ui').fire('change');
+  p.io.state = null;
+  const checks = await p.settleAll();
+  assert.ok(checks > 1 && checks <= 20);
+  assert.equal(p.node('connection').dataset.state, 'disconnected');
+  assert.equal(p.node('ui').checked, false);
+  assert.equal(p.node('ui').disabled, false);
+  assert.match(p.node('notice').textContent, /连接|刷新/);
+});
+
+test('reconnect waits past replies from the stale document until the new settings load', async () => {
+  const p = await popup();
+  p.node('ui').checked = false;
+  await p.node('ui').fire('change');
+  p.io.state = { ...connected, stale: true, ui: false };
+  await p.settle();
+  assert.equal(p.node('connection').dataset.state, 'loading');
+  assert.ok(p.timers() > 0);
+  p.io.state = { ...connected, stale: false, ui: false };
+  await p.settle();
+  assert.equal(p.node('connection').dataset.state, 'connected');
+  assert.equal(p.timers(), 0);
+});
+
+test('offline save disables controls until storage finishes and permits the next change', async () => {
+  const p = await popup(null);
+  const get = p.io.storage.local.get;
+  let release;
+  const held = new Promise((resolve) => { release = resolve; });
+  p.io.storage.local.get = async (...args) => { await held; return get(...args); };
+  p.node('ui').checked = true;
+  const saving = p.node('ui').fire('change');
+  assert.equal(p.node('ui').disabled, true);
+  assert.equal(p.node('tags').disabled, true);
+  release();
+  await saving;
+  assert.equal(p.node('tags').disabled, false);
+  p.node('tags').checked = false;
+  await p.node('tags').fire('change');
+  assert.deepEqual(p.io.storage.data.queued, { ui: true, tags: false });
+});
+
 test('refresh stays disabled while the page downloads and shows fresh data afterwards', async () => {
   const p = await popup();
   await p.node('refresh').fire('click');
@@ -368,7 +431,7 @@ async function loadPage(store, storage = extensionStorage(), chrome = { runtime:
       setItem: (key, value) => store.set(key, String(value)),
       removeItem: (key) => store.delete(key),
     },
-    window: { addEventListener: (type) => scheduled.push(type) },
+    window: { addEventListener: (type) => { if (type === 'load') scheduled.push(type); } },
     sessionStorage: { getItem: () => null },
     location: { reload() { reloads++; } }, setTimeout: (fn) => timers.push(fn), document, chrome, Event,
     // Downloads never finish unless a test replaces this.

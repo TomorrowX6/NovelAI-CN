@@ -53,6 +53,8 @@ jobs:
         run: node scripts/test.mjs
       - name: Extension popup tests
         run: node scripts/test-popup.mjs
+      - name: Browser runtime tests
+        run: node scripts/test-runtime.mjs
       - name: Package extension
         env:
           CRX_PRIVATE_KEY: ${{ secrets.CRX_PRIVATE_KEY }}

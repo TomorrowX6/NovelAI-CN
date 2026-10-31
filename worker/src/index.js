@@ -215,10 +215,10 @@ async function installationToken(env) {
   return d.token;
 }
 
-async function readCommunity(env) {
+async function readCommunity(env, ref = conf(env).branch) {
   const c = conf(env);
   const token = await installationToken(env);
-  const r = await gh(`/repos/${c.repo}/contents/${c.path}?ref=${encodeURIComponent(c.branch)}`, { token });
+  const r = await gh(`/repos/${c.repo}/contents/${c.path}?ref=${encodeURIComponent(ref)}`, { token });
   if (r.status === 404) return { sha: null, data: parseCommunity('') };
   if (!r.ok) throw new Error(`读取 ${c.path} 失败：HTTP ${r.status}`);
   const d = await r.json();
@@ -227,7 +227,7 @@ async function readCommunity(env) {
     text = new TextDecoder().decode(b64ToBytes(d.content.replace(/\s/g, '')));
   } else {
     // 超过 1 MB 的文件不内联内容，另取原文
-    const raw = await gh(`/repos/${c.repo}/contents/${c.path}?ref=${encodeURIComponent(c.branch)}`, { token, accept: 'application/vnd.github.raw' });
+    const raw = await gh(`/repos/${c.repo}/contents/${c.path}?ref=${encodeURIComponent(ref)}`, { token, accept: 'application/vnd.github.raw' });
     if (!raw.ok) throw new Error(`读取 ${c.path} 失败：HTTP ${raw.status}`);
     text = await raw.text();
   }
@@ -265,50 +265,146 @@ function crossSite(request) {
   return null;
 }
 
-// 把一次修改以 author 为作者提交到 GitHub，记进编辑日志。base 是修改时看到的社区修订：这个标签在那之后
-// 被改过就不提交，返回 { conflict }。审核员通过别人的修改时传 reviewer，写进提交说明
-async function publish(request, env, ctx, { tag, value, base, author, reviewer }) {
-  const c = conf(env);
-  // 平台拉来的 Danbooru 标签记下图片数，词典里没有时扩展据此新增
-  const known = await env.DB.prepare('SELECT count FROM tags WHERE tag = ?').bind(tag).first();
+// Preparing work may expire. Publishing work is durable and cannot be rejected or
+// reclaimed by a clock: an old non-force ref update may still be in flight.
+const CLAIM_MS = 120000;
+const operationRow = (env, id) => env.DB.prepare('SELECT * FROM publication_operations WHERE id = ?').bind(id).first();
+const operationGuard = "id = ? AND owner = ? AND phase IN ('preparing', 'publishing') AND candidate IS ?";
+
+async function git(env, path, method = 'GET', body) {
+  const res = await gh(`/repos/${conf(env).repo}${path}`, { token: await installationToken(env), method, body });
+  if (!res.ok) throw new Error(`GitHub ${method} ${path}: HTTP ${res.status}`);
+  return res.json();
+}
+const refPath = (env) => `/git/refs/heads/${conf(env).branch.split('/').map(encodeURIComponent).join('/')}`;
+const branchHead = async (env) => (await git(env, refPath(env).replace('/git/refs/', '/git/ref/'))).object.sha;
+
+async function startOperation(env, details, submissionId = null) {
+  const requestKey = submissionId ? `submission:${submissionId}` : await sha256(JSON.stringify([conf(env).repo, conf(env).branch, conf(env).path, details]));
+  const id = crypto.randomUUID();
+  const owner = crypto.randomUUID();
+  const now = Date.now();
+  const insert = env.DB.prepare(
+    "INSERT OR IGNORE INTO publication_operations (id, request_key, submission_id, phase, owner, updated_at, details) " +
+    "SELECT ?, ?, ?, 'preparing', ?, ?, ? WHERE ? IS NULL OR EXISTS (SELECT 1 FROM submissions WHERE id = ? AND status = 'pending')",
+  ).bind(id, requestKey, submissionId, owner, now, JSON.stringify(details), submissionId, submissionId);
+  if (submissionId) {
+    await env.DB.batch([insert, env.DB.prepare(
+      "UPDATE submissions SET status = 'approving', reviewer = ?, reason = '', reviewed_at = ? WHERE id = ? AND status = 'pending' " +
+      "AND EXISTS (SELECT 1 FROM publication_operations WHERE id = ? AND owner = ? AND phase = 'preparing')",
+    ).bind(details.reviewer.login, now, submissionId, id, owner)]);
+  } else await insert.run();
+  let op = await env.DB.prepare("SELECT * FROM publication_operations WHERE request_key = ? AND phase IN ('preparing', 'publishing')").bind(requestKey).first();
+  if (!op) return null;
+  if (op.phase === 'publishing') return op;
+  if (op.owner === owner) return op;
+  // Only preparation is reclaimable. Every later write and ref publication checks ownership.
+  op = await env.DB.prepare(
+    "UPDATE publication_operations SET owner = ?, updated_at = ? WHERE id = ? AND phase = 'preparing' AND updated_at < ? RETURNING *",
+  ).bind(owner, now, op.id, now - CLAIM_MS).first();
+  return op;
+}
+
+async function abortOperation(env, op) {
+  await env.DB.batch([
+    env.DB.prepare("UPDATE submissions SET status = 'pending', reviewer = '', reviewed_at = NULL WHERE id = ? AND status = 'approving' " +
+      `AND EXISTS (SELECT 1 FROM publication_operations WHERE ${operationGuard})`).bind(op.submission_id, op.id, op.owner, op.candidate),
+    env.DB.prepare(`UPDATE publication_operations SET phase = 'aborted', updated_at = ? WHERE ${operationGuard}`).bind(Date.now(), op.id, op.owner, op.candidate),
+  ]);
+}
+
+async function finishOperation(request, env, ctx, op, result) {
+  const d = JSON.parse(op.details);
+  const args = [op.id, op.owner, op.candidate];
+  const guard = `${operationGuard} AND (submission_id IS NULL OR EXISTS (SELECT 1 FROM submissions WHERE id = submission_id AND status = 'approving'))`;
+  const statements = [];
+  if (result.action !== 'none') statements.push(env.DB.prepare(
+    'INSERT INTO edits (tag, user_id, login, avatar, action, label, aliases, note, sha, created_at) ' +
+    `SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ? FROM publication_operations WHERE ${guard}`,
+  ).bind(d.tag, d.author.id, d.author.login, d.author.avatar || '', result.action, result.entry?.label || '', (result.entry?.aliases || []).join('/'), d.value.note, result.commit?.sha || '', Date.now(), ...args));
+  statements.push(
+    env.DB.prepare("UPDATE submissions SET status = 'approved', sha = ?, reviewed_at = ? WHERE id = ? AND status = 'approving' " +
+      `AND EXISTS (SELECT 1 FROM publication_operations WHERE ${operationGuard})`).bind(result.commit?.sha || '', Date.now(), op.submission_id, ...args),
+    env.DB.prepare(`UPDATE publication_operations SET phase = 'done', outcome = ?, updated_at = ? WHERE ${operationGuard}`).bind(JSON.stringify(result), Date.now(), ...args),
+  );
+  await env.DB.batch(statements);
+  const done = await operationRow(env, op.id);
+  if (done.phase !== 'done') return { busy: true };
+  purge(request, ctx, '/api/community');
+  return JSON.parse(done.outcome);
+}
+
+async function prepareCandidate(env, op) {
+  const d = JSON.parse(op.details);
+  const head = await branchHead(env);
+  const [{ data }, parent, known] = await Promise.all([
+    readCommunity(env, head), git(env, `/git/commits/${head}`), env.DB.prepare('SELECT count FROM tags WHERE tag = ?').bind(d.tag).first(),
+  ]);
+  const current = data.entries.get(d.tag) || null;
+  if (d.base !== undefined && !sameEntry(d.base, current)) return { conflict: current };
+  const r = applyEdit(data, d.tag, d.value, known?.count || 0);
+  if (r.action === 'none') return { action: 'none', entry: r.after };
+  const author = { name: d.author.login, email: `${d.author.id}+${d.author.login}@users.noreply.github.com`, date: new Date(op.updated_at).toISOString() };
+  const candidate = JSON.stringify({
+    parent: head, baseTree: parent.tree.sha, content: serializeCommunity(data), author,
+    message: `${commitMessage(r.action, d.tag, r.after, d.value.note, d.reviewer)}\n\nNovelAI-Operation: ${op.id}`,
+    action: r.action, entry: r.after,
+  });
+  const row = await env.DB.prepare(`UPDATE publication_operations SET phase = 'publishing', candidate = ?, updated_at = ? WHERE ${operationGuard} RETURNING *`)
+    .bind(candidate, Date.now(), op.id, op.owner, op.candidate).first();
+  return row ? { op: row } : { busy: true };
+}
+
+async function publish(request, env, ctx, details, submissionId = null) {
+  let op = await startOperation(env, details, submissionId);
+  if (!op) return { busy: true };
+  // A bounded request can continue on the next retry; persisted candidates survive every await.
   for (let attempt = 0; attempt < 3; attempt++) {
-    const { sha, data } = await readCommunity(env);
-    const current = data.entries.get(tag) || null;
-    if (base !== undefined && !sameEntry(base, current)) return { conflict: current };
-    const r = applyEdit(data, tag, value, known ? known.count : 0);
-    if (r.action === 'none') return { action: 'none', entry: r.after };
-    const res = await gh(`/repos/${c.repo}/contents/${c.path}`, {
-      token: await installationToken(env),
-      method: 'PUT',
-      body: {
-        message: commitMessage(r.action, tag, r.after, value.note, reviewer),
-        content: bytesToB64(enc.encode(serializeCommunity(data))),
-        branch: c.branch,
-        ...(sha ? { sha } : {}),
-        author: { name: author.login, email: `${author.id}+${author.login}@users.noreply.github.com` },
-      },
-    });
-    // 文件在读和写之间被别的提交改了，重读再来
+    if (!op.candidate) {
+      let prepared;
+      try { prepared = await prepareCandidate(env, op); }
+      catch (error) { await abortOperation(env, op); throw error; }
+      if ('conflict' in prepared) { await abortOperation(env, op); return prepared; }
+      if (prepared.action === 'none') return finishOperation(request, env, ctx, op, prepared);
+      if (prepared.busy) return prepared;
+      op = prepared.op;
+    }
+    let candidate = JSON.parse(op.candidate);
+    if (!candidate.sha) {
+      // Explicit author AND committer timestamps make object creation deterministic on retry.
+      const tree = await git(env, '/git/trees', 'POST', { base_tree: candidate.baseTree, tree: [{ path: conf(env).path, mode: '100644', type: 'blob', content: candidate.content }] });
+      const commit = await git(env, '/git/commits', 'POST', { message: candidate.message, tree: tree.sha, parents: [candidate.parent], author: candidate.author, committer: candidate.author });
+      candidate.sha = commit.sha;
+      const row = await env.DB.prepare(`UPDATE publication_operations SET candidate = ? WHERE ${operationGuard} RETURNING *`)
+        .bind(JSON.stringify(candidate), op.id, op.owner, op.candidate).first();
+      if (!row) return { busy: true };
+      op = row;
+    }
+    const head = await branchHead(env);
+    const comparison = await git(env, `/compare/${candidate.sha}...${head}`);
+    if (comparison.status === 'ahead' || comparison.status === 'identical') {
+      return finishOperation(request, env, ctx, op, { action: candidate.action, entry: candidate.entry, commit: { sha: candidate.sha, url: `https://github.com/${conf(env).repo}/commit/${candidate.sha}` } });
+    }
+    if (comparison.status === 'diverged') {
+      // The current branch is on a sibling lineage. A non-force PATCH of the old
+      // immutable candidate can no longer succeed, even if an old request resumes.
+      const row = await env.DB.prepare(`UPDATE publication_operations SET candidate = NULL WHERE ${operationGuard} RETURNING *`).bind(op.id, op.owner, op.candidate).first();
+      if (!row) return { busy: true };
+      op = row;
+      continue;
+    }
+    if (head !== candidate.parent) return { busy: true }; // e.g. an external branch rewind
+    const owned = await env.DB.prepare(`SELECT 1 FROM publication_operations WHERE ${operationGuard} AND phase = 'publishing'`).bind(op.id, op.owner, op.candidate).first();
+    if (!owned) return { busy: true };
+    const res = await gh(`/repos/${conf(env).repo}${refPath(env)}`, { token: await installationToken(env), method: 'PATCH', body: { sha: candidate.sha, force: false } });
     if (res.status === 409 || res.status === 422) continue;
-    if (!res.ok) throw new Error(`提交到 GitHub 失败：HTTP ${res.status}`);
-    const commit = (await res.json()).commit || {};
-    await env.DB.prepare(
-      'INSERT INTO edits (tag, user_id, login, avatar, action, label, aliases, note, sha, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    )
-      .bind(tag, author.id, author.login, author.avatar || '', r.action, r.after?.label || '', (r.after?.aliases || []).join('/'), value.note, commit.sha || '', Date.now())
-      .run();
-    purge(request, ctx, '/api/community');
-    return { action: r.action, entry: r.after, commit: { sha: commit.sha, url: commit.html_url } };
+    if (!res.ok) throw new Error(`GitHub ref publication failed: HTTP ${res.status}`);
+    return finishOperation(request, env, ctx, op, { action: candidate.action, entry: candidate.entry, commit: { sha: candidate.sha, url: `https://github.com/${conf(env).repo}/commit/${candidate.sha}` } });
   }
   return { busy: true };
 }
 
-// 审核员通过一条修改时，先把它从 pending 改成 approving 占住，再提交到 GitHub：这期间提交的人撤回、替换不了它，
-// 别的审核员也处理不了；提交没成功就放回 pending。Worker 中途被停掉时会一直是 approving，过了 CLAIM_MS 可以重新处理
-const CLAIM_MS = 120000;
-const OPEN = "(status = 'pending' OR (status = 'approving' AND reviewed_at < ?))";
-
-// D1 里的一行待审核修改，转成接口返回的样子；approving 对外仍是待审核
+// Keep preparing work pending; irreversible publication has its own public status.
 const submissionItem = (s) => ({
   id: s.id,
   tag: s.tag,
@@ -320,7 +416,7 @@ const submissionItem = (s) => ({
   login: s.login,
   user_id: s.user_id,
   avatar: s.avatar,
-  status: s.status === 'approving' ? 'pending' : s.status,
+  status: s.status === 'approving' ? (s.publication_phase === 'publishing' ? 'publishing' : 'pending') : s.status,
   reviewer: s.reviewer,
   reason: s.reason,
   sha: s.sha,
@@ -357,30 +453,21 @@ async function editTag(request, env, ctx, rawTag) {
   if (body.base !== undefined && !sameEntry(body.base, current)) return conflict(current);
   const r = applyEdit(data, tag, v.value);
   // 同一个人对同一个标签只留最新的一份待审核修改；改回现在的内容就是撤回
-  const withdrawn = await env.DB.prepare("UPDATE submissions SET status = 'withdrawn', reviewed_at = ? WHERE tag = ? AND user_id = ? AND status = 'pending'")
-    .bind(Date.now(), tag, user.id)
-    .run();
-  // 审核员正在通过上一份时撤回不了（先撤回再查：撤回和占住只会有一个成功）
-  if (await env.DB.prepare("SELECT 1 FROM submissions WHERE tag = ? AND user_id = ? AND status = 'approving'").bind(tag, user.id).first()) {
-    return json({ error: '你上一份修改正在被审核员通过，请稍后重新加载再改' }, 409);
+  const now = Date.now();
+  const statements = [env.DB.prepare("UPDATE submissions SET status = 'withdrawn', reviewed_at = ? WHERE tag = ? AND user_id = ? AND status = 'pending'").bind(now, tag, user.id)];
+  if (r.action !== 'none') statements.push(env.DB.prepare(
+    'INSERT INTO submissions (tag, user_id, login, avatar, action, label, aliases, note, base, created_at) ' +
+    "SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ? WHERE NOT EXISTS (SELECT 1 FROM submissions WHERE tag = ? AND user_id = ? AND status = 'approving') RETURNING *",
+  ).bind(tag, user.id, user.login, user.avatar || '', r.action, v.value.label, v.value.aliases.join('/'), v.value.note,
+    JSON.stringify(current && { label: current.label, aliases: current.aliases }), now, tag, user.id));
+  else statements.push(env.DB.prepare("SELECT 1 FROM submissions WHERE tag = ? AND user_id = ? AND status = 'approving'").bind(tag, user.id));
+  const result = await env.DB.batch(statements);
+  if (r.action === 'none') {
+    if (result[1].results.length) return json({ error: BUSY }, 409);
+    return json({ action: 'none', entry: r.after, withdrawn: result[0].meta.changes > 0 });
   }
-  if (r.action === 'none') return json({ action: 'none', entry: r.after, withdrawn: withdrawn.meta.changes > 0 });
-  const row = await env.DB.prepare(
-    'INSERT INTO submissions (tag, user_id, login, avatar, action, label, aliases, note, base, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING *',
-  )
-    .bind(
-      tag,
-      user.id,
-      user.login,
-      user.avatar || '',
-      r.action,
-      v.value.label,
-      v.value.aliases.join('/'),
-      v.value.note,
-      JSON.stringify(current && { label: current.label, aliases: current.aliases }),
-      Date.now(),
-    )
-    .first();
+  const row = result[1].results[0];
+  if (!row) return json({ error: BUSY }, 409);
   return json({ action: 'pending', submission: submissionItem(row) }, 202);
 }
 
@@ -418,7 +505,7 @@ async function listSubmissions(url, env) {
     args.push(+uid);
   }
   const { results } = await env.DB.prepare(
-    `SELECT * FROM submissions${where.length ? ` WHERE ${where.join(' AND ')}` : ''} ORDER BY created_at DESC, id DESC LIMIT ${SUBMISSIONS_LIMIT}`,
+    `SELECT submissions.*, (SELECT phase FROM publication_operations WHERE submission_id = submissions.id AND phase IN ('preparing', 'publishing') LIMIT 1) AS publication_phase FROM submissions${where.length ? ` WHERE ${where.join(' AND ')}` : ''} ORDER BY created_at DESC, id DESC LIMIT ${SUBMISSIONS_LIMIT}`,
   )
     .bind(...args)
     .all();
@@ -427,7 +514,7 @@ async function listSubmissions(url, env) {
 
 // 这条修改已经不是待审核的了（或者找不到）
 async function notOpen(env, id) {
-  const s = await env.DB.prepare('SELECT * FROM submissions WHERE id = ?').bind(id).first();
+  const s = await env.DB.prepare("SELECT submissions.*, (SELECT phase FROM publication_operations WHERE submission_id = submissions.id AND phase = 'publishing' LIMIT 1) AS publication_phase FROM submissions WHERE id = ?").bind(id).first();
   if (!s) return json({ error: '找不到这条修改' }, 404);
   return json({ error: `这条修改${DONE[s.status]}`, item: submissionItem(s) }, 409);
 }
@@ -439,34 +526,31 @@ async function review(request, env, ctx, id, verdict) {
   const bad = crossSite(request);
   if (bad) return bad;
   const body = await request.json().catch(() => null);
-  const now = Date.now();
-  // 驳回直接改状态；通过先占住，见 CLAIM_MS
-  const s = await env.DB.prepare(`UPDATE submissions SET status = ?, reviewer = ?, reason = ?, reviewed_at = ? WHERE id = ? AND ${OPEN} RETURNING *`)
-    .bind(verdict === 'reject' ? 'rejected' : 'approving', user.login, verdict === 'reject' ? cleanNote(body?.reason) : '', now, id, now - CLAIM_MS)
-    .first();
-  if (!s) return notOpen(env, id);
-  if (verdict === 'reject') return json({ item: submissionItem(s) });
-  let r;
-  try {
-    r = await publish(request, env, ctx, {
-      tag: s.tag,
-      value: { label: s.label, aliases: s.aliases ? s.aliases.split('/') : [], note: s.note },
-      base: JSON.parse(s.base),
-      author: { id: s.user_id, login: s.login, avatar: s.avatar },
-      reviewer: user,
-    });
-  } finally {
-    if (!r || r.busy || 'conflict' in r) {
-      await env.DB.prepare("UPDATE submissions SET status = 'pending', reviewer = '', reviewed_at = NULL WHERE id = ? AND status = 'approving' AND reviewed_at = ?")
-        .bind(id, now)
-        .run();
-    }
+  if (verdict === 'reject') {
+    // Expired preparation can be revoked; publishing (including unknown remote
+    // outcomes) never expires. Abort first and gate the status write by its token.
+    const token = crypto.randomUUID();
+    const now = Date.now();
+    const results = await env.DB.batch([
+      env.DB.prepare("UPDATE publication_operations SET phase = 'aborted', owner = ?, updated_at = ? WHERE submission_id = ? AND phase = 'preparing' AND updated_at < ?").bind(token, now, id, now - CLAIM_MS),
+      env.DB.prepare("UPDATE submissions SET status = 'rejected', reviewer = ?, reason = ?, reviewed_at = ? WHERE id = ? AND (status = 'pending' OR (status = 'approving' AND EXISTS (SELECT 1 FROM publication_operations WHERE submission_id = ? AND owner = ? AND phase = 'aborted'))) RETURNING *")
+        .bind(user.login, cleanNote(body?.reason), now, id, id, token),
+    ]);
+    const row = results[1].results[0];
+    return row ? json({ item: submissionItem(row) }) : notOpen(env, id);
   }
+  const s = await env.DB.prepare('SELECT * FROM submissions WHERE id = ?').bind(id).first();
+  if (!s || !['pending', 'approving'].includes(s.status)) return notOpen(env, id);
+  const r = await publish(request, env, ctx, {
+    tag: s.tag,
+    value: { label: s.label, aliases: s.aliases ? s.aliases.split('/') : [], note: s.note },
+    base: JSON.parse(s.base),
+    author: { id: s.user_id, login: s.login, avatar: s.avatar },
+    reviewer: user,
+  }, id);
   if (r.busy) return json({ error: BUSY }, 409);
-  if ('conflict' in r) return json({ error: '提交以后这个标签又被改过了：请驳回，让提交的人按现在的内容重新修改', entry: r.conflict }, 409);
-  const row = await env.DB.prepare("UPDATE submissions SET status = 'approved', sha = ?, reviewed_at = ? WHERE id = ? RETURNING *")
-    .bind(r.commit?.sha || '', Date.now(), id)
-    .first();
+  if ('conflict' in r) return json({ error: '\u63d0\u4ea4\u4ee5\u540e\u8fd9\u4e2a\u6807\u7b7e\u53c8\u88ab\u6539\u8fc7\u4e86', entry: r.conflict }, 409);
+  const row = await env.DB.prepare('SELECT * FROM submissions WHERE id = ?').bind(id).first();
   return json({ ...r, item: submissionItem(row) });
 }
 
