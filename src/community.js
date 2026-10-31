@@ -105,4 +105,7 @@ if (NZH_COMMUNITY_DATA && tagsEnabled) {
   if (requested || (communityAuto && due)) {
     window.addEventListener('load', () => setTimeout(refreshCommunity, 3000));
   }
+  // 扩展面板点了「更新社区译名」：当场拉取，不刷新页面（extension/bridge.js 发这个事件）。
+  // 安卓版 Firefox 打开面板时 NovelAI 在后台，后台刷新页面很慢，还可能被系统杀掉
+  document.addEventListener('nzh-community-refresh', () => refreshCommunity());
 }

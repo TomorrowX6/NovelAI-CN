@@ -1,6 +1,6 @@
 // 扩展面板（popup.html）和 NovelAI 页面之间的桥。运行在内容脚本的隔离环境里，
 // 和页面里的脚本共用 novelai.net 的 localStorage：面板来读状态、改设置，改完刷新页面，
-// 让 document_start 注入的脚本按新设置重新运行（中文对照例外，页面脚本当场切换）。
+// 让 document_start 注入的脚本按新设置重新运行（中文对照和更新社区译名例外，页面脚本当场处理）。
 // 面板没连上页面时把改动存进扩展的 storage（queued），这里写进 localStorage：页面刚打开时随即刷新，
 // 已经开着的页面等用户自己刷新。当前设置也存一份（settings），面板没连上页面时照着显示。
 const KEYS = {
@@ -103,9 +103,11 @@ function write(key, value) {
     if (!validHours(value)) return false;
     localStorage.setItem(KEYS.hours, String(value));
   } else if (key === 'refresh') {
-    // 把上次拉取的时间清零，页面刷新后就会重新拉社区译名（自动更新关着也拉，src/community.js）
+    // 把上次拉取的时间清零，再让页面脚本当场重新拉（src/community.js），拉完写入新的时间，面板据此知道拉完了。
+    // 页面没拉完就关掉或刷新了，下次打开时也会重新拉（自动更新关着也拉）
     const c = readCommunity() || { entries: [] };
     localStorage.setItem(KEYS.community, JSON.stringify({ ...c, time: 0, failed: false }));
+    document.dispatchEvent(new Event('nzh-community-refresh'));
   } else {
     return false;
   }
@@ -114,7 +116,7 @@ function write(key, value) {
 
 function set(key, value) {
   if (!write(key, value)) return false;
-  if (key !== 'compare') setTimeout(() => location.reload(), 50);
+  if (key !== 'compare' && key !== 'refresh') setTimeout(() => location.reload(), 50);
   return true;
 }
 

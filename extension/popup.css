@@ -53,6 +53,9 @@ code { font: 11.5px ui-monospace, "Cascadia Code", Consolas, monospace; }
 
 /* 面板大小固定：首页和设置叠在同一个框里，切换时一个缩小淡出、一个放大淡入，框的大小不变 */
 .app-shell { height: 478px; display: flex; flex-direction: column; padding: 12px 18px 0; overflow: hidden; }
+/* 安卓版 Firefox 把面板当整页打开（popup.js 加上 .mobile）：宽度跟着屏幕走，固定 340px 会偏向左边；平板上不拉得太宽 */
+.mobile body { width: auto; }
+.mobile .app-shell { max-width: 480px; margin: 0 auto; }
 .panels { position: relative; flex: 1; min-height: 0; }
 .panel { position: absolute; inset: 0; display: flex; flex-direction: column; transition: opacity .28s var(--ease), transform .28s var(--ease), visibility 0s linear 0s; }
 .panel[hidden] { display: flex; visibility: hidden; opacity: 0; pointer-events: none; transition: opacity .28s var(--ease), transform .28s var(--ease), visibility 0s linear .28s; }

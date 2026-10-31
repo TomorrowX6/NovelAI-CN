@@ -41,7 +41,9 @@ function extensionStorage(data = {}) {
   };
 }
 
-async function popup(state = connected, stored = {}) {
+const DESKTOP_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:144.0) Gecko/20100101 Firefox/144.0';
+
+async function popup(state = connected, stored = {}, userAgent = DESKTOP_UA) {
   const nodes = new Map();
   const documentEvents = {};
   const timers = [];
@@ -62,10 +64,12 @@ async function popup(state = connected, stored = {}) {
       async fire(type) { await listeners[type]?.({ target: this }); },
     });
   }
-  const io = { state, failWrite: false, reply: null, storage: extensionStorage(stored) };
+  const io = { state, failWrite: false, reply: null, storage: extensionStorage(stored), userAgent, rootClasses: [] };
   vm.runInNewContext(script, {
+    navigator: { userAgent: io.userAgent },
     document: {
       getElementById: (id) => nodes.get(id),
+      documentElement: { classList: { add: (name) => io.rootClasses.push(name) } },
       body: { classList: { add() {} } },
       addEventListener: (type, listener) => { documentEvents[type] = listener; },
     },
@@ -89,7 +93,9 @@ async function popup(state = connected, stored = {}) {
     node: (id) => nodes.get(id), io, messages,
     focus: () => focused,
     key: (key) => documentEvents.keydown?.({ key }),
-    async settle() { const t = timers.shift(); assert.ok(t, 'a post-reload status check is scheduled'); await t.fn(); await flush(); },
+    async settle() { const t = timers.shift(); assert.ok(t, 'a status check is scheduled'); await t.fn(); await flush(); },
+    // Runs status checks until the popup stops scheduling them; returns how many ran.
+    async settleAll() { let n = 0; while (timers.length) { await this.settle(); n++; } return n; },
     timers: () => timers.length,
   };
 }
@@ -243,7 +249,7 @@ test('failed toggle restores the confirmed value and allows another attempt', as
   assert.match(p.node('notice').className, /err/);
 });
 
-test('refresh stays disabled during reload and shows fresh data after reconnecting', async () => {
+test('refresh stays disabled while the page downloads and shows fresh data afterwards', async () => {
   const p = await popup();
   await p.node('refresh').fire('click');
   assert.equal(p.node('refresh').disabled, true);
@@ -254,12 +260,29 @@ test('refresh stays disabled during reload and shows fresh data after reconnecti
   assert.equal(p.node('n-community').textContent, '124');
   assert.equal(p.node('refresh').disabled, false);
   assert.equal(p.node('refresh').getAttribute('aria-busy'), 'false');
+  assert.match(p.node('notice').className, /ok/);
+  assert.equal(p.timers(), 0);
+});
+
+test('a slow download in a background page is still reported once it finishes', async () => {
+  const p = await popup();
+  await p.node('refresh').fire('click');
+  // The bridge cleared the time and the page is still downloading.
+  p.io.state = { ...connected, community: { ...connected.community, time: 0 } };
+  for (let i = 0; i < 10; i++) await p.settle();
+  assert.equal(p.node('refresh').getAttribute('aria-busy'), 'true');
+  assert.equal(p.node('connection').dataset.state, 'connected');
+  p.io.state = { ...connected, community: { count: 124, time: 1792630000000, hash: 'new12345', failed: false } };
+  await p.settle();
+  assert.match(p.node('notice').className, /ok/);
+  assert.equal(p.node('refresh').disabled, false);
+  assert.equal(p.timers(), 0);
 });
 
 test('refresh does not report success when the page returns an unrefreshed cache', async () => {
   const p = await popup();
   await p.node('refresh').fire('click');
-  await p.settle();
+  assert.equal(await p.settleAll(), 20);
   assert.equal(p.node('notice').hidden, false);
   assert.match(p.node('notice').className, /err/);
   assert.equal(p.node('refresh').disabled, false);
@@ -274,6 +297,14 @@ test('losing connection clears cached status from the popup', async () => {
   assert.equal(p.node('refresh').disabled, true);
   assert.equal(p.node('ui').checked, false);
   assert.equal(p.node('ui').disabled, false);
+  assert.match(p.node('notice').className, /err/);
+  assert.equal(p.timers(), 0);
+});
+
+test('the popup follows the screen width only where it opens as a full page', async () => {
+  assert.deepEqual((await popup()).io.rootClasses, []);
+  const android = 'Mozilla/5.0 (Android 16; Mobile; rv:158.0) Gecko/158.0 Firefox/158.0';
+  assert.deepEqual((await popup(connected, {}, android)).io.rootClasses, ['mobile']);
 });
 
 test('a failed download with a new attempt time is not displayed as a successful update', async () => {
@@ -321,13 +352,13 @@ test('community downloads report failure to the popup bridge while keeping cache
 async function loadPage(store, storage = extensionStorage(), chrome = { runtime: { onMessage: { addListener() {} } }, storage }) {
   const scheduled = [];
   let reloads = 0;
-  const visibility = [];
+  const listeners = {};
   const events = [];
   const timers = [];
   const document = {
     hidden: false,
-    addEventListener: (type, fn) => type === 'visibilitychange' && visibility.push(fn),
-    dispatchEvent: (e) => events.push(e.type),
+    addEventListener: (type, fn) => (listeners[type] ||= []).push(fn),
+    dispatchEvent: (e) => { events.push(e.type); for (const fn of listeners[e.type] || []) fn(e); },
   };
   const context = vm.createContext({
     NZH_COMMUNITY_DATA: 'https://example.test/tags.tsv', tagsEnabled: true, dict: null,
@@ -340,11 +371,13 @@ async function loadPage(store, storage = extensionStorage(), chrome = { runtime:
     window: { addEventListener: (type) => scheduled.push(type) },
     sessionStorage: { getItem: () => null },
     location: { reload() { reloads++; } }, setTimeout: (fn) => timers.push(fn), document, chrome, Event,
+    // Downloads never finish unless a test replaces this.
+    nativeFetch: () => new Promise(() => {}), console: { warn() {} },
   });
   vm.runInContext(fs.readFileSync(new URL('../src/community.js', import.meta.url), 'utf8'), context);
   vm.runInContext(fs.readFileSync(new URL('../extension/bridge.js', import.meta.url), 'utf8'), context);
   await flush();
-  const hide = async () => { document.hidden = true; for (const fn of visibility) fn(); await flush(); };
+  const hide = async () => { document.hidden = true; for (const fn of listeners.visibilitychange || []) fn(); await flush(); };
   // Runs what the bridge scheduled, such as the reload after a setting change.
   const runTimers = () => timers.splice(0).forEach((fn) => fn());
   return { scheduled, context, reloads: () => reloads, hide, events, runTimers };
@@ -486,6 +519,21 @@ test('a manual refresh clears the previous failure so the popup waits for the ne
   const c = JSON.parse(store.get('nzh-community'));
   assert.equal(c.time, 0);
   assert.equal(c.failed, false);
+});
+
+test('a manual refresh downloads in the open page without reloading it', async () => {
+  const store = new Map([['nzh-community', JSON.stringify({ time: 100, entries: [] })]]);
+  const page = await loadPage(store);
+  page.context.nativeFetch = async () => ({ status: 200, ok: true, text: async () => 'dog ears\t犬耳\n' });
+  assert.equal(page.context.set('refresh', true), true);
+  assert.deepEqual(page.events, ['nzh-community-refresh']);
+  await flush();
+  page.runTimers();
+  assert.equal(page.reloads(), 0);
+  const c = JSON.parse(store.get('nzh-community'));
+  assert.ok(c.time > 100);
+  assert.equal(c.failed, false);
+  assert.equal(c.entries[0].tag, 'dog ears');
 });
 
 test('the bridge still answers the popup when extension storage is unavailable', async () => {

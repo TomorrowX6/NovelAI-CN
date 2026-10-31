@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         NovelAI 中文标签联想
 // @namespace    novelai-zh-tags
-// @version      1.9.1
+// @version      1.9.2
 // @description  NovelAI 生图提示词框：输入中文联想英文标签，英文联想结果附中文释义，全角逗号、冒号自动转半角；界面语言可选中文
 // @match        https://novelai.net/*
 // @updateURL    https://raw.githubusercontent.com/TomorrowX6/NovelAI-Tag/main/dist/novelai-zh-tags.meta.js
@@ -1278,5 +1278,8 @@ if (NZH_COMMUNITY_DATA && tagsEnabled) {
   if (requested || (communityAuto && due)) {
     window.addEventListener('load', () => setTimeout(refreshCommunity, 3000));
   }
+  // 扩展面板点了「更新社区译名」：当场拉取，不刷新页面（extension/bridge.js 发这个事件）。
+  // 安卓版 Firefox 打开面板时 NovelAI 在后台，后台刷新页面很慢，还可能被系统杀掉
+  document.addEventListener('nzh-community-refresh', () => refreshCommunity());
 }
 })();

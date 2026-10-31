@@ -3,11 +3,16 @@
 // scripts/crx.mjs replaces this line when packaging the extension.
 const BUILD = { version: 'dev', hash: '', tags: 0, ui: 0, hard: 0, communityUrl: '' };
 
+// Firefox for Android opens the popup as a full page, so it follows the screen width instead of the desktop panel's.
+if (/Android/.test(navigator.userAgent)) document.documentElement.classList.add('mobile');
+
 const $ = (id) => document.getElementById(id);
 const fmt = (n) => n.toLocaleString('zh-CN');
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 let tabId = null;
 let current = null;
-let pending = false;
+// The setting being saved, or 'refresh' while community translations download.
+let pending = null;
 const DEFAULTS = { ui: false, tags: true, compare: false, auto: true, hours: 24 };
 // Last settings seen by bridge.js plus changes made while no page was connected.
 let offline = { ...DEFAULTS };
@@ -36,14 +41,15 @@ async function query() {
 
 function controls() {
   const prefs = current || offline;
-  $('ui').disabled = $('tags').disabled = pending;
+  const busy = !!pending;
+  $('ui').disabled = $('tags').disabled = busy;
   // The tag reference is part of the Chinese tags feature.
-  $('compare').disabled = pending || !prefs.tags;
-  $('auto').disabled = pending || !BUILD.communityUrl || !prefs.tags;
+  $('compare').disabled = busy || !prefs.tags;
+  $('auto').disabled = busy || !BUILD.communityUrl || !prefs.tags;
   $('hours').disabled = $('auto').disabled || !prefs.auto;
-  $('refresh').disabled = pending || !current || !BUILD.communityUrl || !current.tags;
-  $('refresh').setAttribute('aria-busy', String(pending));
-  $('refresh-label').textContent = pending ? '正在刷新页面…' : '更新社区译名';
+  $('refresh').disabled = busy || !current || !BUILD.communityUrl || !current.tags;
+  $('refresh').setAttribute('aria-busy', String(busy));
+  $('refresh-label').textContent = pending === 'refresh' ? '正在更新社区译名…' : busy ? '正在刷新页面…' : '更新社区译名';
 }
 
 function render(s) {
@@ -85,7 +91,7 @@ function render(s) {
 }
 
 async function queue(key, value) {
-  pending = true;
+  pending = key;
   let ok = true;
   try {
     const { queued } = await chrome.storage.local.get('queued');
@@ -94,48 +100,66 @@ async function queue(key, value) {
   } catch {
     ok = false;
   }
-  pending = false;
+  pending = null;
   render(null);
   notice(ok ? '已保存，刷新或打开 NovelAI 页面后生效。' : '设置未保存，请重试。', ok ? 'ok' : 'err');
+}
+
+// The page script downloads community translations in place and stamps a new time when done, whether or not it succeeded.
+// On Firefox for Android the page sits in the background behind the popup and can be slow, so keep checking for a while.
+async function refreshed(previousTime) {
+  notice('正在获取社区译名…');
+  let next = null;
+  for (let i = 0; i < 20; i++) {
+    await sleep(1000);
+    next = await query();
+    if (!next || (next.community?.time || 0) > previousTime) break;
+  }
+  if (!next) await loadOffline();
+  pending = null;
+  render(next);
+  // The cleared time stays saved, so the page downloads again the next time it loads.
+  if (!next) notice('与页面的连接已断开，下次打开 NovelAI 时会继续更新。', 'err');
+  else if ((next.community?.time || 0) <= previousTime) notice('尚未取得新数据，请稍后重试。', 'err');
+  else if (next.community.failed) notice('更新失败，已保留本地译名。请稍后重试。', 'err');
+  else notice('社区译名已更新', 'ok');
 }
 
 async function set(key, value) {
   if (pending) return;
   if (!current) return queue(key, value);
   const previousTime = current.community?.time || 0;
-  pending = true;
+  pending = key;
   controls();
   try {
     const r = await chrome.tabs.sendMessage(tabId, { type: 'nzh-set', key, value });
     if (!r?.ok) throw new Error('Setting rejected');
+    if (key === 'refresh') {
+      refreshed(previousTime);
+      return;
+    }
     if (key === 'compare') {
       // The page script switches the tag reference in place, so the page does not reload.
-      pending = false;
+      pending = null;
       render((await query()) || { ...current, compare: value });
       notice(value ? '中文对照已打开' : '中文对照已关闭', 'ok');
       return;
     }
     $('connection').dataset.state = 'loading';
     $('connection-text').textContent = '正在刷新 NovelAI 页面';
-    notice(key === 'refresh' ? '正在重新获取社区译名…' : '设置已保存，正在刷新页面…');
-    // Community data starts downloading three seconds after the page loads.
+    notice('设置已保存，正在刷新页面…');
     setTimeout(async () => {
       const next = await query();
       if (!next) {
         // The page may still be reloading; its saved copy predates the change it already confirmed.
         await loadOffline();
-        if (key !== 'refresh') offline = { ...offline, [key]: value };
+        offline = { ...offline, [key]: value };
       }
-      pending = false;
+      pending = null;
       render(next);
-      if (next && key === 'refresh') {
-        if (next.community?.failed) notice('更新失败，已保留本地译名。请稍后重试。', 'err');
-        else if ((next.community?.time || 0) > previousTime) notice('社区译名已更新', 'ok');
-        else notice('尚未取得新数据，请稍后重试。', 'err');
-      }
-    }, key === 'refresh' ? 8000 : 2000);
+    }, 2000);
   } catch {
-    pending = false;
+    pending = null;
     render(current);
     notice(key === 'refresh' ? '更新失败，请刷新 NovelAI 页面后重试。' : '设置未保存，请刷新 NovelAI 页面后重试。', 'err');
   }
