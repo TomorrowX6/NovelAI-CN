@@ -8,9 +8,10 @@
 
 在提示词框里打中文就能联想英文标签，英文标签附上中文释义，界面和教程也能切换成中文。
 
-<a href="https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah"><img src="store/badges/chrome-web-store.png" height="58" alt="在 Chrome 应用商店获取"></a>&nbsp;&nbsp;<a href="https://addons.mozilla.org/addon/novelai%E4%B8%AD%E6%96%87%E5%8C%96%E5%8A%A9%E6%89%8B/"><img src="store/badges/firefox-get-the-addon.svg" height="58" alt="在 Firefox 附加组件站获取"></a>
+<a href="https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah"><img src="store/badges/chrome-web-store.png" height="58" alt="在 Chrome 应用商店获取"></a>&nbsp;&nbsp;<a href="#edge-扩展"><img src="https://raw.githubusercontent.com/MicrosoftDocs/edge-developer/main/microsoft-edge/extensions/publish/add-ons-badge-images/microsoft-edge-add-ons-badge.png" height="58" alt="Microsoft Edge 加载项商店（待发布）"></a>&nbsp;&nbsp;<a href="https://addons.mozilla.org/addon/novelai%E4%B8%AD%E6%96%87%E5%8C%96%E5%8A%A9%E6%89%8B/"><img src="store/badges/firefox-get-the-addon.svg" height="58" alt="在 Firefox 附加组件站获取"></a>
 
 [![Chrome 应用商店](https://img.shields.io/chrome-web-store/v/mbkdadfailijiglghflchpbmoofmohah?logo=googlechrome&logoColor=white&label=Chrome&color=4285F4)](https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah)
+[![Edge 加载项商店](https://img.shields.io/badge/Edge-%E5%BE%85%E5%8F%91%E5%B8%83-0078D7?logo=microsoftedge&logoColor=white)](#edge-扩展)
 [![Firefox 附加组件](https://img.shields.io/amo/v/novelai-zh-tags@azusamoe?logo=firefoxbrowser&logoColor=white&label=Firefox&color=FF7139)](https://addons.mozilla.org/addon/novelai%E4%B8%AD%E6%96%87%E5%8C%96%E5%8A%A9%E6%89%8B/)
 [![用户脚本](https://img.shields.io/badge/%E7%94%A8%E6%88%B7%E8%84%9A%E6%9C%AC-%E5%AE%89%E8%A3%85-00485B?logo=tampermonkey&logoColor=white)](https://raw.githubusercontent.com/TomorrowX6/NovelAI-CN/main/dist/novelai-zh-tags.user.js)
 [![Release](https://img.shields.io/github/v/release/TomorrowX6/NovelAI-CN?label=Release)](https://github.com/TomorrowX6/NovelAI-CN/releases)
@@ -22,7 +23,7 @@
 
 </div>
 
-同一份代码有三种装法：Chrome 扩展和 Firefox 附加组件「NovelAI中文化助手」，以及用户脚本「NovelAI 中文标签联想」（Tampermonkey / Violentmonkey）。标签词典和界面译文都打包在里面，联想和翻译在浏览器里完成，不收集个人信息（见[隐私政策](PRIVACY.md)）。
+同一份代码支持 Chrome、Edge 和 Firefox 扩展「NovelAI中文化助手」，以及用户脚本「NovelAI 中文标签联想」（Tampermonkey / Violentmonkey）。标签词典和界面译文都打包在里面，联想和翻译在浏览器里完成，不收集个人信息（见[隐私政策](PRIVACY.md)）。
 
 ## 功能
 
@@ -57,7 +58,7 @@
 | 方式 | 从哪里装 | 要求 |
 | --- | --- | --- |
 | [Chrome 扩展](#chrome-扩展) | [Chrome 应用商店](https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah) | Chrome 111 或更新 |
-| [Edge 扩展](#edge-扩展microsoft-edge-add-ons) | Edge 加载项商店（待发布；目前从 [Chrome 应用商店](https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah) 安装） | Edge 111 或更新 |
+| [Edge 扩展](#edge-扩展) | [Edge 加载项商店](#edge-扩展) | Edge 111 或更新 |
 | [Firefox 附加组件](#firefox-附加组件) | [Firefox 附加组件站](https://addons.mozilla.org/addon/novelai%E4%B8%AD%E6%96%87%E5%8C%96%E5%8A%A9%E6%89%8B/) | Firefox 140 或更新（安卓版 142） |
 | [用户脚本](#用户脚本) | [novelai-zh-tags.user.js](https://raw.githubusercontent.com/TomorrowX6/NovelAI-CN/main/dist/novelai-zh-tags.user.js) | Tampermonkey 或 Violentmonkey |
 
@@ -69,8 +70,6 @@
 需要 Chrome 111 或更新的版本。
 
 从 [Chrome 应用商店](https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah) 安装，装好后刷新 NovelAI 页面。之后扩展会随应用商店自动更新。
-
-Edge 用户请参阅下方的 [Edge 扩展安装与身份信息](#edge-扩展microsoft-edge-add-ons)。
 
 <details>
 <summary>打不开 Chrome 应用商店时：手动安装</summary>
@@ -85,27 +84,11 @@ Releases 里的 `-chrome.crx`、`-edge.crx` 是自签名的安装包：Windows �
 
 </details>
 
-### Edge 扩展（Microsoft Edge Add-ons）
+### Edge 扩展
 
-Microsoft Edge 加载项商店尚未发布此扩展，商店直达 URL 将在正式发布后提供。目前可先从 [Chrome 应用商店](https://chromewebstore.google.com/detail/mbkdadfailijiglghflchpbmoofmohah) 安装：在 Edge 中打开链接，按页面顶部提示「允许来自其他应用商店的扩展」，然后点「获取」。
+需要 Edge 111 或更新的版本。
 
-#### EDGE Extension identity
-
-| 字段 | 值 |
-| --- | --- |
-| Store URL | 待扩展发布后提供 |
-| Store ID | `0RDCKD8CWJQ0` |
-| CRX ID | `blfcpgmfjcilceheakbkfgaaihbfobmh` |
-| Product ID | `2156040e-4d22-4964-bd8a-266b2a1092f1` |
-
-**Public key（公钥）**
-
-```text
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiygwS8LhbcB0thXrKVgk /alq7hnLz2fs/DF0DSuu3djB8R3LQslGq0jcHCKYEZmM2RipiMXpkle0lg/byDUU nJ+KBdlY6DwWJ606UprTevYxRXAvUoCXcUv7R96Dicbs/sKnCMMPRyuyN5y+N/+H N28HK8WlOb6oSbEoSNcjkCodKr3zP6TQzhBYcqlmM2C/pZSHDhhMmasdza4OqJK5 MAppda4LfE4PWCADbgl0rmmw8CFvAdNJ8zPEdIk70nZj6fn6XgbmgAOWubeWEuYN nvU7ArIgx/PLf1KQrxKKzBBkgQ1einXVqFgC457C9xCNzmGxhVJHyr38C8YJaZsm cQIDAQAB
-```
-
-> [!NOTE]
-> 以上为 Edge 加载项商店的扩展身份信息。商店版 CRX ID `blfcpgmfjcilceheakbkfgaaihbfobmh` 与仓库 `package.json` 中 `nzh.extensionId` 的自签名扩展 ID `cngcbealnjdakcjnelbjdeldelhgepeb` 不同。
+扩展发布后从 [Edge 加载项商店](#edge-扩展) 安装，装好后刷新 NovelAI 页面。之后扩展会随应用商店自动更新。商店链接将在发布后更新。
 
 ### Firefox 附加组件
 
