@@ -672,7 +672,7 @@ function renderPreview() {
     );
   }
   const note = $('raw-note');
-  if (edit.create && tag && !r) note.textContent = '词典和 Danbooru 新标签里都没有这个标签：提交后扩展不会用上，下个版本核实后再并入词典';
+  if (edit.create && tag && !r) note.textContent = '词典里还没有这个标签：填好名称并经审核通过后，扩展更新社区译名即可使用';
   else if (r && r.isNew) note.textContent = 'Danbooru 新标签，词典里还没有：填好名称后扩展会直接收录';
   else note.textContent = edit.create ? '输入英文标签；已有的标签会出现在下面' : '修改标签时无法更改此项';
 }
