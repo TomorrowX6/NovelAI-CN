@@ -804,9 +804,9 @@ async function submit() {
     }
     edit.original = { label: v.label, aliases: v.aliases };
     $('f-note').value = '';
-    if (d.action === 'pending') snack('已提交审核：审核员通过后扩展几小时内用上');
+    if (d.action === 'pending') snack('已提交审核');
     else if (d.action === 'none') snack(d.withdrawn ? '和现在的内容一样，已撤回你待审核的修改' : '内容没有变化');
-    else snack({ add: '已新增', update: '已修改', delete: '已删除' }[d.action] + ' ' + tag + '，扩展几小时内用上', d.commit && d.commit.url ? { link: { href: d.commit.url, text: '查看提交' } } : null);
+    else snack({ add: '已新增', update: '已修改', delete: '已删除' }[d.action] + ' ' + tag, d.commit && d.commit.url ? { link: { href: d.commit.url, text: '查看提交' } } : null);
     renderPendingCard();
     if (edit.create) {
       edit.create = false;
