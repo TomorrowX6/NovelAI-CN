@@ -572,6 +572,17 @@ const carol = (await login('carolcode')).session;
 const bobPut = (tag, body) => put(tag, body, { cookie: bob });
 const post = (p, body, cookie = session, opts = {}) => call('POST', p, { body, cookie, origin: BASE, ...opts });
 const submissions = async (q = '') => (await call('GET', `/api/submissions${q}`)).data.items;
+// 审核员直接提交的历史修改也要出现在「我的提交」，不需要补写审核记录。
+{
+  const mine = await submissions('?status=all&user_id=1001');
+  check(mine.length > 0 && mine.every((it) => it.user_id === 1001 && it.status === 'approved' && it.direct), '我的提交包含审核员直接提交的历史记录');
+  check(mine.some((it) => it.action === 'add') && mine.some((it) => it.action === 'update') && mine.some((it) => it.action === 'delete'), '直接提交的新增、修改、删除都能查看');
+  check((await submissions('?status=approved&user_id=1001')).length === mine.length, '已通过筛选包含直接提交');
+  check((await submissions('?status=all&user=aLiCe')).length === mine.length, '直接提交支持不区分大小写的用户名筛选');
+  const tags = await submissions('?status=all&user_id=1001&tag=Cat_Ears');
+  check(eq(tags.map((it) => [it.tag, it.action, it.sha]), [['cat ears', 'update', 'c2'], ['cat ears', 'add', 'c1']]), '直接提交支持标签筛选并按时间倒序显示');
+  check(!(await submissions('?user_id=1001')).length && !(await submissions('?status=rejected&user_id=1001')).length, '直接提交不会混入待审核或已驳回记录');
+}
 {
   check((await call('GET', '/api/me', { cookie: bob })).data.user.reviewer === false, '不在 REVIEWERS 里的不是审核员');
   env.REVIEWERS = 'bob';
@@ -614,6 +625,8 @@ const submissions = async (q = '') => (await call('GET', `/api/submissions${q}`)
   check(gh.file.includes('cat ears\t猫咪耳朵\t喵耳') && !(await submissions()).length, '通过后文件里是新内容，待审核列表清空');
   const h = (await call('GET', '/api/history?tag=cat_ears')).data.items[0];
   check(h.login === 'Bob' && h.label === '猫咪耳朵' && h.sha === ok.data.commit.sha, '编辑日志记下提交的人');
+  const approved = await submissions('?status=approved&user_id=1004&tag=cat_ears');
+  check(approved.length === 1 && approved[0].id === id && !approved[0].direct, '经过审核的提交保留审核记录，不会和编辑日志重复显示');
   check((await post(`/api/submissions/${id}/approve`, {})).status === 409 && (await post(`/api/submissions/${id}/reject`, {})).status === 409, '处理过的修改不能再审核');
 }
 // 两个人改同一个标签：通过一份以后，另一份是按旧内容改的，不能通过，只能驳回

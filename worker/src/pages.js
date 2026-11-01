@@ -156,6 +156,9 @@ mark { background: var(--mark); color: inherit; padding: 0; }
 .history .meta { font-size: 12px; color: var(--muted); }
 .pending-list li { display: block; }
 .pending-list li > * + * { margin-top: 6px; }
+.pending-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.pending-head .who { min-width: 0; white-space: normal; }
+.pending-head > .badge { flex: none; margin-left: 0; }
 
 /* 审核页 */
 td.change { min-width: 220px; overflow-wrap: anywhere; }
@@ -175,8 +178,9 @@ td.state { min-width: 180px; }
 .suggest a:hover { background: var(--hover); }
 .suggest .zh { color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-.snackbar { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 30; min-width: 288px; max-width: calc(100vw - 32px); padding: 14px 16px; border-radius: 4px; background: #323232; color: #fff; box-shadow: var(--shadow); display: flex; align-items: center; gap: 16px; }
-.snackbar a { color: var(--accent-light); font-weight: 500; white-space: nowrap; }
+.snackbar { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 30; width: max-content; max-width: calc(100vw - 32px); padding: 14px 16px; border-radius: 4px; background: #323232; color: #fff; box-shadow: var(--shadow); display: flex; align-items: center; gap: 16px; }
+.snackbar > span { min-width: 0; overflow-wrap: anywhere; }
+.snackbar a { color: var(--accent-light); font-weight: 500; white-space: nowrap; flex-shrink: 0; }
 .snackbar.error { background: #b71c1c; }
 
 @media (max-width: 760px) {
@@ -745,7 +749,15 @@ function renderPendingCard() {
   $('pending-card').hidden = !items.length;
   const list = $('pending');
   list.textContent = '';
-  for (const it of items) list.append(el('li', null, [whoView(it), changeView(it), stateView(it)]));
+  for (const it of items) {
+    const state = stateView(it);
+    const badge = state.querySelector('.badge') || (it.status === 'pending' ? el('span', { class: 'badge pending', text: '待审核' }) : null);
+    list.append(el('li', null, [
+      el('div', { class: 'pending-head' }, [whoView(it), badge]),
+      changeView(it),
+      state.childNodes.length ? state : null,
+    ]));
+  }
 }
 
 function renderEdit(param) {
@@ -848,7 +860,7 @@ function entryText(e, tag) {
 function changeView(it) {
   return el('div', null, [
     el('div', { text: it.action === 'delete' ? '删除社区修订，恢复为 ' + entryText(null, it.tag) : entryText(it, it.tag) }),
-    el('div', { class: 'caption', text: '原来：' + entryText(it.base, it.tag) }),
+    it.direct ? null : el('div', { class: 'caption', text: '原来：' + entryText(it.base, it.tag) }),
     it.note ? el('div', { class: 'caption', text: '说明：' + it.note }) : null,
   ]);
 }
@@ -874,7 +886,7 @@ function stateView(it) {
     return box;
   }
   if (it.status !== 'pending') {
-    box.append(el('span', { class: 'badge ' + it.status, text: STATUS_NAMES[it.status] || it.status }));
+    box.append(el('span', { class: 'badge ' + it.status, text: it.direct ? '已提交' : STATUS_NAMES[it.status] || it.status }));
     if (it.reviewer) box.append(el('span', { class: 'meta', text: ' ' + it.reviewer }));
     if (it.sha) box.append(' · ', el('a', { href: ghUrl('/commit/' + it.sha), target: '_blank', rel: 'noopener', text: it.sha.slice(0, 7) }));
     if (it.reason) box.append(el('div', { class: 'caption', text: '原因：' + it.reason }));

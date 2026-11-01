@@ -504,12 +504,22 @@ async function listSubmissions(url, env) {
     where.push('user_id = ?');
     args.push(+uid);
   }
-  const { results } = await env.DB.prepare(
-    `SELECT submissions.*, (SELECT phase FROM publication_operations WHERE submission_id = submissions.id AND phase IN ('preparing', 'publishing') LIMIT 1) AS publication_phase FROM submissions${where.length ? ` WHERE ${where.join(' AND ')}` : ''} ORDER BY created_at DESC, id DESC LIMIT ${SUBMISSIONS_LIMIT}`,
-  )
-    .bind(...args)
-    .all();
-  return json({ items: results.map(submissionItem) }, 200, { 'Cache-Control': 'no-store' });
+  const filter = where.length ? ` WHERE ${where.join(' AND ')}` : '';
+  const order = ` ORDER BY created_at DESC, id DESC LIMIT ${SUBMISSIONS_LIMIT}`;
+  const statements = [env.DB.prepare(
+    `SELECT submissions.*, (SELECT phase FROM publication_operations WHERE submission_id = submissions.id AND phase IN ('preparing', 'publishing') LIMIT 1) AS publication_phase FROM submissions${filter}${order}`,
+  ).bind(...args)];
+  // 审核员自己的修改直接进入编辑日志；合并历史记录，已经有审核记录的提交只显示一次。
+  if (status === 'all' || status === 'approved') statements.push(env.DB.prepare(
+    "SELECT * FROM (SELECT edits.*, 'null' AS base, 'approved' AS status, '' AS reviewer, '' AS reason, created_at AS reviewed_at, 1 AS direct " +
+    'FROM edits WHERE NOT EXISTS (SELECT 1 FROM submissions WHERE submissions.sha = edits.sha AND submissions.tag = edits.tag AND submissions.user_id = edits.user_id))' + filter + order,
+  ).bind(...args));
+  const batches = await env.DB.batch(statements);
+  const items = batches.flatMap((batch) => batch.results)
+    .sort((a, b) => b.created_at - a.created_at || b.id - a.id)
+    .slice(0, SUBMISSIONS_LIMIT)
+    .map((row) => ({ ...submissionItem(row), ...(row.direct ? { id: 'edit:' + row.id, direct: true } : {}) }));
+  return json({ items }, 200, { 'Cache-Control': 'no-store' });
 }
 
 // 这条修改已经不是待审核的了（或者找不到）
