@@ -21,6 +21,8 @@
 
 <sub>非官方项目，与 NovelAI 及其开发商 Anlatan 无关。</sub>
 
+<a href="https://novelai.000.moe"><img src="store/badges/tag-translation-badge.webp" height="58" alt="参与标签翻译"></a>
+
 </div>
 
 同一份代码支持 Chrome、Edge 和 Firefox 扩展「NovelAI中文化助手」，以及用户脚本「NovelAI 中文标签联想」（Tampermonkey / Violentmonkey）。标签词典和界面译文都打包在里面，联想和翻译在浏览器里完成，不收集个人信息（见[隐私政策](PRIVACY.md)）。
