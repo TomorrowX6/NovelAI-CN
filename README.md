@@ -306,3 +306,6 @@ main 分支就是用户脚本自动更新的来源：脚本或词典有改动时
 
 > [!IMPORTANT]
 > `data/zh-ehtag.csv` 和 `data/zh-curated.csv` 含 EhTagTranslation 的派生内容，内嵌这些数据的 `dist/novelai-zh-tags.user.js`、Chrome 扩展和 Firefox 附加组件也一样，因此按 CC BY-NC-SA 3.0 提供：转发需署名，不得商用，修改后须以相同许可发布。自己使用不受影响。
+
+## 友情链接
+[Linux.do](https://linux.do)
