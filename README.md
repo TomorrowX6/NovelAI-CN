@@ -21,7 +21,7 @@
 
 <sub>非官方项目，与 NovelAI 及其开发商 Anlatan 无关。</sub>
 
-<a href="https://novelai.000.moe"><img src="store/badges/tag-translation-badge.webp" height="58" alt="参与标签翻译"></a>
+<a href="https://novelai.000.moe"><img src="store/badges/tag-translation-badge-transparent.webp" height="58" alt="参与标签翻译"></a>
 
 </div>
 
