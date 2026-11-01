@@ -163,6 +163,8 @@ mark { background: var(--mark); color: inherit; padding: 0; }
 /* 审核页 */
 td.change { min-width: 220px; overflow-wrap: anywhere; }
 td.state { min-width: 180px; }
+td.state .badge.pending { vertical-align: middle; }
+td.state .badge.pending + .actions { display: inline-flex; vertical-align: middle; margin: 0 0 0 8px; }
 .who { display: flex; gap: 10px; align-items: center; white-space: nowrap; }
 .who img { width: 32px; height: 32px; border-radius: 50%; flex: none; }
 .who .meta, .state-box .meta { font-size: 12px; color: var(--muted); }
