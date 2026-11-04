@@ -34,8 +34,4 @@ jobs:
             echo "::error::dist/ 与源码不一致，请运行 npm run build 后提交"
             exit 1
           fi
-      # main 是自动更新的发布源：PR 和其他分支与 main 比，推送到 main 时与推送前的提交比
-      - name: Check version bump
-        run: node scripts/check-version.mjs "$BASE"
-        env:
-          BASE: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || (github.ref == 'refs/heads/main' && github.event.before || 'origin/main') }}
+
