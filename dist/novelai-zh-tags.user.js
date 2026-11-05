@@ -450,7 +450,7 @@ function jsonResponse(body) {
 const nativeFetch = window.fetch;
 
 // jpMode 决定前端按哪种格式解析：lang=jp 时是 [{jp_tag, en_tag, power}]，否则是 {tags: [{tag, count}]}
-async function suggestZh(query, jpMode, url, init) {
+async function suggestZh(query, jpMode, url, init, nativeRequest) {
   let list = [];
   try {
     const ready = dict || await preloadDict();
@@ -463,7 +463,7 @@ async function suggestZh(query, jpMode, url, init) {
     const u = new URL(url, location.href);
     u.searchParams.set('prompt', query);
     u.searchParams.set('lang', 'jp');
-    const res = await nativeFetch.call(window, u.href, init);
+    const res = await (nativeRequest ? nativeRequest(u.href) : nativeFetch.call(window, u.href, init));
     if (!res.ok) return res;
     // 同一个英文标签常对应多个日文写法，换成中文后会重复，只留第一个
     const seen = new Set();
@@ -512,22 +512,26 @@ async function handleSuggest(url, init, nativeRequest) {
     throw new Error('[novelai-zh-tags] 片段过短');
   }
   if (HAN_RE.test(query) && !KANA_RE.test(query)) {
-    return suggestZh(query, params.get('lang') === 'jp', url, init);
+    return suggestZh(query, params.get('lang') === 'jp', url, init, nativeRequest);
   }
   if (query === param) return nativeRequest();
   const u = new URL(url, location.href);
   u.searchParams.set('prompt', query);
-  return nativeFetch.call(window, u.href, init);
+  return nativeRequest(u.href);
 }
 
 window.fetch = function (...args) {
   try {
     const [input, init] = args;
     const url = typeof input === 'string' ? input : input instanceof URL ? input.href : typeof input?.url === 'string' ? input.url : null;
+    const forward = (nextUrl) =>
+      nextUrl
+        ? nativeFetch.call(this, typeof Request === 'function' && input instanceof Request ? new Request(nextUrl, input) : nextUrl, init)
+        : nativeFetch.apply(this, args);
     if (tagsEnabled && url && url.includes(SUGGEST_PATH)) {
-      return handleSuggest(url, init, () => nativeFetch.apply(this, args));
+      return handleSuggest(url, init, forward);
     }
-    const ui = url && uiSettingsFetch(url, init, () => nativeFetch.apply(this, args));
+    const ui = url && uiSettingsFetch(url, init, forward);
     if (ui) return ui;
   } catch (e) {
     console.warn('[novelai-zh-tags]', e);
