@@ -365,3 +365,132 @@ test('fetch intercepts Request objects, preserves Request options on fallback, a
   assert.equal(new URL(forwarded.url).searchParams.get('lang'), 'jp');
   assert.equal(forwarded.headers.get('authorization'), 'Bearer test-token');
 });
+
+test('UI Turbopack hook patches nested chunk arrays, mangled export names, and TDZ scope-hoisted bindings', () => {
+  const store = new Map([['nzh-ui-lang', 'zh']]);
+  const exportsByModule = new Map();
+  const ctx = vm.createContext({
+    console,
+    setTimeout: () => {},
+    clearTimeout: () => {},
+    URL,
+    Response,
+    Node: { ELEMENT_NODE: 1, TEXT_NODE: 3, DOCUMENT_NODE: 9 },
+    navigator: { language: 'en-US' },
+    localStorage: {
+      getItem: (k) => store.get(k) ?? null,
+      setItem: (k, v) => store.set(k, String(v)),
+      removeItem: (k) => store.delete(k),
+    },
+    location: { href: 'https://novelai.net/image' },
+    window: {},
+    document: {},
+    ZH_UI_DATA: { lang: 'zh', common: { save: '保存' }, image: { prompt: '提示词' } },
+    ZH_HARD_DATA: [],
+  });
+  ctx.globalThis = ctx;
+  vm.runInContext(source('ui'), ctx);
+
+  // Push nested chunk arrays matching the new NovelAI Turbopack build
+  vm.runInContext(
+    `
+    (globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push([
+      void 0,
+      [
+        635587,
+        (e) => {
+          e.s([
+            "n",
+            0,
+            function () {
+              let e = navigator.language?.toLowerCase() ?? "";
+              return e.startsWith("ja") ? "jp" : "en";
+            },
+          ], 635587);
+        },
+        389015,
+        650016,
+        (W) => {
+          var ea;
+          W.s(["M1", () => nE, "Je", () => tq, "Rb", () => nC], 389015);
+          let tR = { f: { lang: "en", common: { save: "Save", cancel: "Cancel" }, image: { prompt: "Prompt" } } };
+          var tV = (((ea = {}).en = "en"), (ea.jp = "jp"), ea);
+          let tY = { en: "/en.svg", jp: "/jp.svg" };
+          function tj(sess) {
+            let X = { ...tR.f },
+              Z = sess.settings;
+            return "jp" === (Z.uiLanguage ?? "en") && (X = { ...X, lang: "jp" }), X;
+          }
+          W.s(["x", () => tV, "a", 0, tj, "F", 0, tY, "o", 0, { en: "English", jp: "日本語" }], 650016);
+          const atom = (init) => (typeof init === "function" ? { read: init } : { init, read(get) { return get(this); } });
+          let tq = atom({ auth_token: "", settings: { uiLanguage: "zh" } }),
+            nC = { value: tR.f },
+            nE = atom((W) => {
+              let X = tj(W(tq));
+              return (nC.value = X), X;
+            });
+        },
+      ],
+    ]);
+  `,
+    ctx,
+  );
+
+  const factories = new Map();
+  for (const chunk of ctx.TURBOPACK) {
+    const arr = Array.isArray(chunk[1]) ? chunk[1] : chunk.slice(1);
+    let ids = [];
+    for (const item of arr) {
+      if (typeof item === 'number') ids.push(item);
+      else if (typeof item === 'function') {
+        for (const id of ids) factories.set(id, item);
+        ids = [];
+      }
+    }
+  }
+  const runModule = (id) => {
+    const fn = factories.get(id);
+    const tpCtx = {
+      s(bindings, modId = id) {
+        let target = exportsByModule.get(modId);
+        if (!target) {
+          target = {};
+          exportsByModule.set(modId, target);
+        }
+        for (let i = 0; i < bindings.length; ) {
+          const name = bindings[i];
+          if (bindings[i + 1] === 0) {
+            const val = bindings[i + 2];
+            Object.defineProperty(target, name, { enumerable: true, get: () => val });
+            i += 3;
+          } else {
+            Object.defineProperty(target, name, { enumerable: true, get: bindings[i + 1] });
+            i += 2;
+          }
+        }
+        Object.seal(target);
+      },
+    };
+    fn(tpCtx);
+    return exportsByModule.get(id);
+  };
+
+  const mod635587 = runModule(635587);
+  assert.equal(mod635587.n(), 'zh');
+  store.delete('nzh-ui-lang');
+  assert.equal(mod635587.n(), 'en');
+  store.set('nzh-ui-lang', 'zh');
+
+  runModule(389015);
+  const mod650016 = exportsByModule.get(650016);
+  const mod389015 = exportsByModule.get(389015);
+  assert.equal(mod650016.o.zh, '中文');
+  assert.equal(mod650016.x.zh, 'zh');
+  assert.ok(mod650016.F.zh.startsWith('data:image/svg+xml,'));
+
+  const loc = mod389015.M1.read((a) => a.init);
+  assert.equal(loc.common.save, '保存');
+  assert.equal(loc.common.cancel, 'Cancel');
+  assert.equal(loc.image.prompt, '提示词');
+  assert.equal(mod389015.Rb.value.common.save, '保存');
+});
