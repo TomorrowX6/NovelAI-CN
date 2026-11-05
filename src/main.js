@@ -110,7 +110,7 @@ async function handleSuggest(url, init, nativeRequest) {
 window.fetch = function (...args) {
   try {
     const [input, init] = args;
-    const url = typeof input === 'string' ? input : input instanceof URL ? input.href : null;
+    const url = typeof input === 'string' ? input : input instanceof URL ? input.href : typeof input?.url === 'string' ? input.url : null;
     if (tagsEnabled && url && url.includes(SUGGEST_PATH)) {
       return handleSuggest(url, init, () => nativeFetch.apply(this, args));
     }
@@ -214,21 +214,21 @@ document.addEventListener(
   true,
 );
 
-document.addEventListener(
-  'compositionend',
-  (e) => {
-    if (!composing) return;
-    composing = false;
-    const waiters = compositionWaiters;
-    compositionWaiters = [];
-    // 等上屏文本写入 DOM 后再处理；先换全角标点，挂起的联想再按换完的文本回答
-    setTimeout(() => {
-      if (e.data && FULLWIDTH_RE.test(e.data)) replaceCommittedText(e.data);
-      for (const resolve of waiters) resolve();
-    }, 0);
-  },
-  true,
-);
+function endComposition(data) {
+  if (!composing) return;
+  composing = false;
+  const waiters = compositionWaiters;
+  compositionWaiters = [];
+  // 等上屏文本写入 DOM 后再处理；先换全角标点，挂起的联想再按换完的文本回答
+  setTimeout(() => {
+    if (data && FULLWIDTH_RE.test(data)) replaceCommittedText(data);
+    for (const resolve of waiters) resolve();
+  }, 0);
+}
+
+document.addEventListener('compositionend', (e) => endComposition(e.data), true);
+// 组字中途失焦时浏览器可能不发 compositionend，清掉挂起状态以免后续联想一直等待
+document.addEventListener('focusout', () => endComposition(), true);
 
 // 空闲时预先解析词典，避免第一次联想卡顿。只在生图页做，写小说等页面用不到；
 // NovelAI 是单页应用，从其他页面切到生图页时，在提示词框获得焦点时再解析

@@ -32,15 +32,19 @@ function page({ cached = { time: 1, entries: [entry('旧译名')] }, fetch = asy
 }
 
 function runtime() {
+  const listeners = new Map();
+  const on = (type, fn) => { if (!listeners.has(type)) listeners.set(type, []); listeners.get(type).push(fn); };
+  const dispatch = (event) => { for (const fn of listeners.get(event.type) || []) fn(event); };
   const ctx = vm.createContext({
-    setTimeout, MessageChannel, Event, URL, Response, console: { info() {}, warn() {} },
+    setTimeout, MessageChannel, Event, URL, Response, Node: { ELEMENT_NODE: 1, TEXT_NODE: 3 }, console: { info() {}, warn() {} },
     localStorage: { getItem: () => null },
-    document: { getElementsByClassName: () => [], addEventListener() {}, dispatchEvent() {}, createElement: () => ({ dataset: {}, style: {} }) },
+    location: { href: 'https://novelai.net/image', pathname: '/image' },
+    document: { getElementsByClassName: () => [], addEventListener: on, dispatchEvent: dispatch, createElement: () => ({ dataset: {}, style: {} }) },
     window: { fetch() {}, addEventListener() {}, requestIdleCallback: (fn) => fn() },
     getSelection: () => ({ rangeCount: 0 }),
     MutationObserver: class { observe() {} },
   });
-  vm.runInContext(source('core') + `\nconst ZH_TAG_DATA = ${JSON.stringify(raw)}; const ZH_T2S_DATA = '';\n` + source('main') + '\nlet communityEntries = []; function amendDict(d) { d.replaceCommunity(communityEntries); } this.preload = preloadDict; this.sync = getDict; this.current = () => dict; this.annotate = annotatePanel; this.suggest = (query) => suggestZh(query, true, "https://example.test/suggest", {});', ctx);
+  vm.runInContext(source('core') + `\nconst ZH_TAG_DATA = ${JSON.stringify(raw)}; const ZH_T2S_DATA = ''; function uiSettingsFetch() { return null; }\n` + source('main') + '\nlet communityEntries = []; function amendDict(d) { d.replaceCommunity(communityEntries); } this.preload = preloadDict; this.sync = getDict; this.current = () => dict; this.annotate = annotatePanel; this.suggest = (query) => suggestZh(query, true, "https://example.test/suggest", {}); this.fetch = window.fetch; this.dispatch = document.dispatchEvent;', ctx);
   return ctx;
 }
 
@@ -334,4 +338,19 @@ test('a legacy successful snapshot is ordered by its request, not its completion
   await pending;
   assert.equal(p.cache().entries[0].label, '较新请求的结果');
   assert.equal(p.cache().successRequestTime, 200);
+});
+
+test('fetch intercepts Request-like objects and focusout releases interrupted IME composition', async () => {
+  const ctx = runtime();
+  const editor = { nodeType: 1, closest: (sel) => (sel === '.ProseMirror' || sel === '[data-prompt-input]' ? editor : null) };
+  ctx.dispatch({ type: 'compositionstart', target: editor });
+  let settled = false;
+  const req = { url: 'https://image.novelai.net/ai/generate-image/suggest-tags?prompt=%E7%8C%AB%E8%80%B3&lang=jp' };
+  const pending = ctx.fetch(req).then((r) => r.json()).then((d) => { settled = true; return d; });
+  await flush();
+  assert.equal(settled, false, 'suggestion stays suspended while composing');
+  ctx.dispatch({ type: 'focusout', target: editor });
+  const result = await pending;
+  assert.equal(settled, true);
+  assert.equal(result[0].en_tag, 'cat ears');
 });

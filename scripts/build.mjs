@@ -150,9 +150,13 @@ function cleanText(s) {
   return s.replace(/[\t\r\n|]/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
-// 检索词只要含汉字、不含假名的（假名输入会直接交给 NovelAI）
+// 括号外的 / 或 | 才作为多译名分隔符，括号里的（露娜（素晴/死或生/影之诗）、临时口球（抹布/胶带/内裤等））不拆
+const SPLIT_SLASH_RE = /\/(?![^（(]*[）)])/;
+const SPLIT_MANUAL_RE = /[/|](?![^（(]*[）)])/;
+
+// 检索词只要含汉字、不含假名且括号配对的（假名输入会直接交给 NovelAI）
 function searchable(s) {
-  return HAN_RE.test(s) && !KANA_RE.test(s);
+  return HAN_RE.test(s) && !KANA_RE.test(s) && coreFns.parenDepthOk(coreFns.normZh(s));
 }
 
 // 括号里只是类别说明（「Katsu（食物）」「x（符号）」），拆出来当检索词会同时命中几十个标签
@@ -160,16 +164,16 @@ const CATEGORY_WORDS = new Set(
   '模因 梗 风格 样式 画风 符号 物品 对象 物体 生物 游戏 表情 动作 表达 仪器 乐器 车辆 载具 场所 地点 物质 字体 角色 形象 食物 植物 动物 武器 服装 衣物 图案 颜色 花 鱼 鸟 船 舰船 建筑 媒介'.split(' '),
 );
 
-// 「死鱼眼（鄙夷眼神）」拆出括号前后两部分；角色/作品的括号是出处（荧（原神）），只取前半
+// 「死鱼眼（鄙夷眼神）」拆出括号前后两部分；角色/作品的括号是出处（荧（原神）），或多层括号的（岛风（舰队Collection）（角色扮演）），只取前半
 function nameParts(zh, category) {
   const m = zh.match(/^(.+?)[（(](.+)[）)]$/);
   if (!m) return [];
-  return category === 0 && !CATEGORY_WORDS.has(m[2]) ? [m[1], m[2]] : [m[1]];
+  return category === 0 && !/[（）()]/.test(m[2]) && !CATEGORY_WORDS.has(m[2]) ? [m[1], m[2]] : [m[1]];
 }
 
 // 检索词在构建时规范化并转成简体，运行时只需处理显示译名；规范化规则与 src/core.js 共用
 const coreFns = vm.runInNewContext(
-  `${await fs.readFile(path.join(ROOT, 'src', 'core.js'), 'utf8')}\n({ normZh, createT2S })`,
+  `${await fs.readFile(path.join(ROOT, 'src', 'core.js'), 'utf8')}\n({ normZh, createT2S, parenDepthOk, labelKeys })`,
 );
 let toSimp = (s) => s;
 function normZh(s) {
@@ -264,7 +268,7 @@ async function main() {
 
   const stats = { manual: 0, legacy: 0, ehtag: 0, curated: 0, extra: 0, override: 0, words: 0, typos: 0 };
   for (const [t, zh] of parseTranslations(raw['zh-manual.csv'])) {
-    const names = zh.split(/[/|]/).map(cleanText).filter(searchable);
+    const names = zh.split(SPLIT_MANUAL_RE).map(cleanText).filter(searchable);
     if (!names.length) continue;
     const e = entries.get(resolve(t));
     if (e) {
@@ -285,7 +289,7 @@ async function main() {
   for (const [t, zh] of parseTranslations(ehtagCsv)) {
     const e = entries.get(resolve(t));
     if (!e) continue;
-    for (const n of zh.split('/').map(cleanText)) if (searchable(n)) e.names.add(n);
+    for (const n of zh.split(SPLIT_SLASH_RE).map(cleanText)) if (searchable(n)) e.names.add(n);
     stats.ehtag++;
   }
 
@@ -303,13 +307,14 @@ async function main() {
       console.log(`审定表里的标签不存在: ${t}`);
       continue;
     }
-    const parts = aliases.split('/').map(cleanText).filter(Boolean);
+    const parts = aliases.split(SPLIT_SLASH_RE).map(cleanText).filter(Boolean);
     const drop = new Set(parts.filter((n) => n.startsWith('-')).map((n) => normZh(n.slice(1))));
     const names = parts.filter((n) => !n.startsWith('-'));
     pin(e, names);
     if (zh && zh.trim() !== e.label) {
       names.push(e.label);
       e.label = cleanText(zh);
+      names.push(...nameParts(e.label, e.category).map(cleanText));
     }
     e.names = new Set([...names, ...e.names]);
     for (const n of e.names) if (drop.has(normZh(n))) e.names.delete(n);
@@ -331,7 +336,7 @@ async function main() {
   // 自定义检索词排在前面，以免被数量上限截掉
   for (const [t, zh] of parseTranslations(extraCsv)) {
     const e = customEntry(t);
-    const names = zh.split('/').map(cleanText).filter(Boolean);
+    const names = zh.split(SPLIT_SLASH_RE).map(cleanText).filter(Boolean);
     if (!e.label) e.label = names.shift();
     pin(e, names);
     e.names = new Set([...names, ...e.names]);
@@ -341,6 +346,7 @@ async function main() {
     const e = customEntry(t);
     if (e.label) e.names.add(e.label);
     e.label = cleanText(zh);
+    for (const n of nameParts(e.label, e.category).map(cleanText)) e.names.add(n);
     stats.override++;
   }
   if (customOnly.size) console.log(`新数据里没有的自定义标签（请确认拼写）: ${[...customOnly].join(', ')}`);
@@ -360,7 +366,7 @@ async function main() {
   const wordTypos = [];
   for (const [w, zh] of parseTranslations(wordsCsv)) {
     const tag = normTag(w);
-    const names = zh.split('/').map(cleanText).filter(Boolean);
+    const names = zh.split(SPLIT_SLASH_RE).map(cleanText).filter(Boolean);
     const target = /^[=?]/.test(zh) && resolve(zh.slice(1));
     if (entries.has(tag) || danbooruAliasNames.has(tag) || !names.length || target === null) {
       wordConflicts.push(w);
@@ -385,7 +391,7 @@ async function main() {
   // choker 换下来的「项圈」），留着会让它精确命中两个标签、热门的那个反而排前面，所以丢掉。
   // 常用英文词本来就排在标签后面，它的译名不算数，不然 nostalgic 的「怀旧」会删掉 retro artstyle 的检索词「怀旧」
   const labelOwner = new Map();
-  for (const [tag, e] of entries) if (!e.word) for (const l of e.label.split('/')) labelOwner.set(normZh(l), tag);
+  for (const [tag, e] of entries) if (!e.word) for (const l of coreFns.labelKeys(e.label, tag)) labelOwner.set(toSimp(l), tag);
   for (const [tag, e] of entries) {
     for (const n of e.names) {
       const key = normZh(n);
@@ -433,7 +439,7 @@ async function main() {
     .map(([tag, e]) => {
       const out = renamed.get(tag) ?? tag;
       // 运行时译名只做基本规范化、不转简体，含繁体字的译名把转换后的写法放进检索词
-      const labels = e.label.split('/').map(coreFns.normZh);
+      const labels = coreFns.labelKeys(e.label, out);
       const converted = labels.map(toSimp).filter((l) => !labels.includes(l));
       // 不含汉字或含假名的检索词永远查不到（这类输入不走本地词典），被替换下来的假名、罗马字旧译名也在此丢掉
       const names = [...new Set([...converted, ...[...e.names].map(normZh)])]
