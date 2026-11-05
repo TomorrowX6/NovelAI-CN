@@ -12,7 +12,7 @@ const core = fs.readFileSync(path.join(ROOT, 'src', 'core.js'), 'utf8');
 const data = fs.readFileSync(path.join(ROOT, 'dist', 'zh-tags.tsv'), 'utf8');
 const t2s = fs.readFileSync(path.join(ROOT, 'dist', 'zh-t2s.txt'), 'utf8').trim();
 const ctx = vm.createContext({});
-vm.runInContext(`${core}\nthis.createZhDict = createZhDict;\nthis.promptTags = promptTags;`, ctx);
+vm.runInContext(`${core}\nthis.createZhDict = createZhDict;\nthis.promptTags = promptTags;\nthis.parenDepthOk = parenDepthOk;`, ctx);
 
 let t = performance.now();
 const dict = ctx.createZhDict(data, t2s);
@@ -150,6 +150,25 @@ for (const [tag, wrong] of [['short', '短裤'], ['sweet', '甜食'], ['flat', '
   }
 }
 
+// 构建产物中的额外检索词括号必须配对；含 / 的译名（乱马1/2、珊璞（乱马1/2））不因按 / 切分而搜不到
+for (const line of data.split('\n')) {
+  if (!line) continue;
+  const [tag, , , extra] = line.split('\t');
+  if (!extra) continue;
+  for (const term of extra.split('|')) {
+    if (!ctx.parenDepthOk(term)) {
+      failed++;
+      console.log(`✗ ${tag} 的检索词括号不配对: ${term}`);
+    }
+  }
+}
+for (const [q, expectTag] of [['乱马1/2', 'ranma 1/2'], ['珊璞（乱马1/2）', 'shampoo (ranma 1/2)']]) {
+  if (dict.search(q, 5)[0]?.tag !== expectTag) {
+    failed++;
+    console.log(`✗ search(${q}) 第 1 名应为 ${expectTag}，实际 ${dict.search(q, 5)[0]?.tag}`);
+  }
+}
+
 // 社区修订：换显示译名、追加检索词；经过审核的新标签也收录，图片数可选。
 {
   const d = ctx.createZhDict(data, t2s);
@@ -178,7 +197,7 @@ for (const [tag, wrong] of [['short', '短裤'], ['sweet', '甜食'], ['flat', '
     console.log('✗ 图片数未知的新社区标签精确命中时应排在前面');
   }
   // 平台从 Danbooru 拉来的新标签带图片数，词典里没有时新增（用虚构的标签，免得哪天词典收录了它）
-  if (!d.amend('nzh test tag (zzz)', '测试新标签（虚构）', ['虚构测试标签'], 160) || d.size !== dict.size + 2) {
+  if (!d.amend('Nzh_Test_Tag (ZZZ)', '测试新标签（虚构）', ['虚构测试标签'], 160) || d.size !== dict.size + 2) {
     failed++;
     console.log('✗ 带图片数的新标签应当收录');
   }

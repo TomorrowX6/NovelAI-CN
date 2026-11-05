@@ -31,16 +31,20 @@ function page({ cached = { time: 1, entries: [entry('旧译名')] }, fetch = asy
   return { ctx, store, dispatch, clock: (value) => { now = value; }, cache: () => JSON.parse(store.get('nzh-community')) };
 }
 
-function runtime() {
+function runtime({ fetch = () => {} } = {}) {
+  const listeners = new Map();
+  const on = (type, fn) => { if (!listeners.has(type)) listeners.set(type, []); listeners.get(type).push(fn); };
+  const dispatch = (event) => { for (const fn of listeners.get(event.type) || []) fn(event); };
   const ctx = vm.createContext({
-    setTimeout, MessageChannel, Event, URL, Response, console: { info() {}, warn() {} },
+    setTimeout, MessageChannel, Event, URL, Request, Response, Node: { ELEMENT_NODE: 1, TEXT_NODE: 3 }, console: { info() {}, warn() {} },
     localStorage: { getItem: () => null },
-    document: { getElementsByClassName: () => [], addEventListener() {}, dispatchEvent() {}, createElement: () => ({ dataset: {}, style: {} }) },
-    window: { fetch() {}, addEventListener() {}, requestIdleCallback: (fn) => fn() },
+    location: { href: 'https://novelai.net/image', pathname: '/image' },
+    document: { getElementsByClassName: () => [], addEventListener: on, dispatchEvent: dispatch, createElement: () => ({ dataset: {}, style: {} }) },
+    window: { fetch, addEventListener() {}, requestIdleCallback: (fn) => fn() },
     getSelection: () => ({ rangeCount: 0 }),
     MutationObserver: class { observe() {} },
   });
-  vm.runInContext(source('core') + `\nconst ZH_TAG_DATA = ${JSON.stringify(raw)}; const ZH_T2S_DATA = '';\n` + source('main') + '\nlet communityEntries = []; function amendDict(d) { d.replaceCommunity(communityEntries); } this.preload = preloadDict; this.sync = getDict; this.current = () => dict; this.annotate = annotatePanel; this.suggest = (query) => suggestZh(query, true, "https://example.test/suggest", {});', ctx);
+  vm.runInContext(source('core') + `\nconst ZH_TAG_DATA = ${JSON.stringify(raw)}; const ZH_T2S_DATA = ''; function uiSettingsFetch() { return null; }\n` + source('main') + '\nlet communityEntries = []; function amendDict(d) { d.replaceCommunity(communityEntries); } this.preload = preloadDict; this.sync = getDict; this.current = () => dict; this.annotate = annotatePanel; this.suggest = (query) => suggestZh(query, true, "https://example.test/suggest", {}); this.fetch = window.fetch; this.dispatch = document.dispatchEvent;', ctx);
   return ctx;
 }
 
@@ -334,4 +338,30 @@ test('a legacy successful snapshot is ordered by its request, not its completion
   await pending;
   assert.equal(p.cache().entries[0].label, '较新请求的结果');
   assert.equal(p.cache().successRequestTime, 200);
+});
+
+test('fetch intercepts Request objects, preserves Request options on fallback, and focusout releases interrupted IME composition', async () => {
+  let forwarded = null;
+  const ctx = runtime({
+    fetch: async (input) => {
+      forwarded = input;
+      return new Response(JSON.stringify([{ en_tag: 'cat ears', jp_tag: '猫耳', power: 50 }]), { status: 200 });
+    },
+  });
+  const editor = { nodeType: 1, closest: (sel) => (sel === '.ProseMirror' || sel === '[data-prompt-input]' ? editor : null) };
+  ctx.dispatch({ type: 'compositionstart', target: editor });
+  let settled = false;
+  const req = new Request('https://image.novelai.net/ai/generate-image/suggest-tags?prompt=%E6%9C%AA%E6%94%B6%E5%BD%95%E8%AF%8D&lang=en', {
+    headers: { Authorization: 'Bearer test-token' },
+  });
+  const pending = ctx.fetch(req).then((r) => r.json()).then((d) => { settled = true; return d; });
+  await flush();
+  assert.equal(settled, false, 'suggestion stays suspended while composing');
+  ctx.dispatch({ type: 'focusout', target: editor });
+  const result = await pending;
+  assert.equal(settled, true);
+  assert.equal(result.tags[0].tag, 'cat ears');
+  assert.equal(forwarded instanceof Request, true);
+  assert.equal(new URL(forwarded.url).searchParams.get('lang'), 'jp');
+  assert.equal(forwarded.headers.get('authorization'), 'Bearer test-token');
 });

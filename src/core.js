@@ -17,6 +17,16 @@ function normZh(s) {
     .trim();
 }
 
+// 括号外、汉字之间的 / 才当成多个并列译名的分隔符（女装少年/伪娘）；乱马1/2、Fate/stay night、短裤小子（宝可梦 剑/盾）和标签名本身带 / 的不拆
+const LABEL_SLASH_RE = /(?<=[㐀-䶿一-鿿豈-﫿])\s*\/\s*(?=[㐀-䶿一-鿿豈-﫿])(?![^()]*\))/;
+
+function labelKeys(label, tag = '') {
+  const s = normZh(label);
+  if (tag.includes('/')) return [s];
+  const parts = s.split(LABEL_SLASH_RE);
+  return parts.length > 1 ? [s, ...parts] : [s];
+}
+
 // 繁体字逐字转成简体后再检索，只影响匹配，不改显示的译名
 // pairs: 繁体字与对应简体字依次相连的字符串，由构建脚本从 OpenCC 的对照表生成
 function createT2S(pairs) {
@@ -158,7 +168,7 @@ function* buildZhDict(raw, t2s = '') {
     counts.push(+count || 0);
     labels.push(label);
     // 前后都加分隔符，精确/前缀/包含匹配都只需一次 indexOf；检索词在构建时已规范化
-    let key = SEP + normZh(label).split(/\s*\/\s*/).join(SEP) + SEP;
+    let key = SEP + labelKeys(label, tag).join(SEP) + SEP;
     if (extra) key += extra.split('|').join(SEP) + SEP;
     keys.push(key);
     if (++parsed % 256 === 0) yield;
@@ -238,12 +248,16 @@ function* buildZhDict(raw, t2s = '') {
   // 社区修订（src/community.js）：换掉显示译名、追加检索词，原来的译名仍可检索。
   // 词典里没有的社区标签也收录；图片数可选，原样插入提示词的名称须避开分隔符和权重语法。
   function amend(tag, label, terms = [], count = 0) {
+    if (typeof tag !== 'string') return false;
     let i = indexOf(tag);
     if (i === undefined) {
       if (!label || !/^[\x20-\x7e]{1,100}$/.test(tag) || /[,|{}[\]#<>\\]|::/.test(tag)) return false;
+      let t = tag.trim().toLowerCase().replace(/ +/g, ' ');
+      if (/[a-z]{2}/.test(t)) t = t.replace(/_/g, ' ').replace(/ +/g, ' ').trim();
+      if (!t) return false;
       i = tags.length;
-      byTag.set(tag, i);
-      tags.push(tag);
+      byTag.set(t, i);
+      tags.push(t);
       // 社区新加的标签类别未知，不拿来拼译名。
       proper.push(true);
       counts.push(Number.isInteger(count) && count > 0 ? count : 0);
@@ -254,7 +268,7 @@ function* buildZhDict(raw, t2s = '') {
       labels[i] = label;
     }
     if (i < baseSize && !originals.has(i)) originals.set(i, [labels[i], keys[i]]);
-    const add = [...(label ? normZh(label).split(/\s*\/\s*/) : []), ...terms.map(normZh)]
+    const add = [...(label ? labelKeys(label, tags[i]) : []), ...terms.map(normZh)]
       .map(toSimp)
       .filter((k) => k && !keys[i].includes(SEP + k + SEP));
     if (add.length) keys[i] += add.join(SEP) + SEP;
@@ -293,7 +307,7 @@ function* buildZhDict(raw, t2s = '') {
   function glossPart(words) {
     const i = indexOf(words.join(' '));
     if (i === undefined || proper[i]) return null;
-    const zh = labels[i].split('/')[0].replace(/[（(][^（）()]*[）)]$/, '').replace(/^一个/, '');
+    const zh = labels[i].replace(/[（(][^（）()]*[）)]$/, '').split(LABEL_SLASH_RE)[0].replace(/^一个/, '');
     return HAN_RE.test(zh) ? zh : null;
   }
   // 从右往左切：先试最长的结尾，前面剩下的也要都切得开

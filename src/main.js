@@ -37,7 +37,7 @@ function jsonResponse(body) {
 const nativeFetch = window.fetch;
 
 // jpMode 决定前端按哪种格式解析：lang=jp 时是 [{jp_tag, en_tag, power}]，否则是 {tags: [{tag, count}]}
-async function suggestZh(query, jpMode, url, init) {
+async function suggestZh(query, jpMode, url, init, nativeRequest) {
   let list = [];
   try {
     const ready = dict || await preloadDict();
@@ -50,7 +50,7 @@ async function suggestZh(query, jpMode, url, init) {
     const u = new URL(url, location.href);
     u.searchParams.set('prompt', query);
     u.searchParams.set('lang', 'jp');
-    const res = await nativeFetch.call(window, u.href, init);
+    const res = await (nativeRequest ? nativeRequest(u.href) : nativeFetch.call(window, u.href, init));
     if (!res.ok) return res;
     // 同一个英文标签常对应多个日文写法，换成中文后会重复，只留第一个
     const seen = new Set();
@@ -99,22 +99,26 @@ async function handleSuggest(url, init, nativeRequest) {
     throw new Error('[novelai-zh-tags] 片段过短');
   }
   if (HAN_RE.test(query) && !KANA_RE.test(query)) {
-    return suggestZh(query, params.get('lang') === 'jp', url, init);
+    return suggestZh(query, params.get('lang') === 'jp', url, init, nativeRequest);
   }
   if (query === param) return nativeRequest();
   const u = new URL(url, location.href);
   u.searchParams.set('prompt', query);
-  return nativeFetch.call(window, u.href, init);
+  return nativeRequest(u.href);
 }
 
 window.fetch = function (...args) {
   try {
     const [input, init] = args;
-    const url = typeof input === 'string' ? input : input instanceof URL ? input.href : null;
+    const url = typeof input === 'string' ? input : input instanceof URL ? input.href : typeof input?.url === 'string' ? input.url : null;
+    const forward = (nextUrl) =>
+      nextUrl
+        ? nativeFetch.call(this, typeof Request === 'function' && input instanceof Request ? new Request(nextUrl, input) : nextUrl, init)
+        : nativeFetch.apply(this, args);
     if (tagsEnabled && url && url.includes(SUGGEST_PATH)) {
-      return handleSuggest(url, init, () => nativeFetch.apply(this, args));
+      return handleSuggest(url, init, forward);
     }
-    const ui = url && uiSettingsFetch(url, init, () => nativeFetch.apply(this, args));
+    const ui = url && uiSettingsFetch(url, init, forward);
     if (ui) return ui;
   } catch (e) {
     console.warn('[novelai-zh-tags]', e);
@@ -214,21 +218,21 @@ document.addEventListener(
   true,
 );
 
-document.addEventListener(
-  'compositionend',
-  (e) => {
-    if (!composing) return;
-    composing = false;
-    const waiters = compositionWaiters;
-    compositionWaiters = [];
-    // 等上屏文本写入 DOM 后再处理；先换全角标点，挂起的联想再按换完的文本回答
-    setTimeout(() => {
-      if (e.data && FULLWIDTH_RE.test(e.data)) replaceCommittedText(e.data);
-      for (const resolve of waiters) resolve();
-    }, 0);
-  },
-  true,
-);
+function endComposition(data) {
+  if (!composing) return;
+  composing = false;
+  const waiters = compositionWaiters;
+  compositionWaiters = [];
+  // 等上屏文本写入 DOM 后再处理；先换全角标点，挂起的联想再按换完的文本回答
+  setTimeout(() => {
+    if (data && FULLWIDTH_RE.test(data)) replaceCommittedText(data);
+    for (const resolve of waiters) resolve();
+  }, 0);
+}
+
+document.addEventListener('compositionend', (e) => endComposition(e.data), true);
+// 组字中途失焦时浏览器可能不发 compositionend，清掉挂起状态以免后续联想一直等待
+document.addEventListener('focusout', () => endComposition(), true);
 
 // 空闲时预先解析词典，避免第一次联想卡顿。只在生图页做，写小说等页面用不到；
 // NovelAI 是单页应用，从其他页面切到生图页时，在提示词框获得焦点时再解析
