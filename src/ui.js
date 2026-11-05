@@ -69,7 +69,8 @@ function patchLocalizationAtom(atom, getSession, getLast) {
   const read = atom.read;
   atom.read = function (get, ...rest) {
     const loc = read.call(this, get, ...rest);
-    const isZh = get(getSession())?.settings?.uiLanguage === UI_LANG;
+    const uiLang = get(getSession())?.settings?.uiLanguage;
+    const isZh = (uiLang !== undefined ? uiLang : uiPrefZh() ? UI_LANG : 'en') === UI_LANG;
     setHardTextActive(isZh);
     if (!isZh) return loc;
     const zh = mergeLocale(loc, ZH_UI_DATA);
@@ -80,19 +81,34 @@ function patchLocalizationAtom(atom, getSession, getLast) {
   };
 }
 
-// bindings: [名字, getter(, setter) | 0, 值, ...]。patch 返回替换后的导出值，按原值缓存
+// bindings: [名字, getter(, setter) | 0, 值, ...]。新版 Turbopack 会混淆导出名，按导出名或导出值的特征识别
 function patchExports(bindings) {
   const at = new Map();
   for (let i = 0; i < bindings.length; ) {
     at.set(bindings[i], i + 1);
     i += bindings[i + 1] === 0 || typeof bindings[i + 2] === 'function' ? 3 : 2;
   }
+  // 同一模块合并打包时 ctx.s 在函数开头调用，那时 let 变量还在 TDZ，读不到值的留到工厂函数跑完再试
   const value = (name) => {
     const j = at.get(name);
-    return bindings[j] === 0 ? bindings[j + 1] : bindings[j]();
+    if (j === undefined) return undefined;
+    if (bindings[j] === 0) return bindings[j + 1];
+    try {
+      return bindings[j]();
+    } catch {
+      return undefined;
+    }
+  };
+  const findKey = (pred) => {
+    for (const k of at.keys()) {
+      const v = value(k);
+      if (v !== undefined && pred(v, k)) return k;
+    }
+    return null;
   };
   const patch = (name, fn) => {
     const j = at.get(name);
+    if (j === undefined) return;
     if (bindings[j] === 0) {
       bindings[j + 1] = fn(bindings[j + 1]);
       return;
@@ -100,6 +116,10 @@ function patchExports(bindings) {
     const getter = bindings[j];
     let orig;
     let patched;
+    try {
+      orig = getter();
+      patched = fn(orig);
+    } catch {}
     bindings[j] = () => {
       const v = getter();
       if (v !== orig) {
@@ -110,45 +130,86 @@ function patchExports(bindings) {
     };
   };
 
-  if (at.has('languageNames') && at.has('languageIcons')) {
-    patch('languageNames', (names) => {
-      if (names && !names[UI_LANG]) names[UI_LANG] = UI_LANG_NAME;
-      return names;
-    });
-    patch('languageIcons', (icons) => {
-      if (icons && !icons[UI_LANG]) icons[UI_LANG] = UI_FLAG;
-      return icons;
-    });
-    if (at.has('Language')) {
-      patch('Language', (langs) => {
-        if (langs && !langs[UI_LANG]) langs[UI_LANG] = UI_LANG;
-        return langs;
+  const namesKey =
+    (at.has('languageNames') && 'languageNames') ||
+    findKey((v) => v && typeof v === 'object' && v.en === 'English' && typeof v.jp === 'string');
+  if (namesKey) {
+    const iconsKey =
+      (at.has('languageIcons') && 'languageIcons') ||
+      findKey((v, k) => k !== namesKey && v && typeof v === 'object' && typeof v.en === 'string' && typeof v.jp === 'string' && v.en !== 'en');
+    const langKey =
+      (at.has('Language') && 'Language') ||
+      findKey((v) => v && typeof v === 'object' && v.en === 'en' && v.jp === 'jp');
+    if (iconsKey) {
+      patch(namesKey, (names) => {
+        if (names && !names[UI_LANG]) names[UI_LANG] = UI_LANG_NAME;
+        return names;
       });
+      patch(iconsKey, (icons) => {
+        if (icons && !icons[UI_LANG]) icons[UI_LANG] = UI_FLAG;
+        return icons;
+      });
+      if (langKey) {
+        patch(langKey, (langs) => {
+          if (langs && !langs[UI_LANG]) langs[UI_LANG] = UI_LANG;
+          return langs;
+        });
+      }
     }
   }
-  if (at.has('Localization') && at.has('Session')) {
-    patch('Localization', (atom) => {
-      patchLocalizationAtom(atom, () => value('Session'), at.has('lastLocalization') ? () => value('lastLocalization') : null);
+
+  const sessionKey =
+    (at.has('Session') && 'Session') ||
+    findKey((v) => v && typeof v === 'object' && v.init && typeof v.init === 'object' && 'auth_token' in v.init && 'settings' in v.init);
+  const locKey =
+    (at.has('Localization') && 'Localization') ||
+    (sessionKey &&
+      findKey(
+        (v) =>
+          v &&
+          typeof v === 'object' &&
+          typeof v.read === 'function' &&
+          !('init' in v) &&
+          /\.value\s*=/.test(Function.prototype.toString.call(v.read)),
+      ));
+  if (locKey && sessionKey) {
+    const lastKey =
+      (at.has('lastLocalization') && 'lastLocalization') ||
+      findKey((v) => v && typeof v === 'object' && v.value && typeof v.value === 'object' && v.value.lang === 'en');
+    const hookLoc = (atom) => {
+      patchLocalizationAtom(atom, () => value(sessionKey), lastKey ? () => value(lastKey) : null);
       return atom;
-    });
+    };
+    const atom = value(locKey);
+    if (atom) hookLoc(atom);
+    else patch(locKey, hookLoc);
   }
+
   // 没登录时的默认语言：本机选过中文就用中文
-  if (at.has('getBrowserLanguage')) {
-    patch('getBrowserLanguage', (fn) =>
-      typeof fn === 'function' ? (...args) => (uiPrefZh() ? UI_LANG : fn(...args)) : fn,
-    );
+  const browserLangKey =
+    (at.has('getBrowserLanguage') && 'getBrowserLanguage') ||
+    findKey((v) => typeof v === 'function' && v.length === 0 && Function.prototype.toString.call(v).includes('navigator.language'));
+  if (browserLangKey) {
+    patch(browserLangKey, (fn) => {
+      if (typeof fn !== 'function' || fn[UI_HOOKED]) return fn;
+      const wrapped = (...args) => (uiPrefZh() ? UI_LANG : fn(...args));
+      wrapped[UI_HOOKED] = true;
+      return wrapped;
+    });
   }
 }
 
 function wrapFactory(factory) {
   return function (ctx) {
     const s = ctx && ctx.s;
+    const pending = [];
     if (typeof s === 'function') {
       Object.defineProperty(ctx, 's', {
         configurable: true,
         writable: true,
         value(bindings, ...rest) {
           if (Array.isArray(bindings)) {
+            pending.push(bindings);
             try {
               patchExports(bindings);
             } catch (e) {
@@ -159,14 +220,25 @@ function wrapFactory(factory) {
         },
       });
     }
-    return factory.apply(this, arguments);
+    const ret = factory.apply(this, arguments);
+    for (const bindings of pending) {
+      try {
+        patchExports(bindings);
+      } catch (e) {
+        console.warn('[novelai-zh-tags]', e);
+      }
+    }
+    return ret;
   };
 }
 
-// 分块格式: [script, 模块 id..., 工厂函数, 模块 id..., 工厂函数, ...]
+// 分块格式: [script, 模块 id..., 工厂函数, ...] 或 [script, [模块 id..., 工厂函数, ...]]
 function wrapChunk(chunk) {
   if (Array.isArray(chunk)) {
-    for (let i = 1; i < chunk.length; i++) if (typeof chunk[i] === 'function') chunk[i] = wrapFactory(chunk[i]);
+    for (let i = 0; i < chunk.length; i++) {
+      if (typeof chunk[i] === 'function') chunk[i] = wrapFactory(chunk[i]);
+      else if (Array.isArray(chunk[i])) wrapChunk(chunk[i]);
+    }
   }
   return chunk;
 }
