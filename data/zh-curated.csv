@@ -28,7 +28,7 @@ striped_clothes,条纹服装,
 off_shoulder,露肩装,
 from_side,侧面视角,侧面/侧视
 arm_up,单臂上举,举起一只手
-collar,项圈,
+collar,项圈,-领子
 :o,O形嘴,惊讶
 hair_intakes,进气口发型,
 thigh_strap,腿环,大腿环带
@@ -39,9 +39,9 @@ fur_trim,毛皮镶边,毛边
 no_humans,无人物,
 hand_on_own_hip,单手叉腰,
 wrist_cuffs,腕套,腕饰
-covered_nipples,激凸,隐约可见的乳头
+covered_nipples,激凸,隐约可见的乳头/-遮挡乳头
 plaid_clothes,格纹服装,格子衣服
-covered_navel,衣下可见肚脐,
+covered_navel,衣下可见肚脐,-遮挡肚脐
 wet,湿身,
 short_shorts,热裤,
 makeup,化妆,
@@ -75,14 +75,14 @@ facing_viewer,面向观众,
 headgear,头部装备,
 blazer,西装外套,
 ;d,眨眼张嘴笑,
-pointing,用手指,
+pointing,用手指着,指向
 fishnets,渔网,网袜
 single_hair_bun,单丸子头,
 extra_ears,四只耳朵,多余耳朵
 outline,描边,轮廓线
 topless_female,女性上身赤裸,
 topless_male,男性上身赤裸,
-wing_collar,翼领,
+wing_collar,翼领,-翅膀衣领
 polka_dot,波点,圆点图案
 knees_up,双膝抬起,屈膝
 shaded_face,脸部阴影,阴沉脸
@@ -109,7 +109,7 @@ vertical-striped_clothes,竖条纹服装,
 armlet,臂环,臂钏
 veins,血管凸起,
 :p,吐舌鬼脸,
-white_skin,白色皮肤,
+white_skin,白色皮肤,-白皙皮肤
 genderswap,性转,性别转换
 wet_clothes,湿衣服,
 floating,漂浮,
@@ -122,7 +122,7 @@ crossdressing_(mtf),男扮女装,
 asymmetrical_legwear,不对称袜子,
 @_@,漩涡眼,晕眼
 clothed_sex,着衣性交,
-notice_lines,察觉线,
+notice_lines,察觉线,-集中线
 emphasis_lines,集中线,
 sound_effects,拟声词,音效字
 heavy_breathing,喘粗气,
@@ -137,10 +137,10 @@ genderswap_(mtf),性转（男变女）,女体化
 bulge,裆部隆起,
 animal_hands,兽爪手,
 tokin_hat,头襟（天狗帽）,
-low_wings,腰间翅膀,
+low_wings,腰间翅膀,-低垂的翅膀
 mature_male,熟男,大叔
-head_rest,托着头,
-black_collar,黑色项圈,
+head_rest,托着头,头部依靠/-头枕/-头部依靠（头枕）
+black_collar,黑色项圈,-黑色衣领
 cuffs,拘束铐,手铐/镣铐
 plump,微胖,丰满
 dress_lift,掀起连衣裙,
@@ -160,7 +160,7 @@ fur-trimmed_jacket,毛边夹克,
 drawstring,抽绳,拉绳
 bouncing_breasts,乳摇,
 breasts_squeezed_together,挤胸,
-impossible_clothes,过度贴身的衣服,
+impossible_clothes,过度贴身的衣服,-透视服装/-不可能的服装（透视服装）
 reaching_towards_viewer,向观众伸手,
 crown_braid,皇冠编发,
 pinafore_dress,背心裙,
@@ -168,8 +168,8 @@ paw_pose,猫爪手势,
 nontraditional_miko,改良巫女服,
 naughty_face,挑逗表情,
 crystal,水晶,
-interracial,跨种族,
-body_fur,身上兽毛,体毛
+interracial,跨种族,-异种族/-跨种族（异种族）
+body_fur,身上兽毛,兽毛/-体毛/-身体毛发（体毛）
 arm_warmers,袖套,臂套
 hands_in_pockets,双手插兜,
 alternate_color,换色,异色
@@ -182,7 +182,7 @@ animal_hood,动物兜帽,
 contemporary,现代化改编,
 ofuda,符札,护符/符咒
 overalls,背带裤,工装裤
-creature,小生物,
+creature,小生物,-异生物/-生物（异生物）
 holding_bottle,持瓶,
 android,仿生人,人造人/机器人
 breast_pocket,胸袋,
@@ -198,7 +198,7 @@ split-color_hair,左右分色发,
 gagged,被堵嘴,
 full-face_blush,满脸通红,
 covered_mouth,嘴被遮住,
-blindfold,蒙眼布,蒙眼/蒙眼布
+blindfold,蒙眼布,蒙眼
 pen,笔,
 bound_wrists,手腕被绑,
 crotch_seam,裆部缝线,
@@ -213,9 +213,9 @@ forehead_jewel,额头宝石,
 bandeau,抹胸,
 covering_breasts,遮胸,
 toeless_legwear,露趾袜,
-claw_pose,举爪姿势,嘎哦
+claw_pose,举爪姿势,嘎哦/-猫爪姿势
 cow_print,奶牛纹,
-folding_fan,折扇,
+folding_fan,折扇,-团扇/-折扇（团扇）
 headpiece,头部饰品,
 open_fly,裤链敞开,
 curled_horns,卷角,
@@ -271,7 +271,7 @@ nipple_slip,乳头走光,
 loose_socks,泡泡袜,
 sundress,太阳裙,吊带连衣裙/背心裙
 taut_clothes,紧绷的衣服,
-triangular_headpiece,三角头巾,
+triangular_headpiece,幽灵三角头饰,天冠/额隐
 frilled_thigh_strap,荷叶边腿环,
 tied_shirt,衬衫打结,
 cum_in_ass,肛内射精,
@@ -283,15 +283,15 @@ charm_(object),小挂件,护身符
 coat_on_shoulders,大衣披在肩上,
 pubic_tattoo,淫纹,
 uneven_legwear,左右长度不同的袜子,
-lowleg,低腰,
+lowleg,低腰,-低开叉
 toned_female,健美女性,
 head_fins,头鳍,
 latex,胶衣,乳胶
 headscarf,头巾,
-chest_harness,胸部束带,
+chest_harness,胸部束带,胸部系带/-束胸带/-束胸带（胸部系带）
 gym_shirt,体育服上衣,
 chestnut_mouth,栗子嘴,
-blank_eyes,无神白眼,
+blank_eyes,空白眼,无瞳白眼
 ffm_threesome,二女一男,
 mmf_threesome,二男一女,
 tiptoes,踮脚,
@@ -310,10 +310,10 @@ pointing_at_viewer,指向观众,
 colored_extremities,肢体末端异色,
 multiple_hair_bows,多个蝴蝶结发饰,
 wince,畏缩表情,
-squeans,晕乎符号,
+squeans,晕乎符号,-烦躁线
 dark_persona,黑化,
 deep_skin,手指陷入皮肤,
-string_panties,系绳内裤,
+string_panties,系绳内裤,-丁字内裤/-绳状内裤（丁字内裤）
 drop_shadow,投影,
 >:),得意坏笑,
 holding_bow_(weapon),持弓,
@@ -332,7 +332,7 @@ braided_hair_rings,辫子环,
 body_writing,身上写字,
 raglan_sleeves,插肩袖,
 jumpsuit,连体裤,
-babydoll,娃娃装,透视睡裙/娃娃装/娃娃裙
+babydoll,娃娃装,透视睡裙/娃娃裙
 black_streaks,黑色挑染,
 dappled_sunlight,斑驳阳光,
 crop_top_overhang,上衣下摆悬空,乳帘
@@ -348,7 +348,7 @@ hakama_short_skirt,短袴裙,
 faceless_female,无脸女,
 implied_sex,暗示性行为,
 oversized_object,超大物体,
-chest_sarashi,胸部裹布,缠胸布
+chest_sarashi,胸部裹布,缠胸布/胸卷布/-胸部束带/-胸部束带（胸卷布）
 cake_slice,一块蛋糕,
 pee,尿液,
 single_hair_intake,单侧进气口发型,
@@ -374,7 +374,7 @@ frilled_hat,荷叶边帽子,
 xd,XD笑脸,
 diagonal-striped_necktie,斜条纹领带,
 skinny,纤瘦,骨感
-parted_hair,分头,
+parted_hair,分缝发型,分头
 bandaid_on_cheek,脸颊上的创可贴,
 purple_leotard,紫色紧身衣,
 pink_leotard,粉色紧身衣,
@@ -390,8 +390,8 @@ hachimaki,钵卷,头带
 furry_with_non-furry,兽人与非兽人,
 collared_coat,有领大衣,
 \m/,摇滚手势,
-energy,能量,
-3:,皱眉嘴,
+energy,能量,-活力
+3:,倒猫嘴,撇嘴/不悦猫嘴
 earpiece,单耳耳机,
 people,人们,
 interface_headset_(evangelion),EVA神经连接器,
@@ -448,7 +448,7 @@ shortstack,矮小丰满身材,
 green_leotard,绿色紧身衣,
 pointy_nose,尖鼻子,
 pink_eyeshadow,粉色眼影,
-deer_antlers,雄鹿角,
+deer_antlers,鹿角,
 official_alternate_hair_color,官方换发色,
 frilled_pillow,荷叶边枕头,
 instant_loss,即堕,秒败
@@ -462,7 +462,7 @@ chain_leash,锁链牵绳,
 unusually_open_eyes,罕见睁眼,
 diamond_hairband,菱形发箍,
 roswaal_mansion_maid_uniform,罗兹瓦尔宅邸女仆装,
-ejaculating_while_penetrated,插入时射精,
+ejaculating_while_penetrated,被插入时射精,
 patterned_clothing,花纹服装,
 nipple_bar,乳头杠铃钉,
 pink-tinted_eyewear,粉色镜片眼镜,
@@ -489,7 +489,7 @@ fivesome,5P,
 in_tree,在树上,
 grey_belt,灰色腰带,
 feather_trim,羽毛镶边,
-panther_girl,豹娘,
+panther_girl,黑豹娘,豹娘
 cat_ear_hairband,猫耳发箍,
 false_smile,假笑,
 braided_twintails,麻花辫双马尾,
@@ -543,8 +543,8 @@ halloween_bucket,南瓜糖果桶,
 pant_suit,女士裤装西服,
 rice_bowl,饭碗,
 blood_in_hair,头发上的血,
-ankle_cuffs,脚镣,
-industrial_pipe,管道,
+ankle_cuffs,脚踝套,脚铐/脚镣
+industrial_pipe,工业管道,
 fine_art_parody,名画模仿,
 impossible_dress,过度贴身的连衣裙,不可能的连衣裙
 blue_tunic,蓝色束腰外衣,
@@ -593,14 +593,14 @@ bat_girl,蝙蝠娘,
 jimiko,地味女,
 shark_hood,鲨鱼兜帽,
 floating_headgear,悬浮头饰,
-patterned_hair,花纹发色,
+patterned_hair,花纹头发,
 bear_boy,熊耳男孩,
 holding_notebook,手持笔记本,
 usekh_collar,古埃及宽项圈,
 collared_vest,有领马甲,
 striped_hairband,条纹发箍,
 layered_shirt,衬衫叠穿,
-prehensile_hair,活体头发,
+prehensile_hair,可操控头发,可自由操控的头发
 grey_nails,灰色指甲,
 unworn_bag,未背的包,
 single_garter_strap,单侧吊袜带,
@@ -625,7 +625,7 @@ half_mask,半脸面具,
 vibrator_cord,跳蛋线,
 underbutt,下臀露出,
 hand_rest,手搭着,
-grabbing_another's_chin,抬下巴,
+grabbing_another's_chin,捏住他人下巴,挑下巴/抬下巴
 rope_belt,绳腰带,
 object_focus,物品特写,
 stained_panties,沾污的内裤,
@@ -646,7 +646,7 @@ convenient_tail,尾巴巧妙遮挡,
 food-themed_earrings,食物造型耳环,
 holding_creature,抱着小生物,
 rainbow_gradient,彩虹渐变,
-dress_tug,按住裙摆,
+dress_tug,下拉连衣裙,向下拽裙摆
 bandaged_wrist,手腕缠绷带,
 character_age,角色年龄,
 floating_weapon,悬浮武器,
@@ -722,7 +722,7 @@ medallion,圆形挂坠,
 pokemon_card,宝可梦卡牌,
 sequential,连续画面,
 four-leaf_clover_hair_ornament,四叶草发饰,
-athletic_leotard,体操服,体操紧身衣
+athletic_leotard,体操紧身衣,运动紧身衣/竞技体操服
 heart_(organ),心脏,
 polka_dot_skirt,波点裙,
 thighhighs_pull,拉着过膝袜,
@@ -733,7 +733,7 @@ cropped_arms,手臂出框,
 detached_ahoge,分离呆毛,
 fur-trimmed_shirt,毛边衬衫,
 blind,失明,
-holding_money,手持钱,
+holding_money,拿着钱,
 wavy_eyes,波浪眼,
 paint_splatter_on_face,脸上沾着颜料,
 breasts_on_table,胸部搁在桌上,
@@ -816,7 +816,7 @@ hanging_light,吊挂灯,
 bad_food,黑暗料理,
 arm_cuffs,臂箍,
 on_roof,屋顶上,
-tag,吊牌,吊牌
+tag,吊牌,
 white_tunic,白色束腰外衣,
 cuirass,胸背甲,
 mob_face,路人脸,杂鱼脸
@@ -837,7 +837,7 @@ hugging_viewer,拥抱观众,
 single_fishnet_legwear,单腿渔网袜,
 red_oni,赤鬼,
 monster_focus,怪物特写,
-glory_wall,壁洞,
+glory_wall,壁尻墙,壁尻/壁洞
 sand_castle,沙堡,
 floating_book,漂浮的书,
 orange_cat,橘猫,
@@ -889,7 +889,7 @@ ears_visible_through_hair,透过头发可见耳朵,
 black_overalls,黑色背带裤,
 purple_bag,紫色包,
 against_fourth_wall,贴着第四面墙,
-mind_break,精神崩坏,恶堕
+mind_break,精神崩坏,理智崩溃/玩坏
 handsfree_breast_squeeze,无手挤胸,
 covering_one_breast,遮住一侧乳房,
 drugged,被下药,
@@ -906,7 +906,7 @@ ball_and_chain_restraint,脚镣铁球,
 food-themed_background,食物背景,
 red_panda_ears,小熊猫耳,
 broken_armor,破损盔甲,
-mmm_threesome,三男,
+mmm_threesome,三男3P,三男三人行
 fruit_hat_ornament,水果帽饰,
 green_fire,绿色火焰,
 they_had_lots_of_sex_afterwards_(meme),之后大干了一场（梗）,
@@ -921,14 +921,14 @@ holding_egg,手持鸡蛋,
 holding_torch,举着火把,
 flower_on_liquid,浮在水面的花,
 joestar_birthmark,乔斯达家族胎记,
-soap_bottle,按压瓶,
+soap_bottle,皂液瓶,按压瓶/洗手液瓶/沐浴露瓶
 akatsuki_uniform,晓组织制服（火影忍者）,
 ears_through_hood,耳朵穿出兜帽,
 chihaya_(clothing),千早（巫女外衣）,
 male_on_futa,男攻扶她,
 at_computer,在用电脑,
 stained_clothes,衣服上有污渍,
-x3,忍笑脸（x3）,
+x3,闭眼猫嘴（x3）,
 forced_smile,强颜欢笑,苦笑
 satin_panties,缎面内裤,
 fast_food_uniform,快餐店制服,
@@ -952,7 +952,7 @@ anchor_ornament,锚形装饰,
 alternate_hair_ornament,换发饰,
 kanba_girls_high_school_uniform,神庭女子高中校服（突击莉莉）,
 swirl,涡旋纹,
-tri_braids,三股辫,
+tri_braids,三条辫子,三麻花辫
 clock_eyes,时钟眼,
 winged_bag,翅膀包,
 female_service_cap,女式制服帽,
@@ -1012,10 +1012,10 @@ pussy_focus,阴部特写,
 super_saiyan_blue,超级赛亚人蓝,
 wing_ears,翼耳,
 censored_with_cum,精液打码,
-quad_braids,四股辫,
+quad_braids,四条辫子,四麻花辫
 stage_curtains,舞台幕布,
 blue_male_underwear,蓝色男式内裤,
-foot_dangle,晃脚,
+foot_dangle,脚悬空,双脚悬空/晃脚
 ass_press,臀压,
 very_long_ears,超长耳朵,
 high-visibility_vest,反光背心,
@@ -1036,7 +1036,7 @@ bus_interior,公交车内,
 gold_anklet,金脚链,
 no_hair_ornament,未戴发饰,
 :c,伤心撇嘴,
-fusuma,隔扇（襖）,
+fusuma,日式隔扇,和室拉门/日式拉门
 school_of_fish,鱼群,
 fur_cuffs,毛皮袖口,
 virgin_killer_outfit,童贞杀手服,
@@ -1062,7 +1062,7 @@ puzzle_piece,拼图块,
 blue_oni,青鬼,
 holding_orb,托着光球,
 yellow_umbrella,黄色伞,
-uneven_footwear,左右鞋长不同,
+uneven_footwear,左右鞋靴不等高,不对称鞋靴
 nipple-to-nipple,乳头贴乳头,
 taut_swimsuit,紧绷的泳衣,
 asymmetrical_arms,不对称手臂,
@@ -1074,7 +1074,7 @@ purple_hood,紫色兜帽,
 whip_sword,蛇腹剑,鞭子剑
 billiard_ball,台球,
 canteen,军用水壶,
-right-over-left_kimono,右衽和服（死装束）,
+right-over-left_kimono,左衽和服（死装束）,左前和服/-右前和服
 victorian_maid,维多利亚女仆装,
 food-themed_creature,食物系生物,
 imminent_hug,即将拥抱,
@@ -1088,7 +1088,7 @@ on_box,在箱子上,
 grey_pubic_hair,灰色阴毛,
 kriss_vector,KRISS Vector冲锋枪,
 one_piece,海贼王,航海王
-moriya_suwako,洩矢诹访子,
+moriya_suwako,泄矢诹访子,洩矢诹访子
 hina_(blue_archive),空崎日奈（蔚蓝档案）,空崎阳奈
 yor_briar,约尔·福杰,约尔·布莱尔
 nagasaki_soyo,长崎爽世,长崎素世
@@ -1106,7 +1106,7 @@ black_choker,黑色颈圈,
 aqua_eyes,水蓝瞳,
 aqua_hair,水蓝色头发,
 white_capelet,白色短披肩,
-highleg_panties,高开衩内裤（高衩内裤）,
+highleg_panties,高开衩内裤,高衩内裤
 white_choker,白色颈圈,
 white_eyes,白瞳,
 white_wrist_cuffs,白色腕套,
@@ -1206,7 +1206,7 @@ blue_feathers,蓝色羽毛,
 holding_fishing_rod,手持钓鱼竿,
 orange_choker,橙色颈圈,
 yellow_tail,黄色尾巴,
-holding_beachball,手持沙滩球,
+holding_beachball,拿着沙滩球,抱着沙滩球
 lace_choker,蕾丝颈圈,
 aqua_hat,水蓝色帽子,
 holding_drumsticks,手持鼓槌,
@@ -1219,12 +1219,12 @@ grey_wings,灰色翅膀,
 yellow_leotard,黄色紧身衣,
 two-tone_scarf,双色围巾,
 grey_capelet,灰色短披肩,
-collared_capelet,带领短披肩,
+collared_capelet,有领短披肩,
 two-tone_hoodie,双色连帽衫,
 brown_choker,棕色颈圈,
 flower_choker,花朵颈圈,
 two-tone_coat,双色外套,
-holding_suitcase,手持手提箱,
+holding_suitcase,提着手提箱,拎着手提箱
 holding_teapot,手持茶壶,
 two-tone_headwear,双色头饰,
 lace-trimmed_choker,蕾丝边颈圈,
@@ -1270,7 +1270,7 @@ two-tone_wings,双色翅膀,
 yellow_teeth,黄色牙齿,
 pink_sweater_vest,粉色毛衣背心,
 polka_dot_pajamas,波点睡衣,
-green_collar,绿色项圈,
+green_collar,绿色项圈,-绿领
 anchor_choker,锚形颈圈,
 vertical-striped_socks,竖条纹袜子,
 aqua_shorts,水蓝色短裤,
@@ -1283,7 +1283,7 @@ aqua_leotard,水蓝色紧身衣,
 aqua_thighhighs,水蓝色过膝袜,
 aqua_sleeves,水蓝色袖子,
 two-tone_tail,双色尾巴,
-holding_reins,手持缰绳,
+holding_reins,握着缰绳,拉着缰绳/牵着缰绳
 polka_dot_ribbon,波点丝带,
 cat_choker,猫形颈圈,
 two-tone_sleeves,双色袖,
@@ -1310,7 +1310,7 @@ polka_dot_bowtie,波点领结,
 grey_outline,灰色描边,
 holding_paddle,手持短桨,
 bead_choker,珠串颈圈,
-holding_mallet,手持槌,
+holding_mallet,手持木槌,手持槌子
 aqua_scarf,水蓝色围巾,
 holding_hair_dryer,手持吹风机,
 two-tone_vest,双色马甲,
@@ -1338,12 +1338,12 @@ purple_feathers,紫色羽毛,
 green_pubic_hair,绿色阴毛,
 yellow_jumpsuit,黄色连体裤,
 holding_pumpkin,手持南瓜,
-holding_chess_piece,手持棋子,
+holding_chess_piece,手持国际象棋棋子,手持棋子
 holding_sponge,手持海绵,
 aqua_wings,水蓝色翅膀,
 fur_capelet,毛皮短披肩,
 red_jumpsuit,红色连体裤,
-holding_hand_grip,手持吊环拉手,
+holding_hand_grip,抓着吊环拉手,握着吊环拉手/拉着吊环
 open_jumpsuit,敞开的连体裤,
 polka_dot_hairband,波点发箍,
 holding_string,手持细绳,
@@ -1355,7 +1355,7 @@ holding_tongs,手持夹子,
 aqua_lips,水蓝色嘴唇,
 aqua_boots,水蓝色靴子,
 pink_robe,粉色长袍,
-yellow_collar,黄色项圈,
+yellow_collar,黄色项圈,-黄色领子
 grey_lips,灰色嘴唇,
 polka_dot_camisole,波点吊带背心,
 aqua_cape,水蓝色披风,
@@ -1370,7 +1370,7 @@ vertical-striped_bra,竖条纹胸罩,
 orange_capelet,橙色短披肩,
 aqua_socks,水蓝色袜子,
 orca_hood,虎鲸兜帽,
-grey_collar,灰色项圈,
+grey_collar,灰色项圈,-灰色的衣领
 pink_armor,粉色盔甲,
 pink_hood,粉色兜帽,
 holding_stethoscope,手持听诊器,
@@ -1427,7 +1427,7 @@ pink_mask,粉色面具,
 butterfly_choker,蝴蝶颈圈,
 aqua_ascot,水蓝色宽领巾,
 polka_dot_scarf,波点围巾,
-holding_utensil,手持餐具,
+holding_utensil,手持餐具,-握住器皿
 aqua_border,水蓝色边框,
 holding_rock,手持石头,
 pink_cloak,粉色斗篷,
@@ -1459,8 +1459,8 @@ holding_legs,抱腿,
 black_tears,黑色眼泪,
 green_male_swimwear,绿色男式泳裤,
 pink_rope,粉色绳子,
-aqua_collar,水蓝色项圈,
-wet_male_underwear,湿男式内裤,
+aqua_collar,水蓝色项圈,-水色衣领
+wet_male_underwear,打湿的男式内裤,湿透的男式内裤
 brown_outline,棕色描边,
 yellow_male_underwear,黄色男式内裤,
 white_lips,白色嘴唇,
@@ -1469,7 +1469,7 @@ polka_dot_hair,波点头发,
 polka_dot_shorts,波点短裤,
 aqua_tongue,水蓝色舌头,
 holding_clover,手持三叶草,
-holding_ears,手持耳朵,
+holding_ears,抓着双耳,抓着耳朵/握着双耳/捏着双耳
 holding_hair_ornament,手持发饰,
 orange_hood,橙色兜帽,
 aqua_fur,水蓝色皮毛,
@@ -1492,7 +1492,7 @@ holding_pinwheel,手持风车,
 orange_male_underwear,橙色男式内裤,
 aqua_sarong,水蓝色纱笼裙,
 see-through_capelet,透视短披肩,
-holding_gun_barrel,手持枪管,
+holding_gun_barrel,握着枪管,抓着枪管/扶着枪管
 rabbit_choker,兔子颈圈,
 purple_nightgown,紫色睡裙,
 polka_dot_innertube,波点游泳圈,
@@ -1503,7 +1503,7 @@ aqua_tank_top,水蓝色背心,
 pink_suit,粉色西装,
 brown_jumpsuit,棕色连体裤,
 aqua_feathers,水蓝色羽毛,
-brown_leggings,棕色打底裤,
+brown_leggings,棕色打底裤,-棕色的绑腿
 vertical-striped_apron,竖条纹围裙,
 blue_nose,蓝色鼻子,
 holding_cd,手持CD,
@@ -1525,7 +1525,7 @@ aqua_bodysuit,水蓝色紧身连体衣,
 leather_choker,皮革颈圈,
 polka_dot_trim,波点镶边,
 holding_belt,手持腰带,
-holding_finger,手持手指,
+holding_finger,握着手指,抓着手指
 polka_dot_pants,波点裤子,
 aqua_robe,水蓝色长袍,
 polka_dot_border,波点边框,
@@ -1538,7 +1538,7 @@ print_male_swimwear,印花男式泳裤,
 aqua_pajamas,水蓝色睡衣,
 vertical-striped_bodysuit,竖条纹紧身连体衣,
 diamond_choker,菱形颈圈,
-holding_feet,手持脚,
+holding_feet,握着双脚,抓着双脚/捧着双脚/抱脚
 aqua_camisole,水蓝色吊带背心,
 aqua_haori,水蓝色羽织,
 polka_dot_jacket,波点夹克,
@@ -1561,10 +1561,10 @@ polka_dot_gloves,波点手套,
 holding_ear,捏着耳朵,
 multicolored_choker,多色颈圈,
 turtleneck_capelet,高领短披肩,
-holding_cushion,手持垫子,
+holding_cushion,抱着靠垫,抱着垫子/拿着靠垫
 polka_dot_hat,波点帽子,
 aqua_scales,水蓝色鳞片,
-disappearance_outline,消失描边,
+disappearance_outline,消失留下的轮廓,消失轮廓/空缺轮廓
 grey_male_swimwear,灰色男式泳裤,
 two-tone_jumpsuit,双色连体裤,
 tassel-trimmed_capelet,流苏饰短披肩,
@@ -1585,7 +1585,7 @@ padlocked_choker,挂锁颈圈,
 mouse_hood,鼠耳兜帽,
 plaid_male_underwear,格纹男式内裤,
 rainbow_choker,彩虹颈圈,
-holding_bars,手持栏杆,
+holding_bars,抓着栏杆,
 purple_ears,紫色耳朵,
 brown_male_swimwear,棕色男式泳裤,
 holding_nose,捏住自己的鼻子,
@@ -1598,7 +1598,7 @@ striped_male_swimwear,条纹男式泳裤,
 aqua_buruma,水蓝色布鲁马,
 aqua_sports_bra,水蓝色运动胸罩,
 polka_dot_babydoll,波点娃娃装,
-pink_moon_stick,粉色月亮棒,
+pink_moon_stick,粉红月亮权杖,粉红月亮棒/粉色月亮棒
 tied_jumpsuit,系起的连体裤,
 pink_male_swimwear,粉色男式泳裤,
 polka_dot_sarong,波点纱笼,
@@ -1617,7 +1617,7 @@ wet_male_swimwear,湿透男式泳裤,
 food-themed_choker,食物主题颈圈,
 polka_dot_bloomers,波点灯笼裤,
 yellow_leaf,黄色叶子,
-holding_paw,手持爪子,
+holding_paw,握着爪子,
 polka_dot_bodysuit,波点紧身连体衣,
 aqua_shrug,水蓝色短开衫,
 polka_dot_bag,波点包,
@@ -1640,7 +1640,7 @@ absurdly_long_hair,极长发,拖地长发
 armored_boots,铠甲靴,装甲靴
 mini_hat,迷你帽,
 bath,泡澡,洗澡
-flat_cap,,鸭舌帽
+flat_cap,鸭舌帽,扁帽/狩猎帽
 covered_collarbone,衣下锁骨轮廓,
 covered_clitoris,衣下阴蒂轮廓,
 covered_piercing,衣下穿孔轮廓,
@@ -1755,7 +1755,7 @@ hair_tie_in_mouth,嘴叼发圈,
 spinning,旋转,
 smell,气味,
 seamed_legwear,后缝线袜,
-pointless_condom,避孕套没用上,
+pointless_condom,避孕套形同虚设,避孕套没用上
 clothed_pokemon,穿衣服的宝可梦,
 clothed_animal,穿衣服的动物,
 winged_arms,翼臂,
@@ -1812,7 +1812,7 @@ multicolored_skirt,多色裙子,
 colorful,五彩斑斓,
 frilled_kimono,荷叶边和服,
 subtitled,带字幕,
-frilled_capelet,荷叶边披肩,
+frilled_capelet,荷叶边短披肩,
 multicolored_horns,多色角,
 flexible,柔韧性好,
 flustered,慌乱,
@@ -1930,7 +1930,7 @@ impossible_vest,过度贴身的马甲,
 checkered_cape,方格披风,
 plaid_sweater_vest,格子毛衣背心,
 frilled_hakama,荷叶边袴,
-doukyo's,Doukyo,
+doukyo's,Doukyo's,
 frilled_underwear,荷叶边内衣,
 argyle_vest,菱格马甲,
 mute,哑巴,
@@ -1955,10 +1955,10 @@ straw_cape,蓑衣,
 fur-trimmed_waist_cape,毛边腰披风,
 multicolored_pajamas,多色睡衣,
 down_vest,羽绒马甲,
-mechanical,机械部件,
+mechanical,机械式,
 vertical-striped_cape,竖条纹披风,
 striped_sweater_vest,条纹毛衣背心,
-multicolored_sarong,多色纱笼,
+multicolored_sarong,多色纱笼裙,
 folding,折叠式,
 multicolored_bag,多色包,
 frilled_pantyhose,荷叶边连裤袜,
@@ -1976,14 +1976,14 @@ banister,楼梯扶手,
 whirlpool,漩涡,
 lights,灯光,
 frown,皱眉撇嘴,不高兴
-shoulder_tilt,歪肩,
+shoulder_tilt,歪肩,-耸肩
 overall_skirt,工装背带裙,
 suspender_pants,吊带长裤,
-energon,能量块（变形金刚）,
+energon,能量块（变形金刚）,-能量
 arm_belt,臂部皮带,
 blue_romper,蓝色连体短裤,
 lamia,拉弥亚,半蛇女
-arm_wrap,手臂缠布,
+arm_wrap,手臂缠布,-袖套
 sleeve_garter,袖箍,
 suit_jacket,西服上衣,
 ao_oni,青鬼（游戏）,
@@ -1996,7 +1996,7 @@ garter_belt,吊袜腰带,吊袜带/束腰吊带
 panties_over_garter_belt,内裤穿在吊袜腰带外,
 lace_garter_belt,蕾丝吊袜腰带,
 shrug_(clothing),短开衫,
-fur-trimmed_mittens,毛边连指手套,
+fur-trimmed_mittens,毛边连指手套,-毛皮三重手套
 waist_sash,腰间饰带,
 collared_cloak,有领斗篷,
 impossible_bodysuit,过度贴身的紧身连体衣,
@@ -2060,7 +2060,7 @@ black_headscarf,黑色头巾,
 print_bandana,印花方巾,
 red_garter_straps,红色吊袜带,
 bondage_mittens,束缚连指手套,
-black_mittens,黑色连指手套,
+black_mittens,黑色连指手套,-黑色手套
 lace-trimmed_garter_belt,蕾丝边吊袜腰带,
 floral_print_sash,花卉印花饰带,
 purple_garter_straps,紫色吊袜带,
@@ -2092,7 +2092,7 @@ purple_garter_belt,紫色吊袜腰带,
 orange_headscarf,橙色头巾,
 blue_garter_belt,蓝色吊袜腰带,
 crotchless_bodysuit,开裆紧身连体衣,
-orange_mittens,橙色连指手套,
+orange_mittens,橙色连指手套,-橙色手套
 partial_bodysuit,部分紧身连体衣,
 purple_headscarf,紫色头巾,
 two-tone_tube_top,双色抹胸上衣,
@@ -2118,7 +2118,7 @@ leotard_over_bodysuit,紧身衣罩紧身连体衣,
 bow_garter_belt,蝴蝶结吊袜腰带,
 checkered_cloak,方格斗篷,
 butterfly_print_sash,蝴蝶纹饰带,
-checkered_bandana,方格方巾,
+checkered_bandana,方格纹方巾,
 gradient_bodysuit,渐变紧身连体衣,
 torn_tube_top,破损的抹胸上衣,
 gradient_cloak,渐变斗篷,
@@ -2127,7 +2127,7 @@ envy,羡慕,
 goat-chan_(enarane),山羊酱（enarane）,
 lamia_(epakim),拉弥亚（epakim）,
 the_fallen_angel_(painting),堕天使（卡巴内尔画作）,
-face_in_hands,双手掩面,
+face_in_hands,双手掩面,-双手捧脸
 o-ring_collar,O形环项圈,
 beam,射线,
 billiards,台球运动,
@@ -2139,7 +2139,7 @@ bustier,胸衣,
 bodice,紧身上衣,
 tabard,罩袍,无袖罩袍/纹章战袍
 track_suit,运动套装,运动服套装
-assault_visor,突击面罩,
+assault_visor,突击面罩,-突击遮阳板
 overskirt,罩裙,外裙
 negligee,薄纱睡衣,
 chemise,吊带睡裙,
@@ -2218,9 +2218,9 @@ blue_assault_visor,蓝色突击面罩,
 black_claws,黑色爪子,
 black_tunic,黑色束腰外衣,
 grey_overalls,灰色背带裤,
-grey_hakama,灰色袴,
+grey_hakama,灰色袴,-灰色哈卡马
 yellow_slingshot_swimsuit,黄色弹弓式泳装,
-red_visor_cap,红色空顶遮阳帽,
+red_visor_cap,红色空顶遮阳帽,-红色大檐帽
 purple_suit,紫色西装,
 red_sarong,红色纱笼裙,
 red_tunic,红色束腰外衣,
@@ -2231,7 +2231,7 @@ black_blood,黑色血液,
 red_overalls,红色背带裤,
 gold_horns,金色角,
 blue_crown,蓝色皇冠,
-blue_leggings,蓝色打底裤,
+blue_leggings,蓝色打底裤,-蓝色绑腿
 pink_claws,粉色爪子,
 blue_leg_warmers,蓝色腿套,
 green_sarong,绿色纱笼裙,
@@ -2242,13 +2242,13 @@ grey_leg_warmers,灰色腿套,
 red_claws,红色爪子,
 purple_slingshot_swimsuit,紫色弹弓式泳装,
 blue_track_suit,蓝色运动套装,
-black_gauntlets,黑色臂铠,
+black_gauntlets,黑色臂铠,-黑色长手套
 yellow_sarong,黄色纱笼裙,
 silver_crown,银色皇冠,
 white_loincloth,白色遮裆布,
 purple_blood,紫色血液,
 red_leg_warmers,红色腿套,
-purple_leggings,紫色打底裤,
+purple_leggings,紫色打底裤,-紫色绑腿
 green_blood,绿色血液,
 orange_overalls,橙色背带裤,
 green_track_suit,绿色运动套装,
@@ -2256,7 +2256,7 @@ yellow_crown,黄色皇冠,
 orange_assault_visor,橙色突击面罩,
 white_crown,白色皇冠,
 orange_tunic,橙色束腰外衣,
-grey_leggings,灰色打底裤,
+grey_leggings,灰色打底裤,-灰色绑腿
 gold_slingshot_swimsuit,金色弹弓式泳装,
 orange_sarong,橙色纱笼裙,
 grey_bridal_gauntlets,灰色婚纱长手套,
@@ -2277,10 +2277,10 @@ red_assault_visor,红色突击面罩,
 purple_leg_warmers,紫色腿套,
 black_negligee,黑色薄纱睡衣,
 brown_hiphighs,棕色及胯长袜,
-red_cross_tie,红色交叉领结,
+red_cross_tie,红色交叉领结,-红十字领带
 brown_loincloth,棕色遮裆布,
 black_assault_visor,黑色突击面罩,
-black_cross_tie,黑色交叉领结,
+black_cross_tie,黑色交叉领结,-黑色十字领带
 yellow_leg_warmers,黄色腿套,
 blue_negligee,蓝色薄纱睡衣,
 yellow_suit,黄色西装,
@@ -2288,7 +2288,7 @@ grey_crown,灰色皇冠,
 white_unitard,白色弹力紧身衣,
 white_hijab,白色伊斯兰头巾,
 black_chemise,黑色吊带睡裙,
-blue_unitard,蓝色弹力紧身衣,
+blue_unitard,蓝色弹力紧身衣,-蓝色unitard
 brown_leg_warmers,棕色腿套,
 blue_visor_cap,蓝色空顶遮阳帽,
 white_hiphighs,白色及胯长袜,
@@ -2301,7 +2301,7 @@ green_leg_warmers,绿色腿套,
 blue_santa_costume,蓝色圣诞装,
 white_dougi,白色武道服,
 grey_sarong,灰色纱笼裙,
-green_leggings,绿色打底裤,
+green_leggings,绿色打底裤,-绿色绑腿
 orange_leg_warmers,橙色腿套,
 purple_track_suit,紫色运动套装,
 white_visor_cap,白色空顶遮阳帽,
@@ -2312,7 +2312,7 @@ white_bodystocking,白色连体袜,
 purple_crown,紫色皇冠,
 brown_sarong,棕色纱笼裙,
 orange_visor_cap,橙色空顶遮阳帽,
-blue_cross_tie,蓝色交叉领结,
+blue_cross_tie,蓝色交叉领结,-蓝色十字领带
 blue_loincloth,蓝色遮裆布,
 blue_hijab,蓝色伊斯兰头巾,
 red_bustier,红色胸衣,
@@ -2324,7 +2324,7 @@ orange_loincloth,橙色遮裆布,
 white_santa_costume,白色圣诞装,
 brown_buruma,棕色布鲁马,
 green_santa_costume,绿色圣诞装,
-black_visor_cap,黑色空顶遮阳帽,
+black_visor_cap,黑色空顶遮阳帽,-黑色大檐帽
 black_poncho,黑色套头斗篷,
 black_hijab,黑色伊斯兰头巾,
 green_bridal_gauntlets,绿色婚纱长手套,
@@ -2336,14 +2336,14 @@ grey_assault_visor,灰色突击面罩,
 pink_hijab,粉色伊斯兰头巾,
 pink_hiphighs,粉色及胯长袜,
 black_dougi,黑色武道服,
-black_singlet,黑色摔跤服,
+black_singlet,黑色摔跤服,-黑色紧身背心
 orange_slingshot_swimsuit,橙色弹弓式泳装,
 purple_hiphighs,紫色及胯长袜,
 blue_bustier,蓝色胸衣,
 green_visor_cap,绿色空顶遮阳帽,
 green_dougi,绿色武道服,
-grey_hiphighs,灰色及胯长袜,
-white_singlet,白色摔跤服,
+grey_hiphighs,灰色及胯长袜,-灰色大腿袜
+white_singlet,白色摔跤服,-白色紧身背心
 grey_tabard,灰色罩袍,
 purple_dougi,紫色武道服,
 red_dougi,红色武道服,
@@ -2357,7 +2357,7 @@ heart_background,爱心背景,
 engrish_text,蹩脚英文,日式英文
 nintendo_switch,任天堂Switch,
 suggestive_fluid,暗示性液体,
-reverse_suspended_congress,背后抱起式体位,反向火车便当
+reverse_suspended_congress,背后抱起式体位,反向火车便当/-腿下握颈肛交
 jacket_around_waist,夹克系在腰间,
 sweater_around_waist,毛衣系在腰间,
 pouring,倾倒液体,
@@ -2388,8 +2388,8 @@ horseshoe_ornament,马蹄铁饰品,
 color_guide,配色表,
 miniboy,迷你少年,小人儿
 diffraction_spikes,衍射星芒,
-hairpods,豆荚发饰,
-quad_tails,四马尾,
+hairpods,荚状发饰,科幻发荚/发荚
+quad_tails,四马尾,-四股辫子的发型
 bra_peek,胸罩微露,
 bangs_pinned_back,刘海别起,
 argyle_background,菱格背景,
@@ -2404,7 +2404,7 @@ paint_splatter,颜料飞溅,
 beer_can,啤酒罐,
 tongue_piercing,舌钉,
 horizontal_pupils,横瞳,山羊瞳
-egasumi,绘霞,
+egasumi,工字霞,工霞纹/日式云霞纹
 pancake,松饼,薄煎饼
 pussy_juice_stain,爱液渍,
 1980s_(style),80年代风格,
@@ -2418,7 +2418,7 @@ cum_pool,精液滩,
 hand_over_own_mouth,手捂嘴,
 sparkle_background,闪光背景,
 leaning,倾身,身体倾斜
-nude_cover,裸体遮挡,
+nude_cover,裸体遮挡,-裸体封面
 gown,礼服长裙,
 white_gown,白色礼服长裙,
 two-handed,双手持握,
@@ -2502,7 +2502,7 @@ magazine_(object),杂志（物品）,
 naked_bandage,裸身缠绷带,
 sparks,火花,
 kitauji_high_school_uniform,北宇治高中校服,
-cameo,客串,
+cameo,客串,-精彩片段
 tooth_necklace,牙齿项链,
 pastry,糕点,
 barrel,木桶,
@@ -2577,7 +2577,7 @@ convenient_arm,手臂巧妙遮挡,
 bath_yukata,温泉浴衣,
 sword_over_shoulder,扛剑,
 single_vertical_stripe,单条竖纹,
-stepped_on,被踩,
+stepped_on,被踩,-踩着
 skirt_around_one_leg,裙子挂在一条腿上,
 between_thighs,夹在大腿间,
 m4_carbine,M4卡宾枪,
@@ -2601,7 +2601,7 @@ setsubun,节分,
 breasts_on_head,胸部压在头上,
 kappougi,割烹着,
 shuuchiin_academy_school_uniform,秀知院学园校服,
-ankh,安卡,生命之符
+ankh,安卡,生命之符/-安库(假面骑士OOO)
 pancake_stack,松饼塔,
 bikesuit,机车骑行服,
 in_food,在食物里,
@@ -2615,7 +2615,7 @@ chat_log,聊天记录,
 full-package_futanari,全套扶她,
 lube,润滑液,
 phallic_symbol,阳具象征,
-tri_tails,三马尾,
+tri_tails,三马尾,-有三股辫子
 hands_on_own_stomach,双手放在自己肚子上,
 mixing_bowl,搅拌碗,
 inset,画中画,
@@ -2639,7 +2639,7 @@ weight_conscious,在意体重,
 in_bucket,在桶里,
 guided_breast_grab,引导摸胸,
 from_outside,从室外看,
-akeome,新年好（あけおめ）,
+akeome,新年好,新年快乐
 dropping,掉落,
 short_jumpsuit,短款连体裤,
 embellished_costume,加饰服装,
@@ -2675,16 +2675,16 @@ print_headwear,印花头饰,
 multiple_riders,多人同乘,
 broken_weapon,损坏的武器,
 clothes_between_thighs,衣物夹在腿间,
-unzipping,正在拉拉链,
+unzipping,正在拉开拉链,拉开拉链
 flower_bracelet,花朵手链,
 art_nouveau,新艺术运动风格,慕夏风
 ready_to_draw,拔刀架势,
 two-handed_handjob,双手手交,
 erect_clitoris,阴蒂勃起,
 nearly_naked_apron,近乎裸体围裙,
-uneven_twintails,不对称双马尾,
+uneven_twintails,不对称双马尾,-两股辫子大小不一
 consensual_tentacles,自愿触手,
-sorcerer's_sutra_scroll,魔人经卷,
+sorcerer's_sutra_scroll,魔人经卷,-大空卷轴
 heckler_&_koch,HK枪械,
 flower_in_mouth,嘴叼花,
 title_parody,标题恶搞,
@@ -2696,13 +2696,13 @@ panties_under_buruma,布鲁马下的内裤,
 art_brush,美术画笔,
 clothes_tug,拽衣服,
 photorealistic,照片级写实,
-wakizashi,脇差,日本短剑
+wakizashi,胁差,日本短剑
 spreader_bar,分腿杆,
 dragging,拖拽,
 upshirt,衬衫下仰视,
 character_signature,角色签名,
-buruma_pull,拉下布鲁马,
-buruma_aside,布鲁马拨到一边,
+buruma_pull,拉下布鲁马,-褪下一部分的内裤
+buruma_aside,布鲁马拨到一边,-内裤掰到一边
 pier,栈桥,
 dock,码头,船坞
 cream_on_face,脸上沾奶油,
@@ -2712,7 +2712,7 @@ pill_earrings,药丸耳环,
 fur_boots,毛皮靴,
 behind-the-head_headphones,后戴式耳机,
 player_2,2P配色,
-ganguro,黑皮辣妹,颜黑
+ganguro,黑皮辣妹,颜黑/-黑皮
 fiery_wings,火焰翅膀,
 back-print_panties,背面印花内裤,
 tonfa,T型拐,拐棍/东方棍
@@ -2726,7 +2726,7 @@ hishaku,柄杓,舀子
 playground,儿童游乐场,操场
 waving_arms,挥舞手臂,
 1970s_(style),70年代风格,
-cast,石膏,打石膏
+cast,石膏,打石膏/-包扎着绷带
 depressed,抑郁,郁闷
 walking_on_liquid,水上行走,
 wheelbarrow,独轮手推车,
@@ -2734,7 +2734,7 @@ adjusting_panties,整理内裤,
 ankle_wrap,脚踝缠布,
 nintendo_3ds,任天堂3DS,
 digital_dissolve,数据化消散,
-troll_face,嘲讽脸,
+troll_face,巨魔脸,嘲讽脸
 dissolving_clothes,衣服溶解,
 mundane_utility,能力日常用,
 torn_hat,破损的帽子,
@@ -2751,7 +2751,7 @@ holding_pendulum,手持灵摆,
 dark_areolae,深色乳晕,
 inflatable_whale,充气鲸鱼,
 single_elbow_pad,单只护肘,
-puffy_chest,男性鼓胸,
+puffy_chest,男性胸膛隆起,
 cervical_penetration,插入子宫颈,
 moth_wings,蛾翅,
 tile_roof,瓦屋顶,
@@ -2779,7 +2779,7 @@ henshin_pose,变身姿势,
 lace_background,蕾丝背景,
 wakamezake,裙带菜酒,胯间饮酒
 hiding_behind_another,躲在他人身后,
-alternate_pectoral_size,换胸肌,胸肌异设
+alternate_pectoral_size,胸肌尺寸变化,胸肌异设
 blood_in_mouth,口中有血,
 breast_zipper,胸前拉链,
 outstretched_legs,伸直双腿,
@@ -2814,7 +2814,7 @@ glowing_markings,发光纹路,
 blood_spray,喷血,
 bell_pepper,彩椒,灯笼椒
 front-print_panties,正面印花内裤,
-sleigh,马拉雪橇,
+sleigh,大型雪橇,圣诞雪橇
 two-tone_nails,双色指甲,
 unusual_insertion,特殊异物插入,
 oversized_forearms,粗大前臂,
@@ -2826,7 +2826,7 @@ blowhole,鲸鱼喷气孔,
 hip_tattoo,胯部纹身,
 holding_juice_box,手持盒装饮料,
 ejaculation_under_clothes,衣内射精,
-lace-trimmed_headwear,蕾丝边帽子,
+lace-trimmed_headwear,蕾丝边头饰,
 lifted_by_tail,被尾巴掀起,
 lace_border,蕾丝边框,
 nippleless_clothes,露乳头衣物,
@@ -2872,7 +2872,7 @@ shell_earrings,贝壳耳环,
 shot_glass,烈酒杯,子弹杯
 colored_smoke,彩色烟雾,
 monocle_chain,单片眼镜链,
-string_around_finger,指间缠线,
+string_around_finger,手指缠线,
 welsh_corgi,柯基犬,
 cheek_rest,脸颊靠着,
 mutual_orgasm,同时高潮,
@@ -2899,7 +2899,7 @@ impossible_hair,反重力头发,
 aztec,阿兹特克,
 knee_guards,护膝甲,
 against_window,贴在窗上,
-exposed_muscle,裸露的肌肉,
+exposed_muscle,肌肉组织外露,
 jian_(weapon),中国剑,
 energy_barrier,能量屏障,
 piano_bench,琴凳,
@@ -2915,7 +2915,7 @@ penis_focus,阴茎特写,
 plant_focus,植物特写,
 leg_focus,腿部特写,
 clothes_focus,服装特写,
-cloud_focus,云朵特写,
+cloud_focus,以云为主,
 reflection_focus,倒影特写,
 see-through_bra,透视胸罩,
 torn_bikini,破损的比基尼,
@@ -2984,7 +2984,7 @@ full_mouth,塞满嘴,
 gelatin,果冻,明胶
 bike_jersey,骑行衫,
 kidnapped,被绑架,
-imminent_gangbang,即将被轮流,
+imminent_gangbang,即将群交,
 pincers,螯钳,
 single_unworn_glove,单只脱下的手套,
 body_pillow,长抱枕,
@@ -3013,7 +3013,7 @@ bad_arm,手臂画法错误,
 unicorn_girl,独角兽娘,
 adjusting_another's_hair,帮他人整理头发,
 babydoll_lift,掀起娃娃装,
-bodycon,紧身短裙（bodycon）,
+bodycon,紧身包臀连衣裙,包臀裙
 holding_crown,拿着皇冠,
 open_box,打开的箱子,
 royal_robe,王袍,
@@ -3031,7 +3031,7 @@ waist_hug,搂腰,
 holding_wallet,手持钱包,
 artist_self-reference,作者自我引用,
 bait_and_switch,反转梗,
-knights_of_blood_uniform_(sao),血盟骑士团制服（SAO）,
+knights_of_blood_uniform_(sao),血盟骑士团制服（刀剑神域）,
 archery_shooting_glove,射箭手套,
 cockroach_girl,蟑螂娘,
 pokemon_on_lap,宝可梦在膝上,
@@ -3053,7 +3053,7 @@ chapter_number,章节编号,
 figure_skating_dress,花滑裙,
 imminent_suicide,即将自杀,
 panties_around_thighs,内裤褪到大腿,
-tail_under_clothes,尾巴从衣下伸出,
+tail_under_clothes,尾巴从衣下伸出,-尾巴藏在衣服里
 torn_sleeve,单袖破损,
 for_adoption,求收养,
 food_theft,偷吃,
@@ -3084,7 +3084,7 @@ purple_babydoll,紫色娃娃装,
 green_babydoll,绿色娃娃装,
 clutching_head,抱着自己的头,
 holding_waist,扶腰,
-baseball_field,棒球内场,
+baseball_field,棒球场地,
 marine_angelfish,海水神仙鱼,
 dongtan_dress,东滩裙,紧身包臀裙
 cockroach-chan_(harumina_mau),蟑螂酱（harumina_mau）,
@@ -3112,7 +3112,7 @@ iron_blood_(emblem),铁血徽章,
 striped_camisole,条纹吊带背心,
 ponytail_holder,马尾发圈,
 spiked_knuckles,尖刺指虎,
-waist_bag,腰挂包,
+waist_bag,腰包,
 dildo_under_panties,内裤下的假阳具,
 disintegration,崩解消散,
 single_mechanical_leg,单条机械腿,
@@ -3154,7 +3154,7 @@ pretzel,椒盐卷饼,
 charging_device,充电中,
 camisole_over_clothes,吊带外穿,
 cashier,收银员,出纳员
-dog_costume,狗服装,
+dog_costume,狗狗装,小狗装/狗装
 adjusting_goggles,整理护目镜,
 nightmare,噩梦,
 side-seamed_legwear,侧缝线袜,
@@ -3287,7 +3287,7 @@ shin_strap,小腿绑带,
 thumbprint_cookie,拇指印饼干,
 bamboo_screen,竹帘,
 indonesian_text,印尼语,
-otaku_room,宅房,
+otaku_room,御宅族房间,阿宅房间/宅男房间
 star_censor,星星打码,
 book_on_head,头顶书本,
 jelly_bean,软糖豆,
@@ -3316,7 +3316,7 @@ suspenders_gap,背带悬空,
 burp,打饱嗝,
 checkered_bowtie,方格领结,
 fur-trimmed_armor,毛边盔甲,
-arm_scarf,臂巾,
+arm_scarf,绕臂围巾,手臂围巾
 rusty_trombone,舔肛并手交,
 holding_collar,手持项圈,
 traumatized,心理创伤,
@@ -3334,11 +3334,11 @@ oiled,涂油,
 round_collar,圆形领角,
 see-through_pants,透视裤子,
 holding_candy_cane,手持拐杖糖,
-adjusting_shoe,提鞋跟,
+adjusting_shoe,整理鞋子,提鞋跟
 chest_ribbon,胸前缎带,
 sitting_in_window,坐在窗台上,
 big_dipper,北斗七星,
-ishikei_(style),ishikei画风,
+ishikei_(style),石惠画风,ishikei画风
 belly_rub,揉肚子,
 boy_and_girl_sandwich,被一男一女夹在中间,
 labia_piercing,阴唇穿孔,
@@ -3347,8 +3347,8 @@ dragon_costume,龙装,
 rogues'_gallery,反派群像,
 hair_undone,解开的头发,
 fundoshi_aside,兜裆布拨到一边,
-oni_costume,鬼服装,
-from_inside,从室内看,
+oni_costume,恶鬼装,鬼族装
+from_inside,从内部看,内部视角/从室内看
 animal_on_back,动物趴在背上,
 fake_transparency,假透明背景,
 jaw_drop,惊掉下巴,
@@ -3392,7 +3392,7 @@ giant_hand,巨手,
 forced_lactation,强制泌乳,
 cow_hood,牛耳兜帽,
 thumb_to_mouth,拇指抵唇,
-knifed,身中飞刀,
+knifed,被刀刺中,中刀/身中飞刀
 panda_girl,熊猫娘,
 hippopotamus_girl,河马娘,
 hamster_girl,仓鼠娘,
@@ -3431,7 +3431,7 @@ wasp_girl,黄蜂娘,
 kangaroo_girl,袋鼠娘,
 anglerfish_girl,鮟鱇鱼娘,
 sea_angel_girl,海天使娘,
-soredemo_machi_wa_mawatteiru,就算如此街道依然运转,
+soredemo_machi_wa_mawatteiru,尽管如此小镇依然转动,
 lace-up,系带式,
 cutlery,刀叉餐具,
 dragon_install,龙之力解放（罪恶装备）,
@@ -3448,7 +3448,7 @@ alternate_ass_size_(larger),换臀围（更大）,
 alternate_design,换设计,
 alternate_body_hair,换体毛,
 alternate_sleeve_length,换袖长,
-alternate_body_fluid,体液异色,
+alternate_body_fluid,特殊体液,体液异色
 alternate_element,换属性,
 alternate_animal_ears,换兽耳,
 alternate_ears,换耳朵,
@@ -3460,7 +3460,7 @@ alternate_horns,换角,
 alternate_wing_color,换翅膀颜色,
 alternate_neckwear,换领饰,
 unbuttoned_jacket,解开扣子的夹克,
-taped_hands,胶带缠手,
+taped_hands,胶带缠手,-手缠运动胶布
 window_fog,起雾的窗户,
 fur_bracelet,毛皮手链,
 lace-trimmed_veil,蕾丝边头纱,
@@ -3502,7 +3502,7 @@ all_the_way_through,贯穿,
 gimp_mask,皮革头罩,
 against_door,靠在门上,
 human_dog,人犬,
-bachi,拨子,
+bachi,拨子,三味线拨子/-鼓棒
 gingham_dress,小方格纹连衣裙,
 shipping_container,集装箱,
 drifting,漂移,
@@ -3519,7 +3519,7 @@ dog_print,小狗印花,
 skull_collar,骷髅项圈,
 stick_grenade,木柄手榴弹,
 underwear_theft,偷内衣,
-half_eye_mask,半边面具,
+half_eye_mask,半边眼部面具,单眼面具/半边面具
 vibrator_in_anus,肛内跳蛋,
 multiple_insertions,多重插入,
 particle_cannon_case,粒子炮箱,
@@ -3581,7 +3581,7 @@ animate_object,物品活化,
 ear_through_crown,兽耳穿过皇冠,
 mismatched_underwear,不成套内衣,
 shirt_on_shoulders,衬衫披在肩上,
-no_headgear,没戴头饰,
+no_headgear,没戴头部装备,没戴头具
 sprite_art,像素精灵图,
 japari_bus,加帕里巴士,
 cheating_(competitive),作弊（比赛）,
@@ -3592,7 +3592,7 @@ no_scar,没画伤疤,
 cd_player,CD机,
 pleated_pants,褶裥裤,
 mail,邮件,
-nyoro~n,にょろ～ん（鹤屋）,
+nyoro~n,nyoro~n（小鹤屋梗）,
 see-through_horns,透明角,
 blue_pussy,蓝色阴部,
 breast_curtain_lift,掀起乳帘,
@@ -3611,7 +3611,7 @@ improvised_weapon,临时武器,
 opening,打开,
 pokemon_battle,宝可梦对战,
 polygamy,多偶婚,
-pull_out,体外射精,
+pull_out,性交拔出,抽离
 spell,施法,
 anzio_(emblem),安齐奥校徽,
 anus_cutout,肛门镂空,
@@ -3623,7 +3623,7 @@ penny_loafers,便士乐福鞋,
 red_snake,红蛇,
 award_ribbon,奖章缎带,
 mascot_head,吉祥物头套,
-newhalf_with_male,伪娘与男性,
+newhalf_with_male,跨性别女性与男性,人妖与男性/药娘与男性
 orange_print,橙子印花,
 covering_head,遮住头,
 fuse_tail,引线尾巴,
@@ -3632,7 +3632,7 @@ arm_on_thigh,手臂搭在大腿上,
 black_undershirt,黑色打底衫,
 looking_inside,往里看,
 1950s_fashion,50年代时尚,
-broken_egg,碎蛋,
+broken_egg,破碎的蛋,破鸡蛋/碎鸡蛋
 lace-trimmed_babydoll,蕾丝边娃娃装,
 after_footjob,足交后,
 chest_protector,运动护胸,
@@ -3661,7 +3661,7 @@ good_fortune_symbol,福字,
 hand_on_mirror,手扶镜子,
 fur_leg_warmers,毛皮腿套,
 lace-trimmed_kimono,蕾丝边和服,
-unworn_headgear,未戴头盔,
+unworn_headgear,未戴的头部装备,未戴头具/摘下的头具
 hat_under_hood,兜帽下戴帽子,
 christmas_tree_hair_ornament,圣诞树发饰,
 creepy_eyes,诡异眼神,
@@ -3700,7 +3700,7 @@ folded_braid,折叠辫,
 movie_reference,电影致敬,
 dojikko_pose,冒失娘姿势,
 stance_(vehicle),低趴改装,
-airgetlam_(fate),银臂（Fate）,
+airgetlam_(fate),银臂（Fate系列）,银之臂/阿加特拉姆
 chonmage,丁髷,月代头
 queue,排队,
 age_switch,年龄互换,
@@ -3743,7 +3743,7 @@ creeparka,苦力怕连帽衫,
 hair_scarf,头发绕颈,
 hole_in_head,头上的洞,
 applying_bandages,缠绷带,
-mihama_junior_high_school_uniform,美海中学校服,
+mihama_junior_high_school_uniform,美滨中学校服,
 bard,吟游诗人,
 gasp,倒吸一口气,
 white_neck_warmer,白色围脖,
@@ -3773,7 +3773,7 @@ heart_pouch,心形小包,
 panther_boy,黑豹男孩,
 hand_on_another's_forehead,手放在他人额头上,
 fur-trimmed_bra,毛边胸罩,
-ice_shard,冰碴,
+ice_shard,冰碎片,碎冰/冰晶碎片
 taut_sweater,紧绷的毛衣,
 crying_aqua_(meme),阿库娅哭脸（梗）,
 elbowing,肘击,
@@ -3787,7 +3787,7 @@ bound_breasts,胸部被绑,
 forced_perspective,强迫透视,
 around_corner,墙角探身,
 alarm_siren,警报器,
-breeding_mount,采精台,
+breeding_mount,交配架,配种架
 unexpectedly_good,意外温柔,
 drawn_horns,画上的角,
 heart_tail_duo,双人尾巴比心,
@@ -3797,7 +3797,7 @@ holding_legwear,手持袜子,
 kukri,廓尔喀弯刀,
 anti-rain_(girls'_frontline),AR小队（少女前线）,
 food-themed_hat_ornament,食物造型帽饰,
-foot_wraps,缠脚布,
+foot_wraps,足部缠布,脚部缠布/缠脚带
 glowing_hot,烧红发光,
 good_breasts_day,好胸日,
 head_mirror,额镜,
@@ -3807,7 +3807,7 @@ barking,狗叫,
 cat_loaf,猫猫揣手,猫面包/母鸡蹲
 mixing,混合搅拌,
 pokemon_center,宝可梦中心,
-white_facial_hair,白色面部毛发,
+white_facial_hair,白色胡须,白胡子
 cereal,麦片,谷物早餐
 sharing,共用,
 torn_robe,破损的长袍,
@@ -3968,7 +3968,7 @@ shima_(pattern),缟纹,
 aozora_middle_school_uniform,青空中学校服,
 convenient_head,头部巧妙遮挡,
 domino_high_school_uniform,童实野高中校服,
-elucidator,逐暗者,
+elucidator,阐释者,
 forehead_flick,弹额头,
 golden_sword,金色的剑,
 green_screen,绿幕,
@@ -3993,7 +3993,7 @@ cardigan_on_shoulders,开衫披在肩上,
 cow_print_bridal_gauntlets,奶牛纹婚纱长手套,
 duck_hair_ornament,鸭子发饰,
 in_pot,在锅里,
-quadruple_wielding,四刀流,
+quadruple_wielding,四武器持握,四刀流/四持
 ribbon-trimmed_corset,缎带边束腰,
 chocolate_on_legs,腿上沾巧克力,
 drawstring_bag,抽绳袋,
@@ -4036,7 +4036,7 @@ sticky,黏稠,
 downcast_eyes,垂眸,
 dropkick,双脚飞踢,
 flower_dress,花朵主题连衣裙,
-heart_cheeks,心形腮红,
+heart_cheeks,心形脸颊印记,心形腮红/脸颊心形纹
 leaking,渗漏,
 severed_finger,断指,
 american_flag_pants,星条旗裤子,
@@ -4081,7 +4081,7 @@ japanese_white-eye,暗绿绣眼鸟,
 photo_shoot,拍摄写真,
 white_polka_dots,白色波点,
 floating_city,浮空城市,
-lap_pov,膝上视角,
+lap_pov,膝枕视角,
 no_neckwear,没戴领饰,
 blowing_on_food,吹凉食物,
 forehead_writing,额头写字,
@@ -4105,7 +4105,7 @@ two-tone_armor,双色盔甲,
 bad_apple!!,Bad Apple!!,
 diagonal-striped_bikini,斜条纹比基尼,
 false_limb,异质义肢,
-naranja_academy_(emblem),橘子学园校徽,
+naranja_academy_(emblem),橘子学院校徽,
 trilby,窄檐软呢帽,
 triple_vertical_stripe,三条竖纹,
 drawing_on_own_face,在自己脸上画画,
@@ -4146,7 +4146,7 @@ floating_castle,浮空城堡,
 indonesian_clothes,印尼服饰,
 shortcake,鲜奶油蛋糕,
 skull_and_crossed_swords,骷髅交叉剑,
-stitching,缝纫针线,
+stitching,针线缝制,缝制/缝纫针线
 wet_pants,湿裤子,
 broken_umbrella,坏掉的伞,
 full-body_blush,全身泛红,
@@ -4168,7 +4168,7 @@ mismatched_shoes,左右异色鞋子,
 movie_camera,电影摄影机,
 taser,泰瑟枪,
 bun_(food),圆面包,
-holding_cum,含住精液,
+holding_cum,含住精液,体内留精/-手持精液
 robe_lift,掀起长袍,
 highleg_buruma,高衩布鲁马,
 punched,挨了一拳,
@@ -4183,7 +4183,7 @@ pactio,契约卡（魔法老师）,
 blindfold_slip,蒙眼布滑落,
 foot_kabedon,脚咚,
 shirt_ribbon,衬衫缎带,
-vibrator_over_clothes,隔衣跳蛋,
+vibrator_over_clothes,隔衣振动器,隔衣跳蛋/隔衣按摩棒
 adjusting_shorts,整理短裤,
 bead_belt,串珠腰带,
 rock_balancing,叠石,
@@ -4202,10 +4202,10 @@ torn_mask,破损的面具,
 baku_(creature),貘（妖怪）,
 reverse_penetration,逆向伸出,
 yamato_(battleship),大和号（战舰）,
-card_holster,卡套,
+card_holster,卡牌挂套,腰挂卡套/卡组腰套
 mayan_clothes,玛雅服饰,
 plaid_ascot,格子宽领巾,
-prelati's_spellbook,螺湮城教本（Fate）,
+prelati's_spellbook,螺湮城教本（Fate系列）,
 bong,大麻水烟枪,
 cleaning_weapon,擦拭武器,
 gigantic_ass,超巨臀,
@@ -4230,21 +4230,21 @@ radio_controller,无线遥控器,
 terrarium,生态缸,
 tsuka_(handle),刀柄（日本刀）,
 death_flag,死亡flag,
-squash,南瓜瓜类,
+squash,南瓜类蔬菜,笋瓜
 string_tie,系绳结,
 clasp,搭扣,
-maruchan_akai_kitsune_udon,丸ちゃん红狐乌冬,
+maruchan_akai_kitsune_udon,丸酱红狐乌冬,
 multicolored_suit,多色西装,
 picture_book,绘本,
 against_pillar,靠在柱子上,
-condom_pull,摘下避孕套,
+condom_pull,摘下避孕套,取下避孕套/-拉扯安全套
 disembowelment,开膛破肚,
 sweater_under_dress,连衣裙内搭毛衣,
 wrist_extended,手腕后伸,
 bug_spray,杀虫喷雾,
 duck_print,鸭子印花,
-peephole,猫眼,
-pov_adoring,视角宠爱,
+peephole,窥视孔,门镜/猫眼/偷窥孔
+pov_adoring,宠爱视角,
 skirt_in_mouth,嘴叼裙摆,
 accidental_kiss,意外接吻,
 adjusting_skirt,整理裙子,
@@ -4293,7 +4293,7 @@ pop-up_book,立体书,
 yukadon_on_viewer,对观者地咚,
 chi-hatan_(emblem),知波单学园校徽,
 mouse_costume,老鼠装,
-mouthful_mode,塞满嘴模式（星之卡比）,
+mouthful_mode,塞满嘴变形（星之卡比）,塞满嘴模式
 tail_removed,尾巴被切断,
 adjusting_hair_ornament,整理发饰,
 aperture_science_handheld_portal_device,光圈科技手持传送门装置,
@@ -4301,7 +4301,7 @@ bullet_in_mouth,嘴叼子弹,
 bullying_viewer,欺负观者,
 fur_bra,毛皮胸罩,
 gradient_sarong,渐变纱笼裙,
-newhalf_with_newhalf,伪娘与伪娘,
+newhalf_with_newhalf,跨性别女性与跨性别女性,药娘与药娘/人妖与人妖
 sheep_hood,绵羊兜帽,
 boar_hood,野猪兜帽,
 chinchilla_tail,毛丝鼠尾巴,
@@ -4326,7 +4326,7 @@ stoned,嗑嗨了,
 ukrainian_clothes,乌克兰服饰,
 desperation,拼命,
 hakama_pull,拉扯袴,
-uva_academy_(emblem),葡萄学园校徽,
+uva_academy_(emblem),葡萄学院校徽,
 barber_pole,理发店转灯,
 broken_fence,破损的栅栏,
 colt_python,柯尔特蟒蛇左轮,
@@ -4347,7 +4347,7 @@ drinking_from_condom,喝避孕套里的液体,
 fed_by_viewer,被观者喂食,
 joui,攘夷,
 licking_ass,舔臀,
-uzumaki_symbol,漩涡纹（火影）,
+uzumaki_symbol,涡卷纹,漩涡纹
 american_flag_skirt,星条旗裙子,
 clothes_on_shoulders,衣服披在肩上,
 anmitsu_(dessert),馅蜜,
@@ -4369,7 +4369,7 @@ aqua-tinted_eyewear,水蓝色镜片,
 chijo,女色狼,
 mucus,黏液,
 leaf_bra,树叶胸罩,
-luminous_(madoka_magica),Luminous（小圆剧场版）,
+luminous_(madoka_magica),Luminous（魔法少女小圆）,
 primrose_(flower),报春花,
 stuffed_monkey,猴子玩偶,
 leather_collar,皮项圈,
@@ -4401,10 +4401,10 @@ space_marine,太空陆战队,星际战士
 wet_lens,镜头沾水,
 amazake_(drink),甘酒,
 bad_math,数学错误,
-battle_chatelaine,对战城堡女主人（宝可梦）,
+battle_chatelaine,对战女城主（宝可梦）,
 cinder_block,空心砖,
 head_tail,头生尾巴,
-holoro,holoro（hololive印尼一期生）,
+holoro,holoro（hololive印尼二期生）,
 panties_around_one_finger,内裤套在手指上,
 panties_under_leotard,紧身衣内穿内裤,
 panties_under_swimsuit,泳衣内穿内裤,
@@ -4426,7 +4426,7 @@ bubble_filter,泡泡遮挡,泡泡打码/气泡滤镜
 decoden,贴钻装饰,奶油胶
 gas_pump_nozzle,加油枪,
 ilya_kuvshinov_(style),Ilya Kuvshinov画风,
-nymph,宁芙,若虫
+nymph,宁芙,-若虫
 fingers_to_cheek,手指抵脸颊,
 flamestrider_(genshin_impact),驰轮车（原神）,玛薇卡摩托
 flower_bra,花朵胸罩,
@@ -4438,7 +4438,7 @@ frilled_chemise,荷叶边吊带睡裙,
 fullbottle,满装瓶（假面骑士Build）,
 pyra_(xenoblade)_(cosplay),焰（异度神剑）（角色扮演）,
 snake_costume,蛇服装,
-harpe_(fate/grand_order),哈耳珀（Fate/Grand Order）,不死杀之镰
+harpe_(fate/grand_order),哈耳珀（Fate系列）,不死杀之镰
 moon_ball,月亮球,
 sword_fight,斗剑,
 tyrfing_(fire_emblem),提尔锋（火焰纹章）,
@@ -4508,41 +4508,41 @@ queen_of_hearts_(playing_card),红桃Q,
 checkered_thighhighs,方格过膝袜,
 gyari_(imagesdawn)_(style),gyari（ImagesDawn）画风,
 charles_schulz_(style),查尔斯·舒尔茨画风,
-harukawa_moe_(style),Harukawa Moe画风,
+harukawa_moe_(style),春河萌画风,
 bikkuriman_(style),Bikkuriman画风,
 ten_of_hearts,红桃10,
 five_of_hearts,红桃5,
-walfie_(style),沃尔菲画风,
+walfie_(style),Walfie画风,
 queen_of_spades_(playing_card),黑桃Q,
 king_of_hearts_(playing_card),红桃K,
 takemoto_izumi_(style),竹本泉画风,
 ten_of_spades,黑桃10,
 clamp_(circle)_(style),CLAMP画风,
-arawi_keiichi_(style),Arawi Keiichi画风,
+arawi_keiichi_(style),新井圭一画风,
 four_of_clubs,梅花4,
 jack_of_spades,黑桃J,
-ueda_masashi_(style),UEDA MASASHI画风,
+ueda_masashi_(style),植田正志画风,
 four_of_hearts,红桃4,
 seven_of_hearts,红桃7,
-soejima_shigenori_(style),Soejima Shigenori画风,
-saru_(style),萨鲁画风,
+soejima_shigenori_(style),副岛成记画风,
+saru_(style),Saru画风,
 aquarius_(zodiac),水瓶座（黄道十二宫）,
 capricorn_(zodiac),摩羯座（黄道十二宫）,
 gemini_(zodiac),双子座（黄道十二宫）,
-himura_kiseki_(style),Himura Kiseki画风,
+himura_kiseki_(style),比村奇石画风,
 seven_of_diamonds,方块7,
 aries_(zodiac),白羊座（黄道十二宫）,
 eight_of_hearts,红桃8,
-nomura_tetsuya_(style),Nomura Tetsuya画风,
+nomura_tetsuya_(style),野村哲也画风,
 cancer_(zodiac),巨蟹座（黄道十二宫）,
 seven_of_clubs,梅花7,
-usui_yoshito_(style),USUI Yoshito画风,
+usui_yoshito_(style),臼井仪人画风,
 takahashi_rumiko_(style),高桥留美子画风,
 granblue_fantasy_(style),碧蓝幻想画风,
 leo_(zodiac),狮子座（黄道十二宫）,
 libra_(zodiac),天秤座（黄道十二宫）,
 checkered_tank_top,方格背心,
-horikoshi_kouhei_(style),Horikoshi Kouhei画风,
+horikoshi_kouhei_(style),堀越耕平画风,
 pisces_(zodiac),双鱼座（黄道十二宫）,
 six_of_hearts,红桃6,
 taurus_(zodiac),金牛座（黄道十二宫）,
@@ -4567,7 +4567,7 @@ takahashi_kazuki_(style),高桥和希画风,
 eight_of_clubs,梅花8,
 six_of_spades,黑桃6,
 nine_of_spades,黑桃9,
-urushihara_satoshi_(style),Urushihara Satoshi画风,
+urushihara_satoshi_(style),漆原智志画风,
 gustav_klimt_(style),古斯塔夫·克里姆特画风,
 checkered_wristband,方格腕带,
 against_vehicle,靠着车辆,
@@ -4588,14 +4588,14 @@ against_object,靠着物体,
 checkered_coat,方格大衣,
 checkered_leg_warmers,方格腿套,
 tokiame_(style),Tokiame画风,
-himukai_yuuji_(style),himukai yuuji画风,
+himukai_yuuji_(style),日向悠二画风,
 kishimoto_masashi_(style),岸本齐史画风,
 checkered_bracelet,方格手环,
 yoshizaki_mine_(style),吉崎观音画风,
 nine_of_clubs,梅花9,
 checkered_pantyhose,方格连裤袜,
 checkered_tablecloth,方格桌布,
-araizumi_rui_(style),Araizumi Rui画风,
+araizumi_rui_(style),新泉留衣画风,
 obata_takeshi_(style),小畑健画风,
 sakimichan_(style),Sakimichan画风,
 1950s_(style),1950年代风格,
@@ -4616,7 +4616,7 @@ space_elevator,太空电梯,
 storm_attacker,强攻型（超时空要塞）,
 title_screen,标题画面,
 at_field,AT力场,绝对领域
-border_operator_uniform_(world_trigger),Border队员制服（境界触发者）,
+border_operator_uniform_(world_trigger),Border操作员制服（境界触发者）,
 cat's_tongue,猫舌,
 hose_between_breasts,乳间软管,
 kamina_pose,卡米那姿势,
@@ -4666,7 +4666,7 @@ frilled_hiphighs,荷叶边及胯长袜,
 pedestrian_crossing_sign,人行横道标志,
 plaid_armband,格子袖章,
 red_panda_costume,小熊猫服装,
-secret_of_pedigree_(fate),不贞隐藏之兜（Fate）,
+secret_of_pedigree_(fate),隐藏不贞的头盔（Fate系列）,不贞隐藏之兜
 spiked_cuffs,尖刺腕套,
 slamming_door,摔门,
 broken_necklace,断掉的项链,
@@ -4689,7 +4689,7 @@ throat_grab,抓喉咙,
 ziku-driver,时空驱动器（假面骑士时王）,
 dominoes,多米诺骨牌,
 green_rope,绿色绳子,
-lor_starcutter,罗亚号（星之卡比）,
+lor_starcutter,洛亚号（星之卡比）,罗亚号
 mouth_out_of_frame,嘴部在画外,
 pantyhose_under_leotard,紧身衣内穿连裤袜,
 camouflage_panties,迷彩内裤,
@@ -4713,44 +4713,44 @@ gaijin_4koma_(meme),Gaijin 4Koma（梗）,
 anya's_heh_face_(meme),阿尼亚的嘿嘿脸（梗）,
 space_cat_(meme),太空猫（梗）,
 yamcha_pose_(meme),雅木茶姿势（梗）,
-one_finger_selfie_challenge_(meme),一个手指自拍挑战（梗）,
+one_finger_selfie_challenge_(meme),一根手指自拍挑战（梗）,单指自拍挑战
 uohhhhhhhhh!_(meme),uohhhhhhhhh！（梗）,
-iced_latte_with_breast_milk_(meme),冰拿铁与母乳（梗）,
+iced_latte_with_breast_milk_(meme),加母乳的冰拿铁（梗）,母乳冰拿铁
 image_macro_(meme),图像宏（梗）,
 just_as_planned_(meme),一切尽在计划之中（梗）,
 padoru_(meme),帕多鲁（梗）,
-inkbrush_(splatoon),墨刷（斯普拉遁）,
+inkbrush_(splatoon),巴勃罗（斯普拉遁）,墨刷
 pajamas_challenge_(meme),睡衣挑战（梗）,
-e-liter_4k_(splatoon),电子级4K（斯普拉遁）,
-dynamo_roller_(splatoon),发电机滚子（斯普拉遁）,
+e-liter_4k_(splatoon),公升4K（斯普拉遁）,
+dynamo_roller_(splatoon),电动马达滚筒（斯普拉遁）,重刷
 distracted_boyfriend_(meme),分心男朋友（梗）,
-hydra_splatling_(splatoon),九头蛇（斯普拉遁）,
-agemasen!_(meme),agemasen！（梗）,
-although_she_hurriedly_put_on_clothes_(meme),尽管她急忙穿衣服（梗）,
-hara_tetsuo_(style),Hara Tetsuo画风,
+hydra_splatling_(splatoon),消防栓旋转枪（斯普拉遁）,
+agemasen!_(meme),才不给你！（梗）,不给你
+although_she_hurriedly_put_on_clothes_(meme),虽然急忙穿上了衣服（梗）,
+hara_tetsuo_(style),原哲夫画风,
 ijimeka_(meme),ijimeka（梗）,
 woman_yelling_at_cat_(meme),女人对猫大喊（梗）,
-me!me!me!_dance_(meme),我！我！我！舞蹈（梗）,
+me!me!me!_dance_(meme),ME!ME!ME!舞蹈（梗）,ME!ME!ME!舞
 shinji_in_a_chair_(meme),真嗣坐椅子（梗）,
-buttercup_redraw_challenge_(meme),Buttercup Redraw挑战（梗）,
+buttercup_redraw_challenge_(meme),Buttercup重绘挑战（梗）,毛毛重绘挑战
 seggs_(meme),Seggs（梗）,
 prattkeeping_(meme),prattkeeping（梗）,
-pointing_spider-man_(meme),指向蜘蛛侠（梗）,
-e-liter_3k_(splatoon),电子级3K（斯普拉遁）,
+pointing_spider-man_(meme),蜘蛛侠互指（梗）,
+e-liter_3k_(splatoon),公升3K（斯普拉遁）,
 shibafu_(glock23)_(style),Shibafu（Glock23）画风,
-sad_cat_dance_(meme),悲伤的猫舞（梗）,
+sad_cat_dance_(meme),悲伤猫猫舞（梗）,悲伤小猫舞
 lycoris_challenge_(meme),Lycoris挑战（梗）,
 impossible_shorts,过度贴身的短裤,
 idiot_sandwich_(meme),白痴三明治（梗）,
-range_blaster_(splatoon),射击突击器（斯普拉遁）,
+range_blaster_(splatoon),远距爆破枪（斯普拉遁）,长爆
 tatsuki_(irodori)_(style),tatsuki（irodori）画风,
-carbon_roller_(splatoon),碳滚子（斯普拉遁）,
+carbon_roller_(splatoon),碳纤维滚筒（斯普拉遁）,碳刷
 taut_pants,紧绷的裤子,
 impossible_skirt,过度贴身的裙子,
 taut_jacket,紧绷的外套,
 kei_(keigarou)_(style),kei（keigarou）画风,
 drip_(meme),Drip潮男（梗）,
-blaster_(splatoon),爆破器（斯普拉遁）,
+blaster_(splatoon),火热爆破枪（斯普拉遁）,爆破枪
 among_us_eyes_(meme),Among Us眼睛（梗）,
 gigachad_(meme),Gigachad（梗）,
 nice_boat_(meme),Nice boat（梗）,好船
@@ -4762,7 +4762,7 @@ for_the_better_right?_(meme),是为了变得更好对吧？（梗）,
 taste_of_a_liar_(meme),这是说谎的味道（梗）,
 my_little_pogchamp_(meme),我的小pogchamp（梗）,
 oota_kuniyoshi_face_(meme),太田邦义脸（梗）,
-ryuko_redraw_(meme),Ryuko Redraw（梗）,
+ryuko_redraw_(meme),缠流子重绘（梗）,流子重绘
 chisato_and_takina_kicking_each_other's_butt_(meme),千束和泷奈互踢屁股（梗）,
 impossible_pants,过度贴身的裤子,
 shinkawa_youji_(style),新川洋司画风,
@@ -4771,7 +4771,7 @@ don't_you_ever_stop_(meme),不要停下来啊（梗）,希望之花
 crying_cat_(meme),哭泣的猫（梗）,
 how_to_make_sushi_(meme),如何制作寿司（梗）,
 puffer_fish_vomiting_water_(meme),河豚吐水（梗）,
-ora_ora_get_pregnant_(meme),欧拉欧拉怀孕（梗）,
+ora_ora_get_pregnant_(meme),欧拉欧拉给我怀孕（梗）,
 raiden_punching_armstrong_(meme),雷电拳击阿姆斯特朗（梗）,
 dancing_pallbearers_(meme),黑人抬棺（梗）,
 impossible_armor,过度贴身的装甲,
@@ -4786,11 +4786,11 @@ nagai_gou_(style),永井豪画风,
 kono_dio_da_(meme),是我DIO哒（梗）,
 nijiura_7_(meme),Nijiura 7（梗）,
 shimizu_takako_(style),清水贵子画风,
-waterskiing_(meme),Waterskiing（梗）,
-rapid_blaster_(splatoon),快速爆破器（斯普拉遁）,
+waterskiing_(meme),滑水（梗）,
+rapid_blaster_(splatoon),快速爆破枪（斯普拉遁）,
 ueda_hajime_(style),UEDA HAJIME画风,
 hirano_kouta_(style),平野耕太画风,
-how_to_draw_manga_redraw_challenge_(meme),如何绘制漫画Redraw挑战（梗）,
+how_to_draw_manga_redraw_challenge_(meme),如何画漫画重绘挑战（梗）,
 how_to_talk_to_short_people_(meme),如何与矮个子说话（梗）,
 coomer_(meme),撸管男（梗）,
 gununu_(meme),咕奴奴（梗）,不甘心
@@ -4799,7 +4799,7 @@ intercom,门禁对讲机,
 nearly_naked_shirt,近乎裸穿衬衫,
 people's_liberation_army_navy,中国人民解放军海军,
 purple_electricity,紫色电流,
-rule_breaker_(fate),万符必应破戒（Fate）,破戒之刃
+rule_breaker_(fate),万符必应破戒（Fate系列）,破戒之刃
 sakura_card,小樱牌,樱牌
 scuffed,刮花,
 skirt_aside,拨开裙子,
@@ -4832,10 +4832,10 @@ gardenia_(flower),栀子花,
 knotted_dildo,带结假阳具,
 pokemon_ranger_uniform,宝可梦巡护员制服,
 venus_love_me_chain,金星爱之链,
-alto_mare,阿尔托马雷（宝可梦）,水之都
+alto_mare,奥多马雷（宝可梦）,水之都/阿尔托马雷
 death_star,死星,死亡之星
 dobok,韩国道服,
-failnaught_(fate),痛哭的幻想（Fate）,必中之弓
+failnaught_(fate),痛哭的幻奏（Fate系列）,必中之弓
 kneehighs_pull,拉扯及膝袜,
 osandon,厨房杂务,
 push_down,按倒,
@@ -4853,7 +4853,7 @@ panties_over_clothes,内裤外穿,
 print_cup,印花杯子,
 patio,庭院露台,
 tutor,家教,家庭教师
-zabaniya_(fate),妄想心音（Fate）,Zabaniya
+zabaniya_(fate),妄想心音（Fate系列）,Zabaniya
 amnesia,失忆,健忘症
 cammy_stretch_(meme),嘉米拉伸（梗）,
 executioner's_sword,处刑剑,断头剑
@@ -4863,13 +4863,13 @@ mallet_(instrument),琴槌（乐器）,
 noogie,用拳头钻脑袋,
 packing_peanuts,泡沫填充粒,
 pioneer_movement,少年先锋队,
-spiked_legwear,尖刺腿衣,
+spiked_legwear,尖刺袜类,
 uwasa_(madoka_magica),传闻（魔法纪录）,谣言
 alternate_art_style,换画风,
 canele,可露丽,
 condom_on_ass,臀部上的避孕套,
-golden_eater,黄金喰（Fate）,
-ionioi_hetairoi_(fate),王之军势（Fate）,Ionioi Hetairoi
+golden_eater,黄金喰（Fate系列）,
+ionioi_hetairoi_(fate),王之军势（Fate系列）,Ionioi Hetairoi
 jeep_(company),吉普（品牌）,
 paisley,佩斯利花纹,腰果花
 x-wing,X翼战机,
@@ -4881,7 +4881,7 @@ mogura_(nichijou),莫古拉（日常）,
 moray_eel,海鳝,
 polish_clothes,波兰传统服饰,
 see-through_chemise,透视吊带睡裙,
-tuxedo_jacket,塔士多礼服外套,
+tuxedo_jacket,无尾礼服外套,塔士多礼服外套
 fogged_glasses,起雾的眼镜,
 japari_coin,加帕里硬币,
 leaf_panties,叶子内裤,
@@ -4904,7 +4904,7 @@ holding_bucket,手持水桶,
 holding_jewelry,手持珠宝,
 holding_cake,手持蛋糕,
 holding_pizza,手持披萨,
-holding_needle,手持缝衣针,
+holding_needle,手持针,
 holding_coin,手持硬币,
 holding_mop,手持拖把,
 holding_briefcase,手持公文包,
@@ -4940,7 +4940,7 @@ holding_dice,手持骰子,
 holding_cigarette_pack,手持香烟包,
 holding_thermometer,手持体温计,
 holding_bandages,手持绷带,
-holding_pill,手持药,
+holding_pill,手持药丸,手持药片
 holding_wig,手持假发,
 holding_shawl,手持披肩,
 covering_body,遮住身体,
@@ -4951,7 +4951,7 @@ holding_javelin,手持标枪,
 holding_crutch,手持拐杖,
 holding_canteen,手持行军水壶,
 holding_pitcher,手持带柄水罐,
-holding_sewing_needle,手持缝纫针,
+holding_sewing_needle,手持缝衣针,
 holding_sock,手持短袜,
 korea,朝鲜半岛,
 holding_scythe,手持大镰刀,
@@ -4979,7 +4979,7 @@ bird_feeding,喂鸟,
 chesto_berry,零余果,
 rawst_berry,莓莓果,
 bluk_berry,墨莓果,
-full_cowling_(boku_no_hero_academia),全身常驻（我的英雄学院）,
+full_cowling_(boku_no_hero_academia),全覆盖（我的英雄学院）,
 future_gadget_lab,未来道具研究所（命运石之门）,
 holding_tree,手持树木,
 marimo,绿球藻,
@@ -5000,7 +5000,7 @@ gradient_leotard,渐变紧身衣,
 kanji_hair_ornament,汉字发饰,
 print_bandeau,印花抹胸,
 rabbit_cutout,兔形镂空,
-sans_(undertale)_(cosplay),Sans（Undertale）（角色扮演）,
+sans_(undertale)_(cosplay),Sans（传说之下）（角色扮演）,杉斯
 incoming_object,朝镜头飞来的物体,
 ku_korose!,咕…杀了我,
 vest_pouch,马甲挂包,
@@ -5027,7 +5027,7 @@ seal_(animal),海豹,
 peony_(flower),牡丹,
 white_rabbit_(animal),白兔（动物）,
 poppy_(flower),罂粟,
-falchion_(fire_emblem),法尔西昂(火焰纹章),
+falchion_(fire_emblem),法尔西昂（火焰纹章）,
 tit_(bird),山雀,
 cosmos_(flower),波斯菊,
 forget-me-not_(flower),勿忘我,
@@ -5071,18 +5071,18 @@ camouflage_dress,迷彩连衣裙,
 anthias_(fish),拟花鮨,
 aquamarine_(gemstone),海蓝宝石,
 finger_piercing,手指穿孔,
-camouflage_trim,迷彩装饰,
+camouflage_trim,迷彩饰边,
 jack_(fish),竹荚鱼,
 lapis_lazuli_(gemstone),青金石,
 siegfried_(fire_emblem),齐格弗里德（火焰纹章）,
 marlin_(fish),枪鱼,马林鱼
 camouflage_hoodie,迷彩连帽衫,
 larkspur_(flower),飞燕草,
-camouflage_legwear,迷彩腿衣,
-female_corrin_(fire_emblem)_(cosplay),卡姆依（女）（火焰纹章）（角色扮演）,
+camouflage_legwear,迷彩袜类,迷彩裤袜
+female_corrin_(fire_emblem)_(cosplay),神威（女）（火焰纹章）（角色扮演）,卡姆依
 wolfsbane_(flower),乌头,
 butler_(fire_emblem:_three_houses),管家（火焰纹章：风花雪月）,
-failnaught_(fire_emblem),必中之弓（火焰纹章）,
+failnaught_(fire_emblem),菲鲁诺特（火焰纹章）,必中之弓
 female_byleth_(fire_emblem)_(cosplay),贝雷丝（女）（火焰纹章）（角色扮演）,
 turkey_(bird),火鸡,
 camouflage_bra,迷彩胸罩,
@@ -5125,7 +5125,7 @@ coyote,郊狼,
 grassrunner,草原妖精（罗德岛战记）,
 groin_attack,攻击下体,
 hair_color_switch,发色互换,
-halberd_(airship),战舰哈尔伯德（星之卡比）,
+halberd_(airship),战舰哈鲁巴德（星之卡比）,战舰哈尔伯德
 journal,日记本,
 levin_sword,雷之剑,
 powder,散粉,
@@ -5142,7 +5142,7 @@ green_facial_hair,绿色胡须,
 heart_guitar,心形吉他,
 kirby's_house,卡比的家,
 rice_porridge,白粥,稀饭
-too_many_in_mouth,嘴里塞过多,
+too_many_in_mouth,嘴里塞太多,
 writing_on_hand,手上写字,
 416_day,416日,
 alternate_eyebrow_color,换眉色,
@@ -5176,8 +5176,8 @@ pokemon_on_leg,腿上的宝可梦,
 plaid_arm_warmers,格纹袖套,
 showdown,决战对峙,摊牌
 tape_blindfold,胶带蒙眼,
-yugakshetra_(fate/grand_order),宇迦刹多罗（Fate/Grand Order）,宇迦刹土
-azamaru_(fate),痣丸（Fate）,
+yugakshetra_(fate/grand_order),由伽·刹多罗（Fate/Grand Order）,宇迦刹多罗/宇迦刹土
+azamaru_(fate),痣丸（Fate系列）,
 breasts_on_shoulders,乳房搭在肩上,
 finger_marks,指印,
 free_sex_sign,免费性爱告示,
@@ -5185,7 +5185,7 @@ fur-trimmed_overskirt,毛边罩裙,
 gradient_hiphighs,渐变及胯长袜,
 orange_rope,橙色绳子,
 babydoll_tug,下拉娃娃装,
-filolial,菲洛利亚鸟（盾之勇者成名录）,
+filolial,菲洛鸟（盾之勇者成名录）,菲洛利亚尔
 penis_bow,阴茎蝴蝶结,
 techpriest,机械神甫,
 viola_(instrument),中提琴,
@@ -5206,14 +5206,14 @@ anis_face_(nikke),阿妮斯表情（妮姬）,
 boar_tail,野猪尾巴,
 campaign_hat,宽檐教官帽,
 catapult,投石机,
-coat_hold,抱着外套,
+coat_hold,抓着外套,拉着外套
 kendo_mask,剑道护面,
 parting_water,分开水面,
 petals_in_mouth,嘴含多片花瓣,
 ranger_uniform_(amphibia),游侠制服（奇幻沼泽）,
 bird_youkai_group_(touhou),鸟妖怪组（东方Project）,
 brace,护具支架,
-gordius_wheel_(fate),神威车轮（Fate）,
+gordius_wheel_(fate),神威车轮（Fate系列）,
 heart_headband,心形头带,
 holding_headband,手持头带,
 matilda_(tank),玛蒂尔达坦克,
@@ -5233,13 +5233,13 @@ komaru_(himouto!_umaru-chan)_(cosplay),小埋形态（干物妹小埋）（角�
 lariat,金臂勾,
 sword_surfing,御剑滑行,
 striped_leg_warmers,条纹腿套,
-arondight_(fate),Arondight（Fate）,
+arondight_(fate),无毁的湖光（Fate系列）,阿隆戴特
 two-tone_leg_warmers,双色腿套,
 plaid_leg_warmers,格纹腿套,
 ribbed_bandeau,罗纹抹胸,
 fur-trimmed_leg_warmers,毛边腿套,
 dragonfly_print,蜻蜓印花,
-joyeuse_ordre_(fate),Joyeuse Ordre（Fate）,
+joyeuse_ordre_(fate),十二辉剑（Fate系列）,咎瓦尤斯/欢愉之剑
 lace_thigh_strap,蕾丝腿环,
 magnolia_eclair_ii,Magnolia Éclair II（罪恶装备）,木兰Eclair II
 queen_of_hearts_symbol,红桃Q符号,
@@ -5253,7 +5253,7 @@ hole_in_sock,袜子破洞,
 implied_strap-on,暗示穿戴式假阳具,
 instance_domination,Instance Domination（SSSS.DYNAZENON）,
 ishidaki,石抱之刑,
-passionlip_(fate)_(cosplay),帕森莉普（Fate）（角色扮演）,
+passionlip_(fate)_(cosplay),热情迷唇（Fate系列）（角色扮演）,帕森莉普
 pectorals_on_glass,胸肌贴玻璃,
 reflector_(photography),反光板（摄影）,
 a_grim_reminder,那一天人类回想起了（进击的巨人）,
@@ -5272,7 +5272,7 @@ daijoubu_da_mondai_nai,大丈夫没问题（梗）,
 devil_sword_dante,魔剑但丁（鬼泣）,
 duck_costume,鸭子服装,
 naruto_run,火影跑,
-beastlord_(sword),兽王剑,
+beastlord_(sword),百兽剑王,兽王剑
 bok_choy,小白菜,
 chain_pull,拉扯锁链,
 hikoboshi_(cosplay),牛郎（七夕）（角色扮演）,彦星
@@ -5287,7 +5287,7 @@ makoto_nanaya_(cosplay),真琴·娜娜亚（苍翼默示录）（角色扮演）
 mounted_dildo,固定式假阳具,
 mutual_feeding,互相喂食,
 panties_under_bloomers,灯笼裤内穿内裤,
-two_sidriver,Two-Sidriver（假面骑士Revice）,
+two_sidriver,双面驱动器（假面骑士Revice）,
 universal_federation_army_uniform,联邦军制服,
 ahoge_removed,呆毛被拔下,
 too_many_cats,猫过多,
@@ -5312,7 +5312,7 @@ diagonal-striped_legwear,斜条纹袜,
 handkerchief_biting,咬手帕,
 head_swap,头部互换,
 jungle_style,丛林式弹匣,
-level_difference,实力差距,
+level_difference,等级差距,实力差距
 maetenkan,前天冠,
 milking_cow,给奶牛挤奶,
 panties_under_bodysuit,紧身连体衣内穿内裤,
@@ -5329,12 +5329,12 @@ veil_over_one_eye,面纱遮住单眼,
 accurate_ballet,规范芭蕾动作,
 flab,赘肉,
 gravy_boat,船形酱汁壶,
-king_gainer_over!,King Gainer Over!（OVERMAN王者凯格片头）,
+king_gainer_over!,King Gainer Over!（返乡战士片头）,王者盖纳片头/返乡战士OP
 paper_plate,纸盘,
 toe_grab,用脚趾夹物,
 weapon_switch,交换武器,
 zankuro_(style),Zankuro画风,
-ladder_cutout,梯形镂空,
+ladder_cutout,梯状镂空,阶梯镂空
 nikujaga_(food),土豆炖肉,
 shanzha_(fruit),山楂,
 spam_(food),午餐肉,
@@ -5346,7 +5346,7 @@ cartesian_chart,坐标图,
 columbina_(genshin_impact)_(cosplay),哥伦比娅（原神）（角色扮演）,
 czech_flag,捷克国旗,
 distortion_world,毁坏的世界（宝可梦）,
-earth_badge,大地徽章（宝可梦）,
+earth_badge,绿色徽章（宝可梦）,大地徽章
 finger_in_navel,手指插肚脐,
 imminent_bukkake,即将颜射,
 lace-trimmed_boots,蕾丝边靴子,
@@ -5433,7 +5433,7 @@ male_byleth_(fire_emblem),贝雷特（火焰纹章）,
 ike_(fire_emblem),艾克（火焰纹章）,
 lyn_(fire_emblem),琳（火焰纹章）,
 camilla_(fire_emblem),卡米拉（火焰纹章）,
-female_robin_(fire_emblem),女鲁弗莱（火焰纹章）,
+female_robin_(fire_emblem),鲁弗莱（女）（火焰纹章）,女鲁弗莱
 tiki_(fire_emblem),琪姬（火焰纹章）,
 female_alear_(fire_emblem),琉尔（女）（火焰纹章）,
 male_robin_(fire_emblem),鲁弗莱（男）（火焰纹章）,
@@ -5458,29 +5458,29 @@ roy_(fire_emblem),罗伊（火焰纹章）,
 julia_(fire_emblem),尤莉亚（火焰纹章）,
 soren_(fire_emblem),塞内里奥（火焰纹章）,
 celica_(fire_emblem),塞莉卡（火焰纹章）,
-leo_(fire_emblem_fates),里昂（火焰纹章 if）,
+leo_(fire_emblem_fates),里昂（火焰纹章if）,
 nina_(fire_emblem),妮娜（火焰纹章）,
 male_byleth_(awakened)_(fire_emblem),贝雷特（觉醒）（火焰纹章）,
 male_alear_(fire_emblem),琉尔（男）（火焰纹章）,
 tiki_(young)_(fire_emblem),琪姬（幼年）（火焰纹章）,
 sothis_(fire_emblem),苏谛斯（火焰纹章）,
 yunaka_(fire_emblem),尤娜卡（火焰纹章）,
-celine_(fire_emblem),赛琳（火焰纹章）,
+celine_(fire_emblem),锡莉奴（火焰纹章）,赛琳
 mia_(fire_emblem),米娅（火焰纹章）,
 ophelia_(fire_emblem),奥菲莉亚（火焰纹章）,
 sothis_(young)_(fire_emblem),苏谛斯（幼年）（火焰纹章）,
 female_byleth_(summer)_(fire_emblem),贝雷丝（夏日）（火焰纹章）,
 nowi_(fire_emblem),诺诺（火焰纹章）,
 anna_(fire_emblem),安娜（火焰纹章）,
-female_shez_(fire_emblem),女谢兹（火焰纹章）,
+female_shez_(fire_emblem),谢兹（女）（火焰纹章）,女谢兹
 xander_(fire_emblem),马克斯（火焰纹章）,
-veyle_(fire_emblem),薇尔（火焰纹章）,
-sommie_(fire_emblem),索米（火焰纹章）,
+veyle_(fire_emblem),贝珥（火焰纹章）,薇尔
+sommie_(fire_emblem),索拉（火焰纹章）,索米
 male_kiran_(fire_emblem),基兰（男）（火焰纹章）,
 goldmary_(fire_emblem),戈尔德玛丽（火焰纹章）,
-hinoka_(fire_emblem),希诺卡（火焰纹章）,
+hinoka_(fire_emblem),火乃香（火焰纹章）,希诺卡
 flayn_(fire_emblem),芙莲（火焰纹章）,
-female_morgan_(fire_emblem),摩根（女）（火焰纹章）,
+female_morgan_(fire_emblem),马克（女）（火焰纹章）,摩根
 kagero_(fire_emblem),阳炎（火焰纹章）,
 ninian_(fire_emblem),妮妮安（火焰纹章）,
 sharena_(fire_emblem),夏蓉（火焰纹章）,
@@ -5489,7 +5489,7 @@ lissa_(fire_emblem),莉兹（火焰纹章）,
 lilina_(fire_emblem),莉莉娜（火焰纹章）,
 hortensia_(fire_emblem),奥尔坦希亚（火焰纹章）,
 ishtar_(fire_emblem),伊修塔尔（火焰纹章）,
-female_robin_(grima)_(fire_emblem),女鲁弗莱（邪龙附身）（火焰纹章）,
+female_robin_(grima)_(fire_emblem),鲁弗莱（女）（邪龙基姆雷）（火焰纹章）,女鲁弗莱
 fjorm_(fire_emblem),菲约尔姆（火焰纹章）,
 felicia_(fire_emblem),菲莉西亚（火焰纹章）,
 cordelia_(fire_emblem),缇亚莫（火焰纹章）,
@@ -5506,13 +5506,13 @@ lethe_(fire_emblem),蕾特（火焰纹章）,
 eliwood_(fire_emblem),艾利乌德（火焰纹章）,
 nino_(fire_emblem),妮诺（火焰纹章）,
 catria_(fire_emblem),卡秋娅（火焰纹章）,
-timerra_(fire_emblem),蒂默拉（火焰纹章）,
+timerra_(fire_emblem),米丝提拉（火焰纹章）,蒂默拉
 citrinne_(fire_emblem),西特莉妮卡（火焰纹章）,
 alfonse_(fire_emblem),阿尔冯斯（火焰纹章）,
 hector_(fire_emblem),海克托尔（火焰纹章）,
 myrrh_(fire_emblem),米露拉（火焰纹章）,
 yune_(fire_emblem),尤妮（火焰纹章）,
-alcryst_(fire_emblem),阿尔克雷斯特（火焰纹章）,
+alcryst_(fire_emblem),史塔卢克（火焰纹章）,阿尔克雷斯特
 feh_(fire_emblem_heroes),菲（火焰纹章 英雄）,
 florina_(fire_emblem),芙罗利娜（火焰纹章）,
 female_corrin_(novice_vacationer)_(fire_emblem),神威（女）（新手度假者）（火焰纹章）,
@@ -5523,11 +5523,11 @@ fae_(fire_emblem),法（火焰纹章）,
 panette_(fire_emblem),帕涅托涅（火焰纹章）,
 niles_(fire_emblem),奈尔斯（火焰纹章）,
 ashe_ubert,亚修·尤伯特（火焰纹章）,
-female_robin_(seaside_tactician)_(fire_emblem),女鲁弗莱（海滨战术家）（火焰纹章）,
+female_robin_(seaside_tactician)_(fire_emblem),鲁弗莱（女）（海滨战术家）（火焰纹章）,女鲁弗莱
 flora_(fire_emblem),芙萝拉（火焰纹章）,
-framme_(fire_emblem),弗岚（火焰纹章）,
+framme_(fire_emblem),芙兰（火焰纹章）,弗岚
 etie_(fire_emblem),艾媞耶（火焰纹章）,
-hana_(fire_emblem),花火（火焰纹章）,
+hana_(fire_emblem),风花（火焰纹章）,
 jakob_(fire_emblem),乔卡（火焰纹章）,
 freyja_(fire_emblem),芙蕾雅（火焰纹章）,
 oboro_(fire_emblem),胧（火焰纹章）,
@@ -5552,7 +5552,7 @@ laegjarn_(fire_emblem),莱格雅恩（火焰纹章）,
 lyre_(fire_emblem),莉蕾（火焰纹章）,
 charlotte_(fire_emblem),夏洛特（火焰纹章）,
 female_alear_(seaside_dragon)_(fire_emblem),琉尔（女）（海滨之龙）（火焰纹章）,
-female_kana_(fire_emblem),卡娜（女）（火焰纹章）,
+female_kana_(fire_emblem),神流（女）（火焰纹章）,卡娜
 sothe_(fire_emblem),萨扎（火焰纹章）,
 deirdre_(fire_emblem),蒂亚多拉（火焰纹章）,
 delthea_(fire_emblem),迪优特（火焰纹章）,
@@ -5573,8 +5573,8 @@ serra_(fire_emblem),塞拉（火焰纹章）,
 cherche_(fire_emblem),塞尔裘（火焰纹章）,
 fir_(fire_emblem),菲尔（火焰纹章）,
 l'arachel_(fire_emblem),拉切尔（火焰纹章）,
-catherine_(fire_emblem),凯瑟琳（火焰纹章）,
-selena_(fire_emblem_fates),赛莱娜（火焰纹章 if）,
+catherine_(fire_emblem),卡多莉奴（火焰纹章）,凯瑟琳
+selena_(fire_emblem_fates),露娜（火焰纹章 if）,赛莱娜
 peri_(fire_emblem),皮埃里（火焰纹章）,
 gunnthra_(fire_emblem),古恩斯拉（火焰纹章）,
 noire_(fire_emblem),诺瓦尔（火焰纹章）,
@@ -5593,12 +5593,12 @@ plumeria_(fire_emblem),普鲁梅莉亚（火焰纹章）,
 gullveig_(fire_emblem),古尔薇格（火焰纹章）,
 lana_(fire_emblem),拉娜（火焰纹章）,
 titania_(fire_emblem),蒂亚玛特（火焰纹章）,
-lucina_(spring_exalt)_(fire_emblem),露琪娜（春日使者）（火焰纹章）,
+lucina_(spring_exalt)_(fire_emblem),露琪娜（春日圣王）（火焰纹章）,
 subaki_(fire_emblem),椿（火焰纹章）,
 cecilia_(fire_emblem),瑟西莉亚（火焰纹章）,
 est_(fire_emblem),爱丝特（火焰纹章）,
 baldr_(fire_emblem_heroes),巴德尔（火焰纹章 英雄）,
-seteth_(fire_emblem),赛特斯（火焰纹章）,
+seteth_(fire_emblem),西提司（火焰纹章）,赛特斯
 idunn_(fire_emblem),伊冬（火焰纹章）,
 male_kana_(fire_emblem),神流（男）（火焰纹章）,
 nanna_(fire_emblem),娜娜（火焰纹章）,
@@ -5608,7 +5608,7 @@ eikthyrnir_(fire_emblem),埃克提尔尼尔（火焰纹章）,
 patty_(fire_emblem),帕蒂（火焰纹章）,
 lyon_(fire_emblem),里昂（火焰纹章）,
 lachesis_(fire_emblem),拉克西丝（火焰纹章）,
-maria_(fire_emblem:_shadow_dragon),玛丽亚（火焰纹章：暗黑龙与光之剑）,
+maria_(fire_emblem:_shadow_dragon),玛丽亚（火焰纹章 暗黑龙与光之剑）,
 cynthia_(fire_emblem),辛西娅（火焰纹章）,
 owain_(fire_emblem),乌德（火焰纹章）,
 boyd_(fire_emblem),博伊德（火焰纹章）,
@@ -5631,15 +5631,15 @@ hinata_(fire_emblem),日向（火焰纹章）,
 saizo_(fire_emblem),才藏（火焰纹章）,
 female_alear_(divine_attire)_(fire_emblem),琉尔（女）（神龙装束）（火焰纹章）,
 forrest_(fire_emblem),弗莱奥（火焰纹章）,
-lumera_(fire_emblem),鲁米耶尔（火焰纹章）,
+lumera_(fire_emblem),琉弥艾尔（火焰纹章）,鲁米耶尔
 tiki_(adult)_(summering_scion)_(fire_emblem),琪姬（成年）（夏日贵胄）（火焰纹章）,
-clanne_(fire_emblem),克兰（火焰纹章）,
+clanne_(fire_emblem),柯岚（火焰纹章）,克兰
 seidr_(fire_emblem),赛兹（火焰纹章）,
 ylgr_(fire_emblem),尤露格（火焰纹章）,
-kiragi_(fire_emblem),基萨拉基（火焰纹章）,
+kiragi_(fire_emblem),如月（火焰纹章）,基萨拉基
 peony_(fire_emblem),皮亚尼（火焰纹章）,
 clarine_(fire_emblem),克莱丽奈（火焰纹章）,
-female_shez_(summer)_(fire_emblem),女谢兹（夏日）（火焰纹章）,
+female_shez_(summer)_(fire_emblem),谢兹（女）（夏日）（火焰纹章）,女谢兹
 genny_(fire_emblem),珍妮（火焰纹章）,
 leanne_(fire_emblem),莉亚妮（火焰纹章）,
 lene_(fire_emblem),莉恩（火焰纹章）,
@@ -5655,7 +5655,7 @@ rafal_(fire_emblem),拉法尔（火焰纹章）,
 effie_(fire_emblem),艾尔菲（火焰纹章）,
 ivy_(summer)_(fire_emblem),艾比（夏日）（火焰纹章）,
 rinkah_(fire_emblem),琳卡（火焰纹章）,
-veronica_(princess_rising)_(fire_emblem),维罗妮卡（公主崛起）（火焰纹章）,
+veronica_(princess_rising)_(fire_emblem),维罗妮卡（新生皇女）（火焰纹章）,
 embla_(fire_emblem),恩布拉（火焰纹章）,
 henry_(fire_emblem),亨利（火焰纹章）,
 female_corrin_(halloween)_(fire_emblem),神威（女）（万圣节）（火焰纹章）,
@@ -5669,7 +5669,7 @@ jaffar_(fire_emblem),贾法尔（火焰纹章）,
 erinys_(fire_emblem),菲莉（火焰纹章）,
 dwyer_(fire_emblem),德怀尔（火焰纹章）,
 lucina_(valentine)_(fire_emblem),露琪娜（情人节）（火焰纹章）,
-male_byleth_(enlightened_one)_(fire_emblem),贝雷特（开悟者）（火焰纹章）,
+male_byleth_(enlightened_one)_(fire_emblem),贝雷特（涅槃那）（火焰纹章）,
 marcia_(fire_emblem),玛夏（火焰纹章）,
 altina_(fire_emblem),阿尔蒂娜（火焰纹章）,
 jill_(fire_emblem),吉尔（火焰纹章）,
@@ -5696,7 +5696,7 @@ nifl_(fire_emblem),尼弗尔（火焰纹章）,
 aversa_(fire_emblem),茵巴丝（火焰纹章）,
 finn_(fire_emblem),菲恩（火焰纹章）,
 rhys_(fire_emblem),里斯（火焰纹章）,
-veyle_(fell_successor)_(fire_emblem),薇尔（邪龙继承者）（火焰纹章）,
+veyle_(fell_successor)_(fire_emblem),贝珥（邪龙继承者）（火焰纹章）,薇尔
 hrid_(fire_emblem),赫利德（火焰纹章）,
 shannan_(fire_emblem),夏楠（火焰纹章）,
 hodr_(fire_emblem),霍德尔（火焰纹章）,
@@ -5712,7 +5712,7 @@ fiora_(fire_emblem),菲奥拉（火焰纹章）,
 lon'qu_(fire_emblem),隆克（火焰纹章）,
 panne_(fire_emblem),贝尔贝特（火焰纹章）,
 sigrun_(fire_emblem),希格伦（火焰纹章）,
-female_robin_(grima)_(fell_tactician)_(fire_emblem),女鲁弗莱（邪龙战术师）（火焰纹章）,
+female_robin_(grima)_(fell_tactician)_(fire_emblem),鲁弗莱（女）（邪龙战术师）（火焰纹章）,女鲁弗莱
 heidrun_(fire_emblem),海兹露恩（火焰纹章）,
 seth_(fire_emblem),赛斯（火焰纹章）,
 lapis_(homely_apron)_(fire_emblem),拉碧丝（居家围裙）（火焰纹章）,
@@ -5725,7 +5725,7 @@ lucius_(fire_emblem),卢修斯（火焰纹章）,
 silque_(fire_emblem),希尔克（火焰纹章）,
 ike_(vanguard_legend)_(fire_emblem),艾克（先锋传说）（火焰纹章）,
 say'ri_(fire_emblem),萨依利（火焰纹章）,
-arval_(fire_emblem),阿尔瓦尔（火焰纹章）,
+arval_(fire_emblem),拉鲁瓦（火焰纹章）,阿尔瓦尔
 lucina_(summer)_(fire_emblem),露琪娜（夏日）（火焰纹章）,
 mist_(radiant_dawn)_(fire_emblem),米斯特（晓之女神）（火焰纹章）,
 sakura_(gentle_nekomata)_(fire_emblem),樱（温柔的猫又）（火焰纹章）,
@@ -5754,12 +5754,12 @@ mia_(summer)_(fire_emblem),米娅（夏日）（火焰纹章）,
 lucia_(fire_emblem),露西亚（火焰纹章）,
 sara_(fire_emblem),莎拉（火焰纹章）,
 tharja_(summer)_(fire_emblem),萨莉亚（泳装）（火焰纹章）,
-female_robin_(valentine)_(fire_emblem),女鲁弗莱（情人节）（火焰纹章）,
-jade_(fire_emblem),杰德（火焰纹章）,
+female_robin_(valentine)_(fire_emblem),鲁弗莱（女）（情人节）（火焰纹章）,女鲁弗莱
+jade_(fire_emblem),洁德（火焰纹章）,杰德
 rosado_(wrap_skirt)_(fire_emblem),罗萨德（裹裙）（火焰纹章）,
 female_alear_(gifted_dragons)_(fire_emblem),琉尔（女）（赠礼之龙）（火焰纹章）,
 skrimir_(fire_emblem),斯克瑞米尔（火焰纹章）,
-female_robin_(grima)_(halloween)_(fire_emblem),女鲁弗莱（邪龙附身）（万圣节）（火焰纹章）,
+female_robin_(grima)_(halloween)_(fire_emblem),鲁弗莱（女）（邪龙基姆雷）（万圣节）（火焰纹章）,女鲁弗莱
 julius_(fire_emblem),尤利乌斯（火焰纹章）,
 reyson_(fire_emblem),琉西翁（火焰纹章）,
 yunaka_(spirited_envoy)_(fire_emblem),尤娜卡（元气使者）（火焰纹章）,
@@ -5822,14 +5822,13 @@ naga_(fire_emblem),娜嘉（火焰纹章）,
 nina_(resplendent)_(fire_emblem),妮娜（神装）（火焰纹章）,
 vanessa_(fire_emblem),温妮莎（火焰纹章）,
 zelestia_(fire_emblem),泽雷斯蒂亚（火焰纹章）,
-amber_(fire_emblem),安柏（火焰纹章）,
+amber_(fire_emblem),安巴（火焰纹章）,安柏
 bruno_(fire_emblem),布鲁诺（火焰纹章）,
 cordelia_(knight_paradise)_(fire_emblem),缇亚莫（骑士乐园）（火焰纹章）,
-marni_(fire_emblem),玛妮（火焰纹章）,
+marni_(fire_emblem),马龙（火焰纹章）,玛妮
 rinea_(fire_emblem),莉内亚（火焰纹章）,
 berkut_(fire_emblem),贝尔库特（火焰纹章）,
 ced_(fire_emblem),塞梯（火焰纹章）,
-corrin_(dragon)_(fire_emblem),卡姆依（龙）（火焰纹章）,
 elise_(tropical_flower)_(fire_emblem),艾莉丝（热带之花）（火焰纹章）,
 goldmary_(pristine_dress)_(fire_emblem),戈尔德玛丽（纯洁连衣裙）（火焰纹章）,
 ivy_(mystic_dress)_(fire_emblem),艾比（神秘礼服）（火焰纹章）,
@@ -5851,7 +5850,7 @@ boey_(fire_emblem),波伊（火焰纹章）,
 gatrie_(fire_emblem),加特利（火焰纹章）,
 gilliam_(fire_emblem),吉利亚姆（火焰纹章）,
 veronica_(brave_princess)_(fire_emblem),维罗妮卡（勇者公主）（火焰纹章）,
-celine_(teatime_garb)_(fire_emblem),赛琳（下午茶便装）（火焰纹章）,
+celine_(teatime_garb)_(fire_emblem),锡莉奴（下午茶便装）（火焰纹章）,赛琳
 fee_(fire_emblem),菲（火焰纹章）,
 garon_(fire_emblem),加隆（火焰纹章）,
 sue_(fire_emblem),苏（火焰纹章）,
@@ -5870,10 +5869,9 @@ vika_(fire_emblem),薇泽（火焰纹章）,
 emmeryn_(fire_emblem),爱梅莉娜（火焰纹章）,
 fae_(winter)_(fire_emblem),菲（冬季）（火焰纹章）,
 ike_(valentine)_(fire_emblem),艾克（情人节）（火焰纹章）,
-julia_(heart_usurped)_(fire_emblem),尤莉亚（心被夺）（火焰纹章）,
-male_corrin_(adrift)_(fire_emblem),神威（男）（漂流）（火焰纹章）,
+julia_(heart_usurped)_(fire_emblem),尤莉亚（被夺之心）（火焰纹章）,
 vaike_(fire_emblem),维克（火焰纹章）,
-zephia_(fire_emblem),泽菲亚（火焰纹章）,
+zephia_(fire_emblem),赛琵雅（火焰纹章）,泽菲亚
 fjorm_(bridal)_(fire_emblem),菲约尔姆（花嫁）（火焰纹章）,
 laegjarn_(summer)_(fire_emblem),莱格雅恩（夏日）（火焰纹章）,
 male_alear_(divine_attire)_(fire_emblem),琉尔（男）（神装）（火焰纹章）,
@@ -5882,10 +5880,10 @@ ninae_(fire_emblem),Ninae（火焰纹章）,
 silvia_(fire_emblem),希尔维亚（火焰纹章）,
 tharja_(obsessive_bride)_(fire_emblem),萨莉亚（新娘）（火焰纹章）,
 female_byleth_(frosty_professor)_(fire_emblem),贝雷丝（寒冬教师）（火焰纹章）,
-raven_(fire_emblem),渡鸦（火焰纹章）,
+raven_(fire_emblem),雷万（火焰纹章）,
 catria_(spring_whitewing)_(fire_emblem),卡秋娅（春之白翼）（火焰纹章）,
 female_corrin_(young_kinship)_(fire_emblem),神威（女）（幼年羁绊）（火焰纹章）,
-female_robin_(young)_(fire_emblem),女鲁弗莱（幼年）（火焰纹章）,
+female_robin_(young)_(fire_emblem),鲁弗莱（女）（幼年）（火焰纹章）,
 kliff_(fire_emblem),克利夫（火焰纹章）,
 tanith_(fire_emblem),塔妮丝（火焰纹章）,
 male_byleth_(academy)_(fire_emblem),贝雷特（士官学校）（火焰纹章）,
@@ -5900,7 +5898,7 @@ hraesvelgr_(fire_emblem),赫拉斯瓦尔格（火焰纹章）,
 lukas_(fire_emblem),卢卡斯（火焰纹章）,
 micaiah_(summer's_dawn)_(fire_emblem),米卡娅（夏日之晓）（火焰纹章）,
 ogma_(fire_emblem),奥格玛（火焰纹章）,
-alcryst_(ashen_outfit)_(fire_emblem),阿尔克雷斯特（灰烬装束）（火焰纹章）,
+alcryst_(ashen_outfit)_(fire_emblem),史塔卢克（灰烬装束）（火焰纹章）,阿尔克雷斯特
 hortensia_(flashy_dress)_(fire_emblem),奥尔坦希亚（华丽礼裙）（火焰纹章）,
 lyn_(flame)_(fire_emblem),琳（炎）（火焰纹章）,
 lyn_(ninja)_(fire_emblem),琳（忍者）（火焰纹章）,
@@ -5917,13 +5915,12 @@ nidhoggr_(fire_emblem),尼德霍格（火焰纹章）,
 sully_(fire_emblem),索瓦蕾（火焰纹章）,
 tiki_(adult)_(fated_divinity)_(fire_emblem),琪姬（成年）（命运神性）（火焰纹章）,
 edward_(fire_emblem),爱德华（火焰纹章）,
-female_corrin_(resplendent)_(fire_emblem),神威（女）（精灵）（火焰纹章）,
 fomortiis_(fire_emblem),福莫提斯（火焰纹章）,
 sain_(fire_emblem),赛因（火焰纹章）,
 tiki_(young)_(beachside_scion)_(fire_emblem),琪姬（幼年）（海滨贵胄）（火焰纹章）,
 dieck_(fire_emblem),迪克（火焰纹章）,
 lara_(fire_emblem),拉拉（火焰纹章）,
-nagi_(fire_emblem),薙（火焰纹章）,
+nagi_(fire_emblem),纳吉（火焰纹章）,
 sakura_(priestess)_(fire_emblem),樱（巫女）（火焰纹章）,
 vali_(fire_emblem),瓦莉（火焰纹章）,
 camilla_(ninja)_(fire_emblem),卡米拉（忍者）（火焰纹章）,
@@ -5936,8 +5933,8 @@ mila_(fire_emblem),米拉（火焰纹章）,
 pandreo_(party_jacket)_(fire_emblem),潘德罗（派对夹克）（火焰纹章）,
 sothis_(young)_(winter)_(fire_emblem),苏谛斯（幼年）（冬季）（火焰纹章）,
 bartre_(fire_emblem),巴特尔（火焰纹章）,
-camilla_(hostile_springs)_(fire_emblem),卡米拉（敌意温泉）（火焰纹章）,
-celine_(ninja)_(fire_emblem),赛琳（忍者）（火焰纹章）,
+camilla_(hostile_springs)_(fire_emblem),卡米拉（秘密温泉）（火焰纹章）,
+celine_(ninja)_(fire_emblem),锡莉奴（忍者）（火焰纹章）,赛琳
 eirika_(pledged_restorer)_(fire_emblem),艾莉可（誓约复国者）（火焰纹章）,
 leonardo_(fire_emblem),雷奥纳多（火焰纹章）,
 linde_(summer_rays)_(fire_emblem),琳达（夏日光芒）（火焰纹章）,
@@ -5945,7 +5942,7 @@ natasha_(fire_emblem),娜塔莎（火焰纹章）,
 neimi_(fire_emblem),奈米（火焰纹章）,
 chloe_(pegasus_dress)_(fire_emblem),克萝伊（天马装）（火焰纹章）,
 gerik_(fire_emblem),杰里克（火焰纹章）,
-larcei_(bride_of_astra)_(fire_emblem),拉克谢（阿斯特拉花嫁）（火焰纹章）,
+larcei_(bride_of_astra)_(fire_emblem),拉克谢（流星花嫁）（火焰纹章）,
 mathilda_(fire_emblem),玛蒂尔达（火焰纹章）,
 rutger_(fire_emblem),鲁特加（火焰纹章）,
 seliph_(scion_of_light)_(fire_emblem),塞利斯（光之继承者）（火焰纹章）,
@@ -5961,20 +5958,20 @@ guinevere_(fire_emblem),桂妮薇儿（火焰纹章）,
 juno_(fire_emblem),朱诺（火焰纹章）,
 norne_(fire_emblem),诺伦（火焰纹章）,
 roy_(brave_lion)_(fire_emblem),罗伊（勇者狮子）（火焰纹章）,
-seadall_(fire_emblem),赛亚达斯（火焰纹章）,
+seadall_(fire_emblem),赛安达斯（火焰纹章）,赛亚达斯
 stahl_(fire_emblem),斯泰尔（火焰纹章）,
 witch_(fire_emblem_fates),魔女（火焰纹章 if）,
 donnel_(fire_emblem),多尼尔（火焰纹章）,
 dorothy_(fire_emblem),多萝西（火焰纹章）,
 farina_(fire_emblem),法瑞娜（火焰纹章）,
-hana_(ninja)_(fire_emblem),花火（忍者）（火焰纹章）,
+hana_(ninja)_(fire_emblem),风花（忍者）（火焰纹章）,
 hawkeye_(fire_emblem),霍克艾（火焰纹章）,
 heidr_(fire_emblem),海兹（火焰纹章）,
 heidrun_(summer)_(fire_emblem),海兹露恩（夏日）（火焰纹章）,
 rhea_(halloween)_(fire_emblem),蕾雅（万圣节）（火焰纹章）,
 scarlet_(fire_emblem),斯卡莱特（火焰纹章）,
 theodora_(fire_emblem),特奥多拉（火焰纹章）,
-timerra_(halloween)_(fire_emblem),蒂默拉（万圣节）（火焰纹章）,
+timerra_(halloween)_(fire_emblem),米丝提拉（万圣节）（火焰纹章）,蒂默拉
 brunnya_(fire_emblem),布鲁妮娅（火焰纹章）,
 ishtar_(echoing_thunder)_(fire_emblem),伊修塔尔（鸣雷）（火焰纹章）,
 klein_(fire_emblem),克莱因（火焰纹章）,
@@ -5985,8 +5982,8 @@ caeda_(summer)_(fire_emblem),希达（夏日）（火焰纹章）,
 camilla_(holiday_traveler)_(fire_emblem),卡米拉（假日旅人）（火焰纹章）,
 camus_(fire_emblem),卡缪（火焰纹章）,
 celica_(warrior_princess)_(fire_emblem),塞莉卡（战士公主）（火焰纹章）,
-celine_(blissful_tea_party)_(fire_emblem),赛琳（幸福茶会）（火焰纹章）,
-chrom_(spring_exalt)_(fire_emblem),库洛姆（春季祭典）（火焰纹章）,
+celine_(blissful_tea_party)_(fire_emblem),锡莉奴（幸福茶会）（火焰纹章）,赛琳
+chrom_(spring_exalt)_(fire_emblem),库洛姆（春之圣王）（火焰纹章）,
 male_robin_(festive_tactician)_(fire_emblem),鲁弗莱（男）（节日军师）（火焰纹章）,
 artur_(fire_emblem),阿图尔（火焰纹章）,
 cai_(fire_emblem),凯（火焰纹章）,
@@ -5997,11 +5994,11 @@ lex_(fire_emblem),莱克斯（火焰纹章）,
 reina_(fire_emblem),蕾伊娜（火焰纹章）,
 soren_(isolated_strategist)_(fire_emblem),塞内里奥（孤高策士）（火焰纹章）,
 syrene_(fire_emblem),希蕾妮（火焰纹章）,
-veyle_(spring)_(fire_emblem),薇尔（春日）（火焰纹章）,
+veyle_(spring)_(fire_emblem),贝珥（春日）（火焰纹章）,薇尔
 ymir_(fire_emblem_heroes),优米尔（火焰纹章 英雄）,
 brigid_(pirate)_(fire_emblem),布莉姬德（海盗）（火焰纹章）,
 dew_(fire_emblem),迪优（火焰纹章）,
-diamant_(ember_outfit)_(fire_emblem),迪亚曼德（余烬便服）（火焰纹章）,
+diamant_(ember_outfit)_(fire_emblem),帝亚曼德（余烬便服）（火焰纹章）,迪亚曼德
 elise_(valentine)_(fire_emblem),艾莉丝（情人节）（火焰纹章）,
 female_corrin_(cheer_power)_(fire_emblem),神威（女）（啦啦队）（火焰纹章）,
 kurt_(fire_emblem),库尔特（火焰纹章）,
@@ -6020,19 +6017,19 @@ fire_emblem:_the_blazing_blade,火焰纹章 烈火之剑,
 fire_emblem:_radiant_dawn,火焰纹章 晓之女神,
 fire_emblem:_genealogy_of_the_holy_war,火焰纹章 圣战之系谱,
 fire_emblem:_new_mystery_of_the_emblem,火焰纹章 新·纹章之谜,
-fire_emblem:_fortune's_weave,火焰纹章：Fortune's Weave,
+fire_emblem:_fortune's_weave,火焰纹章 万紫千红,
 fire_emblem:_shadow_dragon_and_the_blade_of_light,火焰纹章 暗黑龙与光之剑,
 fire_emblem:_shadow_dragon,火焰纹章 新·暗黑龙与光之剑,
 fire_emblem_shadows,火焰纹章 Shadows,
-fate/samurai_remnant,Fate/Samurai Remnant,命运/武士残响
-sekirei,鹡鸰女神,
+fate/samurai_remnant,Fate/Samurai Remnant,武士残响/FSR
+sekirei,鹡鸰女神,-鹦鹉
 gachiakuta,废渊战鬼,
 honzuki_no_gekokujou,小书痴的下克上,
 nagi_no_asukara,,-亚丝娜_(sao)
 kyoukaisenjou_no_horizon,,-京海战无地平线_1521
 arcaea,,-一个音游
 palworld,,-幻兽帕普
-oounabara_to_wadanohara,大海原与和田之原,
+oounabara_to_wadanohara,大海原与大海原,
 wakfu,,-沃土
 unleashed,,-带子松开
 tenmaku_no_jaadugar,穹庐下的魔女,
@@ -6066,7 +6063,7 @@ gothic_wa_mahou_otome,哥特是魔法乙女,
 touhou_hisoutensoku,,-东方高天速
 mahou_senshi_elixir_knights,魔法战士Elixir Knights,
 mahou_senshi_princess_tear,魔法战士Princess Tear,
-bliss_(image),Bliss（Windows XP壁纸）,
+bliss_(image),Bliss（Windows XP壁纸）,-极乐
 bijin_onna_joushi_takizawa-san,美女上司泷泽小姐,
 nichijou_kamoshirenai,也许是日常,
 dankira!!!,Dankira!!!,
@@ -6091,7 +6088,7 @@ shinsei_kamattechan,神圣放逐乐队,
 bibbidiba_(hololive),Bibbidiba（星街彗星）,
 silver_rain,银雨（TRPG）,
 hinabita,Hinabita♪,
-kokoro_(vocaloid),心（ココロ）,
+kokoro_(vocaloid),心（Vocaloid）,
 miku_miku_ni_shite_ageru_(vocaloid),让你初音未来化,
 mito_and_kaede,美兔与枫,
 onikko_hunter_tsuina-chan,鬼之子猎人追傩酱,
@@ -6108,9 +6105,9 @@ yuba_no_shirushi,尤巴之印,
 sutare_yume,废弃之梦,
 tsuki_wa_higashi_ni_hi_wa_nishi_ni,东月西阳,
 hello_planet_(vocaloid),你好，星球。,
-himawari_no_kyoukai_to_nagai_natsuyasumi,向日葵的境界与长假,
+himawari_no_kyoukai_to_nagai_natsuyasumi,向日葵的教会与长长的暑假,
 shinobi_nightmare,忍者梦魇,
-elf_all-stars_datsuijan,精灵全明星脱衣麻将,
+elf_all-stars_datsuijan,ELF全明星脱衣麻将,
 mahou_no_yousei_persia,魔法妖精贝露莎,
 miracle_paint_(vocaloid),Miracle Paint,
 momoiro_taisen_pairon,桃色大战Pairon,
@@ -6124,15 +6121,15 @@ mozaik_role_(vocaloid),马赛克卷,
 sumomomo_momomo,地上最强新娘,
 hizashi_no_naka_no_real,阳光中的Real,
 himegami_emaki,姬神绘卷,
-zuutto_issho_(kitani_tatsuya),永远在一起（キタニタツヤ）,
+zuutto_issho_(kitani_tatsuya),永远在一起（木谷龙也）,
 nanami_to_konomi_no_oshiete_abc,七海与木实的ABC教学,
 yankee_jk_kuzuhana-chan,不良JK葛花酱,
-elf_all-stars_datsuijan_2,ELF全明星脱衣雀2,エルフオールスターズ脱衣雀2
+elf_all-stars_datsuijan_2,ELF全明星脱衣麻将2,
 haiena_chan_ni_nerawarete,被鬣狗酱盯上了,ハイエナちゃんに狙われて
 hissatsu_chikannin_2,必杀痴汉人2,必殺痴漢人2
 gin'iro_haruka,银色遥远,銀色、遥か
 natsu_no_ame,夏之雨,夏ノ雨
-natsuzuka-san_no_himitsu,奈都塚同学的秘密,奈都塚さんの秘密
+natsuzuka-san_no_himitsu,奈都冢同学的秘密,
 kouhai_wa_inkya_agari_no_infuruensaa,后辈是阴角出身的网红,
 sagara-san'chi_no_etsuraku_life,相乐家的悦乐生活,相楽さん家の悦楽ライフ
 grizzly_ni_osowaretara,如果被灰熊袭击,グリズリーに襲われたら
@@ -6147,7 +6144,7 @@ kono_koi_wo_hoshi_ni_wa_negawanai,不向星星许愿这份恋情,この恋を星
 kemono_fabric,Kemono Fabric,
 wagamama_high_spec,娇蛮任性HIGHSPEC,Wagamama High Spec
 type-moon_gakuen_chibichuki!,TYPE-MOON学园 Chibichuki!,
-honoo_no_toukyuujo:_dodge_danko,炎之斗球女 躲避弹子,炎の闘球女 ドッジ弾子
+honoo_no_toukyuujo:_dodge_danko,炎之斗球女 弹子,
 momoiro_montage,桃色蒙太奇,ももいろモンタージュ
 sefri_no_ichihara_ga_nigashite_kurenai,炮友市原不肯放过我,
 aquarium_wa_odoranai,水族馆不会跳舞,水族館は踊らない
@@ -6165,14 +6162,14 @@ sousaku_kanojo_no_renai_koushiki,创作女友的恋爱公式,創作彼女の恋�
 gakkou_de_atta_kowai_hanashi,学校里发生的恐怖故事,学校であった怖い話
 garo:_honoo_no_kokuin,牙狼〈GARO〉炎之刻印,牙狼〈GARO〉～炎の刻印～
 let's_go_kaikigumi,出发吧怪奇组,レッツゴー怪奇組
-akkun_to_kanojo,阿君与女友,あっくんとカノジョ
-magrona_channel,Magurona,マグロナ
+akkun_to_kanojo,敦君与女朋友,阿君与女友
+magrona_channel,玛格罗娜,
 monster_collection,Monster Collection（卡牌）,モンスターコレクション
 sengoku_blade,战国之刃,戦国ブレード
 hatsuyuki_sakura,初雪樱,初雪桜
-cartagra,Cartagra,カルタグラ
+cartagra,恋狱月狂病,
 oyasumi_sex,晚安性爱,おやすみせっくす
-madness_combat,Madness Combat,疯狂战斗/-暴力迪吧
+madness_combat,暴力迪吧,疯狂战斗
 game_center_shoujo_to_ibunka_kouryuu,游戏厅少女与异文化交流,
 isei_ni_ikou_ne_(cevio),一起去异星吧,異星にいこうね
 anata_to_mita_sakura,与你同看的樱花,あなたと見た桜
@@ -6188,7 +6185,7 @@ pan_kogekoge_ni_nacchatta_(utau),面包烤焦了,パンこげこげになっち�
 gamers_(store),Gamers（店铺）,ゲーマーズ
 himitsu_houjin_death_maker,秘密法人Death Maker,秘密法人デスメイカー
 majokko_a_la_mode,魔女娘A La Mode,魔女っ娘ア・ラ・モード
-mayonaka_punch,真夜中Punch,真夜中ぱんチ
+mayonaka_punch,深夜重拳,真夜中Punch
 sachiiro_hanamizuki,幸色花水木,幸色ハナミズキ
 aiura,AIURA,あいうら
 burn-up,Burn Up,バーンナップ
@@ -6197,7 +6194,7 @@ ren'ai_karichaimashita,借来的恋爱,恋愛借りちゃいました
 hantsu_x_trash,Hantsu×Trash,はんつ×トラッシュ
 hime_to_boin,姬与Boin,姫とボイン
 honey_select,Honey Select,ハニーセレクト
-piofiore_no_bansho,Piofiore的晚钟,ピオフィオーレの晩鐘
+piofiore_no_bansho,虔诚之花的晚钟,Piofiore的晚钟
 eikou_no_guardian_battle,荣光的守护者之战,栄光のガーディアンバトル
 haruka_ni_aogi_uruwashi_no,遥仰凰华,遥かに仰ぎ、麗しの
 canvas_sepia_iro_no_motif,Canvas 深褐色的主题,Canvas ～セピア色のモチーフ～
@@ -6226,7 +6223,7 @@ shiroi_yuki_no_princess_wa_(vocaloid),白雪公主是,白い雪のプリンセ�
 ero_zemi,Ero Zemi,エロゼミ
 hitsugi_katsugi_no_kuro,背棺的库洛,棺担ぎのクロ
 kou_iu_no_ga_ii,这样就好,こういうのがいい
-sengoku_asuka_zero,战国飞鸟ZERO,戦国アスカZERO
+sengoku_asuka_zero,战国明日香ZERO,战国飞鸟ZERO
 yoidore_shirazu_(vocaloid),不知醉,酔いどれ知らず
 ariel_(novel),Ariel（小说）,エリアル
 chiisana_mori_no_ookami-chan,小森林的狼酱,小さな森のオオカミちゃん
@@ -6247,7 +6244,7 @@ mahou_no_idol_pastel_yumi,魔法偶像Pastel Yumi,魔法のアイドルパステ
 mahou_no_kaiheitai_pixel_maritan,魔法海兵队员Pixel Maritan,
 mitama_~shinobi~,Mitama～忍～,みたま〜しのび〜
 sakura_tale,Sakura Tale,さくらテイル
-anekouji_naoko_to_giniro_no_shinigami,姉小路直子与银色的死神,
+anekouji_naoko_to_giniro_no_shinigami,姐小路直子与银色的死神,
 appare!_tenka_gomen,了不起！天下御免,あっぱれ!天下御免
 himawari!,向日葵!,ひまわり!
 misao,Misao（游戏）,操
@@ -6260,13 +6257,13 @@ freedom_wars,自由战争,Freedom Wars
 kiss_to_lord_to_darjeeling,吻与魔王与红茶,キスと魔王と紅茶
 okiba_ga_nai!,无处安放!,置き場がない!
 roki_(vocaloid),Roki（歌曲）,ロキ
-brain_powered,翼神世音,ブレンパワード/Brain Powered
+brain_powered,机动神脑,灵魂力量/Brain Powerd/Brain Powered
 chigau_miyahara_omae_janai!,不对宫原不是你!,違う宮原お前じゃない!
 harta,Harta（杂志）,ハルタ
 kidatsu!_dungeons_lord,夺姬！Dungeons Lord,姫奪！ダンジョンズロード
 koeru_otoge-san,跨越吧大峠小姐,こえる大峠さん
 kutsu_no_muku_mama,随鞋而行,靴の向くまま
-rosen_garten_saga,Rosen Garten Saga,ローゼンガーテン・サーガ
+rosen_garten_saga,蔷薇园传奇,Rosen Garten Saga
 teihen_no_daigaku_janaru,底层大学日志,底辺の大学ジャーナル
 tonnura-san,Tonnura-san,とんぬらさん
 yarofes:2023,野郎Fes 2023,やろフェス2023
@@ -6281,10 +6278,10 @@ manimani_(vocaloid),Manimani,まにまに
 moldavite,Moldavite,モルダバイト
 nami_no_manimani,随波逐流（游戏）,波のまにまに
 okusuri_nonde_neyou_(vocaloid),吃了药就睡吧,おくすり飲んで寝よう
-sakura_moyu,Sakura Moyu,さくらもゆ
+sakura_moyu,樱花、萌放。,樱花萌放/Sakura Moyu
 suzunone_seven,铃音Seven!,スズノネセブン！
 aishite_aishite_aishite_(vocaloid),爱我爱我爱我,愛して愛して愛して
-akari_ga_yatte_kitazo_(vocaloid),阿卡里来了哟,アカリがやってきたぞっ
+akari_ga_yatte_kitazo_(vocaloid),灯来了哦,Akari来了哦
 akibakei_kanojo,秋叶系女友,アキバ系彼女
 genkai_tokki_monster_monpiece,限界凸骑 Monster Monpiece,限界凸騎 モンスターモンピース
 harem_gain,Harem Gain,ハーレムゲイン
@@ -6292,11 +6289,11 @@ majo_koi_nikki,魔女恋爱日记,魔女こいにっき
 mashiro_botan,Mashiro Botan,ましろぼたん
 nanairo_reincarnation,七色☆转生,ナナイロ☆リインカーネーション
 nurse_angel_ririka_sos,守护天使莉莉佳,ナースエンジェルりりかSOS
-parfait_chocolat_second_brew,Parfait Chocolat second brew,パルフェ ～ショコラ second brew～
+parfait_chocolat_second_brew,女仆咖啡帕露菲,帕露菲/Parfait Chocolat second brew
 select_oblige,Select Oblige,セレクトオブリージュ
 unmei_no_clan_battle,命运的部族之战,運命のクランバトル
 lime-iro_senkitan,青柠色战奇谭,らいむいろ戦奇譚
-mamoru-kun_ni_megami_no_shukufuku_wo!,给护君女神的祝福,護くんに女神の祝福を
+mamoru-kun_ni_megami_no_shukufuku_wo!,献上女神的祝福！,给护君女神的祝福
 hai_yorokonde,Hai Yorokonde,はいよろこんで
 hao_(vocaloid),Hao（歌曲）,ハオ
 inakoi,Inakoi!,いな☆こい！
@@ -6308,7 +6305,7 @@ dokipipo_emotion,Dokipipo Emotion,ドキピポエモーション
 filter-goshi_no_kanojo,滤镜那边的她,フィルター越しの彼女
 floor_ni_maou_ga_imasu,楼层里有魔王,フロアに魔王がいます
 berl_and_the_candy_house,贝尔与糖果屋,ベルとお菓子の家
-big_order,Big Order,ビッグオーダー
+big_order,至高指令,Big Order
 seisen_no_iberia,圣战的伊比利亚,聖戦のイベリア
 osananajimi_ni_najimitai,想和青梅竹马亲近,幼なじみになじみたい
 kanojo_ga_aitsu_ni_sareta_koto,女友被那家伙做了的事,彼女があいつにされたこと
@@ -6329,7 +6326,7 @@ hana_wa_saku_shura_no_gotoku,群花绽放，彷如修罗,花は咲く、修羅�
 hello_kitty_to_issho!,和Hello Kitty一起！,ハローキティといっしょ！
 hen-shin-shou-jo_metamol_maiden,变身少女Metamol Maiden,変身少女メタモルメイデン
 kunoichi_demo_koi_ga_shitai_(vocaloid),女忍者也想谈恋爱,くノ一でも恋がしたい
-machine_robo_chronos_no_dai_gyakushuu,Machine Robo 克洛诺斯的大逆袭,
+machine_robo_chronos_no_dai_gyakushuu,天威勇士,机器勇士/克洛诺斯的大逆袭
 megachu!,Megachu!,めがちゅ！
 otome_no_teikoku,少女的帝国,乙女の帝国
 ourai_no_gahkthun,黄雷的Gahkthun,黄雷のガクトゥーン
@@ -6373,12 +6370,12 @@ myne_(honzuki_no_gekokujou),梅茵（小书痴的下克上）,
 salome_(one_piece),萨罗梅（海贼王）,
 marco_(one_piece),马尔科（海贼王）,
 kaidou_(one_piece),凯多（海贼王）,
-archer_(fate/samurai_remnant),弓兵（Fate/Samurai Remnant）,
+archer_(fate/samurai_remnant),Archer（Fate/Samurai Remnant）,周瑜/弓兵
 koala_(one_piece),克尔拉（海贼王）,
 bepo_(one_piece),贝波（海贼王）,
 kizaru_(one_piece),黄猿（海贼王）,
 koby_(one_piece),克比（海贼王）,
-king_(one_piece),金（海贼王）,
+king_(one_piece),烬（海贼王）,King/炎灾烬
 rebecca_(one_piece),蕾贝卡（海贼王）,
 aokiji_(one_piece),青雉（海贼王）,
 kalifa_(one_piece),卡莉法（海贼王）,
@@ -6402,7 +6399,7 @@ page_one_(one_piece),佩吉万（海贼王）,
 matsu_(sekirei),松（鹡鸰女神）,
 karoo_(one_piece),跑得快（海贼王）,
 jabra_(one_piece),贾布拉（海贼王）,
-enjin_(gachiakuta),恩金（废渊战鬼）,
+enjin_(gachiakuta),恩琴（废渊战鬼）,
 black_maria_(one_piece),黑色玛利亚（海贼王）,
 alvida_(one_piece),亚尔丽塔（海贼王）,
 denjirou_(one_piece),传次郎（海贼王）,
@@ -6411,7 +6408,7 @@ makino_(one_piece),玛琪诺（海贼王）,
 uzume_(sekirei),钿女（鹡鸰女神）,
 ruru_(shinsei_kamattechan),露露（神圣放逐乐队）,
 sugar_(one_piece),砂糖（海贼王）,
-paulie_(one_piece),帕里（海贼王）,
+paulie_(one_piece),包利（海贼王）,
 viola_(one_piece),维奥拉（海贼王）,
 thatch_(one_piece),萨奇（海贼王）,
 cavendish_(one_piece),卡文迪许（海贼王）,
@@ -6423,8 +6420,8 @@ marine_(one_piece),海军（海贼王）,
 camie_(one_piece),凯米（海贼王）,
 who's_who_(one_piece),福兹·弗（海贼王）,
 ginny_(one_piece),金妮（海贼王）,
-kaya_(one_piece),卡雅（海贼王）,
-toko_(one_piece),托可（海贼王）,
+kaya_(one_piece),可雅（海贼王）,
+toko_(one_piece),小南子（海贼王）,户子/阿户子
 hibari_(one_piece),云雀（海贼王）,
 kuro_(hitsugi_katsugi_no_kuro),小黑（背棺的库洛）,
 musashi_(tamacolle),武藏（魂Collection）,
@@ -6508,7 +6505,6 @@ mayu_(mizunashi_kenichi),茧（mizunashi kenichi）,
 osatou_(character),砂糖（角色）,
 mongolia_(nanimonothing),蒙古（nanimonothing）,
 vanilla_(eden_(shiroki_yuutsu)),香草（eden (shiroki yuutsu)）,
-madeline_(celeste),玛德琳（celeste）,
 madeline_(woofycakes),玛德琳（woofycakes）,
 mario_(series),马力欧系列,
 sonic_(series),索尼克系列,
@@ -6523,11 +6519,10 @@ shantae_(series),桑塔系列,
 deadpool_(series),死侍系列,
 batman_(series),蝙蝠侠系列,
 female_sensei_(blue_archive)_(senta_(ysk_0218)),老师（女）（蔚蓝档案）（senta (ysk 0218)）,
-female_sensei_(blue_archive)_(vivo_(vivo_sun_0222)),老师（女）（蔚蓝档案）（vivo (vivo sun 0222)）,
 female_sensei_(blue_archive)_(mikazukimo_478),老师（女）（蔚蓝档案）（mikazukimo 478）,
 female_sensei_(blue_archive)_(sakishimadara),老师（女）（蔚蓝档案）（sakishimadara）,
 godzilla_(series),哥斯拉系列,
-psylocke_(blood_kariudo),灵蝶（blood kariudo）,
+psylocke_(blood_kariudo),灵蝶（Blood Kariudo）,
 my_melody_(series),美乐蒂系列,
 gekota_(character),蛙太（角色）,
 helltaker_(character),地狱把妹王（角色）,
@@ -6565,7 +6560,6 @@ barbie_(character),芭比（角色）,
 red_scout_(tf2),侦察兵（红队）（军团要塞2）,
 sovereign_2_(sekaiju),君主2（世界树的迷宫）,
 gridman_(character),古立特（角色）,
-gridman_(ssss),古立特（ssss）,
 mega_man_star_force_(series),流星洛克人系列,
 cutie_honey_(character),甜心战士（角色）,
 shizuku_(kantoku),雫（kantoku）,
@@ -6597,7 +6591,6 @@ erika_(sebastian_z),艾莉卡（sebastian z）,
 erika_(kusa_mori),艾莉卡（kusa mori）,
 kamen_rider_fourze_(series),假面骑士Fourze（剧集）,
 kamen_rider_kiva_(series),假面骑士Kiva（剧集）,
-shirai_hinako_(reflector),白井日菜子（reflector）,
 kamen_rider_den-o_(series),假面骑士电王（剧集）,
 blonde_hair-chan_(ramchi),金发酱（ramchi）,
 kinpatsu-chan_(rucchiifu),金发酱（rucchiifu）,
@@ -6615,7 +6608,6 @@ anubis_(houtengeki),阿努比斯（houtengeki）,
 vivi_(vitaminechan),薇薇（vitaminechan）,
 kamen_rider_gaim_(series),假面骑士铠武（剧集）,
 ultraman_tiga_(series),迪迦奥特曼（剧集）,
-lilith_(yamibou),莉莉丝（yamibou）,
 lilith_(lilycious),莉莉丝（lilycious）,
 vampirella_(character),Vampirella（角色）,
 yumi_(nt00),由美（nt00）,
@@ -6625,7 +6617,6 @@ imouto-chan_(hamaken.),妹妹酱（hamaken.）,
 invincible_(character),无敌少侠（角色）,
 giant_otter_(kemono_friends)_(kuro_(kurojill)),巨水獭（兽娘动物园）（kuro (kurojill)）,
 nino_(sunaba_suzume),妮诺（sunaba suzume）,
-nino_(arakawa),妮诺（arakawa）,
 deemo_(character),Deemo（角色）,
 big_sister_(navigavi),大姐姐（navigavi）,
 onee-san_(pen_nee_(pensis)),大姐姐（pen nee (pensis)）,
@@ -6645,11 +6636,9 @@ kuchisake-onna_(ishiyumi),裂口女（ishiyumi）,
 devilman_(character),恶魔人（角色）,
 miku_(lee),未来（lee）,
 miku_(yuuki_(yuyuki000)),未来（yuuki (yuyuki000)）,
-vicky_(fairly_oddparents),薇琪（fairly oddparents）,
 anpanman_(character),面包超人（角色）,
 ivy_(sparrowl),艾薇（sparrowl）,
 ivy_(nyaivie),艾薇（nyaivie）,
-ivy_(saijaku_tamer),艾薇（saijaku tamer）,
 shiori_(kamioka_shun'ya),栞（kamioka shun'ya）,
 shiori_(jonsun),栞（jonsun）,
 shiori_(tateha),栞（tateha）,
@@ -6661,7 +6650,7 @@ the_flash_(series),闪电侠系列,
 kamen_rider_ex-aid_(series),假面骑士Ex-Aid（剧集）,
 nila_(telepurte),Nila（telepurte）,
 nila_(cyancapsule),Nila（cyancapsule）,
-medic_4_(sekaiju_4),医疗士4（世界树迷宫4）,
+medic_4_(sekaiju_4),医疗士4（世界树的迷宫4）,
 june_(squeezable),June（squeezable）,
 june_(hyyun_ho),June（hyyun ho）,
 cupa_(at2.),库帕（at2.）,
@@ -6797,7 +6786,6 @@ m3gan_(character),梅根（角色）,
 ghost_girl_(shikisokuzeku76),幽灵女孩（shikisokuzeku76）,
 ghost_girl_(niyeye2019),幽灵女孩（niyeye2019）,
 kuro_(far_tarooo),小黑（far tarooo）,
-kuro_(miku_plus),小黑（miku plus）,
 lacia_(beatless),蕾西亚（没有心跳的少女）,
 resia_(emonmong),蕾西亚（emonmong）,
 robocop_(character),机械战警（角色）,
@@ -6815,9 +6803,9 @@ riko_(shuz),莉可（shuz）,
 tiger_mask_(character),虎面人（角色）,
 ultraman_cosmos_(series),高斯奥特曼（剧集）,
 rayman_(series),雷曼系列,
-zero(z)_(mega_man),零（洛克人Zero）,
+zero(z)_(mega_man),杰洛（洛克人Zero）,零
 mogador_kai_(kancolle),莫加多尔改（舰队Collection）,
-sin_(nikke),辛（胜利女神：妮姬）,
+sin_(nikke),森（Sin）（胜利女神：妮姬）,森
 producer_(idolmaster_anime),制作人（偶像大师动画）,
 youngster_(pokemon_swsh),短裤小子（宝可梦 剑/盾）,
 punk_girl_(pokemon_sm),不良少女（宝可梦 太阳/月亮）,
@@ -6832,7 +6820,7 @@ idol_(yoasobi),偶像（YOASOBI）,
 kyuubi,九尾妖狐,
 remote_control_(vocaloid),遥控器（歌曲）,
 cyberpunk_(series),赛博朋克系列,
-stylet,Stylet（角色）,
+stylet,短剑（机甲少女）,Stylet
 golden_axe,战斧（游戏）,
 emergence_(shindol),变身（Shindol）,
 aquarium_(visual_novel),水族馆（视觉小说）,
@@ -6849,12 +6837,12 @@ chaozu,饺子（龙珠）,
 the_lego_group,乐高集团,
 lego_(medium),乐高积木（媒介）,
 kaiba,KAIBA（动画）,海马
-tsuyokiss,Tsuyokiss,强吻
+tsuyokiss,娇蛮之吻,Tsuyokiss/-强吻
 the_mandalorian,曼达洛人（剧集）,
 tao_fa,桃花（Tao Fa）,
 kemurikusa,烟草（动画）,
 imp,小鬼（魔物）,
-iceburg,Iceburg（角色）,
+iceburg,冰山（海贼王）,艾斯巴古/Iceburg
 octarian_(enemy),章鱼族（斯普拉遁敌人）,
 dune_(series),沙丘（系列）,
 lineage,天堂（游戏）,Lineage
@@ -6874,12 +6862,12 @@ canary,金丝雀（鸟）,
 mortenax_blade_(honkai:_star_rail),刃·Mortenax（崩坏：星穹铁道）,
 chloe_(pokemon),小春（宝可梦动画）,
 sana_channel,Sana Channel,
-biko_pegasus_(umamusume),Biko Pegasus（赛马娘）,ビコーペガサス
+biko_pegasus_(umamusume),微光飞驹（Biko Pegasus）（赛马娘）,微光飞驹
 lunar_princess_ranni,月之公主菈妮,
 fuwa_fuwa_cinnamoroll,大耳狗系列,
 lovely_labrynth_of_the_silver_castle,白银城的拉比丽斯,
 tsugu_(vtuber),Tsugu（VTuber企划）,
-princess_king_boo,王者害羞幽灵公主,
+princess_king_boo,害羞幽灵王公主,
 void_prowler_wraith,恶灵（虚空潜行者）（Apex英雄）,
 exusiai_the_new_covenant_(the_legend_seeker)_(arknights),新约能天使（巡礼者）（明日方舟）,
 every_catherine_(project_moon),所有凯瑟琳（Project Moon）,
@@ -6897,7 +6885,7 @@ kamen_rider_w,假面骑士W（剧集）,
 cure_milky,银河天使（光之美少女）,
 nachoneko,Nachoneko,なちょ猫/猫羽雫
 goblin_slayer!,哥布林杀手（作品）,
-australian_devil_(kemono_friends),袋獾（澳洲恶魔）（兽娘动物园）,
+australian_devil_(kemono_friends),澳洲恶魔（兽娘动物园）,澳大利亚恶魔
 xenomorph,异形（生物）,
 alien_(1979),异形（1979电影）,
 wiccan,维肯（漫威）,
@@ -6925,7 +6913,7 @@ human_torch,霹雳火（Human Torch）,
 dr._mario_(game),马力欧医生（游戏）,
 white_tiger_(kemono_friends),白老虎（兽娘动物园）,
 luluko,露露子（鲁路修性转）,
-super_sons,超级小子（漫画）,
+super_sons,超凡双子,
 a_deer_of_nine_colors,九色鹿（动画）,
 aoi_ch.,Aoi ch.,
 sankarea,散华礼弥（作品）,
@@ -6947,7 +6935,6 @@ k-project,K Project,
 war_machine,战争机器（漫威）,
 gears_of_war,战争机器（游戏）,
 girl_friends_(manga),Girl Friends（漫画）,
-kanojo_(ogino_atsuki),女友（荻野アツキ）,
 queen_(vocaloid),QUEEN（歌曲）,
 mono_(afro),mono（漫画）,
 dracula,德古拉（角色）,
@@ -6959,12 +6946,12 @@ garry's_mod_(medium),Garry's Mod（媒介）,
 krita_(medium),Krita（媒介）,
 echo_(vocaloid),Echo（歌曲）,
 nekomusume,猫娘（鬼太郎）,
-meowstress,Meowstress（角色）,
+meowstress,猫娘（怪物猎人）,Meowstress
 vampire_(vocaloid),Vampire（歌曲）,ヴァンパイア
 bleach,死神（BLEACH）,死神/BLEACH
 grim_reaper,死神（角色）,
 crimvael,克林姆贝尔,
-aquila_yuna,Aquila Yuna,
+aquila_yuna,天鹰座尤娜（圣斗士星矢Ω）,苍鹰座尤娜
 valis_(sinsekai),Valis（Sinsekai）,
 birdo,凯瑟琳（马力欧）,Birdo
 catherine_(game),凯瑟琳（游戏）,
@@ -6974,7 +6961,7 @@ pekomon_(usada_pekora),佩可萌（兔田佩克拉）,
 chattino_(raora_panthera),恰蒂诺（拉欧拉·潘特拉）,
 friend_(nanashi_mumei),Friend（七诗无名）,
 violet_evergarden,,-堇菜属/-罗兰紫
-florence_nightingale_(trick_or_treatment)_(fate),,-紫绿相间的胶衣比基尼
+florence_nightingale_(trick_or_treatment)_(fate),南丁格尔（不给糖就治疗）（Fate系列）,-紫绿相间的胶衣比基尼
 hung_(arknights),,-挂（方舟）
 specter_the_unchained_(arknights),,-幽灵不受束缚（明日方舟）
 jax_(the_amazing_digital_circus),,-武器大师
@@ -7041,7 +7028,7 @@ erika_(blue_archive),,-莉佳
 nagi_seishirou,,-薙
 bloop_(gawr_gura),Bloop（噶呜·古拉）,
 grem_(gigi_murin),格瑞姆（琪琪·穆林）,
-poyoyo_(nakiri_ayame),ぽよ余（百鬼绫目）,
+poyoyo_(nakiri_ayame),Poyoyo（百鬼绫目）,波呦余
 ebi-chan_(gawr_gura),虾（噶呜·古拉）,
 pikl_(elira_pendora),皮克尔（艾莉拉·潘多拉）,
 udin_(kureiji_ollie),乌丁（克蕾西·奥莉）,
@@ -7077,11 +7064,10 @@ famelira_(elira_pendora),法梅莉拉（艾莉拉·潘多拉）,
 ryuguard_(finana_ryugu),龙卫队（菲娜娜·龙宫）,
 backup_dancer_(hakos_baelz),伴舞（哈珂斯·贝尔丝）,
 sallie_(kureiji_ollie),莎莉（克蕾西·奥莉）,
-mofukoyo_(hakui_koyori),もふこよ（博衣小夜璃）,
 kotaro_(tokoyami_towa),小太郎（常暗永远）,
 kronie_(ouro_kronii),克洛妮（奥罗·克洛尼）,
 jingburger,Jingburger,징버거
-smol_mari_(blue_archive)_(horuhara),小玛丽（horuhara）,
+smol_mari_(blue_archive)_(horuhara),小玛丽（蔚蓝档案）（horuhara）,
 sakurai_touko,,-月城莫娜
 oberon_(first_ascension)_(fate),,-须乡伸之（奥伯龙）
 rika_(m_k),莉卡（m_k）,
@@ -7116,14 +7102,13 @@ taihou_(temptation_on_the_sea_breeze)_(azur_lane),,-太后（海风的诱惑）
 cardigan_(arknights),,-开衫（arknights）
 dokuro-kun_(houshou_marine),骷髅君（宝钟玛琳）,
 nori_(hidamari_sketch),,-海苔
-godsworn_alexiel,Godsworn Alexiel（碧蓝幻想）,-布洛蒂亚/-神盾·布洛迪亚
+godsworn_alexiel,神盾·布洛迪亚（碧蓝幻想）,神盾·布罗迪亚/神盾
 naoko_(lynus),直子（lynus）,
 upao_(amane_kanata),Upao（天音彼方）,うぱお
 velouria_(fire_emblem),,-维罗妮卡
 nightmare_(nanashi_mumei),梦魇（七诗无名）,
 phantom_(gavis_bettel),幻影（加维斯·贝特尔）,
 kusuriuri_(mononoke),卖药郎（怪化猫）,
-yakui_(nijiura_maids),Yakui（nijiura maids）,ヤクい
 gema,Gema（勇者斗恶龙5）,ゲマ
 rurudo_lion,Rurudo Lion,るるどらいおん
 anna_(ikeuchi_tanuma),安娜（ikeuchi tanuma）,
@@ -7134,7 +7119,7 @@ irene_(kanniiepan),艾丽妮（kanniiepan）,
 okonogi_yuuko,,-小此木京子
 uboa,Uboa（梦日记）,ウボァ
 yagokoro,Yagokoro,ヤゴコロ
-fudou_akio,,-不动明王
+fudou_akio,不动明王（闪电十一人）,
 mameneko_(leos_vincent),豆猫（雷奥斯·文森特）,
 hootsie_(nanashi_mumei),Hootsie（七诗无名）,
 con_(fate),Con（Fate系列）,コン
@@ -7180,7 +7165,7 @@ tsubasa_(kureha),翼（kureha）,
 usaslug_(tsukumo_sana),Usaslug（九十九佐命）,
 kushizaki_(vtuber),Kushizaki（虚拟主播）,クシザキ
 nanika_(azumi_inori),Nanika（azumi inori）,ナニカ
-shinomiya_rurina,篠宫瑠璃奈,篠宮ルリナ
+shinomiya_rurina,筱宫琉璃奈,篠宫瑠璃奈
 kurosaki_karin,,-黑崎真咲
 saya_(twrlare),沙耶（twrlare）,
 shiratama_(shiranami_ramune),白玉（白波拉姆涅）,
@@ -7192,7 +7177,7 @@ umitsuki_natsuzou,Umitsuki Natsuzou,うみつき なつぞう
 yokoyama_ishimi,Yokoyama Ishimi,横山いしみ
 itakano_shigure,井高野时雨,井高野シグレ
 kaya_(hazakura_hinata),猫珠Kaya（hazakura hinata）,猫珠かや
-tokonome_mamori,,-处女守
+tokonome_mamori,处女守,床目守
 kabuto_(pokemon),,-头盔/-甲胄
 monai-chan_(nii_manabu),Monai酱,もないちゃん
 nakahara_masaru,中原胜,なかはら まさる
@@ -7212,8 +7197,7 @@ yuzuki_choco_(hololive_summer_2019),愈月巧可（hololive 2019夏日）,
 boomei_(nanashi_mumei),布梅（七诗无名）,
 animal_(nanashi_mumei),动物（七诗无名）,
 yukkronii_(ouro_kronii),尤克罗妮（奥罗·克洛尼）,
-tokino_sora_(hololive_summer_2019),时乃空（2019夏日泳装）（hololive 2019夏日）,
-tokino_sora_(hololive_summer_2019),时乃空（hololive 2019夏日）,
+tokino_sora_(hololive_summer_2019),时乃空（hololive 2019夏日）,时乃空（2019夏日泳装）
 rame_tree_(heuksaek),Rame Tree（heuksaek）,라메_트리/라메 트리
 narita_(kyata_ti666),成田（Kyata Ti666）,
 luknight_(himemori_luna),露娜骑士（姬森璐娜）,
@@ -7242,8 +7226,6 @@ amagami_asahi,甘神朝姬,
 khezu,奇怪龙（怪物猎人）,
 korilakkuma,小白熊（轻松熊）,
 raising_heart,,不屈之心
-leonardo_da_vinci_(swimsuit_ruler)_(fate),莱昂纳多·达·芬奇（泳装Ruler）（Fate系列）,
-anastasia_(swimsuit_archer)_(third_ascension)_(fate),安娜斯塔西娅（泳装弓兵）（第三再临）（Fate系列）,
 momomeno_(7th_dragon),Momomeno（第七龙神）,
 homeo,Homeo,
 takamiya_keika,Takamiya Keika,
@@ -7280,13 +7262,9 @@ grimsley_(sygna_suit)_(pokemon),越橘（Sygna套装）（宝可梦）,
 red_(sygna_suit)_(thunderbolt)_(pokemon),赤红（Sygna套装）（雷电）（宝可梦）,
 hilda_(sygna_suit)_(pokemon),斗子（Sygna套装）（宝可梦）,
 hau_(sygna_suit)_(pokemon),哈乌（Sygna套装）（宝可梦）,
-leonardo_da_vinci_(swimsuit_ruler)_(fate),莱昂纳多·达·芬奇（泳装裁定者）（Fate系列）,
-melusine_(swimsuit_ruler)_(fate),美露莘（泳装裁定者）（Fate系列）,
-melusine_(swimsuit_ruler)_(first_ascension)_(fate),美露莘（泳装裁定者·第一再临）（Fate系列）,
-melusine_(swimsuit_ruler)_(second_ascension)_(fate),美露莘（泳装裁定者·第二再临）（Fate系列）,
 so-class_submarine,潜水So级,潜水索级
 haedungi_(shirayuki_hina),Haedungi（白雪希娜）,
-honshou_aru,本庄阿鲁,
+honshou_aru,本庄亚琉,本庄阿鲁
 yasuyori_(housamo),Yasuyori（东京放课后召唤师）,
 harumiya_yukuri,春宫悠可里,
 hinata_mashu,日向Mashu,
@@ -7297,18 +7275,13 @@ reiji_(gundam_bf),雷吉（高达创战者）,
 rurun_rururica,Rurun Rururica,
 meltryllis_(fate),,梅尔特莉莉丝
 tsumugi_kokage_(1st_costume),纺木小景（第一套服饰）,
-chloe_von_einzbern_(swimsuit_avenger)_(first_ascension),克洛伊·冯·爱因兹贝伦（泳装复仇者·第一再临）,
-chloe_von_einzbern_(swimsuit_avenger)_(second_ascension),克洛伊·冯·爱因兹贝伦（泳装复仇者·第二再临）,
-utsumi_erice_(swimsuit_avenger)_(first_ascension),宇津见艾莉瑟（泳装复仇者·第一再临）,
-utsumi_erice_(swimsuit_avenger)_(second_ascension),宇津见艾莉瑟（泳装复仇者·第二再临）,
-utsumi_erice_(swimsuit_avenger)_(third_ascension),宇津见艾莉瑟（泳装复仇者·第三再临）,
 caren_hortensia_(amor_caren)_(first_ascension),卡莲·奥尔黛西亚（Amor·第一再临）,
 caren_hortensia_(amor_caren)_(second_ascension),卡莲·奥尔黛西亚（Amor·第二再临）,
 caren_hortensia_(amor_caren)_(third_ascension),卡莲·奥尔黛西亚（Amor·第三再临）,
 edward_teach_(final_ascension)_(fate),黑胡子（最终再临）（Fate系列）,爱德华·蒂奇
 fushigi_na_neko_no_machi_meltier,不可思议的猫之镇梅尔缇亚,Meltier
 fubuchun,Fubuchun（白上吹雪）,
-ulalaka,Ulalaka,
+ulalaka,丽日（符文工房）,Ulalaka
 asuma_mitsuya_(yunamaro),Asuma Mitsuya（yunamaro）,
 siyudi_(cookie),Siyudi（Cookie☆）,
 howan_(show_by_rock!!),Howan（SHOW BY ROCK!!）,
@@ -7341,10 +7314,9 @@ mochi_hiyoko,Mochi Hiyoko,
 kyriel,Kyriel（超昂神骑）,
 salmon_(kancolle),,鲑鱼
 tsukioka_(40hara),月冈（40hara）,
-yamazoe_uki,山添Uki,
+yamazoe_uki,山添羽希,
 yomi_hellsmile,Yomi Hellsmile,
 mizuminase_yuko_(tsuruse),Mizuminase Yuko（Tsuruse）,
-runami_yachiyo_(ex-otogibanashi),Runami Yachiyo（Ex-Otogibanashi）,露娜美·八千代
 sakuraba_waka,Sakuraba Waka,
 souen_chiaki,宗圆千明,
 tuxedo_sam,山姆企鹅,Tuxedo Sam/燕尾服山姆
@@ -7356,7 +7328,7 @@ fuyunagi_tsubasa,冬凪翼,
 izumi_hikaru,泉Hikaru,
 kaede-chan_(higuchi_kaede),枫酱（樋口枫）,
 mochizuki_ayako,望月亚也子,
-yaguruma_rine,矢车Rine,
+yaguruma_rine,矢车理音,
 kurimi_(aokumo_rin),Kurimi（aokumo rin）,쿠리미
 marshal_(animal_crossing),,-连武
 utatane_nasa,转寝Nasa,転寝ナサ
@@ -7387,10 +7359,6 @@ runami_yachiyo_(chibi),月见八千代（Q版）,
 runami_yachiyo_(mini),月见八千代（迷你）,
 runami_yachiyo_(kassen),月见八千代（合战）,
 runami_yachiyo_(ray),月见八千代（Ray）,
-scathach-skadi_(swimsuit_ruler)_(first_ascension)_(fate),斯卡哈·斯卡蒂（泳装裁定者·第一再临）（Fate系列）,
-scathach-skadi_(swimsuit_ruler)_(second_ascension)_(fate),斯卡哈·斯卡蒂（泳装裁定者·第二再临）（Fate系列）,
-scathach-skadi_(swimsuit_ruler)_(third_ascension)_(fate),斯卡哈·斯卡蒂（泳装裁定者·第三再临）（Fate系列）,
-scathach-skadi_(swimsuit_ruler)_(final_ascension)_(fate),斯卡哈·斯卡蒂（泳装裁定者·最终再临）（Fate系列）,
 koromo_naruru,Koromo Naruru,
 lethe_rin,Lethe Rin,
 mokota_mememe,Mokota Mememe,
@@ -7399,7 +7367,6 @@ kawai_mako,河合真子,
 kazamatsuri_matsuri,风祭Matsuri,
 seol_young,Seol Young,설영
 shirou_(bear)_(fate),士郎（熊）（Fate系列）,
-yano_kuromu_(1st_costume),夜乃Kuromu（第一套服饰）,
 ogami_tsumiki,尾守Tsumiki,
 raki_kazuki,Raki Kazuki,
 royal_arsenal,皇家兵工厂（最后的起源）,
@@ -7410,7 +7377,7 @@ ooyodo_(swimsuit)_(kancolle),大淀（泳装）（舰队Collection）,
 tsukuyomi_shinshi_(kemono_friends),月读神使（兽娘动物园）,
 usapyon,Usapyon,
 yano_kuromu_(1st_costume),夜乃库洛姆（第一套服饰）,
-tunomon,角角兽,
+tunomon,独角兽（数码宝贝）,角兽
 shisui_michiru,紫翠Michiru,紫翠みちる
 mochizuki_himari,饼月Himari,餅月ひまり
 mix_tou,Mix Tou,ミックス・トー
@@ -7421,7 +7388,6 @@ heartsteel_ezreal,伊泽瑞尔（心之钢）,
 izumozaki_neneko,出云崎宁宁子,
 rakkun_sutaru,Rakkun,ラックン
 eye_(okame_nin),眼（okame nin）,
-female_byleth_(enlightened_one)_(fire_emblem),贝雷丝（开悟者）（火焰纹章）,
 jaana_kettu,Jaana Kettu,ヤーナケットゥ
 kadou_mikaru_(1st_costume),蜗堂米卡露（第一套服饰）,
 murakumo_kagetsu_(1st_costume),丛云花月（第一套服饰）,
@@ -7439,7 +7405,7 @@ akugaki_koa,Akugaki Koa,アクガキコア
 miyako_hinano,都雏乃,
 nanika_wiz_mayura,Nanika wiz Mayura,何かwizまゆら
 okazaki_iruka,冈崎Iruka,
-kagami_masara,加贺见Masara,
+kagami_masara,加贺见真良,加贺见Masara
 kriemhild_(swimsuit_rider)_(fate),克里姆希尔德（泳装Rider）（Fate系列）,
 shizuki_ruriko,Shizuki Ruriko,
 kurusu_makina_(divine_heart_makina),来栖真希奈（Divine Heart Makina）,来须麻希奈
@@ -7484,7 +7450,6 @@ nanako_(tsukihime),七子（月姬）,ななこ
 arch_clover,Arch Clover,アーククローバー
 kusuriuri_(gekijouban_mononoke),卖药郎（剧场版 怪化猫）,
 arjuna_(rokkotsu),阿周那（rokkotsu）,
-medoi_(nijiura_maids),Medoi-san（nijiura maids）,めどいさん
 onii-chan_(eleazarmikai),哥哥（eleazarmikai）,
 sakuma_eiko,佐久间瑛子,
 deerling_(summer),四季鹿（夏季形态）,
@@ -7506,7 +7471,7 @@ mokdai_(live_a_hero),Mokdai（Live A Hero）,モクダイ
 musashiseki_momoka,Musashiseki Momoka,
 quarantine_722_wraith,恶灵（隔离722）（Apex英雄）,
 red_demoman_(tf2),爆破手（红队）（军团要塞2）,
-ruriha_rura,瑠璃叶Rura,瑠璃葉るら
+ruriha_rura,琉璃叶Rura,瑠璃葉るら
 shigemori_erin,Shigemori Erin,
 shimobe_rei,下边零,
 yokomiya_satsuki,Yokomiya Satsuki,
@@ -7537,7 +7502,7 @@ kuon_(meguru_1225),Kuon（meguru 1225）,くおん
 megatron_(transformers_one),威震天（变形金刚：起源）,
 shinsou_yutaka,真层友孝,
 watakumo_(murakumo_kagetsu),绵云（丛云花月）,
-yamoto_koki,Yamoto Koki,ヤモト・コキ
+yamoto_koki,矢本·小季（忍者杀手）,Yamoto Koki
 yariharu_uri_(bubukka),Yariharu Uri（bubukka）,やりはるうり
 blu_spy_(tf2),间谍（蓝队）（军团要塞2）,
 zoma,佐玛（勇者斗恶龙3）,索玛
@@ -7594,7 +7559,6 @@ hisaka_(cookie),Hisaka（Cookie☆）,ひさか
 kaga_nazuna_(2nd_costume),花芽荠（第二套服饰）,
 kanade_rindo,奏龙胆,
 kanagata_sugumi,金潟Sugumi,金潟すぐみ/-金潟直美
-lemonade_beta,Lemonade Beta,레모네이드 베타
 martha_(throtem),玛尔达（throtem）,
 sypha_belnades,塞珐·贝尔纳德斯,塞珐·费尔南德斯
 utai_meika,歌衣Meika,歌衣メイカ
@@ -7626,8 +7590,8 @@ lorem_(mazohaha),罗蕾姆（mazohaha）,
 teresa_(mazohaha),特蕾莎（mazohaha）,
 haiqing_(astral_party),海晴（吉星派对）,
 hanabata_nohkins,Hanabata Nohkins,ハナバタ・ノーキンス
-kimberly_jackson_(outfit_2),金伯利（第二套服饰）（街头霸王）,
-kimberly_jackson_(outfit_4),金伯利（第四套服饰）（街头霸王）,
+kimberly_jackson_(outfit_2),金佰莉（第二套服饰）（街头霸王）,
+kimberly_jackson_(outfit_4),金佰莉（第四套服饰）（街头霸王）,
 kurioshi_fio_(satou_(3366_s)),栗怜Fio,栗憐フィオ
 n_(anniversary_2021)_(pokemon),N（2021周年）（宝可梦）,
 nana_(eleazarmikai),Nana（eleazarmikai）,
@@ -7676,7 +7640,7 @@ snoutlet_(mario),Snoutlet（马力欧）,タップー
 tatsuki_midoriya,Tatsuki Midoriya,
 uratanuki,Uratanuki,うらたぬき
 uzuki_tooru,Uzuki Tooru,
-yuuta_kanami,由诧Kanami,由詑かなみ
+yuuta_kanami,由詑Kanami,由詑かなみ
 zemi_mama,Zemi Mama,ゼミママ
 ada_(iyowa),Ada（iyowa）,
 amatsuka_urara,Amatsuka Urara,
@@ -7722,7 +7686,6 @@ faust_(nonsensemanna),浮士德（nonsensemanna）,
 hinata_mashu_(1st_costume),日向Mashu（第一套服饰）,
 itsuki_(sengoku_basara),Itsuki（战国BASARA）,いつき
 izmir_(summer)_(granblue_fantasy),伊修米尔（夏日）（碧蓝幻想）,
-kriemhild_(swimsuit_rider)_(first_ascension)_(fate),克里姆希尔德（泳装Rider）（一破）（Fate系列）,
 kurenagi_eri,红记Eri,紅記えり
 kurumi_akiha,Kurumi Akiha,
 male_corrin_(adrift)_(fire_emblem),神威（男）（漂泊）（火焰纹章）,
@@ -7731,7 +7694,7 @@ ponta_itachi,Ponta Itachi,ポンタイタチ
 arisa_(yuki_touko),艾莉莎（yuki touko）,
 seira_(yuki_touko),赛拉（yuki touko）,
 tsunashi_youta,十阳太,
-uri-tan,Uri-tan,ウリたん
+uri-tan,瓜炭（干支魂）,Uri-tan
 usada_pekora_(12th_costume),兔田佩克拉（第十二套服饰）,
 yui_(takepoison),由依（takepoison）,
 lynel,人马（塞尔达传说）,莱尼尔
@@ -7746,7 +7709,7 @@ hatakeyama_tsukushi,Hatakeyama Tsukushi,
 kyou_(ittla),Kyou（ittla）,
 misaki_(jonsun),海咲（jonsun）,
 nanami_(mignon),七海（mignon）,
-pieyon,Pieyon,ぴえヨン
+pieyon,皮耶勇（我推的孩子）,皮耶勇酷鸡/Pieyon
 shiriri_(cookie),Shiriri（Cookie☆）,しりり
 usami_(sanemichi_hajime),Usami（sanemichi hajime）,うさみ
 white_burinyan,White Burinyan,ホワイトブリニャン
@@ -7756,7 +7719,7 @@ cogimyun,Cogimyun（小麦粉精灵）,こぎみゅん
 gogogo_(cookie),Gogogo（Cookie☆）,ゴゴゴ
 isotake_akuta,五十竹Akuta,五十竹あく太
 katelynn_(afrobull),凯特琳（afrobull）,
-love_deluxe,Love Deluxe（替身）,
+love_deluxe,紫色恋人（替身）,Love Deluxe
 ruua_(idaten93),Ruua（idaten93）,ルーア
 saiger_rose,Saiger Rose,サイガーローズ
 shiragasumi_yukina,Shiragasumi Yukina,
@@ -7839,12 +7802,12 @@ inaba_haneru_(1st_costume),因幡Haneru（第一套服饰）,因幡はねる
 kat_(mazume),凯特（mazume）,
 korone_(metata),柯罗内（metata）,
 kyara_akaro,Kyara Akaro,
-matsuri_(rune_factory),Matsuri（符文工厂）,マツリ
+matsuri_(rune_factory),祭（符文工厂）,Matsuri
 miyazono_miyu,宫园Miyu,宮園ミユ
 edel_(ikeuchi_tanuma),艾黛尔（ikeuchi tanuma）,
 rije_(ikeuchi_tanuma),莉洁（ikeuchi tanuma）,
-shamir_nevrand_(summer),萨米尔（夏日）（火焰纹章）,
-tycho_science,Tycho Science,チコ・サイエンス
+shamir_nevrand_(summer),萨米亚（夏日）（火焰纹章）,
+tycho_science,琪可·赛恩斯,Tycho Science
 ui_(trickcal),Ui（嘟嘟脸恶作剧）,우이
 vriska_serket,Vriska Serket,ヴリスカ・サーケット
 yatagawa_nazuki,Yatagawa Nazuki,
@@ -7857,20 +7820,20 @@ mama_(marui_shiro),妈妈（marui shiro）,
 mano_(narumi_arata),玛诺（narumi arata）,
 recri_(narumi_arata),雷库莉（narumi arata）,
 miyoshino_shiki,美吉野Shiki,美吉野しき
-natsu_(nekota_tsuna),小夏（猫汰月奈）,
+natsu_(nekota_tsuna),小夏（猫汰Tsuna）,
 nijee,Nijee,ニジー
 shiraishi_chika,白石千花,白石チカ
-shishidou_imoko,Shishidou Imoko,
+shishidou_imoko,狮子堂妹子,
 sirian_rain,Sirian Rain,시리안레인
 tamanoi_nana_(1st_costume),珠乃井娜娜（第一套服饰）,
-togashi_(hyakuemu),富樫（百米。）,
+togashi_(hyakuemu),富坚（百米。）,富樫
 a_(naraka),阿（Naraka）,
 akiyama_toru_(pepper0),Akiyama Toru（pepper0）,
 ce-tan,CE娘,
 hasuki_rui,莲希Rui,蓮希るい
 ichijo_daisuke,Ichijo Daisuke,
 maiden_(kasugai_(de-tteiu)),少女（kasugai (de-tteiu)）,
-michinari_tatsumi,Michinari Tatsumi,
+michinari_tatsumi,道成达巳,
 theo_(tenma_maemi),提奥（天满玛艾米）,
 uzume_(gino),钿女（gino）,
 akira_(otokuyou),晶（otokuyou）,
@@ -7885,9 +7848,9 @@ m_(kamo_kamen),M（kamo kamen）,
 mikodanye,Mikodanye,みこだにぇー
 sakuraba_himari_(magister),樱庭Himari（magister）,ひまりちゃん
 sizz_flair,Sizz Flair,シズ・フレアー
-tao_(gokurakugai),Tao（极乐街）,タオ
+tao_(gokurakugai),陶（极乐街）,Tao
 tiana_(throtem),蒂亚娜（throtem）,
-unasaka_miri,海坂Miri,海坂ミリ
+unasaka_miri,海坂米莉,海坂Miri
 usuwa_suu,稀羽Suu,稀羽すう
 yagyu_shino,夜牛诗乃,
 zeru_(zerocat),Zeru（zerocat）,ゼル
@@ -7933,7 +7896,7 @@ minamoto_no_raikou_(first_ascension)_(fate),源赖光（第一再临）（Fate�
 tomoe_gozen_(swimsuit_saber)_(first_ascension)_(fate),巴御前（泳装Saber·第一再临）（Fate系列）,
 koyanskaya_(assassin)_(first_ascension)_(fate),高扬斯卡娅（Assassin·第一再临）（Fate系列）,
 abigail_williams_(second_ascension)_(fate),阿比盖尔·威廉姆斯（第二再临）（Fate系列）,
-melusine_(swimsuit_ruler)_(fate),美露莘（泳装Ruler）（Fate系列）,
+melusine_(swimsuit_ruler)_(fate),美露莘（泳装Ruler）（Fate系列）,美露莘（泳装裁定者）
 mordred_(swimsuit_rider)_(first_ascension)_(fate),莫德雷德（泳装Rider·第一再临）（Fate系列）,
 tamamo_no_mae_(swimsuit_lancer)_(second_ascension)_(fate),玉藻前（泳装Lancer·第二再临）（Fate系列）,
 baobhan_sith_(swimsuit_pretender)_(first_ascension)_(fate),芭万·希（泳装Pretender·第一再临）（Fate系列）,
@@ -7951,7 +7914,7 @@ baobhan_sith_(swimsuit_pretender)_(third_ascension)_(fate),芭万·希（泳装P
 kama_(assassin)_(third_ascension)_(fate),迦摩（Assassin·第三再临）（Fate系列）,
 marie_antoinette_(rider)_(fate),玛丽·安托瓦内特（Rider）（Fate系列）,
 bb_(swimsuit_mooncancer)_(first_ascension)_(fate),BB（泳装MoonCancer·第一再临）（Fate系列）,
-melusine_(swimsuit_ruler)_(first_ascension)_(fate),美露莘（泳装Ruler·第一再临）（Fate系列）,
+melusine_(swimsuit_ruler)_(first_ascension)_(fate),美露莘（泳装Ruler·第一再临）（Fate系列）,美露莘（泳装裁定者·第一再临）
 tenochtitlan_(second_ascension)_(fate),特诺奇蒂特兰（第二再临）（Fate系列）,
 kama_(swimsuit_avenger)_(third_ascension)_(fate),迦摩（泳装Avenger·第三再临）（Fate系列）,
 sessyoin_kiara_(swimsuit_mooncancer)_(second_ascension),杀生院祈荒（泳装MoonCancer·第二再临）,
@@ -8008,11 +7971,11 @@ kukulkan_(second_ascension)_(fate),库库尔坎（第二再临）（Fate系列�
 miyamoto_musashi_(swimsuit_berserker)_(third_ascension)_(fate),宫本武藏（泳装Berserker·第三再临）（Fate系列）,
 ushi_gozen_(avenger)_(fate),丑御前（Avenger）（Fate系列）,
 caenis_(swimsuit_rider)_(first_ascension)_(fate),凯妮斯（泳装Rider·第一再临）（Fate系列）,
-melusine_(swimsuit_ruler)_(second_ascension)_(fate),美露莘（泳装Ruler·第二再临）（Fate系列）,
+melusine_(swimsuit_ruler)_(second_ascension)_(fate),美露莘（泳装Ruler·第二再临）（Fate系列）,美露莘（泳装裁定者·第二再临）
 koyanskaya_(foreigner)_(third_ascension)_(fate),高扬斯卡娅（Foreigner·第三再临）（Fate系列）,
 barghest_(swimsuit_archer)_(final_ascension)_(fate),巴格斯特（泳装Archer·最终再临）（Fate系列）,
-leonardo_da_vinci_(swimsuit_ruler)_(fate),莱昂纳多·达·芬奇（泳装Ruler）（Fate系列）,
-anastasia_(swimsuit_archer)_(third_ascension)_(fate),阿纳斯塔西娅（泳装Archer·第三再临）（Fate系列）,
+leonardo_da_vinci_(swimsuit_ruler)_(fate),莱昂纳多·达·芬奇（泳装Ruler）（Fate系列）,莱昂纳多·达·芬奇（泳装裁定者）
+anastasia_(swimsuit_archer)_(third_ascension)_(fate),阿纳斯塔西娅（泳装Archer·第三再临）（Fate系列）,安娜斯塔西娅（泳装Archer·第三再临）/安娜斯塔西娅（泳装弓兵·第三再临）
 mysterious_heroine_x_alter_(third_ascension)_(fate),谜之女主角X〔Alter〕（第三再临）（Fate系列）,
 kriemhild_(first_ascension)_(fate),克里姆希尔德（第一再临）（Fate系列）,
 artoria_pendragon_(lancer)_(fate)_(cosplay),阿尔托莉雅·潘德拉贡（Lancer）（Fate系列）（角色扮演）,
@@ -8026,7 +7989,7 @@ kukulkan_(first_ascension)_(fate),库库尔坎（第一再临）（Fate系列）
 artoria_pendragon_(swimsuit_ruler)_(second_ascension)_(fate),阿尔托莉雅·潘德拉贡（泳装Ruler·第二再临）（Fate系列）,
 mary_read_(rider)_(fate),玛莉·瑞德（Rider）（Fate系列）,
 meltryllis_(swimsuit_lancer)_(third_ascension)_(fate),溶解莉莉丝（泳装Lancer·第三再临）（Fate系列）,
-chloe_von_einzbern_(swimsuit_avenger)_(second_ascension),克洛伊·冯·爱因兹贝伦（泳装Avenger·第二再临）,
+chloe_von_einzbern_(swimsuit_avenger)_(second_ascension),克洛伊·冯·爱因兹贝伦（泳装Avenger·第二再临）,克洛伊·冯·爱因兹贝伦（泳装复仇者·第二再临）
 osakabehime_(swimsuit_archer)_(second_ascension)_(fate),刑部姬（泳装Archer·第二再临）（Fate系列）,
 marie_antoinette_(swimsuit_caster)_(second_ascension)_(fate),玛丽·安托瓦内特（泳装Caster·第二再临）（Fate系列）,
 artoria_pendragon_(swimsuit_ruler)_(fate)_(cosplay),阿尔托莉雅·潘德拉贡（泳装Ruler）（Fate系列）（角色扮演）,
@@ -8042,14 +8005,14 @@ anne_bonny_(rider)_(fate),安妮·伯妮（Rider）（Fate系列）,
 ibaraki_douji_(swimsuit_lancer)_(third_ascension)_(fate),茨木童子（泳装Lancer·第三再临）（Fate系列）,
 anastasia_(swimsuit_archer)_(second_ascension)_(fate),阿纳斯塔西娅（泳装Archer·第二再临）（Fate系列）,
 mordred_(swimsuit_rider)_(second_ascension)_(fate),莫德雷德（泳装Rider·第二再临）（Fate系列）,
-scathach-skadi_(swimsuit_ruler)_(first_ascension)_(fate),斯卡哈·斯卡蒂（泳装Ruler·第一再临）（Fate系列）,
+scathach-skadi_(swimsuit_ruler)_(first_ascension)_(fate),斯卡哈·斯卡蒂（泳装Ruler·第一再临）（Fate系列）,斯卡哈·斯卡蒂（泳装裁定者·第一再临）
 minamoto_no_raikou_(swimsuit_lancer)_(first_ascension)_(fate),源赖光（泳装Lancer·第一再临）（Fate系列）,
 helena_blavatsky_(swimsuit_archer)_(first_ascension)_(fate),海伦娜·布拉瓦茨基（泳装Archer·第一再临）（Fate系列）,
 frankenstein's_monster_(swimsuit_saber)_(third_ascension)_(fate),弗兰肯斯坦（泳装Saber·第三再临）（Fate系列）,
 brynhild_(swimsuit_berserker)_(first_ascension)_(fate),布伦希尔德（泳装Berserker·第一再临）（Fate系列）,
 medusa_(saber)_(first_ascension)_(fate),美杜莎（Saber·第一再临）（Fate系列）,
 jeanne_d'arc_alter_(lancer)_(fate),贞德〔Alter〕（Lancer）（Fate系列）,
-utsumi_erice_(swimsuit_avenger)_(first_ascension),宇津见艾莉瑟（泳装Avenger·第一再临）,
+utsumi_erice_(swimsuit_avenger)_(first_ascension),宇津见艾莉瑟（泳装Avenger·第一再临）,宇津见艾莉瑟（泳装复仇者·第一再临）
 marie_antoinette_(swimsuit_caster)_(first_ascension)_(fate),玛丽·安托瓦内特（泳装Caster·第一再临）（Fate系列）,
 xu_fu_(swimsuit_avenger)_(second_ascension)_(fate),徐福（泳装Avenger·第二再临）（Fate系列）,
 wu_zetian_(swimsuit_caster)_(first_ascension)_(fate),武则天（泳装Caster·第一再临）（Fate系列）,
@@ -8057,15 +8020,15 @@ ibuki_douji_(swimsuit_berserker)_(second_ascension)_(fate),伊吹童子（泳装
 minamoto_no_raikou_(third_ascension)_(fate),源赖光（第三再临）（Fate系列）,
 tomoe_gozen_(swimsuit_saber)_(third_ascension)_(fate),巴御前（泳装Saber·第三再临）（Fate系列）,
 anastasia_(swimsuit_archer)_(first_ascension)_(fate),阿纳斯塔西娅（泳装Archer·第一再临）（Fate系列）,
-chloe_von_einzbern_(swimsuit_avenger)_(first_ascension),克洛伊·冯·爱因兹贝伦（泳装Avenger·第一再临）,
-scathach-skadi_(swimsuit_ruler)_(second_ascension)_(fate),斯卡哈·斯卡蒂（泳装Ruler·第二再临）（Fate系列）,
-scathach-skadi_(swimsuit_ruler)_(final_ascension)_(fate),斯卡哈·斯卡蒂（泳装Ruler·最终再临）（Fate系列）,
+chloe_von_einzbern_(swimsuit_avenger)_(first_ascension),克洛伊·冯·爱因兹贝伦（泳装Avenger·第一再临）,克洛伊·冯·爱因兹贝伦（泳装复仇者·第一再临）
+scathach-skadi_(swimsuit_ruler)_(second_ascension)_(fate),斯卡哈·斯卡蒂（泳装Ruler·第二再临）（Fate系列）,斯卡哈·斯卡蒂（泳装裁定者·第二再临）
+scathach-skadi_(swimsuit_ruler)_(final_ascension)_(fate),斯卡哈·斯卡蒂（泳装Ruler·最终再临）（Fate系列）,斯卡哈·斯卡蒂（泳装裁定者·最终再临）
 ushi_gozen_(rider)_(fate),丑御前（Rider）（Fate系列）,
 cnoc_na_riabh_(swimsuit_foreigner)_(fate),诺克娜蕾（泳装Foreigner）（Fate系列）,
 wu_zetian_(swimsuit_caster)_(third_ascension)_(fate),武则天（泳装Caster·第三再临）（Fate系列）,
 kiyohime_(swimsuit_lancer)_(second_ascension)_(fate),清姬（泳装Lancer·第二再临）（Fate系列）,
 diarmuid_ua_duibhne_(saber)_(fate),迪尔姆德·奥迪那（Saber）（Fate系列）,
-utsumi_erice_(swimsuit_avenger)_(second_ascension),宇津见艾莉瑟（泳装Avenger·第二再临）,
+utsumi_erice_(swimsuit_avenger)_(second_ascension),宇津见艾莉瑟（泳装Avenger·第二再临）,宇津见艾莉瑟（泳装复仇者·第二再临）
 ibaraki_douji_(swimsuit_lancer)_(second_ascension)_(fate),茨木童子（泳装Lancer·第二再临）（Fate系列）,
 bb_(swimsuit_mooncancer)_(second_ascension)_(fate)_(cosplay),BB（泳装MoonCancer·第二再临）（Fate系列）（角色扮演）,
 illyasviel_von_einzbern_(swimsuit_archer)_(third_ascension),伊莉雅丝菲尔·冯·爱因兹贝伦（泳装Archer·第三再临）,
@@ -8073,14 +8036,14 @@ mary_read_(swimsuit_archer)_(first_ascension)_(fate),玛莉·瑞德（泳装Arch
 meltryllis_(swimsuit_lancer)_(fate)_(cosplay),溶解莉莉丝（泳装Lancer）（Fate系列）（角色扮演）,
 kriemhild_(swimsuit_rider)_(first_ascension)_(fate),克里姆希尔德（泳装Rider·第一再临）（Fate系列）,
 cu_chulainn_(lancer)_(fate)_(cosplay),库·丘林（Lancer）（Fate系列）（角色扮演）,
-utsumi_erice_(swimsuit_avenger)_(third_ascension),宇津见艾莉瑟（泳装Avenger·第三再临）,
+utsumi_erice_(swimsuit_avenger)_(third_ascension),宇津见艾莉瑟（泳装Avenger·第三再临）,宇津见艾莉瑟（泳装复仇者·第三再临）
 nero_claudius_(swimsuit_caster)_(fate)_(cosplay),尼禄·克劳狄乌斯（泳装Caster）（Fate系列）（角色扮演）,
 koyanskaya_(foreigner)_(second_ascension)_(fate),高扬斯卡娅（Foreigner·第二再临）（Fate系列）,
 carmilla_(swimsuit_rider)_(first_ascension)_(fate),卡米拉（泳装Rider·第一再临）（Fate系列）,
 thrud_(swimsuit_assassin)_(fate),斯露德（泳装Assassin）（Fate系列）,
 murasaki_shikibu_(third_ascension)_(fate),紫式部（第三再临）（Fate系列）,
 illyasviel_von_einzbern_(swimsuit_archer)_(first_ascension),伊莉雅丝菲尔·冯·爱因兹贝伦（泳装Archer·第一再临）,
-scathach-skadi_(swimsuit_ruler)_(third_ascension)_(fate),斯卡哈·斯卡蒂（泳装Ruler·第三再临）（Fate系列）,
+scathach-skadi_(swimsuit_ruler)_(third_ascension)_(fate),斯卡哈·斯卡蒂（泳装Ruler·第三再临）（Fate系列）,斯卡哈·斯卡蒂（泳装裁定者·第三再临）
 miyamoto_musashi_(swimsuit_berserker)_(fate)_(cosplay),宫本武藏（泳装Berserker）（Fate系列）（角色扮演）,
 osakabehime_(swimsuit_archer)_(first_ascension)_(fate),刑部姬（泳装Archer·第一再临）（Fate系列）,
 miyu_edelfelt_(swimsuit_lancer)_(third_ascension),美游·艾德费尔特（泳装Lancer·第三再临）,
@@ -8096,7 +8059,7 @@ suzuka_gozen_(swimsuit_rider)_(first_ascension)_(fate),铃鹿御前（泳装Ride
 diarmuid_ua_duibhne_(lancer)_(third_ascension)_(fate),迪尔姆德·奥迪那（Lancer·第三再临）（Fate系列）,
 eurica_(ub1mo),尤莉卡（ub1mo）,
 fuyuno_tsubaki_(yukimaru217),冬野椿（yukimaru217）,
-hakuryuu_(slice_dice_and_serve)_(azur_lane),白龙（快刀乱肴）（碧蓝航线）,快刀女仆
+hakuryuu_(slice_dice_and_serve)_(azur_lane),白龙（快刀女仆？）（碧蓝航线）,快刀女仆
 hamaguchi_(syukurin),滨口（syukurin）,
 hayami_megumi_(urabanasimati),早见惠（urabanasimati）,
 honey_(raspberry_puff),哈妮（raspberry puff）,
@@ -8127,7 +8090,7 @@ brown_girl_(yamanokami_eaka),褐色娘（yamanokami eaka）,
 eris_(atelier951),艾莉丝（atelier951）,
 fenrir_(ghost_(tama)),芬妮尔（ghost (tama)）,
 fuji_izumi,Fuji Izumi,ふじ いずみ
-hyuuza_(dq10),Hyuuza（勇者斗恶龙10）,ヒューザ
+hyuuza_(dq10),修扎（勇者斗恶龙10）,Hyuuza
 jim_(mondi_hl),吉姆（mondi hl）,
 katagiri_non,片桐Non,片桐のん
 kayata_yumeka,Kayata Yumeka,かやた ゆめか
@@ -8138,11 +8101,9 @@ mihoshi_(gundam_bf),美星（高达创战者）,
 mike_kirby,麦克风卡比,
 mizuki_(summer_memories),Mizuki（Summer Memories）,ミズキ
 mochizuki_nonoka,望月Nonoka,望月ののか
-mukai_(ojimashu),向井（ojimashu）,
-machida_(ojimashu),町田（ojimashu）,
 natsukawa_kuroba_(jack_dempa),夏川黑羽（jack dempa）,
 nijou_touka,Nijou Touka,にじょう とうか
-nukui_hayu,贯井Hayu,贯井はゆ
+nukui_hayu,贯井羽优,贯井Hayu
 ostia_(bigrbear),奥斯蒂亚（bigrbear）,
 sayo_(kiki_kaikai),小夜（奇奇怪界）,
 shee_icho,银杏Shii,銀杏しい
@@ -8158,11 +8119,11 @@ dan_(mondi_hl),丹（mondi hl）,
 haruka-chan_(pan_(mimi)),遥酱（pan (mimi)）,
 hijiki_(deriku4),羊栖菜（deriku4）,
 kawai_honoka,Kawai Honoka,かわい ほのか
-kawai_mona,川井Mona,川井モナ
+kawai_mona,川井莫娜,川井Mona
 kawaihara_yae,Kawaihara Yae,かわいはら やえ
 kohanai_momomi,小花衣Momomi,小花衣ももみ
 koyomi_(kamen_rider_wizard),小历（假面骑士Wizard）,
-kurihara_mari,Kurihara Mari,くりはら まり
+kurihara_mari,栗原真理（超级真实麻将）,Kurihara Mari
 kyuketsuki-chan_(mitsuba_choco),吸血鬼酱（mitsuba choco）,
 mami_(jonsun),玛美（jonsun）,
 mion_(htol#niq),米恩（萤火虫日记）,
@@ -8171,10 +8132,10 @@ nelu_(rob_ishi),内露（rob ishi）,
 ojou_(nameo),大小姐（nameo）,
 pest_(jejejunum),佩斯特（jejejunum）,
 ruru_(phantom_world),露露（无彩限的幻影世界）,
-sakaki_takaya,榊Takaya,
+sakaki_takaya,榊贵隆也,
 shiraishi_(nemuri_nemu),白石（nemuri nemu）,
 stella_(flou),斯特拉（flou）,
-tanuki_mario,狸猫马力欧,
+tanuki_mario,狸猫马力欧,狸猫马里奥
 tendo_hayate,天堂Hayate,天堂はやて
 tin_(mixflavor),汀（mixflavor）,
 xuan_(mixflavor),Xuan（mixflavor）,
@@ -8183,7 +8144,6 @@ unozawa_shiori,宇野泽栞,
 vampire's_sister_(gogalking),吸血鬼的妹妹（gogalking）,
 vice_(kamen_rider_revice),维斯（假面骑士利维斯）,
 wreck-it_ralph_(character),拉尔夫（无敌破坏王）,
-ahisha_(di_le_to),阿依莎（di le to）,
 amatsuka_fubuki,Amatsuka Fubuki,あまつか ふぶき
 anfang_(chihuri),安芳（chihuri）,
 haneame,Haneame,
@@ -8194,7 +8154,7 @@ kazamatsuri_kazari,风祭Kazari,风祭かざり
 kurara-chan_(suzutsuki_kurara),Kurara酱（suzutsuki kurara）,
 lenja,Lenja,レイニャ
 murasamemon,村雨兽,ムラサメモン
-zephagamon,Zephagamon,ゼファーガモン
+zephagamon,泽法加兽,Zephagamon
 patissier_(gindoro),帕蒂西耶（gindoro）,
 peone_(panapana),佩奥内（panapana）,
 player_2_(cloba),玩家2号（cloba）,
@@ -8207,7 +8167,7 @@ take_mamoru,Take Mamoru,たけ まもる
 toki_(norahasu),鸨（norahasu）,
 uno_sakura,兔野Sakura,兎野さくら
 yuneri_(azuki_akizuki),尤内莉（azuki akizuki）,
-zirc_(pokemon),Zirc（宝可梦）,ジル
+zirc_(pokemon),吉尔（宝可梦）,
 brown_twintails_girl_(mdf_an),棕发双马尾少女（mdf an）,
 birb_(niniidawns),小鸟（niniidawns）,
 chaucer_(some1else45),乔叟（some1else45）,
@@ -8232,28 +8192,28 @@ mint_fantome_(summer),Mint Fantome（夏日）,ミント・ファントーム
 murakami_tokiwa,村上常盘,
 pink-haired_nun_(404notfound),粉发修女（404notfound）,
 shepherd_ju_peter,谢帕德·十·彼得圣（海贼王）,
-stella_(peach),Stella（碧姬公主 表演时刻！）,
+stella_(peach),思忒拉（碧姬公主 表演时刻！）,-星
 suzuha_(nozomi_tsubame),铃叶（nozomi tsubame）,
 tamon_kotarou,多闻康太郎,
 yuri_(dy0urre1n),优里（dy0urre1n）,
 yuri_(throtem),尤里（throtem）,
 aki-chan_(dismaiden),阿基酱（dismaiden）,
 alfred_(kounoike_tsuyoshi),阿尔弗雷德（kounoike tsuyoshi）,
-amano_erika,天野Erika,天野エリカ
-amanogawa_ryuusei,天野河Ryuusei,天野河リュウセイ
+amano_erika,天野绘里香,
+amanogawa_ryuusei,天野河流星,
 chiitan,Chiitan,ちぃたん
 cody_(dross),科迪（dross）,
 dai_(far_tarooo),戴（far tarooo）,
 froze_(funamusea),Froze（海底囚人）,フローズ
 hanku_(kanazawa_shinnosuke),汉克（kanazawa shinnosuke）,
 irena_(guweiz),伊蕾娜（guweiz）,
-jitome-chan_(tawawa),Jitome酱（星期一的丰满）,ジト目酱
+jitome-chan_(tawawa),死鱼眼酱（星期一的丰满）,半月眼酱/鄙视眼酱
 kayama_tamami,Kayama Tamami,かやま たまみ
-koinoya_mai,恋乃夜Mai,恋乃夜まい
+koinoya_mai,恋乃夜舞,
 melc_(ogami_kazuki),梅尔克（ogami kazuki）,
-mofukoyo_(hakui_koyori),Mofukoyo（博衣小夜璃）,もふこよ
+mofukoyo_(hakui_koyori),Mofukoyo（博衣小夜璃）,
 nora_(bangsom),诺拉（bangsom）,
-ootani_ouya,大谷Ou也,大谷おう也
+ootani_ouya,Ootani Ouya,
 perth_(bosstseng),珀斯（bosstseng）,
 rei_(crrn),玲（crrn）,
 rukawa-chan_(namagome_negi),流川酱（namagome negi）,
@@ -8262,7 +8222,6 @@ shiho_huit,Shiho Huit,シホ・ユイット
 taketomi_aya,竹富亚矢,
 tanned_girl_(kamisimo_90),晒黑的女孩（kamisimo 90）,
 violet_(kelvin_hiu),紫罗兰（kelvin hiu）,
-yabai_(nijiura_maids),Yabai桑（nijiura maids）,やばいさん
 yadone_kanna,Yadone Kanna,やどね かんな
 yowa_netaro,夜半子Taro,夜半子タろ
 yoyami_rei,暗夜丽,闇夜麗
@@ -8282,7 +8241,7 @@ leon_luis,Leon Luis,レオン・ルイス
 lirin_(bae.c),莉琳（bae.c）,
 mase_(hwangabi),玛瑟（hwangabi）,
 moe_(bosshi),Moe（bosshi）,
-mutsuba_asana,六叶Asana,六叶アサナ
+mutsuba_asana,六叶亚莎娜,
 namakeruda,Namakeruda（光之美少女）,ナマケルダ
 neneko_(rariatto),宁宁子（rariatto）,
 onee-chan_(akiyama_cz4a),姐姐（akiyama cz4a）,
@@ -8292,11 +8251,9 @@ princess_ripple,Princess Ripple,プリンセス・リップル
 rabbit_selena_(hiruno),Rabbit Selena（hiruno）,ラビットセレナ
 rawberry_preserves,Rawberry Preserves,ロベリィ・プリザーブ
 rei-chan_(konachiu),小玲（konachiu）,
-rekio_(mizumiya_su),雷奇奥（mizumiya su）,
 rita_(rune_(dualhart)),莉塔（rune (dualhart)）,
 shirakawa_yuuko,Shirakawa Yuuko,しらかわ ゆうこ
 simulation_juncea,Simulation Juncea（仙境传说）,ユンケア
-snaree_(taratabong),斯纳瑞（taratabong）,
 sorbet_(hotel01),雪酪（hotel01）,
 uchida_mayumi,内田Mayumi,内田まゆみ
 vena_(sait0moriyama),维娜（sait0moriyama）,
@@ -8305,7 +8262,6 @@ zenith_(peach88),杰尼斯（peach88）,
 akiyama_minato_(pepper0),Akiyama Minato（pepper0）,あきやま みなと
 asta_(asicah),阿斯塔（asicah）,
 dioreta_(asicah),迪奥蕾塔（asicah）,
-beau_(luxu),博（luxu）,
 elf_cleric_(kirishima_satoshi),精灵牧师（kirishima satoshi）,
 futaba_otohiro,Futaba Otohiro,ふたば おとひろ
 glan_(159cm),格兰（159cm）,
@@ -8320,7 +8276,7 @@ josee_(joseetora),乔瑟（Josee与虎与鱼们）,
 f.a.n.g,F.A.N.G（街头霸王）,
 yakui_(nijiura_maids),Yakui（虹里女仆）,
 kirin_(nijiura_maids),麒麟（虹里女仆）,
-medoi_(nijiura_maids),Medoi-san（虹里女仆）,
+medoi_(nijiura_maids),Medoi桑（虹里女仆）,
 kudoi_(nijiura_maids),啰嗦女仆（虹里女仆）,
 ozoi_(nijiura_maids),奥佐伊（虹里女仆）,
 chibi_yami_(nijiura_maids),小暗（虹里女仆）,
@@ -8329,17 +8285,17 @@ yabai_(nijiura_maids),Yabai桑（虹里女仆）,
 mukai_(ojimashu),向井（大叔与棉花糖）,
 machida_(ojimashu),町田（大叔与棉花糖）,
 ahisha_(di_le_to),阿依莎（Di Le To）,
-rekio_(mizumiya_su),雷奇奥（水宫Su）,
+rekio_(mizumiya_su),雷奇奥（水宫枢）,
 snaree_(taratabong),斯纳瑞（Taratabong）,
 beau_(luxu),博（Luxu）,
 madeline_(celeste),玛德琳（蔚蓝）,
 gridman_(ssss),古立特（SSSS.古立特）,
 ivy_(saijaku_tamer),艾薇（最弱驯兽师）,
-nino_(arakawa),妮诺（荒川爆笑团）,
+nino_(arakawa),小珊（荒川爆笑团）,妮诺
 vicky_(fairly_oddparents),薇琪（反斗家族）,
 lilith_(yamibou),莉莉丝（暗与帽子与书之旅人）,
 kuro_(miku_plus),小黑（Miku Plus）,
-shirai_hinako_(reflector),白井日菜子（反照者）,
+shirai_hinako_(reflector),白井日菜子（反像者）,
 kaiko-chan_(planhaplalan),蚕酱（planhaplalan）,
 master_(aenaluck),主人（aenaluck）,
 midori-chan_(myslot),绿酱（myslot）,
@@ -8358,7 +8314,7 @@ yamada_suzume,山田Suzume,山田すずめ
 yamaha_azumi_(amane),山舞亚澄,
 yoo_so-yoon_(killing_magician),Yoo So-yoon,유소윤
 yue_(keisea),月（keisea）,
-akira_ray,明乐Rei,明乐レイ
+akira_ray,明乐Ray,
 alma_(aem01),阿尔玛（aem01）,
 amasawa_ikumi,天泽郁未,
 artin_(boogbogex),阿尔廷（boogbogex）,
@@ -8403,7 +8359,7 @@ collar,,-领子
 covered_nipples,,-遮挡乳头
 covered_navel,,-遮挡肚脐
 black_collar,,-黑色衣领
-white_collar,,-白色衣领
+white_collar,,-白色衣领/-白色领子
 red_collar,,-红色衣领
 drinking_glass,,-水杯
 plump,,-丰满
@@ -8442,7 +8398,7 @@ facepalm,,-以手掩面
 white_tunic,,-白色上衣
 green_collar,,-绿领
 brown_collar,,-棕色衣领
-anemone_(flower),,-海葵（花）
+anemone_(flower),,-海葵（花）/-海葵
 drugged,,-吸毒
 playground,,-操场
 cast,,-包扎着绷带
@@ -8496,7 +8452,7 @@ clasp,,-扣子
 crumbling,,-崩溃
 yeti_(creature),,-雪人（生物）
 green_leggings,,-绿色绑腿
-luminous_(madoka_magica),,-发光（Madoka Magica）
+luminous_(madoka_magica),,-发光（Madoka Magica）/-发光
 jupiter_(idolmaster),,-木星（偶像大师）/-木星
 bad_ass,,-坏蛋
 janitor,,-看门人
@@ -8537,7 +8493,6 @@ grey_overalls,,-灰色工作服
 red_overalls,,-红色工作服
 orange_overalls,,-橙色工作服
 leather_collar,,-皮领
-white_collar,,-白色领子
 red_(pokemon),赤红（宝可梦）,
 white_skin,,-白皙皮肤
 claw_pose,,-猫爪姿势
@@ -8549,5 +8504,4 @@ bound_leg,,-绑腿
 gradient_sarong,,-渐变围裙
 fur_bra,,-皮肤胸罩
 nekomiya_mana,,-猫又
-tunomon,,-独角兽（数码宝贝）
-kasugano_sakura_(cosplay),,-春日野穹（角色扮演）
+kasugano_sakura_(cosplay),,-春日野穹（角色扮演）/-春日野穹
