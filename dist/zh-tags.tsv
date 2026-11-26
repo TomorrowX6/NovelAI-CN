@@ -1545,7 +1545,7 @@ shiny clothes	32404	闪亮衣物	有光泽的衣服	shiny clothe	0
 resolution mismatch	32385	分辨率不匹配		resolution mismatches	5
 realistic	32356	写实	现实|逼真|写实的	realistics	0
 outstretched hand	32354	伸出的手	张手	hands outstretched|outstretched hands|hand outstretched	0
-creature	32325	生物	异生物|奇异生物|生物(异生物)|幻想生物|虚构生物|创造物	creatures|mascot creature	0
+creature	32325	小生物	生物|幻想生物|虚构生物|创造物	creatures|mascot creature	0
 holding bottle	32285	持瓶	持瓶(手持瓶子)|手持瓶子|拿着瓶子	holding bottles	0
 android	32231	仿生人	人造人|机器人|机器人(人造人)|人造人间|合成人间|另一种机娘	gynoid|androids	0
 ragnarok online	32176	仙境传说	仙境传说online	ro|ragnarok|ragnarokonline|/ro	3
@@ -2275,7 +2275,7 @@ chestnut mouth	18521	栗子嘴	板栗嘴(花栗鼠嘴)|板栗嘴|花栗鼠嘴|�
 game controller	18497	游戏手柄	手柄|游戏控制器	gamepad|game controllers	0
 sparkling eyes	18487	闪亮的眼睛	星星眼	sparkle eyes|sparkling eye	0
 two-tone skin	18482	双色皮肤		two-tone skins	0
-blank eyes	18481	空白眼	无瞳白眼|白眼|空白无神的眼睛|白目|无神的双眼	blank eye	0
+blank eyes	18481	空白眼	无瞳白眼|空白无神的眼睛|白目|无神的双眼	blank eye	0
 jacket partially removed	18479	脱下一半的夹克	夹克滑落|夹克部分移除	jacket partially removeds	0
 clothes between breasts	18455	衣物夹在胸部间	衣服勒在乳沟里	clothing between breasts|clothes between breast	0
 old	18452	老人	老年	olds	0
@@ -4642,7 +4642,7 @@ unworn shirt	6581	未穿的衬衫	脱下衬衫	shirt off|shirt removed|unworn sh
 fire emblem: the blazing blade	6579	火焰纹章 烈火之剑	火焰之纹章 烈火之剑	fe7|fire emblem: rekka no ken|fire emblem blazing sword|fire emblem rekka no ken|/fe7	3
 nozomi (blue archive)	6579	橘望（蔚蓝档案）	橘望|橘希望|铁道双子	highlander twintails conductor (blue archive)|tachibana nozomi (blue archive)|tachibana nozomi	4
 black hanfu	6578	黑色汉服		black hanfus	0
-nude cover	6578	裸体封面		nude covers	0
+nude cover	6578	裸体遮挡		nude covers	0
 flame-tipped tail	6577	尾尖火焰	火焰条纹的尾巴	fire-tipped tail|flaming tip tail|tail-tip fire|flame tipped tail|flame-tipped tails	0
 frying pan	6577	平底锅		cooking pan|skillet|frying pans	0
 surreal	6575	超现实主义	超现实|怪诞的	surreals	0
@@ -5221,7 +5221,7 @@ looking at mirror	5486	看镜子	照镜子	looking at mirrors	0
 nice nature (umamusume)	5486	优秀素质（赛马娘）	优秀素质		4
 smokestack	5485	烟囱		ship funnel|smokestacks	0
 cheating (relationship)	5483	出轨（关系）	出轨|关系|不伦|浮気	cheating	0
-korean clothes	5480	韩国传统服饰	韩服|韩国传统服装	korean clothe	0
+korean clothes	5480	韩国传统服饰	韩国传统服装	korean clothe	0
 veiny arms	5479	青筋手臂		veiny arm	0
 blue hakama	5478	蓝色袴	蓝色的袴	blue hakamas	0
 mouth veil	5477	遮口面纱	面纱	mouth veils	0
@@ -7814,7 +7814,7 @@ haro	2849	哈罗			4
 invisible floor	2849	看不见的地板		invisible floors	0
 rainbow gradient	2849	彩虹渐变	彩虹梯度	rainbow gradients	0
 centauroid	2848	类人马生物	半人半兽	centauroids	0
-dress tug	2848	拉拽连衣裙	拽连衣裙|下拉连衣裙|拉下裙摆|压住裙摆	dress tugs	0
+dress tug	2848	下拉连衣裙	向下拽裙摆|拽连衣裙|拉下裙摆|压住裙摆	dress tugs	0
 team rocket uniform	2848	火箭队制服		team rocket uniforms	0
 hand on own forehead	2847	手放在自己额头上	手放在自己前额	hand on own foreheads	0
 log	2847	原木	枯树干|丸太	logs	0
@@ -9354,7 +9354,7 @@ kimono skirt	2121	和服裙		kimono skirts	0
 squall leonhart	2121	斯考尔·莱昂哈特		squall	4
 tentacles under clothes	2121	触手伸进衣服里		tentacles under clothe	0
 united kingdom (hetalia)	2121	英国（黑塔利亚）	亚瑟•柯克兰	arthur kirkland|england (hetalia)	4
-void face	2121	虚空脸	漆黑无面|黑影脸	void faces	0
+void face	2121	空白脸		void faces	0
 teruzuki (kancolle)	2120	照月（舰队Collection）	照月	teruzuki (kantai collection)	4
 undead	2120	亡灵	不死族	undeads	0
 like and retweet	2119	点赞转发	喜欢和转发	like and retweets	0
@@ -9685,7 +9685,7 @@ orange tank top	2010	橙色背心		orange tank tops	0
 red nose	2010	红鼻子		red noses	0
 two-sided gloves	2010	掌面异色手套		two-sided glove	0
 dark souls iii	2009	黑暗之魂3	黑暗灵魂3|黑魂3	dark souls 3|darksouls3	3
-frilled armband	2009	荷叶边臂带	褶皱臂章	frilled armbands	0
+frilled armband	2009	荷叶边臂章	褶皱臂章	frilled armbands	0
 steven universe	2009	宇宙小子	史蒂文宇宙|神脐小卷毛|史帝芬宇宙	stevenuniverse	3
 casting spell	2008	施咒	咏唱	casting spells	0
 char's counterattack	2008	逆袭的夏亚	马沙之反击		3
@@ -10099,7 +10099,7 @@ widowmaker (overwatch)	1881	黑百合（守望先锋）	黑百合|埃梅莉·拉
 a certain high school uniform	1880	某高中校服		a certain high school uniforms	0
 okabe rintarou	1880	冈部伦太郎	凤凰院凶真	hououin kyouma	4
 winged footwear	1879	带翅膀的鞋子		winged footwears	0
-jacket pull	1878	拉扯夹克	夹克拉	jacket pulls	0
+jacket pull	1878	拉下夹克	夹克拉	jacket pulls	0
 okita souji (third ascension) (fate)	1878	冲田总司（第三再临）（Fate系列）	冲田总司		4
 souseiseki	1878	苍星石			4
 alternate species	1877	换种族	替代物种|种族変更|种族改变	alternate race|alternate specy	0
@@ -10475,7 +10475,7 @@ princess king boo	1774	害羞幽灵王公主		booette|boosette|queen boo	4
 clown nose	1773	小丑鼻子		clown noses	0
 no blindfold	1773	没戴蒙眼布	去掉了(原设有的)蒙眼要素	no blindfolds	0
 rhodes island logo (arknights)	1773	罗德岛标志（明日方舟）	罗德岛标志	rhodes island logo	0
-tag	1773	吊牌	标签	tags	0
+tag	1773	吊牌		tags	0
 holding plant	1772	手持植物	持有植物	holding plants	0
 meursault (project moon)	1772	默尔索（Project Moon）	默尔索	meursault (limbus company)	4
 polaroid photo	1772	拍立得照片		instant photo|polaroid|polaroid photos	0
@@ -10531,7 +10531,7 @@ white petals	1756	白色花瓣		white petal	0
 between toes	1755	脚趾之间		between toe	0
 kingdom hearts ii	1755	王国之心2	王国之心ii	kingdom hearts 2|kingdomhearts2|kingdomheartsii	3
 duel academy uniform (yu-gi-oh! gx)	1754	决斗学院制服（Yu-Gi-oh！gx）	决斗学院制服		0
-papers	1754	多张纸	纸张|文件		0
+papers	1754	散落的纸张	文件		0
 bean bag chair	1753	豆袋椅		beanbag chair|bean bag chairs	0
 bus	1753	公共汽车			0
 leona heidern	1753	莉安娜	蕾欧娜·海顿|莉安娜·哈迪兰		4
@@ -13109,7 +13109,7 @@ yuuki (princess connect!)	1200	佑树（公主连结）	佑树|裕树|骑士君	
 yuzuha riko	1200	柚叶莉子		riko art	4
 zorua	1200	索罗亚			4
 band uniform	1199	乐队制服		band uniforms	0
-bust cup	1199	立体罩杯	罩杯设计|胸杯|胸围杯|胸间酒|谷间酒|乳沟作杯子	alcohol between breasts|breast cup|breasts cup|bust cups	0
+bust cup	1199	乳沟夹杯	胸围杯|胸间酒|谷间酒|乳沟作杯子	alcohol between breasts|breast cup|breasts cup|bust cups	0
 european architecture	1199	欧式建筑		european architectures	0
 hysilens (honkai: star rail)	1199	海瑟音（崩坏：星穹铁道）	海瑟音	hysilens	4
 koizumi mahiru	1199	小泉真昼（超级弹丸论破2 再见了绝望学园）	小泉真昼|小泉真昼(超高校级摄影师)		4
@@ -16704,7 +16704,7 @@ erwin (girls und panzer)	795	埃尔文（少女与战车）	埃尔文|松本理�
 gacha (game mechanic)	795	抽卡（游戏机制）	抽卡	gacha	0
 submarine	795	潜艇	潜水舰		0
 vanilla (nekopara)	795	香草（猫娘乐园）		vanilla (sayori)	4
-weight	795	重物	砝码|配重块|负重|重量		0
+weight	795	体重	重量		0
 yuiman asama	795	Yuiman Asama			4
 cheshire cat (alice in wonderland)	794	柴郡猫（爱丽丝梦游仙境）	柴郡猫	cheshire cat|cheshire cat (wonderland)	4
 dj	794	DJ			0
@@ -17995,7 +17995,7 @@ hatakaze (kancolle)	694	旗风（舰队Collection）	旗风	hatakaze (kantai col
 heiwajima shizuo	694	平和岛静雄	静雄		4
 hoshino miyako (wataten)	694	星野宫子（天使降临到了我身边）	星野宫子|宫子		4
 lisa lisa	694	莉莎莉莎	丽莎丽莎		4
-melusine (swimsuit ruler) (fate)	694	美露莘（泳装Ruler）（Fate系列）	美露莘|泳装美露莘	melusine (swimsuit ruler)	4
+melusine (swimsuit ruler) (fate)	694	美露莘（泳装Ruler）（Fate系列）	美露莘(泳装裁定者)|美露莘|泳装美露莘	melusine (swimsuit ruler)	4
 n corp. fanatic (identity) (project moon)	694	N公司狂热者（人格）（边狱公司）	n公司狂热者	n corp. (identity) (project moon)	0
 racing miku (2022)	694	赛车初音（2022）	2022赛车初音	racing miku 2022	4
 sailor collar lift	694	掀起水手领			0
@@ -18065,7 +18065,7 @@ kisaragi momo	690	如月桃			4
 mizutani eri	690	水谷绘理	水谷絵理		4
 panties around thighs	690	内裤褪到大腿	内裤挂在腿上		0
 presenting own anus	690	展示自己的肛门		presenting anus	0
-tail under clothes	690	尾巴在衣服下	尾巴藏在衣服里		0
+tail under clothes	690	尾巴从衣下伸出			0
 torn sleeve	690	单袖破损	撕裂的袖子		0
 upward angle frieren drawing (meme)	690	芙莉莲仰视图（梗）	芙莉莲仰视图|芙莉莲仰视挑战	how do you guys able to draw at different angles	0
 aokaze nana	689	苍风奈奈（你和偶像光之美少女）	苍风奈奈		4
@@ -18405,7 +18405,7 @@ syuen (nikke)	669	舒恩（胜利女神：妮姬）	舒恩|苏恩	syuen	4
 unown	669	未知图腾			4
 bruce lee's jumpsuit	668	李小龙款连身衣			0
 caesar (girls und panzer)	668	凯撒（少女与战车）	凯撒|铃木贵子	suzuki takako (girls und panzer)|caesar	4
-clothed after sex	668	着衣事后	性爱后穿|性交之后穿衣|性爱后穿衣服		0
+clothed after sex	668	事后穿衣	性爱后穿|性交之后穿衣|性爱后穿衣服		0
 double biceps pose	668	双二头肌展示			0
 gekitotsu! joshikousei oiroke sensha gundan	668	Gekitotsu! Joshikousei Oiroke Sensha Gundan	激突！女子高中生色气战车军团		3
 jean kirstein	668	让·基尔希斯坦（进击的巨人）	让·基尔希斯坦|让	jean kirchstein	4
@@ -18470,7 +18470,7 @@ habetrot (fate)	664	哈贝特洛特（Fate系列）	哈贝特洛特	habetrot (fa
 kana anaberal	664	卡娜·阿娜贝拉尔	卡娜|卡娜·安娜贝拉尔|花奈	kana	4
 luz noceda	664	卢斯·诺塞达	露丝·诺西达	luz	4
 mayonnaise	664	蛋黄酱			0
-mounting	664	骑跨	骑跨压制|逆駅弁		0
+mounting	664	爬跨式体位	逆駅弁		0
 murasaki (senran kagura)	664	紫（闪乱神乐）		murasaki	4
 scientist	664	科学家	科学者		0
 tentacle on penis	664	触手刺激阴茎	触手活	tentaclejob|tentacle job|tentacles on penis	0
@@ -20906,7 +20906,7 @@ rotated	533	已旋转	经过旋转的		5
 seele vollerei (starchasm nyx)	533	希儿·芙乐艾（魇夜星渊）	魇夜星渊		4
 sketching	533	素描			0
 sonic the hedgehog (idw)	533	刺猬索尼克（IDW漫画）	刺猬索尼克|音速小子	idwsonic|sonicidw	3
-through window	533	透过窗户	穿过窗户		0
+through window	533	穿窗而过	穿过窗户		0
 tougou mimori	533	东乡美森	东郷美森|美森		4
 airport	532	机场	空港|飞行场		0
 alternate footwear	532	换鞋	替换鞋履		0
@@ -22045,7 +22045,7 @@ hercules (1997 movie)	484	大力士（迪士尼动画）	大力士|海格力斯	
 himura kenshin	484	绯村剑心（浪客剑心）	绯村剑心|剑心|绯村剣心	kenshin	4
 koe no katachi	484	声之形		a silent voice	3
 master ball	484	大师球		masterball	0
-melusine (swimsuit ruler) (first ascension) (fate)	484	美露莘（泳装Ruler·第一再临）（Fate系列）	美露莘(第一再临)(泳装ruler)(fate系列)|美露莘		4
+melusine (swimsuit ruler) (first ascension) (fate)	484	美露莘（泳装Ruler·第一再临）（Fate系列）	美露莘(泳装裁定者·第一再临)|美露莘(第一再临)(泳装ruler)(fate系列)|美露莘		4
 minakami sayo	484	水神小夜			4
 minimalism	484	极简主义			0
 mirai akari project	484	未来明Project			3
@@ -22922,7 +22922,7 @@ san-x	453	San-X			3
 sanhua (wuthering waves)	453	散华（鸣潮）	散华	sanhua	4
 shenhe (frostflower dew) (genshin impact)	453	申鹤（冷花幽露）（原神）	申鹤|申鹤(冷花幽露)		4
 sinder (vtuber)	453	辛德（虚拟主播）	辛德	sinder|sinderdoodle|sinderotica	4
-taped hands	453	手缠运动胶布	胶带缠手		0
+taped hands	453	胶带缠手			0
 window fog	453	起雾的窗户	窗户上的雾气		0
 yume no tsue	453	梦之杖			0
 akazutsumi momoko	452	赤堤桃子（飞天小女警Z）	赤堤桃子	akatsutsumi momoko	4
@@ -23617,7 +23617,7 @@ animatronic	428	机械人偶			0
 anne boonchuy	428	安妮·布楚		anneboonchuy	4
 artorias the abysswalker	428	深渊行者亚尔特留斯（黑暗之魂）	深渊行者亚尔特留斯|深渊漫步者	artorias	4
 aruruu	428	阿露露（传颂之物）	阿露露	aruru|aruruw	4
-bachi	428	太鼓鼓棒、拨子	太鼓鼓槌|三味线拨子|鼓棒		0
+bachi	428	拨子	三味线拨子		0
 chang chin-lan	428	张景岚		zhang jinglan	4
 gingham dress	428	小方格纹连衣裙	方格布连衣裙		0
 grey corset	428	灰色束腰			0
@@ -24357,7 +24357,7 @@ fighter (7th dragon)	405	战士（第七龙神）	格斗家	fighter	4
 first stage production	405	First Stage Production		ichipro|firststageproduction|firststageproduction en	3
 freya crescent	405	芙蕾雅·克雷森特		freija crescent	4
 gramophone miku	405	留声机初音		symphony miku (2020)	4
-hana (fire emblem)	405	风花（火焰纹章）	哈娜|花火(火焰之纹章)|花火	kazahana (fire emblem if)|hana	4
+hana (fire emblem)	405	风花（火焰纹章）	花火(火焰之纹章)|花火	kazahana (fire emblem if)|hana	4
 hoshino ai's pose	405	星野爱姿势			0
 jakob (fire emblem)	405	乔卡（火焰纹章）	乔卡(火焰之纹章)|乔卡	joker (fire emblem if)|jakob	4
 kasen kanesada	405	歌仙兼定（刀剑乱舞）	歌仙兼定|歌小夜		4
@@ -25515,7 +25515,7 @@ mc axis	373	MC Axis			3
 muse dash	373	喵斯快跑		musedash	3
 nautika (reverse:1999)	373	诺谛卡（重返未来：1999）	诺谛卡	nautika	4
 novice (ragnarok online)	373	初心者（仙境传说）	初心者	novice	4
-nyoro~n	373	nyoro~n（小鹤屋梗）	鹤屋|小鹤屋|小鹤屋梗		0
+nyoro~n	373	nyoro~n（小鹤屋梗）	小鹤屋梗		0
 ooba minori	373	大庭稔			4
 pan-pa-ka-paaan!	373	啪啪咔啪！			0
 penguin hat	373	企鹅帽			0
@@ -29100,7 +29100,7 @@ tenzin (arknights)	295	丹增（明日方舟）	丹增		4
 the saga of darren shan	295	吸血侠达伦·山	向达伦大冒险		3
 tokimeki memorial girl's side 3rd story	295	心跳回忆GS3	心跳回忆girl's side 3|心跳回忆女生版3		3
 toyama daifuku	295	兔山大福			4
-unexpectedly good	295	意外地不错	意外地好|意外的善良		0
+unexpectedly good	295	意外温柔	意外的善良		0
 visual kei	295	视觉系		visualkei	0
 alice (megami tensei)	294	爱丽丝（女神转生）	爱丽丝		4
 april	294	四月	4月		0
@@ -30028,7 +30028,7 @@ see-through shrug	280	透视短开衫			0
 sigil	280	魔法印记			0
 skipping	280	蹦跳着走			0
 snail shell	280	蜗牛壳			0
-soredemo machi wa mawatteiru	280	尽管如此小镇依然转动	女仆咖啡厅|即便如此小镇依然转动	and yet the town moves	3
+soredemo machi wa mawatteiru	280	尽管如此小镇依然转动	即便如此小镇依然转动	and yet the town moves	3
 spiked cape	280	尖刺披风	尖刺斗篷		0
 springfield (stirring mermaid) (girls' frontline)	280	春田（苏醒人鱼）（少女前线）	春田		4
 sun-d	280	桑-D			4
@@ -34281,7 +34281,7 @@ holding hookah	219	手持水烟壶			0
 hoshikawa shizuku	219	星川雫			4
 hoshimachi suisei (oriental suit)	219	星街彗星（东洋风西装）		hoshimachi suisei (8th costume)	4
 huniepop	219	寻爱少女		hunie pop	3
-hydra splatling (splatoon)	219	消防栓旋转枪（斯普拉遁）	九头蛇旋转枪|消防栓|九头蛇(splatoon)|消防栓旋转枪		0
+hydra splatling (splatoon)	219	消防栓旋转枪（斯普拉遁）	九头蛇(splatoon)|消防栓旋转枪		0
 hypnotizing viewer	219	催眠观者			0
 ice cream kanojo	219	冰淇淋女友			3
 idolmaster side-m live on stage!	219	偶像大师 SideM LIVE ON ST@GE!	偶像大师sidem live on st@ge!	the idolm@ster sidem	3
@@ -36960,7 +36960,7 @@ sola	191	sola			3
 sonshoukou (koihime musou)	191	孙尚香（恋姬无双）	孙尚香	sonshoukou	4
 square eyes	191	方形眼睛			0
 stitch (lilo & stitch)	191	史迪奇（星际宝贝）	史迪奇		4
-stitching	191	缝线针脚	车缝线|明线		0
+stitching	191	针线缝制	缝制|缝纫针线		0
 suzuran (lostlands flowering) (arknights)	191	铃兰（弃土花开）（明日方舟）		suzuran (wasteland blossom) (arknights)	4
 tayo	191	Tayo			4
 tiger print bikini	191	虎纹比基尼			0
@@ -37479,7 +37479,7 @@ healing animal	186	治愈动物			0
 heart attack	186	心脏病发作		cardiac arrest	0
 hinasaki miku	186	雏咲深红			4
 hisho collection	186	秘书收藏			3
-holding cum	186	手捧精液	手持精液		0
+holding cum	186	含住精液	体内留精		0
 holding picnic basket	186	手持野餐篮			0
 ironeye (elden ring)	186	铁眼（艾尔登法环）	铁眼		4
 izetta	186	伊泽塔			4
@@ -39271,9 +39271,9 @@ schna jang	171	施娜·张			4
 sentou mecha xabungle	171	战斗机甲萨芬格尔	战斗机甲扎邦格尔	blue gale xabungle	3
 shiftry	171	狡猾天狗			4
 shiroko (reku)	171	白子（reku）	白子		4
-squash	171	南瓜类蔬菜	西葫芦|笋瓜		0
+squash	171	南瓜类蔬菜	笋瓜		0
 st. hilde academy of magic uniform	171	圣希尔德魔法学院制服			0
-string tie	171	细绳领结	细绳领带|绳式领带|绳子打结		0
+string tie	171	系绳结	绳子打结		0
 sunflower (plants vs. zombies)	171	向日葵（植物大战僵尸）		sunflower (plants vs zombies)	4
 superboy	171	超级小子			4
 surgery	171	手术	外科手术		0
@@ -39440,7 +39440,7 @@ chrome (mon-musu quest!)	169	克罗姆（勇者大战魔物娘）	克罗姆	chro
 claydol	169	念力土偶（宝可梦）	念力土偶		4
 clear (dramatical murder)	169	库利亚（DRAMatical Murder）	库利亚	clear dmmd	4
 colt 1851 navy	169	柯尔特1851海军			0
-condom pull	169	拉扯避孕套	拉伸避孕套|拉扯安全套		0
+condom pull	169	摘下避孕套	取下避孕套		0
 cracked phone	169	屏幕破碎的手机			0
 cutie (umamusume)	169	小可爱玩偶（赛马娘）	小可爱玩偶		0
 cutie panther	169	Cutie Panther			3
@@ -39629,7 +39629,7 @@ lileep	168	触手百合			4
 limone (simoun)	168	莉莫内（西蒙）	莉莫内		4
 lingyang (wuthering waves)	168	凌阳（鸣潮）	凌阳	lingyang	4
 massage table	168	按摩床		massage bed	0
-melusine (swimsuit ruler) (second ascension) (fate)	168	美露莘（泳装Ruler·第二再临）（Fate系列）	美露莘(第二再临)(泳装ruler)(fate系列)|美露莘		4
+melusine (swimsuit ruler) (second ascension) (fate)	168	美露莘（泳装Ruler·第二再临）（Fate系列）	美露莘(泳装裁定者·第二再临)|美露莘(第二再临)(泳装ruler)(fate系列)|美露莘		4
 metronome	168	节拍器			0
 moe (phrase)	168	萌（短语）	萌|短语		0
 mold camelot	168	Mold Camelot之盾			0
@@ -40271,7 +40271,7 @@ kokoro (vocaloid)	163	心（Vocaloid）	心	kokoro	3
 kokubunji suou	163	国分寺周防			4
 konohana aurora	163	此花辉夜			4
 lan sizhui	163	蓝思追			4
-leonardo da vinci (swimsuit ruler) (fate)	163	莱昂纳多·达·芬奇（泳装Ruler）（Fate系列）	莱昂纳多·达·芬奇(泳装裁定者)(fate系列)|莱昂纳多·达·芬奇		4
+leonardo da vinci (swimsuit ruler) (fate)	163	莱昂纳多·达·芬奇（泳装Ruler）（Fate系列）	莱昂纳多·达·芬奇(泳装裁定者)|莱昂纳多·达·芬奇(泳装裁定者)(fate系列)|莱昂纳多·达·芬奇		4
 lofi girl (youtube)	163	Lo-fi Girl	lo-fi女孩|lofi学习女孩	lofi hip hop radio - beats to relax/study to	3
 luis sera	163	路易斯·塞拉			4
 makura (granblue fantasy)	163	玛蔻拉（碧蓝幻想）	玛蔻拉		4
@@ -40329,7 +40329,7 @@ adaptation comparison	162	改编版本对比		anime design and light novel desig
 aegir (iron blood's dragon maid) (azur lane)	162	埃吉尔（港区的龙女仆）（碧蓝航线）	埃吉尔|港区的龙女仆		4
 aerith gainsborough (cosplay)	162	爱丽丝·盖恩斯巴勒（角色扮演）			0
 airsoft	162	气枪对战	气枪		0
-anastasia (swimsuit archer) (third ascension) (fate)	162	阿纳斯塔西娅（泳装Archer·第三再临）（Fate系列）	安娜斯塔西娅(泳装archer·第三再临)|安娜斯塔西娅(fate系列)|阿纳斯塔西娅		4
+anastasia (swimsuit archer) (third ascension) (fate)	162	阿纳斯塔西娅（泳装Archer·第三再临）（Fate系列）	安娜斯塔西娅(泳装archer·第三再临)|安娜斯塔西娅(泳装弓兵·第三再临)|安娜斯塔西娅(fate系列)|阿纳斯塔西娅		4
 angry birds	162	愤怒的小鸟			3
 animal (vocaloid)	162	Animal			3
 aoba misaki	162	青羽美咲			4
@@ -40977,7 +40977,7 @@ monster kid (undertale)	158	怪物少年（传说之下）	怪物少年	monster 
 muv-luv alternative (anime)	158	Muv-Luv Alternative（动画）	muv-luv alternative 动画	muvluv alternative (anime)	3
 naraku (senran kagura)	158	奈乐（闪乱神乐）	奈乐|奈楽		4
 neapolitan palette	158	那不勒斯配色		neapolitan	0
-newhalf with newhalf	158	跨性别女性与跨性别女性	药娘|人妖|newhalf与newhalf		0
+newhalf with newhalf	158	跨性别女性与跨性别女性	药娘与药娘|人妖与人妖|newhalf与newhalf		0
 nia (ayanepuna)	158	Nia（ayanepuna）			4
 ninamori eri	158	蜷守惠理			4
 offering leash	158	递上牵引绳			0
@@ -41646,7 +41646,7 @@ commercial	153	广告			0
 da capo (e.g.o)	153	返始（E.G.O）	返始		0
 dark cure (precure)	153	黑暗天使（光之美少女）	黑暗天使	dark cure (yes! precure 5)	0
 derpy (kpop demon hunters)	153	德皮（K-Pop猎魔人）	德皮		4
-desperation	153	憋尿	尿急|内急		0
+desperation	153	拼命	绝望挣扎		0
 dondozo	153	吃吼霸			4
 durandal (reign solaris) (honkai impact)	153	幽兰黛尔（天光驰彻）（崩坏3）	幽兰黛尔|天光驰彻		4
 eileen the crow	153	乌鸦艾琳			4
@@ -42479,7 +42479,7 @@ tomoe (kamisama hajimemashita)	148	巴卫（元气少女缘结神）	巴卫		4
 tyrunt	148	宝宝暴龙			4
 uehara miyako	148	上原都			4
 ultraman gaia	148	盖亚奥特曼		ultramangaia	4
-uzumaki symbol	148	漩涡纹（火影忍者）	涡卷纹|漩涡纹		0
+uzumaki symbol	148	涡卷纹	漩涡纹		0
 val (yan kodiac)	148	Val			4
 viki (suikoden)	148	薇琪（幻想水浒传）	薇琪		4
 virtuous treaty	148	白之约定（尼尔：机械纪元）	白之约定		0
@@ -43307,7 +43307,7 @@ character ball	142	角色球			0
 character pria	142	普里亚		pria	4
 chevalier d'eon (saber) (fate)	142	骑士迪昂（Saber）（Fate系列）	骑士迪昂		4
 chijo	142	女色狼	淫女		0
-chloe von einzbern (swimsuit avenger) (second ascension)	142	克洛伊·冯·爱因兹贝伦（泳装Avenger·第二再临）	克洛伊·冯·爱因兹贝伦(第二再临)		4
+chloe von einzbern (swimsuit avenger) (second ascension)	142	克洛伊·冯·爱因兹贝伦（泳装Avenger·第二再临）	克洛伊·冯·爱因兹贝伦(泳装复仇者·第二再临)|克洛伊·冯·爱因兹贝伦(第二再临)		4
 ciel sacred	142	希耶尔·塞克雷德		ciel (mishima kurone)	4
 cima garahau	142	西玛·卡拉豪			4
 cure earth	142	大地天使	风铃艾苏米 (大地天使)		4
@@ -47477,7 +47477,7 @@ gatchaman	120	科学小飞侠	神勇飞鹰侠|科学忍者队	battle of the plan
 goddess of war (fate)	120	战争女神（Fate）	战争女神		0
 groot	120	格鲁特			4
 guild wars (series)	120	激战			3
-hair sprinkles	120	发间彩糖	发间糖针|发上碎屑		0
+hair sprinkles	120	发间亮片	发上碎屑		0
 hajimari wa kimi no sora	120	始于你的天空	love live superstar!!出道曲|开始是你的天空		3
 hakos baelz (new year)	120	哈珂斯·贝尔丝（新年）		hakos baelz (2nd costume)	4
 haku (naruto)	120	白（火影忍者）	白		4
@@ -47564,7 +47564,7 @@ sang yi (project moon)	120	Sang Yi（Project Moon）			4
 santa leotard	120	圣诞紧身衣	圣诞连体衣		0
 saotome rei	120	早乙女丽	早乙女礼	blair flannigan	4
 sasami-san@ganbaranai	120	佐佐木小姐不加油	佐佐木同学@不努力		3
-scathach-skadi (swimsuit ruler) (first ascension) (fate)	120	斯卡哈·斯卡蒂（泳装Ruler·第一再临）（Fate系列）	斯卡哈·斯卡蒂(泳装·第一再临)(fate系列)|斯卡哈·斯卡蒂	scathach skadi (swimsuit ruler) (first ascension) (fate)	4
+scathach-skadi (swimsuit ruler) (first ascension) (fate)	120	斯卡哈·斯卡蒂（泳装Ruler·第一再临）（Fate系列）	斯卡哈·斯卡蒂(泳装裁定者·第一再临)|斯卡哈·斯卡蒂(泳装·第一再临)(fate系列)|斯卡哈·斯卡蒂	scathach skadi (swimsuit ruler) (first ascension) (fate)	4
 seismitoad	120	蟾蜍王			4
 sekino roko	120	关野露可			4
 sendou erika	120	千堂瑛里华			4
@@ -50994,7 +50994,7 @@ ultraman tarou (series)	106	泰罗奥特曼（剧集）	奥特曼太郎	ultraman
 unmanned ground vehicle	106	无人地面车辆			0
 uno (nanoha)	106	乌诺（魔法少女奈叶）	乌诺		4
 urami kana	106	浦见加奈			4
-utsumi erice (swimsuit avenger) (first ascension)	106	宇津见艾莉瑟（泳装Avenger·第一再临）	宇津见艾莉瑟(第一再临)		4
+utsumi erice (swimsuit avenger) (first ascension)	106	宇津见艾莉瑟（泳装Avenger·第一再临）	宇津见艾莉瑟(泳装复仇者·第一再临)|宇津见艾莉瑟(第一再临)		4
 virgo shaka	106	处女座沙加（圣斗士星矢）	处女座沙加		4
 virtuosa (diversity oneness) (arknights)	106	塑心（无我唯识）（明日方舟）	塑心		4
 voyager golden record	106	旅行者金唱片			0
@@ -53269,7 +53269,7 @@ spider-gwen (cosplay)	98	蜘蛛格温（角色扮演）			0
 spoken dollar sign	98	气泡中的美元符号			0
 stalker 2: heart of chornobyl	98	潜行者2：切尔诺贝利之心		s.t.a.l.k.e.r. 2: heart of chornobyl	3
 standing on torii	98	站在鸟居上			0
-star harmony academy middle school uniform	98	星睦学园中等部制服（偶像活动）	星睦学园中等部制服|星和学园中等部制服|偶像活动friends		0
+star harmony academy middle school uniform	98	星睦学园中等部制服（偶像活动）	星睦学园中等部制服|星和学园中等部制服		0
 star o-ring	98	星形O环			0
 status bar	98	状态栏			0
 stomacher	98	胸衣前襟饰片			0
@@ -54246,7 +54246,7 @@ checkered bra	94	方格胸罩			0
 checking watch	94	看手表			0
 chibiterasu	94	小天照			4
 chloe (sciamano240)	94	克洛伊（sciamano240）	克洛伊		4
-chloe von einzbern (swimsuit avenger) (first ascension)	94	克洛伊·冯·爱因兹贝伦（泳装Avenger·第一再临）	克洛伊·冯·爱因兹贝伦(第一再临)		4
+chloe von einzbern (swimsuit avenger) (first ascension)	94	克洛伊·冯·爱因兹贝伦（泳装Avenger·第一再临）	克洛伊·冯·爱因兹贝伦(泳装复仇者·第一再临)|克洛伊·冯·爱因兹贝伦(第一再临)		4
 comfy	94	舒适			0
 concept maihime (idolmaster)	94	Concept★Maihime（偶像大师）			0
 corona (brand)	94	科罗娜	科罗娜啤酒	corona|corona extra	3
@@ -54757,8 +54757,8 @@ ryuko redraw (meme)	93	缠流子重绘（梗）	流子重绘|ryuko redraw(模因
 salad bowl	93	沙拉碗			0
 samurai calibur	93	武士·卡利伯			4
 sasahara kanji	93	笹原完士			4
-scathach-skadi (swimsuit ruler) (final ascension) (fate)	93	斯卡哈·斯卡蒂（泳装Ruler·最终再临）（Fate系列）	斯卡哈·斯卡蒂(泳装·最终再临)(fate系列)|斯卡哈·斯卡蒂	scathach skadi (swimsuit ruler) (final ascension) (fate)	4
-scathach-skadi (swimsuit ruler) (second ascension) (fate)	93	斯卡哈·斯卡蒂（泳装Ruler·第二再临）（Fate系列）	斯卡哈·斯卡蒂(泳装·第二再临)(fate系列)|斯卡哈·斯卡蒂	scathach skadi (swimsuit ruler) (second ascension) (fate)	4
+scathach-skadi (swimsuit ruler) (final ascension) (fate)	93	斯卡哈·斯卡蒂（泳装Ruler·最终再临）（Fate系列）	斯卡哈·斯卡蒂(泳装裁定者·最终再临)|斯卡哈·斯卡蒂(泳装·最终再临)(fate系列)|斯卡哈·斯卡蒂	scathach skadi (swimsuit ruler) (final ascension) (fate)	4
+scathach-skadi (swimsuit ruler) (second ascension) (fate)	93	斯卡哈·斯卡蒂（泳装Ruler·第二再临）（Fate系列）	斯卡哈·斯卡蒂(泳装裁定者·第二再临)|斯卡哈·斯卡蒂(泳装·第二再临)(fate系列)|斯卡哈·斯卡蒂	scathach skadi (swimsuit ruler) (second ascension) (fate)	4
 scratching back	93	挠背			0
 seiros (fire emblem)	93	赛罗司（火焰纹章）	赛罗司(火焰之纹章)|赛罗司		4
 senel coolidge	93	赛尼尔·库里奇			4
@@ -58236,7 +58236,7 @@ plaid border	83	格纹边框			0
 playing card print	83	扑克牌印花			0
 polof	83	波洛夫			4
 poptepipic pose	83	poptepipic姿势			0
-powder	83	粉末	散粉		0
+powder	83	散粉	粉末		0
 pretty (nikke)	83	普丽蒂（胜利女神：妮姬）	普丽蒂		4
 prism shine	83	棱镜闪耀			4
 priticket	83	プリチケ（美妙天堂）			0
@@ -59479,7 +59479,7 @@ umise yotsuha (1st costume)	80	海妹四叶（第一套服饰）			4
 uninterested	80	不感兴趣			0
 ura (iyowa)	80	地球的背面（iyowa）			4
 uryuu sakuno	80	瓜生樱乃			4
-utsumi erice (swimsuit avenger) (second ascension)	80	宇津见艾莉瑟（泳装Avenger·第二再临）	宇津见艾莉瑟(第二再临)		4
+utsumi erice (swimsuit avenger) (second ascension)	80	宇津见艾莉瑟（泳装Avenger·第二再临）	宇津见艾莉瑟(泳装复仇者·第二再临)|宇津见艾莉瑟(第二再临)		4
 vani (gundam)	80	瓦妮（高达）	瓦妮		4
 vorona	80	沃罗娜			4
 watanuki sakuya (manomura)	80	四月一日咲夜			4
@@ -61813,7 +61813,7 @@ komiya (hyakuemu)	74	小宫（百米。）	小宫		4
 koubu	74	光武			4
 koubuin yuuhi	74	煌武院悠阳			4
 kuma (tekken)	74	熊（铁拳）			4
-kurihara mari (prison school)	74	栗原万里（监狱学园）			4
+kurihara mari (prison school)	74	栗原万里（监狱学园）	栗原万里		4
 kuune	74	库恩			4
 kuune (asobi ni iku yo!)	74	库恩（玩伴猫耳娘）			4
 lady in azure	74	蓝衣女士		shadow milk cookie (female)	4
@@ -63394,7 +63394,7 @@ texas the omertosa (wingbreaker) (arknights)	71	缄默德克萨斯（破翼者�
 the dream of the fisherman's wife	71	渔夫之妻的梦	渔夫的妻子的梦		3
 the grudge	71	咒怨		ju-on	3
 the mighty nein	71	The Mighty Nein		critical role: campaign ii	3
-tied jumpsuit	71	系在腰间的连体裤	系腰连体裤|系起的连身裤		0
+tied jumpsuit	71	系起的连体裤	系起的连身裤		0
 toad armor (amphibia)	71	蟾蜍铠甲（奇幻沼泽）	蟾蜍铠甲		0
 tokai teio (umamusume) (cosplay)	71	东海帝皇（赛马娘）（角色扮演）	东海帝皇		0
 tokimeki fes tenshi to akuma kara no shoutaijou	71	Tokimeki Fes 天使与恶魔的邀请函			0
@@ -64418,7 +64418,7 @@ ultraman ace	69	艾斯奥特曼			4
 unyl-chan	69	乌尼尔酱		lena (everlasting summer)|unyl-tan	4
 usami (sanemichi hajime)	69	Usami（sanemichi hajime）			4
 uta no prince-sama maji love 2000%	69	歌之王子殿下 真爱2000%		uta no prince-sama maji love 2000 percent	3
-utsumi erice (swimsuit avenger) (third ascension)	69	宇津见艾莉瑟（泳装Avenger·第三再临）			4
+utsumi erice (swimsuit avenger) (third ascension)	69	宇津见艾莉瑟（泳装Avenger·第三再临）	宇津见艾莉瑟(泳装复仇者·第三再临)		4
 v-22 osprey	69	V-22鱼鹰			0
 valarqvin (arknights)	69	凛视（明日方舟）	凛视		4
 various styles challenge	69	多种画风挑战			0
@@ -71251,7 +71251,7 @@ kukuchi heisuke	57	久久知兵助			4
 kuma (2ch)	57	库玛（2ch）	库玛		4
 kuma (2channel)	57	熊（2ch）			4
 kumano (fancy waves) (azur lane)	57	熊野（Fancy Waves）（碧蓝航线）	熊野	fancy wave	4
-kurihara mari	57	栗原万里			4
+kurihara mari	57	栗原真理（超级真实麻将）	栗原真理		4
 kuro (miku plus)	57	小黑（Miku Plus）	小黑		4
 kurokona	57	黑此方			4
 kurotori chiyoko	57	黑鸟千代子			4
@@ -71459,7 +71459,7 @@ saratoga (swimsuit) (kancolle)	57	萨拉托加（泳装）（舰队Collection）
 sasuke (ganbare goemon)	57	佐助（大盗五右卫门）	佐助		4
 satsukitane mikako	57	五月田根美香子			4
 scarlet police	57	Scarlet Police			3
-scathach-skadi (swimsuit ruler) (third ascension) (fate)	57	斯卡哈·斯卡蒂（泳装Ruler·第三再临）（Fate系列）	斯卡哈·斯卡蒂(泳装·第三再临)(fate系列)|斯卡哈·斯卡蒂	scathach skadi (swimsuit ruler) (third ascension) (fate)	4
+scathach-skadi (swimsuit ruler) (third ascension) (fate)	57	斯卡哈·斯卡蒂（泳装Ruler·第三再临）（Fate系列）	斯卡哈·斯卡蒂(泳装裁定者·第三再临)|斯卡哈·斯卡蒂(泳装·第三再临)(fate系列)|斯卡哈·斯卡蒂	scathach skadi (swimsuit ruler) (third ascension) (fate)	4
 seadramon	57	海龙兽			4
 seahorse girl	57	海马娘			0
 secretarybird	57	蛇鹫		secretary bird	0
@@ -72558,7 +72558,7 @@ feifei (fkey)	55	菲菲（fkey）	菲菲		4
 felix (golden sun)	55	菲利克斯（黄金太阳）	菲利克斯	garcia (golden sun)	4
 fenomeno (violet flame of fortitude) (umamusume)	55	超常骏骥（刚毅紫焰）（赛马娘）	超常骏骥|菲诺梅诺	fenomeno (gouki naru shien) (umamusume)	4
 ferrus manus	55	费鲁斯·马努斯			4
-feru (tonsuki)	55	绯尔（拥有超常技能的异世界流浪美食家）	绯尔		4
+feru (tonsuki)	55	菲露（tonsuki）	菲露		4
 ff gradient	55	FF式渐变	最终幻想式渐变		0
 filter-goshi no kanojo	55	滤镜那边的她			3
 fire mario	55	火焰马力欧	火焰马里奥		4
@@ -73095,7 +73095,7 @@ tick! tack!	55	Tick! Tack!			3
 tifa lockhart (feather style)	55	蒂法·洛克哈特（羽饰风格）			4
 tilarna exedilika	55	蒂拉娜·艾克塞迪利卡			4
 tilia (ar tonelico)	55	提莉亚（魔塔大陆）	提莉亚		4
-timerra (halloween) (fire emblem)	55	密丝提拉（万圣节）（火焰纹章）	蒂默拉|蒂默拉(万圣节)(火焰之纹章)|密丝提拉		4
+timerra (halloween) (fire emblem)	55	米丝提拉（万圣节）（火焰纹章）	蒂默拉|蒂默拉(万圣节)(火焰之纹章)|米丝提拉		4
 toboe (wolf's rain)	55	托波（狼雨）	托波		4
 tomato print	55	番茄印花			0
 tongue wrap	55	舌头缠绕			0
@@ -79699,7 +79699,7 @@ gangbang with dark brown skin male	0	和深棕色皮肤男性群交			0
 garter belt suspension	0	吊袜带		garter straps garter belt	0
 gather long boots	0	褶皱长靴			0
 general	0	全年龄		rating general	5
-generous	0	慷慨	大方|丰满		0
+generous	0	慷慨	大方	the generous	0
 genital cuts	0	生殖器割伤			0
 genital piercing	0	生殖器穿环			0
 genitalia	0	生殖器		genitals	0
@@ -82264,7 +82264,6 @@ the eyes are hidden behind the hair	0	眼睛被头发遮住			0
 the fabric featuring golden accents and traditional motifs like cherry blossoms and waves	0	布料带金色点缀和樱花、海浪等传统纹样			0
 the face is covered in blood	0	满脸是血			0
 the first guy is blond	0	第一个男人是金发			0
-the generous	0	慷慨	大方		0
 the girl grabs her ass with both hands	0	女孩双手抓着自己的屁股			0
 the girl is putting her hands on a wall to support her body weight	0	女孩双手扶墙支撑身体			0
 the girl lay on the bed with her ass cocked	0	女孩翘着屁股躺在床上			0
